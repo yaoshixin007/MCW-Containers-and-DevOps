@@ -173,7 +173,7 @@ _Containers, discovery, and load balancing_
 
 1. Describe the high-level manual steps developers will follow for building images and running containers on Azure Container Service as they build their POC. Include the following components in the summary:
 
-1.
+
   - The Git repository containing their source
   - Docker image registry
   - Steps to build Docker images and push to the registry
