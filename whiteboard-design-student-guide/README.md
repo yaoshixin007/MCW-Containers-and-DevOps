@@ -234,21 +234,9 @@ Timeframe: 15 minutes
 | **Item** | **Description** | **Links** |
 | --- | --- | --- |
 | Azure Kubernetes Service (AKS) | Azure Kubernetes Service overview. | [https://docs.microsoft.com/en-us/azure/container-service/kubernetes/container-service-intro-kubernetes](https://docs.microsoft.com/en-us/azure/container-service/kubernetes/container-service-intro-kubernetes) |
-| Azure Container Service (ACS) with Kubernetes | Azure Container Service with Kubernetes overview. |
-##### [https://azure.microsoft.com/en-us/services/container-service/](https://azure.microsoft.com/en-us/services/container-service/)
- |
-| Docker Enterprise Edition (Docker EE) | The enterprise grade container cluster management solution from Docker. |
-##### [https://docs.docker.com/enterprise/](https://docs.docker.com/enterprise/)
- |
-| DC/OS | DC/OS overview documentation |
-##### [https://docs.mesosphere.com/1.9/overview/](https://docs.mesosphere.com/1.9/overview/)
- |
-| Kubernetes | Documentation for Kubernetes. |
-##### [https://kubernetes.io/docs/home/](https://kubernetes.io/docs/home/)
- |
-| Chef Automate | An overview of Workflow in Chef Automate |
-##### [https://docs.chef.io/workflow.html](https://docs.chef.io/workflow.html)
- |
-| Chef Provisioning for Docker | Documentation describing support for provisioning and related plug ins including Docker support. |
-##### [https://docs.chef.io/provisioning.html](https://docs.chef.io/provisioning.html)
- |
+| Azure Container Service (ACS) with Kubernetes | Azure Container Service with Kubernetes overview. | [https://azure.microsoft.com/en-us/services/container-service/](https://azure.microsoft.com/en-us/services/container-service/) |
+| Docker Enterprise Edition (Docker EE) | The enterprise grade container cluster management solution from Docker. | [https://docs.docker.com/enterprise/](https://docs.docker.com/enterprise/) |
+| DC/OS | DC/OS overview documentation | [https://docs.mesosphere.com/1.9/overview/](https://docs.mesosphere.com/1.9/overview/) |
+| Kubernetes | Documentation for Kubernetes. | [https://kubernetes.io/docs/home/](https://kubernetes.io/docs/home/) |
+| Chef Automate | An overview of Workflow in Chef Automate | [https://docs.chef.io/workflow.html](https://docs.chef.io/workflow.html) |
+| Chef Provisioning for Docker | Documentation describing support for provisioning and related plug ins including Docker support. | [https://docs.chef.io/provisioning.html](https://docs.chef.io/provisioning.html) |
