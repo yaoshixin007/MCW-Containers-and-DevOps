@@ -39,12 +39,12 @@ You will create an Azure Resource Group to hold most of the resources that you c
 
     ![This is a screenshot of the + Create a resource link in the navigation bar.](images/Setup/image4.png)
 
-3.  In the Search the Marketplace search box, type \"Resource group\" and press Enter. 
+3.  In the Search the Marketplace search box, type \"Resource group\" and press Enter.
 
     ![Resource Group is typed in the Marketplace search box.](images/Setup/image5.png)
 
-4.  Select **Resource group** on the Everything blade and select **Create**. 
-    
+4.  Select **Resource group** on the Everything blade and select **Create**.
+
     ![This is a screenshot of Resource group on the Everything blade.](images/Setup/image6.png)
 
 5.  On the new Resource group blade, set the following:
@@ -55,11 +55,11 @@ You will create an Azure Resource Group to hold most of the resources that you c
 
     c.  Resource group location: Choose a region where all Azure Container Registry SKUs are available, which is currently East US, West Central US, or West Europe, and remember this for future steps so that the resources you create in Azure are all kept within the same region.
 
-    ![In the Resource group blade, the value for the Resource group name box is fabmedical-soll, and the value of the Resource group location box is East US.](images/Setup/image7.png)
+    ![In the Resource group blade, the value for the Resource group name box is fabmedical-sol, and the value of the Resource group location box is East US.](images/Setup/image7.png)
 
     d.  Select **Create**.
 
-6.  When this completes, your Resource Group will be listed in the Azure Portal. ![In this screenshot of the Azure Portal, the fabmedical Resource group is listed.](images/Setup/image8.png)
+6.  When this completes, your Resource Group will be listed in the Azure Portal. ![In this screenshot of the Azure Portal, the fabmedical-sol Resource group is listed.](images/Setup/image8.png)
 
 ### Task 2: Create a Windows 10 Development VM
 
@@ -73,7 +73,7 @@ You will follow these steps to create a development VM (machine) for the followi
 
 In this section, you will create a Windows 10 VM to act as your development machine. You will install the required components to complete the lab using this machine. You will use this machine instead of your local machine to carry out the instructions during the lab.
 
-1.  From the Azure Portal, select **+ Create a resource**, type "**Windows 10**" in the Search the marketplace text box and press **Enter**. 
+1.  From the Azure Portal, select **+ Create a resource**, type "**Windows 10**" in the Search the marketplace text box and press **Enter**.
 
     ![This is a screenshot of the search results for Windows 10. A red arrow points at the fourth result: Windows 10 Pro N, Version 1709.](images/Setup/image9.png)
 
@@ -101,9 +101,9 @@ In this section, you will create a Windows 10 VM to act as your development mach
 
     ![In the Basics blade, the values listed above appear in the corresponding boxes. The suffix after the fabmedicald- value is obscured in the Name box and the Resource group box, as is the value for the Subscription box.](images/Setup/image10.png)
 
-4.  From the Size blade, choose **D2S\_V2 Standard** and **Select**. 
+4.  From the Size blade search for "DS2_v2", choose **D2S\_V2 Standard** and **Select**.
 
-    ![Three boxes appear in the Size Blade: DS2\_V2 Standard, DS11\_V2 Standard, and DS2 Standard. DS2\_V2 Standard is highlighted on the left, and it contains the following values: 2 vCPUs; 7 GB; 8 Data disks; 6,400 Max IOPS; 14 GB Local SSD; Premium disk support; Load balancing; and 101.18 USD/MONTH (ESTIMATED).](images/Setup/image11.png)
+    !["DS2_v2" is entered in the Search box.  There is one result shown and it is selected.](images/Setup/image11.png)
 
 5.  From the Settings blade, accept the default values for all settings and select **OK**.
 
@@ -145,22 +145,23 @@ In this section, you will create an SSH key to securely access the VMs you creat
 
 2.  From the command line, enter the following command to ensure that a directory for the SSH keys is created. You can ignore any errors you see in the output.
 
-```
+``` bash
     mkdir .ssh
 ```
 
 3.  From the command line, enter the following command to generate an SSH key pair. You can replace "admin" with your preferred name or handle.
 
-```
+``` bash
    ssh-keygen -t RSA -b 2048 -C admin@fabmedical
 ```
+
 4.  You will be asked to save the generated key to a file. Enter \".ssh/fabmedical\" for the name.
 
 5.  Enter a passphrase when prompted, and don't forget it!
 
 6.  Because you entered ".ssh/fabmedical", the file will be generated in the ".ssh" folder in your user folder, where WSL opens by default.
 
-7.  Keep this WSL window open and remain in the default directory for Task 5: Create a build agent VM.
+7.  Keep this WSL window open and remain in the default directory, you will use it in later tasks.
 
     ![In this screenshot of the WSL window, ssh-keygen -t RSA -b 2048 -C admin\@fabmedical has been typed and run at the command prompt. Information about the generated key appears in the window. At this time, we are unable to capture all of the information in the window. Future versions of this course should address this.](images/Setup/image18.png)
 
@@ -170,7 +171,7 @@ In this section, you will create a Linux VM to act as your build agent. You will
 
 **NOTE: You can set up your local machine with Docker however the setup varies for different versions of Windows. For this lab, the build agent approach simply allows for predictable setup.**
 
-11. From the Azure Portal, select **+ Create a resource**, type "**Ubuntu**" in the Search the marketplace text box and press **Enter**. 
+11. From the Azure Portal, select **+ Create a resource**, type "**Ubuntu**" in the Search the marketplace text box and press **Enter**.
 
     ![This screenshot of the marketplace search results for Ubuntu has the following columns: Name, Publisher, and Category. A red arrow points at the first search result, which has the following values: Ubuntu Server 16.04 LTS, Canonical, and Virtual Machines.](images/Setup/image19.png)
 
@@ -190,21 +191,27 @@ In this section, you will create a Linux VM to act as your build agent. You will
 
         -  From WSL, verify you are in your user directory shown as "**\~"**. This command will take you there:
 
-        ```
-        cd \~
-        ```
+            ``` bash
+            cd ~
+            ```
 
         - Type the following command at the prompt to display the public key that you generated.
 
-        ```
-        cat .ssh/fabmedical.pub
-        ```
+            ``` bash
+            cat .ssh/fabmedical.pub
+            ```
 
-    ![In this screenshot of the WSL window, cat .ssh/fabmedical.pub has been typed and run at the command prompt, which displays the public key that you generated.](images/Setup/image20.png)
+            ![In this screenshot of the WSL window, cat .ssh/fabmedical.pub has been typed and run at the command prompt, which displays the public key that you generated.](images/Setup/image20.png)
 
-iii. Copy the entire contents of the file to the clipboard.
+        - Copy the entire contents of the file to the clipboard.
 
-iv. Paste this value in the SSH public key textbox of the blade.
+            ``` bash
+            cat .ssh/fabmedical.pub | clip.exe
+            ```
+
+        - Paste this value in the SSH public key textbox of the blade.
+
+-   **Login with Azure Active Directory**: Leave disabled.
 
 -   **Subscription**: Choose the same subscription you are using for all your work.
 
@@ -216,9 +223,9 @@ iv. Paste this value in the SSH public key textbox of the blade.
 
     ![In the Basics blade, the values listed above appear in the corresponding boxes. The public key that you copied is pasted in the SSH public key box.](images/Setup/image21.png)
 
-14. From the Size blade, choose **D2S\_V3 Standard** and **Select**. 
+14. From the Size blade search for "D2S_v3" and **Select**.
 
-    ![Three boxes appear in the Size Blade: D2S\_V3 Standard, D4S\_V3 Standard, and E2S\_V3 Standard. D2S\_V3 Standard is highlighted on the left, and it contains the following values: 2 vCPUs; 8 GB; 4 Data disks; 4,000 Max IOPS; 16 GB Local SSD; Premium disk support; Load balancing; and 89.28 USD/MONTH (ESTIMATED).](images/Setup/image22.png)
+    !["D2S_v3" is entered in the Search box.  There is one result shown and it is selected.](images/Setup/image22.png)
 
 15. From the Settings blade, accept the default values for all settings and select **OK**.
 
@@ -242,24 +249,26 @@ In this section, you will validate that you can connect to the new build agent V
 
 3.  From your local machine, return to your open WSL window and make sure you are in your user directory **\~** where the key pair was previously created. This command will take you there:
 
-    -   cd \~
+    ``` bash
+    cd ~
+    ```
 
 4.  Connect to the new VM you created by typing the following command.
 
-    ```
-     ssh -i \[PRIVATEKEYNAME\] \[BUILDAGENTUSERNAME\]@\[BUILDAGENTIP\]
+    ``` bash
+     ssh -i [PRIVATEKEYNAME] [BUILDAGENTUSERNAME]@[BUILDAGENTIP]
     ```
 
     Replace the bracketed values in the command as follows:
 
-    -   \[PRIVATEKEYNAME\]: Use the private key name ".ssh/fabmedical," created above.
+    -   [PRIVATEKEYNAME]: Use the private key name ".ssh/fabmedical," created above.
 
-    -   \[BUILDAGENTUSERNAME\]: Use the username for the VM, such as adminfabmedical.
+    -   [BUILDAGENTUSERNAME]: Use the username for the VM, such as adminfabmedical.
 
-    -   \[BUILDAGENTIP\]: The IP address for the build agent VM, retrieved from the VM Overview blade in the Azure Portal.
+    -   [BUILDAGENTIP]: The IP address for the build agent VM, retrieved from the VM Overview blade in the Azure Portal.
 
-    ```
-    ssh -i .ssh/fabmedical adminfabmedical\@52.174.141.11
+    ``` bash
+    ssh -i .ssh/fabmedical adminfabmedical@52.174.141.11
     ```
 
 5.  When asked to confirm if you want to connect, as the authenticity of the connection cannot be validated, type "yes".
@@ -270,7 +279,7 @@ In this section, you will validate that you can connect to the new build agent V
 
     adminfabmedical\@fabmedical-SUFFIX:~$
 
-![In this screenshot of a Command Prompt window, ssh -i .ssh/fabmedical adminfabmedical\@52.174.141.11 has been typed and run at the command prompt. The information detailed above appears in the window. At this time, we are unable to capture all of the information in the window. Future versions of this course should address this.](images/Setup/image27.png)
+    ![In this screenshot of a Command Prompt window, ssh -i .ssh/fabmedical adminfabmedical\@52.174.141.11 has been typed and run at the command prompt. The information detailed above appears in the window. At this time, we are unable to capture all of the information in the window. Future versions of this course should address this.](images/Setup/image27.png)
 
 **NOTE: If you have issues connecting, you may have pasted the SSH public key incorrectly. Unfortunately, if this is the case, you will have to recreate the VM and try again.**
 
@@ -282,49 +291,49 @@ In this task, you will update the packages and install Docker engine.
 
 2.  Update the Ubuntu packages and install curl and support for repositories over HTTPS in a single step by typing the following in a single line command. When asked if you would like to proceed, respond by typing "y" and pressing enter.
 
-    ```
+    ``` bash
     sudo apt-get update && sudo apt install apt-transport-https ca-certificates curl software-properties-common
     ```
 
 3.  Add Docker's official GPG key by typing the following in a single line command.
 
-    ```
+    ``` bash
     curl -fsSL https://download.docker.com/linux/ubuntu/gpg | sudo apt-key add -
     ```
 4.  Add Docker's stable repository to Ubuntu packages list by typing the following in a single line command.
 
-    ```
+    ``` bash
     sudo add-apt-repository "deb [arch=amd64] https://download.docker.com/linux/ubuntu $(lsb_release -cs) stable"
     ```
 5.  Update the Ubuntu packages and install Docker engine, node.js and the node package manager in a single step by typing the following in a single line command. When asked if you would like to proceed, respond by typing "y" and pressing enter.
 
-    ```
+    ``` bash
     sudo apt-get update && sudo apt install docker-ce nodejs npm
     ```
 6.  Now, upgrade the Ubuntu packages to the latest version by typing the following in a single line command. When asked if you would like to proceed, respond by typing "y" and pressing enter.
 
-    ```
+    ``` bash
     sudo apt-get upgrade
     ```
 
 7.  When the command has completed, check the Docker version installed by executing this command. The output may look something like that shown in the following screen shot. Note that the server version is not shown yet, because you didn't run the command with elevated privileges (to be addressed shortly).
 
-    ```
+    ``` bash
     docker version
     ```
 
     ![In this screenshot of a Command Prompt window, docker version has been typed and run at the command prompt. Docker version information appears in the window.](images/Setup/image28.png)
 
 8.  You may check the versions of node.js and npm as well, just for information purposes, using these commands.
-    ```
-    nodejs \--version
+    ``` bash
+    nodejs --version
 
     npm -version
     ```
 
 9.  Add your user to the Docker group so that you do not have to elevate privileges with sudo for every command. You can ignore any errors you see in the output.
-    ```
-    sudo usermod -aG docker \$USER
+    ``` bash
+    sudo usermod -aG docker $USER
     ```
 
     ![In this screenshot of a Command Prompt window, sudo usermod -aG docker \$USER has been typed and run at the command prompt. Errors appear in the window.](images/Setup/image29.png)
@@ -338,12 +347,12 @@ In this task, you will update the packages and install Docker engine.
 12. Run a few Docker commands.
 
     -   One to see if there are any containers presently running
-    ```
+    ``` bash
     docker container ls
     ```
 
     -   One to see if any containers exist whether running or not
-    ```
+    ``` bash
     docker container ls -a
     ```
 
