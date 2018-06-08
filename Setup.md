@@ -308,7 +308,7 @@ In this task, you will update the packages and install Docker engine.
 5.  Update the Ubuntu packages and install Docker engine, node.js and the node package manager in a single step by typing the following in a single line command. When asked if you would like to proceed, respond by typing "y" and pressing enter.
 
     ``` bash
-    sudo apt-get update && sudo apt install docker-ce nodejs npm
+    sudo apt-get update && sudo apt install docker-ce nodejs npm mongodb-clients
     ```
 6.  Now, upgrade the Ubuntu packages to the latest version by typing the following in a single line command. When asked if you would like to proceed, respond by typing "y" and pressing enter.
 
