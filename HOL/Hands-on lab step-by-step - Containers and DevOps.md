@@ -680,6 +680,130 @@ In this task, you will configure the "web" container to communicate with the API
     EXAMPLE: http://13.68.113.176:3000
     ```
 
+1. Managing several containers with all their command line options can become difficult as the solution grows.  `docker-compose` allows us to declare options for several containers and run them together.  First, cleanup the existing containers.
+
+    ```bash
+    docker stop web && docker rm web
+    docker stop api && docker rm api
+    docker stop mongo && docker rm mongo
+    ```
+
+1. Navigate to your home directory (where you checked out the content repositories) and create a docker compose file.
+
+    ```bash
+    cd ~
+    vi docker-compose.yml
+    ```
+
+    Type the following as the contents of `docker-compose.yml`
+
+    ```yaml
+    version: '3.4'
+
+    services:
+      mongo:
+        image: mongo
+        restart: always
+
+      api:
+        build: ./content-api
+        image: content-api
+        depends_on:
+          - mongo
+        environment:
+          MONGODB_CONNECTION: mongodb://mongo:27017/contentdb
+
+      web:
+        build: ./content-web
+        image: content-web
+        depends_on:
+          - api
+        environment:
+          CONTENT_API_URL: http://api:3001
+        ports:
+          - "3000:3000"
+    ```
+
+1. Start the applications with the `up` command
+
+    ```bash
+    docker-compose -f docker-compose.yml -p fabmedical up -d
+    ```
+
+    ![Console Output](images/Hands-onlabstep-by-step-ContainersandDevOpsimages/media/Ex1-Task6.17.png)
+
+1. Visit the website in the browser, notice that we no longer have any data on the speakers or sessions pages.
+
+    ![Browser view](images/Hands-onlabstep-by-step-ContainersandDevOpsimages/media/Ex1-Task6.18.png)
+
+1. We stopped and removed our previous mongodb container, all the data contained in it has been removed.  Docker compose has created a new, empty mongodb instance that must be reinitialized.  If we care to persist our data between container instances, docker has several mechanisms to do so.  First we will update our compose file to persist mongodb data to a directory on the build agent.
+
+    ```bash
+    mkdir data
+    vi docker-compose.yml
+    ```
+
+    Update the mongo service to mount the local data directory onto to the `/data/db` volume in the docker container.
+
+    ```yaml
+    mongo:
+      image: mongo
+      restart: always
+      volumes:
+        - ./data:/data/db
+    ```
+
+    The result should look similar to the following screenshot.
+
+    ![Dockerfile](images/Hands-onlabstep-by-step-ContainersandDevOpsimages/media/Ex1-Task6.19.png)
+
+1. Next we will add a second file to our composition so tha we can initialize the mongodb data when needed.
+
+    ```bash
+    vi docker-compose.init.yml
+    ```
+
+    Add the following as the content.
+
+    ```yaml
+    version: '3.4'
+
+    services:
+        init:
+          build: ./content-init
+          image: content-init
+          depends_on:
+            - mongo
+          environment:
+            MONGODB_CONNECTION: mongodb://mongo:27017/contentdb
+    ```
+
+1. To reconfigure the mongodb volume, we need to bring down the mongodb service first.
+
+    ```bash
+    docker-compose -f docker-compose.yml -p fabmedical down
+    ```
+
+    ![Console Output](images/Hands-onlabstep-by-step-ContainersandDevOpsimages/media/Ex1-Task6.21.png)
+
+1. Now run `up` again with both files to update the mongodb configuration and run the initialization script.
+
+    ```bash
+    docker-compose -f docker-compose.yml -f docker-compose.init.yml -p fabmedical up -d
+    ```
+
+1. Check the data folder to see that mongodb is now writing data files to the host.
+
+    ```bash
+    ls ./data/
+    ```
+
+    ![Console Output](images/Hands-onlabstep-by-step-ContainersandDevOpsimages/media/Ex1-Task6.23.png)
+
+1. Check the results in the browser, the speaker and session data is now available.
+
+    ![Console Output](images/Hands-onlabstep-by-step-ContainersandDevOpsimages/media/Ex1-Task6.24.png)
+
 ### Task 7: Push images to Azure Container Registry
 
 To run containers in a remote environment, you will typically push images to a Docker registry, where you can store and distribute images. Each service will have a repository that can be pushed to and pulled from with Docker commands. Azure Container Registry (ACR) is a managed private Docker registry service based on Docker Registry v2.
@@ -766,6 +890,8 @@ In this task, you will push images to your ACR account, version images with tagg
     ```
 
     ![In this screenshot of the WSL window, the above commands have been typed and run at the command prompt, which returns tag, Digest, and Status information.](images/Hands-onlabstep-by-step-ContainersandDevOpsimages/media/image72.png)
+
+TODO: Setup CI
 
 ## Exercise 2: Deploy the solution to Azure Container Service
 
