@@ -316,6 +316,13 @@ In this task, you will update the packages and install Docker engine.
     sudo apt-get upgrade
     ```
 
+1.  Install `docker-compose`
+
+    ```bash
+    sudo curl -L https://github.com/docker/compose/releases/download/1.21.2/docker-compose-`uname -s`-`uname -m` -o /usr/local/bin/docker-compose
+    sudo chmod +x /usr/local/bin/docker-compose
+    ```
+
 7.  When the command has completed, check the Docker version installed by executing this command. The output may look something like that shown in the following screen shot. Note that the server version is not shown yet, because you didn't run the command with elevated privileges (to be addressed shortly).
 
     ``` bash
@@ -325,6 +332,7 @@ In this task, you will update the packages and install Docker engine.
     ![In this screenshot of a Command Prompt window, docker version has been typed and run at the command prompt. Docker version information appears in the window.](images/Setup/image28.png)
 
 8.  You may check the versions of node.js and npm as well, just for information purposes, using these commands.
+
     ``` bash
     nodejs --version
 
