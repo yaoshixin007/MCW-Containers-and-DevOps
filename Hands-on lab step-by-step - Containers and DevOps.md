@@ -63,21 +63,23 @@ Microsoft and the trademarks listed at https://www.microsoft.com/en-us/legal/int
 
 ## Abstract and learning objectives
 
-Build a PoC to deliver a multi-tenant web app hosting solution leveraging Azure Container Service (AKS), Docker containers, and Linux nodes.???
+Build a PoC to deliver a multi-tenant web app hosting solution leveraging Azure Kubernetes Service, Docker containers, and Linux nodes.
 
 Attendees will be better able to deploy Docker-based applications and scale them with Azure Container Service and Kubernetes orchestration. In addition,
 
--   Create and run a Docker Application
+- Create and run a Docker Application
 
--   Deploy to the Azure Container Service (AKS)
+- Deploy to the Azure Kubernetes Service
 
--   Implement load balancing and service discovery
+- Implement load balancing and service discovery
 
--   Scale the application and test availability
+- Scale the application and test availability
+
+- Use Kubernetes ingress for path based routing and TLS termination.
 
 ## Overview
 
-Fabrikam Medical Conferences (FabMedical) provides conference website services tailored to the medical community. They are refactoring their application code, based on node.js, so that it can run as a Docker application, and want to implement a POC that will help them get familiar with the development process, lifecycle of deployment, and critical aspects of the hosting environment. They will be deploying their applications to Azure Container Service (AKS) and want to learn how to deploy containers in a dynamically load-balanced manner, discover containers, and scale them on demand.
+Fabrikam Medical Conferences (FabMedical) provides conference website services tailored to the medical community. They are refactoring their application code, based on node.js, so that it can run as a Docker application, and want to implement a POC that will help them get familiar with the development process, lifecycle of deployment, and critical aspects of the hosting environment. They will be deploying their applications to Azure Kubernetes Service and want to learn how to deploy containers in a dynamically load-balanced manner, discover containers, and scale them on demand.
 
 In this hands-on lab, you will assist with completing this POC with a subset of the application code base. You will create a build agent based on Linux, and an Azure Container Service cluster for running deployed applications. You will be helping them to complete the Docker setup for their application, test locally, push to an image repository, deploy to the cluster, and test load-balancing and scale.
 
@@ -113,17 +115,17 @@ Each tenant will have the following containers:
 
     b.  You must have rights to create a service principal as discussed in Task 9: Create a Service Principal --- and this typically requires a subscription owner to log in. You may have to ask another subscription owner to login to the portal and execute that step ahead of time if you do not have the rights.
 
-    c.  You must have enough cores available in your subscription to create the build agent and Azure Container Service cluster in Task 5: Create a build agent VM and Task 10: Create an Azure Container Service (AKS) cluster. You'll need eight cores if following the exact instructions in the lab, more if you choose additional agents or larger VM sizes. If you execute the steps required before the lab, you will be able to see if you need to request more cores in your sub.
+    c.  You must have enough cores available in your subscription to create the build agent and Azure Container Service cluster in Task 5: Create a build agent VM and Task 10: Create an Azure Kubernetes Service cluster. You'll need eight cores if following the exact instructions in the lab, more if you choose additional agents or larger VM sizes. If you execute the steps required before the lab, you will be able to see if you need to request more cores in your sub.
 
 2.  Local machine or a virtual machine configured with:
 
--   A browser, preferably Chrome for consistency with the lab implementation tests
+    -   A browser, preferably Chrome for consistency with the lab implementation tests
 
--   Command prompt
+    -   Command prompt
 
-    -   On Windows, you will be using Bash on Ubuntu on Windows, hereon referred to as WSL.
+        -   On Windows, you will be using Bash on Ubuntu on Windows, hereon referred to as WSL.
 
-    -   On Mac, all instructions should be executed using bash in Terminal.
+        -   On Mac, all instructions should be executed using bash in Terminal.
 
 3.  You will be asked to install other tools throughout the exercises.
 
@@ -142,50 +144,121 @@ In this exercise, you will take the starter files and run the node.js applicatio
 
 The purpose of this task is to make sure you can run the application successfully before applying changes to run it as a Docker application.
 
-1.  From the WSL window, navigate to the content-api directory and run npm install.
-    ```
-    cd content-api
+1. From the WSL window, connect to your build agent if you are not already connected.
 
+1. Type the following command to create a Docker network named "fabmedical".
+
+    ```bash
+    docker network create fabmedical
+    ```
+
+1. Run an instance of mongodb to use for local testing.
+
+    ```bash
+    docker run --name mongo --net fabmedical -p 27017:27017 -d mongo
+    ```
+
+1. Confirm that the mongo container is running and ready.
+
+    ```bash
+    docker container list
+    docker logs mongo
+    ```
+
+    ![Console Output](images/Hands-onlabstep-by-step-ContainersandDevOpsimages/media/Ex1-Task1.4.png)
+
+1. Connect to the mongo instance using the mongo shell and test some basic commands.
+
+    ```bash
+    mongo
+    ```
+
+    ```text
+    show dbs
+    quit()
+    ```
+
+    ![Console Output](images/Hands-onlabstep-by-step-ContainersandDevOpsimages/media/Ex1-Task1.5.png)
+
+1. To initialize the local database with test content, first navigate to the content-init directory and run npm install.
+
+    ```bash
+    cd content-init
     npm install
     ```
 
-2.  Start the API as a background process.
+1. Initialize the database.
+
+    ```bash
+    nodejs server.js
     ```
+
+    ![Console Output](images/Hands-onlabstep-by-step-ContainersandDevOpsimages/media/Ex1-Task1.7.png)
+
+1. Confirm that the database now contains test data.
+
+    ```bash
+    mongo
+    ```
+
+    ```text
+    show dbs
+    use contentdb
+    show collections
+    db.speakers.find()
+    db.sessions.find()
+    quit()
+    ```
+
+    This should produce output similar to the following:
+
+    ![Console Output](images/Hands-onlabstep-by-step-ContainersandDevOpsimages/media/Ex1-Task1.8.png)
+
+1. Now, navigate to the content-api directory and run npm install.
+
+    ```bash
+    cd ../content-api
+    npm install
+    ```
+
+1. Start the API as a background process.
+
+    ```bash
     nodejs ./server.js &
     ```
 
     ![In this screenshot, nodejs ./server.js & has been typed and run at the command prompt, which starts the API as a background process.](images/Hands-onlabstep-by-step-ContainersandDevOpsimages/media/image47.png)
 
-3.  Press ENTER again to get to a command prompt for the next step.
+1. Press ENTER again to get to a command prompt for the next step.
 
-4.  Test the API using curl. You will request the speakers content, and this will return a JSON result.
-    ```
+1. Test the API using curl. You will request the speakers content, and this will return a JSON result.
+
+    ```bash
     curl http://localhost:3001/speakers
     ```
 
-5.  Navigate to the web application directory, run npm install, and then run the application as a background process as well. Ignore any warnings you see in the output; this will not affect running the application.
-    ```
-    cd ..
+1. Navigate to the web application directory, run npm install and bower install, and then run the application as a background process as well. Ignore any warnings you see in the output; this will not affect running the application.
 
-    cd content-web
-
+    ```bash
+    cd ../content-web
     npm install
-
+    bower install
     nodejs ./server.js &
     ```
 
     ![In this screenshot, after navigating to the web application directory, nodejs ./server.js & has been typed and run at the command prompt, which runs the application as a background process as well.](images/Hands-onlabstep-by-step-ContainersandDevOpsimages/media/image48.png)
 
-6.  Press ENTER again to get a command prompt for the next step.
+1. Press ENTER again to get a command prompt for the next step.
 
-7.  Test the web application using curl. You will see HTML output returned, without errors.
-    ```
+1. Test the web application using curl. You will see HTML output returned, without errors.
+
+    ```bash
     curl http://localhost:3000
     ```
 
-8.  Leave the application running for the next task.
+1. Leave the application running for the next task.
 
-9.  If you received a JSON response to the /speakers content request and an HTML response from the web application, your environment is working as expected.
+1. If you received a JSON response to the /speakers content request and an HTML response from the web application, your environment is working as expected.
 
 ### Task 2: Enable browsing to the web application
 
@@ -390,10 +463,7 @@ In this task, you will create Docker images for the application --- one for the 
 
 The web application container will be calling endpoints exposed by the API application container. In this exercise, you will create a bridge network so that containers can communicate with one another, and then launch the images you created as containers in that network.
 
-1.  From WSL, type the following command to create a Docker network named "fabmedical".
-    ```
-    docker network create fabmedical
-    ```
+
 
 2.  Create and start the API application container with the following command. The command does the following:
 
