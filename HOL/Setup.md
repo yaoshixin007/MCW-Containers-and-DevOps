@@ -4,25 +4,25 @@
 
 1.  Microsoft Azure subscription must be pay-as-you-go or MSDN.
 
-    -   Trial subscriptions will *not* work.
+    - Trial subscriptions will *not* work.
 
-    -   You must have rights to create a service principal as discussed in Task 9: Create a Service Principal --- and this typically requires a subscription owner to log in. You may have to ask another subscription owner to login to the portal and execute that step ahead of time if you do not have the rights.
+    - You must have rights to create a service principal as discussed in Task 9: Create a Service Principal --- and this typically requires a subscription owner to log in. You may have to ask another subscription owner to login to the portal and execute that step ahead of time if you do not have the rights.
 
-    -   You must have enough cores available in your subscription to create the build agent and Azure Container Service cluster in Task 5: Create a build agent VM and Task 10: Create an Azure Kubernetes Service cluster. You'll need eight cores if following the exact instructions in the lab, more if you choose additional agents or larger VM sizes. If you execute the steps required before the lab, you will be able to see if you need to request more cores in your sub.
+    - You must have enough cores available in your subscription to create the build agent and Azure Container Service cluster in Task 5: Create a build agent VM and Task 10: Create an Azure Kubernetes Service cluster. You'll need eight cores if following the exact instructions in the lab, more if you choose additional agents or larger VM sizes. If you execute the steps required before the lab, you will be able to see if you need to request more cores in your sub.
 
 1. A VisualStudio.com account.
 
-2.  Local machine or a virtual machine configured with:
+1. Local machine or a virtual machine configured with:
 
-    -   A browser, preferably Chrome for consistency with the lab implementation tests
+    - A browser, preferably Chrome for consistency with the lab implementation tests
 
-    -   Command prompt
+    - Command prompt
 
         i.  On Windows, you will be using Bash on Ubuntu on Windows, hereon referred to as WSL.
 
         ii. On Mac, all instructions should be executed using bash in Terminal.
 
-3.  You will be asked to install other tools throughout the exercises.
+1. You will be asked to install other tools throughout the exercises.
 
 
 ## Before the hands-on lab
