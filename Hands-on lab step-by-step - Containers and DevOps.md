@@ -332,79 +332,102 @@ In this task, you will create a new Dockerfile that will be used to run the API 
 
 **NOTE: You will be working in a Linux VM without friendly editor tools. You must follow the steps very carefully to work with Vim for a few editing exercises if you are not already familiar with Vim.**
 
-1.  From WSL, navigate to the content-api folder. List the files in the folder with this command. The output should look like the screenshot below.
-    ```
-    cd ..
+1. From WSL, navigate to the content-api folder. List the files in the folder with this command. The output should look like the screenshot below.
 
-    cd content-api
-
+    ```bash
+    cd ../content-api
     ll
     ```
 
     ![In this screenshot of the WSL window, ll has been typed and run at the command prompt. The files in the folder are listed in the window. At this time, we are unable to capture all of the information in the window. Future versions of this course should address this.](images/Hands-onlabstep-by-step-ContainersandDevOpsimages/media/image55.png)
 
-2.  Create a new file named "Dockerfile" and note the casing in the name. Use the following Vim command to create a new file. The WSL window should look as shown in the following screenshot.
-    ```
+1. Create a new file named "Dockerfile" and note the casing in the name. Use the following Vim command to create a new file. The WSL window should look as shown in the following screenshot.
+
+    ```bash
     vi Dockerfile
     ```
 
     ![This is a screenshot of a new file named Dockerfile in the WSL window.](images/Hands-onlabstep-by-step-ContainersandDevOpsimages/media/image56.png)
 
-3.  Select "i" on your keyboard. You'll see the bottom of the window showing INSERT mode.
+1. Select "i" on your keyboard. You'll see the bottom of the window showing INSERT mode.
 
     ![\-- INSERT -- appears at the bottom of the Dockerfile window.](images/Hands-onlabstep-by-step-ContainersandDevOpsimages/media/image57.png)
 
-4.  Type the following into the file. These statements produce a Dockerfile that describes the following:
+1. Type the following into the file. These statements produce a Dockerfile that describes the following:
 
-    -   Creates a new Docker image from the base image node:argon. This base image has node.js on it and is compatible with the Ubuntu distribution of Linux you are deploying to.
+    - The base stage includes environment setup which we expect to change very rarely, if at all.
 
-    -   Creates a directory on the image where the application files can be copied.
+        - Creates a new Docker image from the base image node:alpine. This base image has node.js on it and is optimized fro small size.
 
-    -   Copies the source files for the application over to the image.
+        - Add `curl` to the base image to support Docker health checks.
 
-    -   Runs npm install to initialize the node application environment.
+        - Creates a directory on the image where the application files can be copied.
 
-    -   Exposes application port 3001 to the container environment so that the application can be reached at port 3001.
+        - Exposes application port 3001 to the container environment so that the application can be reached at port 3001.
 
-    -   Indicates the command to start the node application when the container is run.
+    - The build stage contains all the tools and intermediate files needed to create the application.
 
-**NOTE: Type the following into the editor, as you may have errors with copying and pasting.**
-```
-FROM node:argon
+        - Creates a new Docker image from node:argon
 
-RUN mkdir -p /usr/src/app
+        - Creates a directory on the image where the application files can be copied.
 
-WORKDIR /usr/src/app
+        - Copies package.json to the working directory.
 
-COPY package.json /usr/src/app/
+        - Runs npm install to initialize the node application environment.
 
-RUN npm install
+        - Copies the source files for the application over to the image.
 
-COPY . /usr/src/app
+    - The final stage combines the base image with the build output from the build stage
 
-EXPOSE 3001
+        - Sets the working directory to the application file location.
 
-CMD [ "npm", "start" ]
-```
+        - Copies the app files from the build stage
 
-5.  When you are finished typing, hit the Esc key and type ":wq" and hit the Enter key to save the changes and close the file.
+        - Indicates the command to start the node application when the container is run.
+
+    **NOTE: Type the following into the editor, as you may have errors with copying and pasting.**
+
+    ```Dockerfile
+    FROM node:alpine AS base
+    RUN apk -U add curl
+    WORKDIR /usr/src/app
+    EXPOSE 3001
+
+    FROM node:argon AS build
+    WORKDIR /usr/src/app
+
+    # Install app dependencies
+    COPY package.json /usr/src/app/
+    RUN npm install
+
+    # Bundle app source
+    COPY . /usr/src/app
+
+    FROM base AS final
+    WORKDIR /usr/src/app
+    COPY --from=build /usr/src/app .
+    CMD [ "npm", "start" ]
     ```
+
+1. When you are finished typing, hit the Esc key and type ":wq" and hit the Enter key to save the changes and close the file.
+
+    ```bash
     <Esc>
-
     :wq
-
     <Enter>
     ```
 
-6.  List the contents of the folder again, to verify the new Dockerfile has been created.
-    ```
+1. List the contents of the folder again, to verify the new Dockerfile has been created.
+
+    ```bash
     ll
     ```
 
     ![In this screenshot of the WSL window, ll has been typed and run at the command prompt. The Dockerfile file is highlighted at the top of list.](images/Hands-onlabstep-by-step-ContainersandDevOpsimages/media/image58.png)
 
-7.  Verify the file contents, to ensure it was saved as expected. Type the following command to see the output of the Dockerfile in the command window.
-    ```
+1. Verify the file contents, to ensure it was saved as expected. Type the following command to see the output of the Dockerfile in the command window.
+
+    ```bash
     cat Dockerfile
     ```
 
