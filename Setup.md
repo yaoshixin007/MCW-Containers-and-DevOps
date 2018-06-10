@@ -10,6 +10,8 @@
 
     -   You must have enough cores available in your subscription to create the build agent and Azure Container Service cluster in Task 5: Create a build agent VM and Task 10: Create an Azure Kubernetes Service cluster. You'll need eight cores if following the exact instructions in the lab, more if you choose additional agents or larger VM sizes. If you execute the steps required before the lab, you will be able to see if you need to request more cores in your sub.
 
+1. A VisualStudio.com account.
+
 2.  Local machine or a virtual machine configured with:
 
     -   A browser, preferably Chrome for consistency with the lab implementation tests
@@ -227,7 +229,9 @@ In this section, you will create a Linux VM to act as your build agent. You will
 
     !["D2S_v3" is entered in the Search box.  There is one result shown and it is selected.](images/Setup/image22.png)
 
-15. From the Settings blade, accept the default values for all settings and select **OK**.
+15. From the Settings blade, accept the default values for most settings and select "SSH (22)" as a public inbound port, then click **OK**.
+
+    ![Settings](images/Setup/image22a.png)
 
 16. From the Create blade, you should see that validation passed and select **Create**. ![This is a screenshot of the Create blade indicating that validation passed. Offer details are also visible.](images/Setup/image23.png)
 
@@ -541,37 +545,129 @@ In later exercises, you will need the Kubernetes CLI (kubectl) to deploy to your
 
 FabMedical has provided starter files for you. They have taken a copy of one of their websites, for their customer Contoso Neuro, and refactored it from a single node.js site into a website with a content API that serves up the speakers and sessions. This is a starting point to validate the containerization of their websites. They have asked you to use this to help them complete a POC that validates the development workflow for running the website and API as Docker containers and managing them within the Azure Kubernetes Service environment.
 
-1.  From WSL, connect to the build agent VM as you did previously in Before the hands-on lab - Task 6: Connect securely to the build agent using the SSH command.
+1.  From WSL, download the starter files by typing the following curl instruction (case sensitive):
 
-    ![In this screenshot of a Command Prompt window, ssh -i .ssh/fabmedical adminfabmedical@(IP address obscured) has been typed and run at the command prompt. At this time, we are unable to capture all of the information in the window. Future versions of this course should address this.](images/Setup/image46.png)
-
-2.  Download the starter files to the build agent by typing the following curl instruction (case sensitive):
-    ```
-    curl -L -o FabMedical.tgz http://bit.ly/2IyjeYl
+    ```bash
+    curl -L -o FabMedical.tgz <TODO ADD BITLY LINK>
     ```
 
 3.  Create a new directory named FabMedical by typing in the following command:
-    ```
+
+    ```bash
     mkdir FabMedical
     ```
 
 4.  Unpack the archive with the following command. This command will extract the files from the archive to the FabMedical directory you created. The directory is case sensitive when you navigate to it.
-    ```
+
+    ```bash
     tar -C FabMedical -xzf FabMedical.tgz
     ```
 
 5.  Navigate to FabMedical folder and list the contents.
-    ```
+
+    ```bash
     cd FabMedical
 
     ll
     ```
 
-6.  You'll see the listing includes two folders, one for the web site and another for the content API.
-    ```
-    content-api/
+6.  You'll see the listing includes three folders, one for the web site, another for the content API and one to initialize API data.
 
+    ```bash
+    content-api/
+    content-init/
     content-web/
     ```
+1. Next log into your VisualStudio.com account.
 
+    1. If this is your first time logging into this account you will be taken through a first-run experience.
+
+        1. Confirm your contact information and click next.
+
+        1. Click "Create new account"
+
+        1. Enter a fabmedical-SUFFIX for your account name and click Continue
+
+    1. Create repositories to host the code
+
+        1. Click the icon in the top left corner to return to the account home page.
+
+            ![Home page icon](images/Setup/image47.png)
+
+        1. Click "New Project"
+
+            1. Enter fabmedical as the project name
+
+            1. Click "Create"
+
+        1. Once the project creation has completed, click "Code".
+
+        1. Use the repository dropdown to create a new repository by clicking "+ New repository"
+
+            ![Repository dropdown](images/Setup/image48.png)
+
+            1. Enter "content-web" as the repository name.
+
+            1. Once the project is created click "Generate Git credentials"
+
+                ![Generate Git Credentials](images/Setup/image50.png)
+
+                1. Enter a password
+
+                1. Confirm the password
+
+                1. Click "Save Git Credentials"
+
+            1. Using your WSL window, initialize a new git repository
+
+                ```bash
+                cd content-web
+                git init
+                git add .
+                git commit -m "Initial Commit"
+                ```
+
+            1. Setup your VisualStudio.com repository as a new remote the push.  You can copy the commands to do this from your browser.  Paste these commands into your WSL window.
+
+                ![Commands to add remote](images/Setup/image49.png)
+
+                1. When prompted, enter your VisualStudio.com username and the git credentials password you created earlier in this task.
+
+        1. Use the repository dropdown to create a second repository called "content-api"
+
+            1. Using your WSL window, initialize a new git repository in the content-api directory.
+
+                ```bash
+                cd ../content-api
+                git init
+                git add .
+                git commit -m "Initial Commit"
+                ```
+
+            1. Setup your VisualStudio.com repository as a new remote the push.  Use the repository dropdown to switch to the "content-api" repository. You can then copy the commands for the setting up the content-api repository  from your browser.  Paste these commands into your WSL window.
+
+                ![Commands to add remote](images/Setup/image49.png)
+
+                1. When prompted, enter your VisualStudio.com username and the git credentials password you created earlier in this task.
+
+    1. Clone your repositories to the build agent
+
+        1. From WSL, connect to the build agent VM as you did previously in Before the hands-on lab - Task 6: Connect securely to the build agent using the SSH command.
+
+        1. In your browser, switch to the "content-web" repository and click "Clone" in the right corner.
+
+            ![Clone](images/Setup/image51.png)
+
+        1. Copy the repository url.
+
+        1. Use the repository url to clone the content-web code to your build agent machine.
+
+            ```bash
+            git clone <REPOSITORY_URL>
+            ```
+
+        1. In your browser, switch to the "content-api" repository and click "Clone" to see and copy the repository url.
+
+        1. Use the repository url and `git clone` to copy the content-api code to your build agent.
+        
 **NOTE: Keep this WSL window open as your build agent SSH connection. You will later open new WSL sessions to other machines.**
