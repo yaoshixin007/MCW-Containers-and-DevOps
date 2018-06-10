@@ -889,9 +889,106 @@ In this task, you will push images to your ACR account, version images with tagg
     docker pull [LOGINSERVER]/content-web:v1
     ```
 
-    ![In this screenshot of the WSL window, the above commands have been typed and run at the command prompt, which returns tag, Digest, and Status information.](images/Hands-onlabstep-by-step-ContainersandDevOpsimages/media/image72.png)
+    - **Azure subscription**: Choose "azurecloud-sol"
 
-TODO: Setup CI
+    - **Azure Container Registry**: Choose your ACR instance by name
+
+    - **Include Latest Tag**: Checked
+
+1. Next we will use VSTS to automate the process for creating images and pushing to ACR.  First, you need to add an Azure Service Principal to your VSTS account.  Login to your VisualStudio.com account and click the gear icon to access your settings. Then click Services.
+
+    ![Image](images/Hands-onlabstep-by-step-ContainersandDevOpsimages/media/Ex1-Task7.13.png)
+
+1. Choose "+ New Service Endpoint".  Then pick "Azure Resource Manager" from the menu.
+
+    ![Image](images/Hands-onlabstep-by-step-ContainersandDevOpsimages/media/Ex1-Task7.14.png)
+
+
+1. Click the link indicated in the screenshot below to access the advanced settings.
+
+    ![Image](images/Hands-onlabstep-by-step-ContainersandDevOpsimages/media/Ex1-Task7.15.png)
+
+
+1. Enter the required information using the service principal information you created before the lab.
+
+    > Note if you don't have your Subscription information handy you can view it using `az account show` on your **local** machine (not the build agent)
+
+    - **Connection name**: azurecloud-sol
+
+    - **Environment**: AzureCloud
+
+    - **Subscription ID**: `id` from `az account show` output
+
+    - **Subscription Name**: `name` from `az account show` output
+
+    - **Service Principal Client ID**: `appId` from service principal output.
+
+    - **Service Principal Key**: `password` from service principal output.
+
+    - **Tenant ID**: `tenant` from service principal output.
+
+    ![Image](images/Hands-onlabstep-by-step-ContainersandDevOpsimages/media/Ex1-Task7.16.png)
+
+1. Click "Verify connection" then click "OK".
+
+    > If the connection does not verify, then recheck and reenter the required data.
+
+1. Now create your first build.  Click "Build and Release", then click "+ New definition"
+
+    ![Image](images/Hands-onlabstep-by-step-ContainersandDevOpsimages/media/Ex1-Task7.18.png)
+
+1. Choose the content-web repository and accept the other defaults.
+
+    ![Image](images/Hands-onlabstep-by-step-ContainersandDevOpsimages/media/Ex1-Task7.19.png)
+
+1. Next, search for "Docker" templates and choose "Container" then click "Apply'
+
+    ![Image](images/Hands-onlabstep-by-step-ContainersandDevOpsimages/media/Ex1-Task7.20.png)
+
+1. Change the build name to "content-web-Container-CI"
+
+    ![Image](images/Hands-onlabstep-by-step-ContainersandDevOpsimages/media/Ex1-Task7.21.png)
+
+1. Click "Build an image"
+
+    - **Azure subscription**: Choose "azurecloud-sol"
+
+    - **Azure Container Registry**: Choose your ACR instance by name
+
+    - **Include Latest Tag**: Checked
+
+    ![Image](images/Hands-onlabstep-by-step-ContainersandDevOpsimages/media/Ex1-Task7.22.png)
+
+1. Click "Push an image"
+
+    - **Azure subscription**: Choose "azurecloud-sol"
+
+    - **Azure Container Registry**: Choose your ACR instance by name
+
+    - **Include Latest Tag**: Checked
+
+    ![Image](images/Hands-onlabstep-by-step-ContainersandDevOpsimages/media/Ex1-Task7.23.png)
+
+1. Click "Triggers"
+
+    - **Enable continuous integration**: Checked
+
+    - **Batch changes while a build is in progress**: Checked
+
+    ![Image](images/Hands-onlabstep-by-step-ContainersandDevOpsimages/media/Ex1-Task7.24.png)
+
+
+1. Click "Save & queue", then click "Save & queue" two more times to kick off the first build.
+
+    ![Image](images/Hands-onlabstep-by-step-ContainersandDevOpsimages/media/Ex1-Task7.26.png)
+
+1. While that build runs, create the content-api build.  Click "Builds", click "+ New".  Configure content-api by following the same steps used to configure content-web.
+
+1. While the content-api build runs, setup one last build for content-init by following the same steps as the previous two builds.
+
+1. Visit your ACR instance in the Azure portal, you should see new containers tagged with the VSTS build number.
+
+    ![Image](images/Hands-onlabstep-by-step-ContainersandDevOpsimages/media/Ex1-Task7.28.png)
 
 ## Exercise 2: Deploy the solution to Azure Container Service
 
