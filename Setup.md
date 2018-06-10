@@ -343,6 +343,13 @@ In this task, you will update the packages and install Docker engine.
     npm -version
     ```
 
+1.  Install `bower`
+
+    ```bash
+    sudo npm install -g bower
+    sudo ln -s /usr/bin/nodejs /usr/bin/node
+    ```
+
 9.  Add your user to the Docker group so that you do not have to elevate privileges with sudo for every command. You can ignore any errors you see in the output.
     ``` bash
     sudo usermod -aG docker $USER
@@ -646,7 +653,20 @@ FabMedical has provided starter files for you. They have taken a copy of one of 
 
             1. Setup your VisualStudio.com repository as a new remote the push.  Use the repository dropdown to switch to the "content-api" repository. You can then copy the commands for the setting up the content-api repository  from your browser.  Paste these commands into your WSL window.
 
-                ![Commands to add remote](images/Setup/image49.png)
+                1. When prompted, enter your VisualStudio.com username and the git credentials password you created earlier in this task.
+
+        1. Use the repository dropdown to create a third repository called "content-init"
+
+            1. Using your WSL window, initialize a new git repository in the content-init directory.
+
+                ```bash
+                cd ../content-init
+                git init
+                git add .
+                git commit -m "Initial Commit"
+                ```
+
+            1. Setup your VisualStudio.com repository as a new remote the push.  Use the repository dropdown to switch to the "content-init" repository. You can then copy the commands for the setting up the content-init repository  from your browser.  Paste these commands into your WSL window.
 
                 1. When prompted, enter your VisualStudio.com username and the git credentials password you created earlier in this task.
 
@@ -669,5 +689,9 @@ FabMedical has provided starter files for you. They have taken a copy of one of 
         1. In your browser, switch to the "content-api" repository and click "Clone" to see and copy the repository url.
 
         1. Use the repository url and `git clone` to copy the content-api code to your build agent.
-        
+
+        1. In your browser, switch to the "content-init" repository and click "Clone" to see and copy the repository url.
+
+        1. Use the repository url and `git clone` to copy the content-init code to your build agent.
+
 **NOTE: Keep this WSL window open as your build agent SSH connection. You will later open new WSL sessions to other machines.**
