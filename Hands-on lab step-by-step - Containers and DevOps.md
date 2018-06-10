@@ -61,7 +61,7 @@ Microsoft and the trademarks listed at https://www.microsoft.com/en-us/legal/int
 
 # Containers and DevOps hands-on lab step-by-step
 
-## Abstract and learning objectives 
+## Abstract and learning objectives
 
 Build a PoC to deliver a multi-tenant web app hosting solution leveraging Azure Container Service (AKS), Docker containers, and Linux nodes.???
 
@@ -118,7 +118,7 @@ Each tenant will have the following containers:
 2.  Local machine or a virtual machine configured with:
 
 -   A browser, preferably Chrome for consistency with the lab implementation tests
-      
+
 -   Command prompt
 
     -   On Windows, you will be using Bash on Ubuntu on Windows, hereon referred to as WSL.
@@ -148,7 +148,7 @@ The purpose of this task is to make sure you can run the application successfull
 
     npm install
     ```
-    
+
 2.  Start the API as a background process.
     ```
     nodejs ./server.js &
@@ -193,7 +193,7 @@ In this task, you will open a port range on the agent VM so that you can browse 
 
 1.  From the Azure portal select the resource group you created named fabmedical-SUFFIX.
 
-2.  Select the Network Security Group associated with the build agent from your list of available resources. 
+2.  Select the Network Security Group associated with the build agent from your list of available resources.
 
     ![In this screenshot of your list of available resources, the sixth item is selected: fabmedical-(suffix obscured)-nsg (Network security group).](images/Hands-onlabstep-by-step-ContainersandDevOpsimages/media/image49.png)
 
@@ -225,7 +225,7 @@ In this task, you will open a port range on the agent VM so that you can browse 
 
     ![In the Add inbound security rule blade, the values listed above appear in the corresponding boxes.](images/Hands-onlabstep-by-step-ContainersandDevOpsimages/media/image52.png)
 
-6.  Select **OK** to save the new rule. 
+6.  Select **OK** to save the new rule.
 
     ![In this screenshot, a table has the following columns: Priority, Name, Port, Protocol, Source, Destination, and Action. The first row is highlighted with the following values: 100, allow-app-endpoints, 3000-3010, Any, Any, Any, and Allow (which has a green check mark next to it).](images/Hands-onlabstep-by-step-ContainersandDevOpsimages/media/image53.png)
 
@@ -233,7 +233,7 @@ In this task, you will open a port range on the agent VM so that you can browse 
 
     ![In this screenshot of your list of available resources, the first item is selected, which has the following values for Name, Type, and Location: fabmedical-soll (a red arrows points to this name), Virtual machine, and East US 2.](images/Hands-onlabstep-by-step-ContainersandDevOpsimages/media/image54.png)
 
-8.  From the Virtual Machine blade overview, find the IP address of the VM. 
+8.  From the Virtual Machine blade overview, find the IP address of the VM.
 
     ![In the Virtual Machine blade, Overview is selected on the left and Public IP address 52.174.141.11 is highlighted on the right.](images/Hands-onlabstep-by-step-ContainersandDevOpsimages/media/image26.png)
 
@@ -414,7 +414,7 @@ The web application container will be calling endpoints exposed by the API appli
     ```
     docker container ls
     ```
-    
+
     ![In this screenshot of the WSL window, docker container ls has been typed and run at the command prompt, and the "api" container is in the list with the following values for Container ID, Image, Command, Created, Status, Ports, and Names: 548d25a1449f, content-api, "npm start", 8 seconds ago, Up 6 seconds, 0.0.0.0:3001-\>3001/tcp, and api.](images/Hands-onlabstep-by-step-ContainersandDevOpsimages/media/image61.png)
 
 4.  Test the API by curling the URL. You will see JSON output as you did when testing previously.
@@ -563,11 +563,11 @@ In this task, you will push images to your ACR account, version images with tagg
 
 4.  From the WSL session connected to your build VM, login to your ACR account by typing the following command. Follow the instructions to complete the login.
     ```
-    docker login [LOGINSERVER] --u [USERNAME] --p [PASSWORD]
+    docker login [LOGINSERVER] -u [USERNAME] -p [PASSWORD]
 
     For example:
 
-    docker login fabmedicalsoll.azurecr.io --u fabmedicalsoll --p +W/j=l+Fcze=n07SchxvGSlvsLRh/7ga
+    docker login fabmedicalsoll.azurecr.io -u fabmedicalsoll -p +W/j=l+Fcze=n07SchxvGSlvsLRh/7ga
     ```
 
     ![In this screenshot of the WSL window, the following has been typed and run at the command prompt: docker login fabmedicalsoll.azurecr.io --u fabmedicalsoll --p +W/j=l+Fcze=n07SchxvGSlvsLRh/7ga](images/Hands-onlabstep-by-step-ContainersandDevOpsimages/media/image65.png)
@@ -590,9 +590,9 @@ In this task, you will push images to your ACR account, version images with tagg
 
 7.  Push the images to your ACR account with the following command.
     ```
-    docker push \[LOGINSERVER\]/fabmedical/content-web
+    docker push [LOGINSERVER]/fabmedical/content-web
 
-    docker push \[LOGINSERVER\]/fabmedical/content-api
+    docker push [LOGINSERVER]/fabmedical/content-api
     ```
 
     ![In this screenshot of the WSL window, an example of images being pushed to an ACR account results from typing and running the following at the command prompt: docker push \[LOGINSERVER\]/fabmedical/content-web. At this time, we are unable to capture all of the information in the window. Future versions of this course should address this.](images/Hands-onlabstep-by-step-ContainersandDevOpsimages/media/image67.png)
@@ -602,7 +602,7 @@ In this task, you will push images to your ACR account, version images with tagg
     ![In this screenshot, fabmedical/content-api and fabmedical/content-web each appear on their own lines below Repositories.](images/Hands-onlabstep-by-step-ContainersandDevOpsimages/media/image68.png)
 
 9.  Select fabmedical/content-api. You'll see the latest tag is assigned.
-    
+
     ![In this screenshot, fabmedical/content-api is selected under Repositories, and the Tags blade appears on the right.](images/Hands-onlabstep-by-step-ContainersandDevOpsimages/media/image69.png)
 
 10. From WSL, assign the v1 tag to each image with the following commands. Then, list the Docker images to note that there are now two entries for each image, showing the latest tag and the v1 tag. Also note that the image ID is the same for the two entries, as there is only one copy of the image.
@@ -622,9 +622,9 @@ In this task, you will push images to your ACR account, version images with tagg
 
 12. Run the following commands to pull an image from the repository. Note that the default behavior is to pull images tagged with "latest." You can pull a specific version using the version tag. Also, note that since the images already exist on the build agent, nothing is downloaded.
     ```
-    docker pull \[LOGINSERVER\]/fabmedical/content-web
+    docker pull [LOGINSERVER]/fabmedical/content-web
 
-    docker pull \[LOGINSERVER\]/fabmedical/content-web:v1
+    docker pull [LOGINSERVER]/fabmedical/content-web:v1
     ```
 
     ![In this screenshot of the WSL window, the above commands have been typed and run at the command prompt, which returns tag, Digest, and Status information.](images/Hands-onlabstep-by-step-ContainersandDevOpsimages/media/image72.png)
@@ -679,7 +679,7 @@ In this task, you will gather the information you need about your Azure Containe
 
 5.  Configure kubectl to connect to the Kubernetes cluster.
     ```
-    az aks get-credentials --name fabmedical-SUFFIX --resource-group fabmedical-SUFFIX-2
+    az aks get-credentials --name fabmedical-SUFFIX --resource-group fabmedical-SUFFIX
     ```
 
 6.  Test that the configuration is correct by running a simple kubectl command to produce a list of nodes:
@@ -690,13 +690,14 @@ In this task, you will gather the information you need about your Azure Containe
     ![In this screenshot of the WSL console, kubectl get nodes has been typed and run at the command prompt, which produces a list of nodes.](images/Hands-onlabstep-by-step-ContainersandDevOpsimages/media/image75.png)
 
 7.  Create an SSH tunnel linking a local port (8001) on your machine to port 80 on the management node of the cluster. Execute the command below replacing the values as follows:
-    
-***NOTE:* After you run this command, it may work at first and later lose its connection, so you may have to run this again to reestablish the connection. If the Kubernetes dashboard becomes unresponsive in the browser this is an indication to return here and check your tunnel or rerun the command.**
+
+    ***NOTE:* After you run this command, it may work at first and later lose its connection, so you may have to run this again to reestablish the connection. If the Kubernetes dashboard becomes unresponsive in the browser this is an indication to return here and check your tunnel or rerun the command.**
+
+    ```bash
+    az aks browse --name fabmedical-SUFFIX --resource-group fabmedical-SUFFIX
     ```
-        az aks browse --name fabmedical-SUFFIX --resource-group fabmedical-SUFFIX-2
-    ```
-    
-![In this screenshot of the WSL console, the output of the above command produces output similar to the following: Password for private key: Proxy running on 127.0.0.1:8001/ui Press CTRL+C to close the tunnel \... Starting to server on 127.0.0.1:8001](images/Hands-onlabstep-by-step-ContainersandDevOpsimages/media/image76.png)
+
+    ![In this screenshot of the WSL console, the output of the above command produces output similar to the following: Password for private key: Proxy running on 127.0.0.1:8001/ui Press CTRL+C to close the tunnel \... Starting to server on 127.0.0.1:8001](images/Hands-onlabstep-by-step-ContainersandDevOpsimages/media/image76.png)
 
 8.  Open a browser window and access the Kubernetes management dashboard at the Services view. To reach the dashboard, you must access the following address:
     ```
@@ -766,7 +767,7 @@ In this task, you will deploy the API application to the Azure Container Service
     ```
 
     Your container spec should now look like this:
-    
+
     ![Screenshot of the deployment JSON code, with the \$.spec.template.spec.containers\[0\] section highlighted, showing the updated values for containerPort and hostPost, both set to port 3001.](images/Hands-onlabstep-by-step-ContainersandDevOpsimages/media/image85.png)
 
 10. Set "\$.spec.replicas" to 0 so that you can redeploy all the API pods. (This is the outer "deployment" spec).
@@ -776,7 +777,7 @@ In this task, you will deploy the API application to the Azure Container Service
 11. Copy the updated JSON document from notepad into the clipboard. Return to the Kubernetes dashboard, which should still be viewing the "api" deployment.
 
     Click Edit.
-    
+
     ![In the Workloads \> Deployments \> api bar, the Edit icon is highlighted.](images/Hands-onlabstep-by-step-ContainersandDevOpsimages/media/image87.png)
 
     Paste the updated JSON document.
@@ -808,14 +809,16 @@ In this task, you will make HTTP requests using kubectl. These requests will dep
 2.  Create a text file in this directory called kubernetes-web.yaml using Vim and press the "i\" key to go into edit mode.
 
     vi kubernetes-web.yaml
-    ```
+
+    ```text
     <i>
     ```
 
 3.  Copy and paste the following text into the editor.
 
-**NOTE: Be sure to copy and paste only the contents of the code block carefully to avoid introducing any special characters.**
-    ```
+    **NOTE: Be sure to copy and paste only the contents of the code block carefully to avoid introducing any special characters.**
+
+    ```yaml
     apiVersion: extensions/v1beta1
     kind: Deployment
     metadata:
@@ -826,50 +829,50 @@ In this task, you will make HTTP requests using kubectl. These requests will dep
     replicas: 1
     selector:
         matchLabels:
-        app: web
+            app: web
     strategy:
         rollingUpdate:
-        maxSurge: 1
-        maxUnavailable: 1
+            maxSurge: 1
+            maxUnavailable: 1
         type: RollingUpdate
     template:
         metadata:
-        labels:
-            app: web
-        name: web
+            labels:
+                app: web
+            name: web
         spec:
-        containers:
-        - image: [LOGINSERVER].azurecr.io/fabmedical/content-web
+            containers:
+            - image: [LOGINSERVER].azurecr.io/content-web
             env:
-            - name: CONTENT_API_URL
-            value: http://api:3001
+                - name: CONTENT_API_URL
+                value: http://api:3001
             livenessProbe:
-            httpGet:
-                path: /
-                port: 80
-            initialDelaySeconds: 30
-            periodSeconds: 20
-            timeoutSeconds: 10
-            failureThreshold: 3
+                httpGet:
+                    path: /
+                    port: 80
+                initialDelaySeconds: 30
+                periodSeconds: 20
+                timeoutSeconds: 10
+                failureThreshold: 3
             imagePullPolicy: Always
             name: web
             ports:
-            - containerPort: 80
-            hostPort: 80
-            protocol: TCP
+                - containerPort: 80
+                hostPort: 80
+                protocol: TCP
             resources:
-            requests:
-                cpu: 1000m
-                memory: 128Mi
+                requests:
+                    cpu: 1000m
+                    memory: 128Mi
             securityContext:
-            privileged: false
+                privileged: false
             terminationMessagePath: /dev/termination-log
             terminationMessagePolicy: File
-        dnsPolicy: ClusterFirst
-        restartPolicy: Always
-        schedulerName: default-scheduler
-        securityContext: {}
-        terminationGracePeriodSeconds: 30
+            dnsPolicy: ClusterFirst
+            restartPolicy: Always
+            schedulerName: default-scheduler
+            securityContext: {}
+            terminationGracePeriodSeconds: 30
     ---
     apiVersion: v1
     kind: Service
@@ -879,7 +882,7 @@ In this task, you will make HTTP requests using kubectl. These requests will dep
     name: web
     spec:
     ports:
-    - name: web-traffic
+        - name: web-traffic
         port: 80
         protocol: TCP
         targetPort: 3000
@@ -887,8 +890,6 @@ In this task, you will make HTTP requests using kubectl. These requests will dep
         app: web
     sessionAffinity: None
     type: LoadBalancer
-
-
     ```
 
 4.  Edit this file and update the \[LOGINSERVER\] entry to match the name of your ACR login server.
@@ -913,8 +914,8 @@ In this task, you will make HTTP requests using kubectl. These requests will dep
 
     ![In the Kubernetes management dashboard, Services is selected below Discovery and Load Balancing in the navigation menu. At right are three boxes that display various information about the web service deployment: Details, Pods, and Events. At this time, we are unable to capture all of the information in the window. Future versions of this course should address this.](images/Hands-onlabstep-by-step-ContainersandDevOpsimages/media/image94.png)
 
-8.  From the navigation menu, select Services view under Discovery and Load Balancing. Select the API service. Take note of its health status. It will be healthy as indicated by a restart count of 0. 
-    
+8.  From the navigation menu, select Services view under Discovery and Load Balancing. Select the API service. Take note of its health status. It will be healthy as indicated by a restart count of 0.
+
     ![In the Kubernetes management dashboard, Services is selected below Discovery and Load Balancing in the navigation menu. At right are three boxes that display various information about the API service deployment: Details, Pods, and Events. Restarts 0 is highlighted in the Pods box.](images/Hands-onlabstep-by-step-ContainersandDevOpsimages/media/image95.png)
 
 9.  From the navigation menu, select Services view under Discovery and Load Balancing. Select the web service. At some point, if you wait long enough, you will see it is in an unhealthy state (indicated by restarts in the screenshot below). This will only happen after you fail to deploy three consecutive times, so you should not wait for this state. In the meantime, it remains in the Deploying state. You will resolve this in the next task.
@@ -1025,7 +1026,7 @@ In this task, you will increase the number of instances for the API deployment i
 
     ![In the Workloads \> Deployments \> api bar, the Scale icon is highlighted.](images/Hands-onlabstep-by-step-ContainersandDevOpsimages/media/image89.png)
 
-3.  Change the number of pods to 2, and then select **OK**. 
+3.  Change the number of pods to 2, and then select **OK**.
 
     ![In the Scale a Deployment dialog box, 2 is entered in the Desired number of pods box.](images/Hands-onlabstep-by-step-ContainersandDevOpsimages/media/image116.png)
 
@@ -1267,7 +1268,7 @@ In this task, you will modify the CPU requirements for the web service so that i
 
 7.  Return to the browser tab with the web application loaded and refresh the stats page at /stats.html to watch the display update to reflect the different api pods by observing the host name refresh.
 
-### Task 6: Perform a rolling update 
+### Task 6: Perform a rolling update
 
 In this task, you will edit the web application source code and update the Docker image used by the deployment. Then you will perform a rolling update to demonstrate how to deploy a code change in a production scenario.
 
@@ -1302,7 +1303,7 @@ In this task, you will edit the web application source code and update the Docke
     ```
     data.webTaskId = process.env.HOSTNAME;
     ```
-    
+
 7.  Press the Escape key and type ":wq" and then press the Enter key to save and close the file.
     ```
     <Esc>
@@ -1353,7 +1354,7 @@ In this task, you will edit the web application source code and update the Docke
 
 16. Open a second browser to view the web application stats page and note that the webTaskId is different for each browser as requests are routed among the available web pods. Notice also that the hostName of the API pod changes from time to time as well when the browser is refreshed.
 
-## After the hands-on lab 
+## After the hands-on lab
 
 **Duration**: 10 mins
 
