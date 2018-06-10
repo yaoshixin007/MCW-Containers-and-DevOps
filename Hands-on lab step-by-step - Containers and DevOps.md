@@ -264,63 +264,65 @@ The purpose of this task is to make sure you can run the application successfull
 
 In this task, you will open a port range on the agent VM so that you can browse to the web application for testing.
 
-1.  From the Azure portal select the resource group you created named fabmedical-SUFFIX.
+1. From the Azure portal select the resource group you created named fabmedical-SUFFIX.
 
-2.  Select the Network Security Group associated with the build agent from your list of available resources.
+1. Select the Network Security Group associated with the build agent from your list of available resources.
 
     ![In this screenshot of your list of available resources, the sixth item is selected: fabmedical-(suffix obscured)-nsg (Network security group).](images/Hands-onlabstep-by-step-ContainersandDevOpsimages/media/image49.png)
 
-3.  From the Network interface essentials blade, select **Inbound security rules**.
+1. From the Network interface essentials blade, select **Inbound security rules**.
 
     ![In the Network interface essentials blade, Inbound security rules is highlighted under Settings.](images/Hands-onlabstep-by-step-ContainersandDevOpsimages/media/image50.png)
 
-4.  Select **Add** to add a new rule.
+1. Select **Add** to add a new rule.
 
     ![In this screenshot of the Inbound security rules windows, a red arrow points at Add.](images/Hands-onlabstep-by-step-ContainersandDevOpsimages/media/image51.png)
 
-5.  From the Add inbound security rule blade, enter the values as shown in the screenshot below:
+1. From the Add inbound security rule blade, enter the values as shown in the screenshot below:
 
-    -   **Source**: Any
+    - **Source**: Any
 
-    -   **Source port ranges**:
+    - **Source port ranges**:
 
-    -   **Destination**: Any
+    - **Destination**: Any
 
-    -   **Destination Port Ranges**: 3000-3010
+    - **Destination Port Ranges**: 3000-3010
 
-    -   **Protocol**: Any
+    - **Protocol**: Any
 
-    -   **Action**: Allow
+    - **Action**: Allow
 
-    -   **Priority**: Leave at the default priority setting
+    - **Priority**: Leave at the default priority setting
 
-    -   **Name**: Enter "allow-app-endpoints"
+    - **Name**: Enter "allow-app-endpoints"
 
-    ![In the Add inbound security rule blade, the values listed above appear in the corresponding boxes.](images/Hands-onlabstep-by-step-ContainersandDevOpsimages/media/image52.png)
+        ![In the Add inbound security rule blade, the values listed above appear in the corresponding boxes.](images/Hands-onlabstep-by-step-ContainersandDevOpsimages/media/image52.png)
 
-6.  Select **OK** to save the new rule.
+1. Select **OK** to save the new rule.
 
     ![In this screenshot, a table has the following columns: Priority, Name, Port, Protocol, Source, Destination, and Action. The first row is highlighted with the following values: 100, allow-app-endpoints, 3000-3010, Any, Any, Any, and Allow (which has a green check mark next to it).](images/Hands-onlabstep-by-step-ContainersandDevOpsimages/media/image53.png)
 
-7.  From the resource list shown in step 2, select the build agent VM named fabmedical-SUFFIX.
+1. From the resource list shown in step 2, select the build agent VM named fabmedical-SUFFIX.
 
     ![In this screenshot of your list of available resources, the first item is selected, which has the following values for Name, Type, and Location: fabmedical-soll (a red arrows points to this name), Virtual machine, and East US 2.](images/Hands-onlabstep-by-step-ContainersandDevOpsimages/media/image54.png)
 
-8.  From the Virtual Machine blade overview, find the IP address of the VM.
+1. From the Virtual Machine blade overview, find the IP address of the VM.
 
     ![In the Virtual Machine blade, Overview is selected on the left and Public IP address 52.174.141.11 is highlighted on the right.](images/Hands-onlabstep-by-step-ContainersandDevOpsimages/media/image26.png)
 
-9.  Test the web application from a browser. Navigate to the web application using your build agent IP address at port 3000.
-    ```
+1. Test the web application from a browser. Navigate to the web application using your build agent IP address at port 3000.
+
+    ```text
     http://[BUILDAGENTIP]:3000
 
     EXAMPLE: http://13.68.113.176:3000
     ```
 
-10. Select the Speakers and Sessions links in the header. You will see the pages display the HTML version of the JSON content you curled previously.
+1. Select the Speakers and Sessions links in the header. You will see the pages display the HTML version of the JSON content you curled previously.
 
-11. Once you have verified the application is accessible through a browser, go to your WSL window and stop the running node processes.
-    ```
+1. Once you have verified the application is accessible through a browser, go to your WSL window and stop the running node processes.
+
+    ```bash
     killall nodejs
     ```
 
