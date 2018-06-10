@@ -494,156 +494,188 @@ In this task, you will create Docker images for the application --- one for the 
 
 ### Task 5: Run a containerized application
 
-The web application container will be calling endpoints exposed by the API application container. In this exercise, you will create a bridge network so that containers can communicate with one another, and then launch the images you created as containers in that network.
+The web application container will be calling endpoints exposed by the API application container and the API application container will be communicating with mongodb. In this exercise, you will launch the images you created as containers on same bridge network you created when starting mongodb.
 
+1. Create and start the API application container with the following command. The command does the following:
 
+    - Names the container "api" for later reference with Docker commands.
 
-2.  Create and start the API application container with the following command. The command does the following:
+    - Instructs the Docker engine to use the "fabmedical" network.
 
-    -   Creates a container from the specified image, by its tag, such as content-api.
+    - Instructs the Docker engine to use port 3001 and map that to the internal container port 3001.
 
-    -   Names the container "api" for later reference with Docker commands.
+    - Creates a container from the specified image, by its tag, such as content-api.
 
-    -   Issues the Docker run command indicating it should run the new container as a daemon.
-
-    -   Instructs the Docker engine to use port 3001 and map that to the internal container port 3001.
-
-    -   Instructs the Docker engine to use the "fabmedical" network.
-    ```
-    docker run -d -p 3001:3001 --name api --net fabmedical content-api
+    ```bash
+    docker run --name api --net fabmedical -p 3001:3001 content-api
     ```
 
-3.  Enter the command to show running containers. You'll observe that the "api" container is in the list.
+1. The docker run command has failed because it is configured to connect to mongodb using a localhost url.  However, now that content-api is isolated in a separate container, it cannot access mongodb via loacalhost, even when running on the same docker host.  Instead, the API must use the bridge network to connect to mongodb.
+
+    ```text
+    > content-api@0.0.0 start /usr/src/app
+    > node ./server.js
+
+    Listening on port 3001
+    Could not connect to MongoDB!
+    MongoNetworkError: failed to connect to server [localhost:27017] on first connect [MongoNetworkError: connect ECONNREFUSED 127.0.0.1:27017]
+    npm ERR! code ELIFECYCLE
+    npm ERR! errno 255
+    npm ERR! content-api@0.0.0 start: `node ./server.js`
+    npm ERR! Exit status 255
+    npm ERR!
+    npm ERR! Failed at the content-api@0.0.0 start script.
+    npm ERR! This is probably not a problem with npm. There is likely additional logging output above.
+
+    npm ERR! A complete log of this run can be found in:
+    npm ERR!     /root/.npm/_logs/2018-06-08T13_36_52_985Z-debug.log
     ```
+
+1. The content-api application allows an environment variable to configure the mongodb connection string.  Remove the existing container, then instruct the docker engine to set the environment variable by adding the `-e` switch to the docker run command.  Also, use the `-d` switch to run the api as a daemon.
+
+    ```bash
+    docker rm api
+    docker run --name api --net fabmedical -p 3001:3001 -e MONGODB_CONNECTION=mongodb://mongo:27017/contentdb -d content-api
+    ```
+
+1. Enter the command to show running containers. You'll observe that the "api" container is in the list.  Use the docker logs command to see that the API application has connected to mongodb.
+
+    ```bash
     docker container ls
+    docker logs api
     ```
 
     ![In this screenshot of the WSL window, docker container ls has been typed and run at the command prompt, and the "api" container is in the list with the following values for Container ID, Image, Command, Created, Status, Ports, and Names: 548d25a1449f, content-api, "npm start", 8 seconds ago, Up 6 seconds, 0.0.0.0:3001-\>3001/tcp, and api.](images/Hands-onlabstep-by-step-ContainersandDevOpsimages/media/image61.png)
 
-4.  Test the API by curling the URL. You will see JSON output as you did when testing previously.
-    ```
+1. Test the API by curling the URL. You will see JSON output as you did when testing previously.
+
+    ```bash
     curl http://localhost:3001/speakers
     ```
 
-5.  Create and start the web application container with a similar Docker run command -- instruct the docker engine to use any port with the -P command:
-    ```
-    docker run -d -P --name web --net fabmedical content-web
+1. Create and start the web application container with a similar Docker run command -- instruct the docker engine to use any port with the `-P` command:
+
+    ```bash
+    docker run --name web --net fabmedical -P -d content-web
     ```
 
-6.  Enter the command to show running containers again and you'll observe that both the API and web containers are in the list. The web container shows a dynamically assigned port mapping to its internal container port 3000.
-    ```
-    docker ps ??
+1. Enter the command to show running containers again and you'll observe that both the API and web containers are in the list. The web container shows a dynamically assigned port mapping to its internal container port 3000.
+
+    ```bash
+    docker container ls
     ```
 
     ![In this screenshot of the WSL window, docker container ls has again been typed and run at the command prompt. 0.0.0.0:32768->3000/tcp is highlighted under Ports, and a red arrow is pointing at it.](images/Hands-onlabstep-by-step-ContainersandDevOpsimages/media/image62.png)
 
-7.  Test the web application by curling the URL. For the port, use the dynamically assigned port, which you can find in the output from the previous command. You will see HTML output, as you did when testing previously.
-    ```
+1. Test the web application by curling the URL. For the port, use the dynamically assigned port, which you can find in the output from the previous command. You will see HTML output, as you did when testing previously.
+
+    ```bash
     curl http://localhost:[PORT]/speakers.html
     ```
 
 ### Task 6: Setup environment variables
 
-In this task, you will configure the "web" container to communicate with the API container using an environment variable. You will modify the web application to read the URL from the environment variable, rebuild the Docker image, and then run the container again to test connectivity.
+In this task, you will configure the "web" container to communicate with the API container using an environment variable, similar to the way the mongodb connection string is provided to the api. You will modify the web application to read the URL from the environment variable, rebuild the Docker image, and then run the container again to test connectivity.
 
-1.  From WSL, stop and remove the web container using the following commands.
-    ```
+1. From WSL, stop and remove the web container using the following commands.
+
+    ```bash
     docker stop web
-
     docker rm web
     ```
 
-2.  Validate that the web container is no longer running or present by using the -a flag as shown in this command. You will see that the "web" container is no longer listed.
-    ```
+1. Validate that the web container is no longer running or present by using the -a flag as shown in this command. You will see that the "web" container is no longer listed.
+
+    ```bash
     docker container ls -a
     ```
 
-3.  Navigate to the content-web\\data-access directory. From there, open the index.js file for editing using Vim and press the "i" key to go into edit mode.
-    ```
+1. Navigate to the `content-web/data-access` directory. From there, open the index.js file for editing using Vim and press the "i" key to go into edit mode.
+
+    ```bash
     cd data-access
-
     vi index.js
-
     <i>
     ```
 
-4.  Locate the following TODO item and modify the code to comment the first line and uncomment the second. The result is that the contentApiUrl variable will be set to an environment variable.
-    ```
+1. Locate the following TODO item and modify the code to comment the first line and uncomment the second. The result is that the contentApiUrl variable will be set to an environment variable.
+
+    ```javascript
     //TODO: Exercise 2 - Task 6 - Step 4
 
-    //var contentApiUrl = "http://localhost:3001";
-
-    var contentApiUrl = process.env.CONTENT_API_URL;
+    //const contentApiUrl = "http://localhost:3001";
+    const contentApiUrl = process.env.CONTENT_API_URL;
     ```
 
-5.  Press the Escape key and type ":wq" and then press the Enter key to save and close the file.
-    ```
+1. Press the Escape key and type ":wq" and then press the Enter key to save and close the file.
+
+    ```text
     <Esc>
-
     :wq
-
     <Enter>
     ```
 
-6.  Navigate to the content-web directory. From there open the Dockerfile for editing using Vim and press the "i" key to go into edit mode.
-    ```
+1. Navigate to the content-web directory. From there open the Dockerfile for editing using Vim and press the "i" key to go into edit mode.
+
+    ```bash
     cd ..
-
     vi Dockerfile
-
     <i>
     ```
 
-7.  Locate the EXPOSE line shown below and add a line above it that sets the environment variable as shown in the screenshot.
-    ```
+1. Locate the EXPOSE line shown below and add a line above it that sets the default value for the environment variable as shown in the screenshot.
+
+    ```Dockerfile
     ENV CONTENT_API_URL http://localhost:3001
     ```
 
     ![In this screenshot of Dockerfile, ENV CONTENT\_API\_URL http://localhost:3001 appears above Expose 3000.](images/Hands-onlabstep-by-step-ContainersandDevOpsimages/media/image63.png)
 
-8.  Press the Escape key and type ":wq" and then press the Enter key to save and close the file.
-    ```
+1. Press the Escape key and type ":wq" and then press the Enter key to save and close the file.
+
+    ```text
     <Esc>
-
     :wq
-
     <Enter>
     ```
 
-9.  Rebuild the web application Docker image using the same command as you did previously.
-    ```
+1. Rebuild the web application Docker image using the same command as you did previously.
+
+    ```bash
     docker build -t content-web .
     ```
 
-10. Create and start the image passing the correct URI to the API container as an environment variable. This variable will address the API application using its container name over the Docker network you created. After running the container, check to see the container is running and note the dynamic port assignment for the next step.
-    ```
-    docker run -d -P --name web --net fabmedical -e CONTENT_API_URL=http://api:3001 content-web
+1. Create and start the image passing the correct URI to the API container as an environment variable. This variable will address the API application using its container name over the Docker network you created. After running the container, check to see the container is running and note the dynamic port assignment for the next step.
 
+    ```bash
+    docker run --name web --net fabmedical -P -d -e CONTENT_API_URL=http://api:3001 content-web
     docker container ls
     ```
 
-11. Curl the speakers path again, using the port assigned to the web container. This time you will see HTML returned.
-    ```
+1. Curl the speakers path again, using the port assigned to the web container. Again you will see HTML returned, but because curl does not process javascript, you cannot determine if the web application is communicating with the api application.  You must verify this connection in a browser.
+
+    ```bash
     curl http://localhost:[PORT]/speakers.html
     ```
 
-12. You will not be able to browse to the web application unless the agent VM exposes the port. Now you will stop the web container and restart it using port 3000 to test in the browser. To do this, type the following commands to stop the container, remove it, and run it again using explicit settings for the port.
-    ```
+1. You will not be able to browse to the web application on the ephemeral port because the VM only exposes a limited port range. Now you will stop the web container and restart it using port 3000 to test in the browser. Type the following commands to stop the container, remove it, and run it again using explicit settings for the port.
+
+    ```bash
     docker stop web
-
     docker rm web
-
-    docker run -d -p 3000:3000 --name web --net fabmedical -e CONTENT_API_URL=http://api:3001 c content-web
+    docker run --name web --net fabmedical -p 3000:3000 -d -e CONTENT_API_URL=http://api:3001 content-web
     ```
 
-13. Curl the speaker path again, using port 3000. You will see the same HTML returned.
-    ```
+1. Curl the speaker path again, using port 3000. You will see the same HTML returned.
+
+    ```bash
     curl http://localhost:3000/speakers.html
     ```
 
-14. You can now use a web browser to navigate to the website and successfully view the application at port 3000. Replace \[BUILDAGENTIPSetup] with the IP address you used previously.
-    ```
-    http://\[BUILDAGENTIP]:3000
+1. You can now use a web browser to navigate to the website and successfully view the application at port 3000. Replace [BUILDAGENTIP] with the IP address you used previously.
+
+    ```bash
+    http://[BUILDAGENTIP]:3000
 
     EXAMPLE: http://13.68.113.176:3000
     ```
