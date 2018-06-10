@@ -435,50 +435,58 @@ In this task, you will create a new Dockerfile that will be used to run the API 
 
 In this task, you will create Docker images for the application --- one for the API application and another for the web application. Each image will be created via Docker commands that rely on a Dockerfile.
 
-1.  From WSL, type the following command to view any Docker images on the VM. The list will be empty.
-    ```
+1. From WSL, type the following command to view any Docker images on the VM. The list will only contain the mongodb image downloaded earlier.
+
+    ```bash
     docker images
     ```
 
-2.  From the content-api folder containing the API application files and the new Dockerfile you created, type the following command to create a Docker image for the API application. This command does the following:
+1. From the content-api folder containing the API application files and the new Dockerfile you created, type the following command to create a Docker image for the API application. This command does the following:
 
-    -   Executes the Docker build command to produce the image.
+    - Executes the Docker build command to produce the image.
 
-    -   Tags the resulting image with the name content-api (-t).
+    - Tags the resulting image with the name content-api (-t).
 
-    -   The final dot (".") indicates to use the Dockerfile in this current directory context. By default, this file is expected to have the name "Dockerfile" (case sensitive).
-    ```
+    - The final dot (".") indicates to use the Dockerfile in this current directory context. By default, this file is expected to have the name "Dockerfile" (case sensitive).
+
+    ```bash
     docker build -t content-api .
     ```
 
-3.  Once the image is successfully built, run the Docker images command again. You will see two images: the node image and your container image.
-    ```
+1. Once the image is successfully built, run the Docker images command again. You will see several new images: the node images and your container image.
+
+    ```bash
     docker images
     ```
 
+    Notice the untagged image.  This is the build stage which contains all the intermediate files not need in your final image.
+
     ![The node image (node) and your container image (content-api) are visible in this screenshot of the WSL window.](images/Hands-onlabstep-by-step-ContainersandDevOpsimages/media/image59.png)
 
-4.  Navigate to the content-web folder again and list the files. Note that this folder already has a Dockerfile.
-    ```
-    cd ..
+1. Navigate to the content-web folder again and list the files. Note that this folder already has a Dockerfile.
 
-    cd content-web
-
+    ```bash
+    cd ../content-web
     ll
     ```
 
-5.  View the Dockerfile contents -- which are similar to the file you created previously in the API folder. Type the following command:
-    ```
+1. View the Dockerfile contents -- which are similar to the file you created previously in the API folder. Type the following command:
+
+    ```bash
     cat Dockerfile
     ```
 
-6.  Type the following command to create a Docker image for the web application.
-    ```
-    docker build --t content-web .
+    Notice that the content-web Dockerfile build stage includes additional tools to install bower packages in addition to the npm packages.
+
+1. Type the following command to create a Docker image for the web application.
+
+    ```bash
+    docker build -t content-web .
     ```
 
-7.  When complete, you will see three images now exist when you run the Docker images command.
-    ```
+1. When complete, you will see seven images now exist when you run the Docker images command.
+
+    ```bash
     docker images
     ```
 
