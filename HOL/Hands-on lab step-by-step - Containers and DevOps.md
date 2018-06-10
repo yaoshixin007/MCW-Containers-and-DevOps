@@ -684,82 +684,85 @@ In this task, you will configure the "web" container to communicate with the API
 
 To run containers in a remote environment, you will typically push images to a Docker registry, where you can store and distribute images. Each service will have a repository that can be pushed to and pulled from with Docker commands. Azure Container Registry (ACR) is a managed private Docker registry service based on Docker Registry v2.
 
-In this task, you will push images to your ACR account, version images with tagging, and run containers from an image in your ACR.
+In this task, you will push images to your ACR account, version images with tagging, and setup continuous integration (CI) to build future versions of your containers and push them to ACR automatically.
 
-1.  In the [Azure Portal](https://portal.azure.com/), navigate to the ACR you created in Before the hands-on lab.
+1. In the [Azure Portal](https://portal.azure.com/), navigate to the ACR you created in Before the hands-on lab.
 
-2.  Select Access keys under Settings on the left-hand menu.
+1. Select Access keys under Settings on the left-hand menu.
 
     ![In this screenshot of the left-hand menu, Access keys is highlighted below Settings.](images/Hands-onlabstep-by-step-ContainersandDevOpsimages/media/image64.png)
 
-3.  The Access keys blade displays the Login server, username, and password that will be required for the next step. Keep this handy as you perform actions on the build VM.
+1. The Access keys blade displays the Login server, username, and password that will be required for the next step. Keep this handy as you perform actions on the build VM.
 
-**NOTE: If the username and password do not appear, select Enable on the Admin user option.**
+    **NOTE: If the username and password do not appear, select Enable on the Admin user option.**
 
-4.  From the WSL session connected to your build VM, login to your ACR account by typing the following command. Follow the instructions to complete the login.
-    ```
+1. From the WSL session connected to your build VM, login to your ACR account by typing the following command. Follow the instructions to complete the login.
+
+    ```bash
     docker login [LOGINSERVER] -u [USERNAME] -p [PASSWORD]
+    ```
 
     For example:
 
+    ```bash
     docker login fabmedicalsoll.azurecr.io -u fabmedicalsoll -p +W/j=l+Fcze=n07SchxvGSlvsLRh/7ga
     ```
 
     ![In this screenshot of the WSL window, the following has been typed and run at the command prompt: docker login fabmedicalsoll.azurecr.io --u fabmedicalsoll --p +W/j=l+Fcze=n07SchxvGSlvsLRh/7ga](images/Hands-onlabstep-by-step-ContainersandDevOpsimages/media/image65.png)
 
-**Tip: Make sure to specify the fully qualified registry login server (all lowercase).**
+    **Tip: Make sure to specify the fully qualified registry login server (all lowercase).**
 
-5.  Run the following commands to properly tag your images to match your ACR account name. This also specifies the \"fabmedical\" namespace to avoid clutter in the root of the registry.
-    ```
-    docker tag content-web [LOGINSERVER]/fabmedical/content-web
+1. Run the following commands to properly tag your images to match your ACR account name.
 
-    docker tag content-api [LOGINSERVER]/fabmedical/content-api
+    ```bash
+    docker tag content-web [LOGINSERVER]/content-web
+    docker tag content-api [LOGINSERVER]/content-api
     ```
 
-6.  List your docker images and look at the repository and tag. Note that the repository is prefixed with your ACR account name, and fabmedical namespace, such as the sample shown in the screenshot below.
-    ```
+1. List your docker images and look at the repository and tag. Note that the repository is prefixed with your ACR login server name, such as the sample shown in the screenshot below.
+
+    ```bash
     docker images
     ```
 
     ![This is a screenshot of a docker images list example. At this time, we are unable to capture all of the information in the window. Future versions of this course should address this.](images/Hands-onlabstep-by-step-ContainersandDevOpsimages/media/image66.png)
 
-7.  Push the images to your ACR account with the following command.
-    ```
-    docker push [LOGINSERVER]/fabmedical/content-web
+1. Push the images to your ACR account with the following command.
 
+    ```bash
+    docker push [LOGINSERVER]/fabmedical/content-web
     docker push [LOGINSERVER]/fabmedical/content-api
     ```
 
     ![In this screenshot of the WSL window, an example of images being pushed to an ACR account results from typing and running the following at the command prompt: docker push \[LOGINSERVER\]/fabmedical/content-web. At this time, we are unable to capture all of the information in the window. Future versions of this course should address this.](images/Hands-onlabstep-by-step-ContainersandDevOpsimages/media/image67.png)
 
-8.  In the Azure Portal, navigate to your ACR account, and select Repositories under Services on the left-hand menu. You will now see two, one for each image.
+1. In the Azure Portal, navigate to your ACR account, and select Repositories under Services on the left-hand menu. You will now see two, one for each image.
 
     ![In this screenshot, fabmedical/content-api and fabmedical/content-web each appear on their own lines below Repositories.](images/Hands-onlabstep-by-step-ContainersandDevOpsimages/media/image68.png)
 
-9.  Select fabmedical/content-api. You'll see the latest tag is assigned.
+1. Select content-api. You'll see the latest tag is assigned.
 
     ![In this screenshot, fabmedical/content-api is selected under Repositories, and the Tags blade appears on the right.](images/Hands-onlabstep-by-step-ContainersandDevOpsimages/media/image69.png)
 
-10. From WSL, assign the v1 tag to each image with the following commands. Then, list the Docker images to note that there are now two entries for each image, showing the latest tag and the v1 tag. Also note that the image ID is the same for the two entries, as there is only one copy of the image.
-    ```
-    docker tag [LOGINSERVER]/fabmedical/content-web:latest [LOGINSERVER]/fabmedical/content-web:v1
+1. From WSL, assign the v1 tag to each image with the following commands. Then, list the Docker images to note that there are now two entries for each image, showing the latest tag and the v1 tag. Also note that the image ID is the same for the two entries, as there is only one copy of the image.
 
-    docker tag [LOGINSERVER]/fabmedical/content-api:latest [LOGINSERVER]/fabmedical/content-api:v1
-
+    ```bash
+    docker tag [LOGINSERVER]/content-web:latest [LOGINSERVER]/content-web:v1
+    docker tag [LOGINSERVER]/content-api:latest [LOGINSERVER]/content-api:v1
     docker images
     ```
 
     ![In this screenshot of the WSL window is an example of tags being added and displayed. At this time, we are unable to capture all of the information in the window. Future versions of this course should address this.](images/Hands-onlabstep-by-step-ContainersandDevOpsimages/media/image70.png)
 
-11. Repeat Step 7 to push the images to ACR again, so that the newly tagged v1 images are pushed. Then, refresh one of the repositories to see the two versions of the image now appear.
+1. Repeat Step 7 to push the images to ACR again, so that the newly tagged v1 images are pushed. Then, refresh one of the repositories to see the two versions of the image now appear.
 
     ![In this screenshot, fabmedical/content-api is selected under Repositories, and the Tags blade appears on the right. In the Tags blade, latest and v1 appear under Tags.](images/Hands-onlabstep-by-step-ContainersandDevOpsimages/media/image71.png)
 
-12. Run the following commands to pull an image from the repository. Note that the default behavior is to pull images tagged with "latest." You can pull a specific version using the version tag. Also, note that since the images already exist on the build agent, nothing is downloaded.
-    ```
-    docker pull [LOGINSERVER]/fabmedical/content-web
+1. Run the following commands to pull an image from the repository. Note that the default behavior is to pull images tagged with "latest." You can pull a specific version using the version tag. Also, note that since the images already exist on the build agent, nothing is downloaded.
 
-    docker pull [LOGINSERVER]/fabmedical/content-web:v1
+    ```bash
+    docker pull [LOGINSERVER]/content-web
+    docker pull [LOGINSERVER]/content-web:v1
     ```
 
     ![In this screenshot of the WSL window, the above commands have been typed and run at the command prompt, which returns tag, Digest, and Status information.](images/Hands-onlabstep-by-step-ContainersandDevOpsimages/media/image72.png)
