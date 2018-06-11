@@ -38,8 +38,8 @@ Microsoft and the trademarks listed at https://www.microsoft.com/en-us/legal/int
         - [Task 5: Run a containerized application](#task-5-run-a-containerized-application)
         - [Task 6: Setup environment variables](#task-6-setup-environment-variables)
         - [Task 7: Push images to Azure Container Registry](#task-7-push-images-to-azure-container-registry)
-    - [Exercise 2: Deploy the solution to Azure Container Service](#exercise-2-deploy-the-solution-to-azure-container-service)
-        - [Task 1: Tunnel into the Azure Container Service cluster](#task-1-tunnel-into-the-azure-container-service-cluster)
+    - [Exercise 2: Deploy the solution to Azure Kubernetes Service](#exercise-2-deploy-the-solution-to-azure-container-service)
+        - [Task 1: Tunnel into the Azure Kubernetes Service cluster](#task-1-tunnel-into-the-azure-container-service-cluster)
         - [Task 2: Deploy a service using the Kubernetes management dashboard](#task-2-deploy-a-service-using-the-kubernetes-management-dashboard)
         - [Task 3: Deploy a service using Kubernetes REST API](#task-3-deploy-a-service-using-kubernetes-rest-api)
         - [Task 4: Explore service instance logs and resolve an issue](#task-4-explore-service-instance-logs-and-resolve-an-issue)
@@ -65,7 +65,7 @@ Microsoft and the trademarks listed at https://www.microsoft.com/en-us/legal/int
 
 Build a PoC to deliver a multi-tenant web app hosting solution leveraging Azure Kubernetes Service, Docker containers, and Linux nodes.
 
-Attendees will be better able to deploy Docker-based applications and scale them with Azure Container Service and Kubernetes orchestration. In addition,
+Attendees will be better able to deploy Docker-based applications and scale them with Azure Kubernetes Service and Kubernetes orchestration. In addition,
 
 - Create and run a Docker Application
 
@@ -81,7 +81,7 @@ Attendees will be better able to deploy Docker-based applications and scale them
 
 Fabrikam Medical Conferences (FabMedical) provides conference website services tailored to the medical community. They are refactoring their application code, based on node.js, so that it can run as a Docker application, and want to implement a POC that will help them get familiar with the development process, lifecycle of deployment, and critical aspects of the hosting environment. They will be deploying their applications to Azure Kubernetes Service and want to learn how to deploy containers in a dynamically load-balanced manner, discover containers, and scale them on demand.
 
-In this hands-on lab, you will assist with completing this POC with a subset of the application code base. You will create a build agent based on Linux, and an Azure Container Service cluster for running deployed applications. You will be helping them to complete the Docker setup for their application, test locally, push to an image repository, deploy to the cluster, and test load-balancing and scale.
+In this hands-on lab, you will assist with completing this POC with a subset of the application code base. You will create a build agent based on Linux, and an Azure Kubernetes Service cluster for running deployed applications. You will be helping them to complete the Docker setup for their application, test locally, push to an image repository, deploy to the cluster, and test load-balancing and scale.
 
 **IMPORTANT: Most Azure resources require unique names. Throughout these steps you will see the word "SUFFIX" as part of resource names. You should replace this with your Microsoft email prefix to ensure the resource is uniquely named.**
 
@@ -115,7 +115,7 @@ Each tenant will have the following containers:
 
     b.  You must have rights to create a service principal as discussed in Task 9: Create a Service Principal --- and this typically requires a subscription owner to log in. You may have to ask another subscription owner to login to the portal and execute that step ahead of time if you do not have the rights.
 
-    c.  You must have enough cores available in your subscription to create the build agent and Azure Container Service cluster in Task 5: Create a build agent VM and Task 10: Create an Azure Kubernetes Service cluster. You'll need eight cores if following the exact instructions in the lab, more if you choose additional agents or larger VM sizes. If you execute the steps required before the lab, you will be able to see if you need to request more cores in your sub.
+    c.  You must have enough cores available in your subscription to create the build agent and Azure Kubernetes Service cluster in Task 5: Create a build agent VM and Task 10: Create an Azure Kubernetes Service cluster. You'll need eight cores if following the exact instructions in the lab, more if you choose additional agents or larger VM sizes. If you execute the steps required before the lab, you will be able to see if you need to request more cores in your sub.
 
 2.  Local machine or a virtual machine configured with:
 
@@ -510,7 +510,7 @@ The web application container will be calling endpoints exposed by the API appli
     docker run --name api --net fabmedical -p 3001:3001 content-api
     ```
 
-1. The docker run command has failed because it is configured to connect to mongodb using a localhost url.  However, now that content-api is isolated in a separate container, it cannot access mongodb via loacalhost, even when running on the same docker host.  Instead, the API must use the bridge network to connect to mongodb.
+1. The docker run command has failed because it is configured to connect to mongodb using a localhost url.  However, now that content-api is isolated in a separate container, it cannot access mongodb via localhost, even when running on the same docker host.  Instead, the API must use the bridge network to connect to mongodb.
 
     ```text
     > content-api@0.0.0 start /usr/src/app
@@ -990,67 +990,74 @@ In this task, you will push images to your ACR account, version images with tagg
 
     ![Image](images/Hands-onlabstep-by-step-ContainersandDevOpsimages/media/Ex1-Task7.28.png)
 
-## Exercise 2: Deploy the solution to Azure Container Service
+## Exercise 2: Deploy the solution to Azure Kubernetes Service
 
 **Duration**: 30 minutes
 
-In this exercise, you will connect to the Azure Container Service cluster you created before the hands-on lab and deploy the Docker application to the cluster using Kubernetes.
+In this exercise, you will connect to the Azure Kubernetes Service cluster you created before the hands-on lab and deploy the Docker application to the cluster using Kubernetes.
 
-### Task 1: Tunnel into the Azure Container Service cluster
+### Task 1: Tunnel into the Azure Kubernetes Service cluster
 
-In this task, you will gather the information you need about your Azure Container Service cluster to connect to the cluster and execute commands to connect to the Kubernetes management dashboard from your local machine.
+In this task, you will gather the information you need about your Azure Kubernetes Service cluster to connect to the cluster and execute commands to connect to the Kubernetes management dashboard from your local machine.
 
-1.  Open your WSL console. From this WSL console, ensure that you installed the Azure CLI correctly by running the following command:
-    ```
+1. Open your WSL console (close the connection to the build agent if you are connected). From this WSL console, ensure that you installed the Azure CLI correctly by running the following command:
+
+    ```bash
     az --version
     ```
-    -   This should produce output similar to this:
+
+    - This should produce output similar to this:
 
         ![In this screenshot of the WSL console, example output from running az --version appears. At this time, we are unable to capture all of the information in the window. Future versions of this course should address this.](images/Hands-onlabstep-by-step-ContainersandDevOpsimages/media/image73.png)
 
-    -   If the output is not correct, review your steps from the instructions in Task 11: Install Azure CLI from the instructions before the lab exercises.
+    - If the output is not correct, review your steps from the instructions in Task 11: Install Azure CLI from the instructions before the lab exercises.
 
-2.  Also, check the installation of the Kubernetes CLI (kubectl) by running the following command:
-    ```
+1. Also, check the installation of the Kubernetes CLI (kubectl) by running the following command:
+
+    ```bash
     kubectl version
     ```
 
-    -   This should produce output similar to this:
+    - This should produce output similar to this:
 
         ![In this screenshot of the WSL console, kubectl version has been typed and run at the command prompt, which displays Kubernetes CLI client information.](images/Hands-onlabstep-by-step-ContainersandDevOpsimages/media/image74.png)
 
-    -   If the output is not correct, review the steps from the instructions in Task 12: Install Kubernetes CLI from the instructions before the lab exercises.
+    - If the output is not correct, review the steps from the instructions in Task 12: Install Kubernetes CLI from the instructions before the lab exercises.
 
-3.  Once you have installed and verified Azure CLI and Kubernetes CLI, login with the following command, following the instructions to complete your login as presented:
-    ```
+1. Once you have installed and verified Azure CLI and Kubernetes CLI, login with the following command, following the instructions to complete your login as presented:
+
+    ```bash
     az login
     ```
 
-4.  Verify that you are connected to the correct subscription with the following command to show your default subscription:
-    ```
+1. Verify that you are connected to the correct subscription with the following command to show your default subscription:
+
+    ```bash
     az account show
     ```
 
-    e.  If you are not connected to the correct subscription, list your subscriptions and then set the subscription by its id with the following commands (similar to what you did in cloud shell before the lab):
-    ```
-    az account list
+    If you are not connected to the correct subscription, list your subscriptions and then set the subscription by its id with the following commands (similar to what you did in cloud shell before the lab):
 
+    ```bash
+    az account list
     az account set --subscription {id}
     ```
 
-5.  Configure kubectl to connect to the Kubernetes cluster.
-    ```
+1. Configure kubectl to connect to the Kubernetes cluster.
+
+    ```bash
     az aks get-credentials --name fabmedical-SUFFIX --resource-group fabmedical-SUFFIX
     ```
 
-6.  Test that the configuration is correct by running a simple kubectl command to produce a list of nodes:
-    ```
+1. Test that the configuration is correct by running a simple kubectl command to produce a list of nodes:
+
+    ```bash
     kubectl get nodes
     ```
 
     ![In this screenshot of the WSL console, kubectl get nodes has been typed and run at the command prompt, which produces a list of nodes.](images/Hands-onlabstep-by-step-ContainersandDevOpsimages/media/image75.png)
 
-7.  Create an SSH tunnel linking a local port (8001) on your machine to port 80 on the management node of the cluster. Execute the command below replacing the values as follows:
+1. Create an SSH tunnel linking a local port (8001) on your machine to port 80 on the management node of the cluster. Execute the command below replacing the values as follows:
 
     ***NOTE:* After you run this command, it may work at first and later lose its connection, so you may have to run this again to reestablish the connection. If the Kubernetes dashboard becomes unresponsive in the browser this is an indication to return here and check your tunnel or rerun the command.**
 
@@ -1060,16 +1067,17 @@ In this task, you will gather the information you need about your Azure Containe
 
     ![In this screenshot of the WSL console, the output of the above command produces output similar to the following: Password for private key: Proxy running on 127.0.0.1:8001/ui Press CTRL+C to close the tunnel \... Starting to server on 127.0.0.1:8001](images/Hands-onlabstep-by-step-ContainersandDevOpsimages/media/image76.png)
 
-8.  Open a browser window and access the Kubernetes management dashboard at the Services view. To reach the dashboard, you must access the following address:
-    ```
+1. Open a browser window and access the Kubernetes management dashboard at the Services view. To reach the dashboard, you must access the following address:
+
+    ```bash
     http://localhost:8001
     ```
 
-9.  If the tunnel is successful, you will see the Kubernetes management dashboard. ![This is a screenshot of the Kubernetes management dashboard. Overview is highlighted on the left, and at right, kubernetes has a green check mark next to it. Below that, default-token-b9kf6 is listed under Secrets.](images/Hands-onlabstep-by-step-ContainersandDevOpsimages/media/image77.png)
+1. If the tunnel is successful, you will see the Kubernetes management dashboard. ![This is a screenshot of the Kubernetes management dashboard. Overview is highlighted on the left, and at right, kubernetes has a green check mark next to it. Below that, default-token-b9kf6 is listed under Secrets.](images/Hands-onlabstep-by-step-ContainersandDevOpsimages/media/image77.png)
 
 ### Task 2: Deploy a service using the Kubernetes management dashboard
 
-In this task, you will deploy the API application to the Azure Container Service cluster using the Kubernetes dashboard.
+In this task, you will deploy the API application to the Azure Kubernetes Service cluster using the Kubernetes dashboard.
 
 1.  From the Kubernetes dashboard, select Create in the top right corner.
 
