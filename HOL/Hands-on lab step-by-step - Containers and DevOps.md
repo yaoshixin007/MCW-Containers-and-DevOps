@@ -1637,19 +1637,19 @@ In this task, we will reconfigure the API deployment so that it will produce pod
 
 In this task, you will update the web service so that it supports dynamic discovery through the Azure load balancer.
 
-1.  From the navigation menu, select Deployments under Workloads. From the view's Deployments list select the web deployment.
+1. From the navigation menu, select Deployments under Workloads. From the view's Deployments list select the web deployment.
 
-2.  Select **Edit**.
+1. Select **Edit**.
 
-3.  From the Edit a Deployment dialog, scroll to the web containers spec as shown in the screenshot. Remove the hostPort entry for the web container's port mapping.
+1. From the Edit a Deployment dialog, scroll to the web containers spec as shown in the screenshot. Remove the hostPort entry for the web container's port mapping.
 
     ![This is a screenshot of the Edit a Deployment dialog box with various displayed information about spec, containers, ports, and env. The ports node, containerPort: 3001 and protocol: TCP are highlighted.](images/Hands-onlabstep-by-step-ContainersandDevOpsimages/media/image140.png)
 
-4.  Select **Update**.
+1. Select **Update**.
 
-5.  From the web Deployments view, select **Scale**. From the dialog presented enter 4 as the desired number of pods and select **OK**.
+1. From the web Deployments view, select **Scale**. From the dialog presented enter 4 as the desired number of pods and select **OK**.
 
-6.  Check the status of the scale out by refreshing the web deployments view. From the navigation menu, select Deployments from under Workloads. Select the web deployment and from this view you should see an error like that shown in the following screenshot.
+1. Check the status of the scale out by refreshing the web deployment's view. From the navigation menu, select Deployments from under Workloads. Select the web deployment and from this view you should see an error like that shown in the following screenshot.
 
     ![Deployments is selected under Workloads in the navigation menu on the left. On the right are the Details and New Replica Set boxes. The web deployment is highlighted in the New Replica Set box, indicating an error.](images/Hands-onlabstep-by-step-ContainersandDevOpsimages/media/image141.png)
 
