@@ -1079,95 +1079,138 @@ In this task, you will gather the information you need about your Azure Kubernet
 
 In this task, you will deploy the API application to the Azure Kubernetes Service cluster using the Kubernetes dashboard.
 
-1.  From the Kubernetes dashboard, select Create in the top right corner.
+1. From the Kubernetes dashboard, select Create in the top right corner.
 
-2.  From the Resource creation view, select Create an App
+1. From the Resource creation view, select Create an App
 
     ![This is a screenshot of the Deploy a Containerized App dialog box. Specify app details below is selected, and the fields have been filled in with the information that follows. At the bottom of the dialog box is a SHOW ADVANCED OPTIONS link.](images/Hands-onlabstep-by-step-ContainersandDevOpsimages/media/image78.png)
 
--   Enter "api" for the App name.
+    - Enter "api" for the App name.
 
--   Enter \[LOGINSERVER\]/fabmedical/content-api for the Container Image, replacing \[LOGINSERVER\] with your ACR login server, such as fabmedicalsol.azurecr.io
+    - Enter [LOGINSERVER]/content-api for the Container Image, replacing [LOGINSERVER] with your ACR login server, such as fabmedicalsol.azurecr.io
 
--   Set Number of pods to 1.
+    - Set Number of pods to 1.
 
--   Set Service to "Internal".
+    - Set Service to "Internal".
 
--   Use 3001 for Port and 3001 for Target port.
+    - Use 3001 for Port and 3001 for Target port.
 
-3.  Select SHOW ADVANCED OPTIONS.
+1. Select SHOW ADVANCED OPTIONS.
 
-    -   Enter 0.125 for the CPU requirement.
+    - Enter 0.125 for the CPU requirement.
 
-    -   Enter 128 for the Memory requirement.
+    - Enter 128 for the Memory requirement.
 
     ![In the Advanced options dialog box, the above information has been entered. At the bottom of the dialog box is a Deploy button.](images/Hands-onlabstep-by-step-ContainersandDevOpsimages/media/image79.png)
 
-4.  Select Deploy to initiate the service deployment based on the image. This can take a few minutes. In the meantime, you will be redirected to the Overview dashboard. Select the API deployment from the Overview dashboard to see the deployment in progress.
+1. Select Deploy to initiate the service deployment based on the image. This can take a few minutes. In the meantime, you will be redirected to the Overview dashboard. Select the API deployment from the Overview dashboard to see the deployment in progress.
 
     ![This is a screenshot of the Kubernetes management dashboard. Overview is highlighted on the left, and at right, a red arrow points to the api deployment.](images/Hands-onlabstep-by-step-ContainersandDevOpsimages/media/image80.png)
 
-5.  Configure the deployment to use a fixed host port for initial testing. Select Edit.
+1. Kubernetes indicates a problem with the api Replica Set.  Click the log icon to investigate.
 
-    ![In the Workloads \> Deployments \> api bar, the Edit icon is highlighted.](images/Hands-onlabstep-by-step-ContainersandDevOpsimages/media/image81.png)
+    ![Dashboard](images/Hands-onlabstep-by-step-ContainersandDevOpsimages/media/Ex2-Task1.5.png)
 
-6.  In the Edit a Deployment dialog you will see a list of settings shown in JSON format. Use the copy button to copy the text to your clipboard.
+1. The log indicates that the content-api application is once again failing because it cannot find a mongodb instance to communicate with.  You will resolve this issue by migrating your data workload to CosmosDb.
 
-    ![Screenshot of the Edit a Deployment dialog box.](images/Hands-onlabstep-by-step-ContainersandDevOpsimages/media/image82.png)
+    ![Dashboard](images/Hands-onlabstep-by-step-ContainersandDevOpsimages/media/Ex2-Task1.6.png)
 
-7.  Paste the contents into the text editor of your choice (notepad is shown here, MacOS users can use TextEdit).
+1. Open the Azure portal in your browser and click "+ Create a resource".  Search for "Database as a service for MongoDB", select the result and click "Create"
 
-    ![Screenshot of the Edit a Deployment contents pasted into Notepad text editor.](images/Hands-onlabstep-by-step-ContainersandDevOpsimages/media/image83.png)
+    ![Azure Portal](images/Hands-onlabstep-by-step-ContainersandDevOpsimages/media/Ex2-Task1.7.png)
 
-8.  Scroll down about half way to find the node "\$.spec.template.spec.containers\[0\]" as shown in the screenshot below.
+1. Configure Azure CosmosDb as follows and click "Create":
 
-    ![Screenshot of the deployment JSON code, with the \$.spec.template.spec.containers\[0\] section highlighted.](images/Hands-onlabstep-by-step-ContainersandDevOpsimages/media/image84.png)
+    - **ID**: fabmedical-SUFFIX
 
-9.  The containers spec has a single entry for the API container at the moment, you'll see the name of the container is "api" --- this is how you know you are looking at the correct container spec.
+    - **Subscription**: Use the same subscription you have used for all your other work.
 
-    Add the following JSON snippet below the "name" property in the container spec.
+    - **Resource Group**: fabmedical-SUFFIX
+
+    - **Geo-redundancy**: default (checked)
+
+    ![Azure Portal](images/Hands-onlabstep-by-step-ContainersandDevOpsimages/media/Ex2-Task1.8.png)
+
+1. Navigate to your resource group and find your new CosmosDb resource.  Click on the CosmosDb resource to view details.
+
+    ![Azure Portal](images/Hands-onlabstep-by-step-ContainersandDevOpsimages/media/Ex2-Task1.9.png)
+1. Under "Quick Start" select the "Node.js" tab and copy the Node 3.0 connection string.
+
+    ![Azure Portal](images/Hands-onlabstep-by-step-ContainersandDevOpsimages/media/Ex2-Task1.10.png)
+
+1. Update the provided connection string with a database "contentdb" and a replica set "globaldb"
+
+    > Note: User name and password redacted for brevity.
+
+    ```text
+    mongodb://<USERNAME>:<PASSWORD>@fabmedical-sol2.documents.azure.com:10255/contentdb?ssl=true&replicaSet=globaldb
     ```
-    "ports": [
-        {
-        "containerPort": 3001,
-        "hostPort": 3001
-        }
-    ],
+
+1. You will setup a Kubernetes secret to store the connection string, and configure the content-api application to access the secret.  First, you must base64 encode the secret value.  Open your WSL window and use the following command to encode the connection string and copy to your clipboard all in one step.
+
+    > If 'clip.exe' does not work, make sure your WSL window is not logged into the build agent over SSH.
+
+    ```bash
+    echo -n "<connection string value>" | base64 -w 0 - | clip.exe
     ```
 
-    Your container spec should now look like this:
+1. Return to the Kubernetes UI in your browser and click "+ Create".  Update the following YAML with the encoded connection string from your clipboard, paste the YAML data into the create dialog and click "Upload".
 
-    ![Screenshot of the deployment JSON code, with the \$.spec.template.spec.containers\[0\] section highlighted, showing the updated values for containerPort and hostPost, both set to port 3001.](images/Hands-onlabstep-by-step-ContainersandDevOpsimages/media/image85.png)
+    ```yaml
+    apiVersion: v1
+    kind: Secret
+    metadata:
+        name: mongodb
+    type: Opaque
+    data:
+        db: <base64 encoded value>
+    ```
 
-10. Set "\$.spec.replicas" to 0 so that you can redeploy all the API pods. (This is the outer "deployment" spec).
+    ![Kubernetes](images/Hands-onlabstep-by-step-ContainersandDevOpsimages/media/Ex2-Task1.13.png)
 
-    ![A red arrow point at replicas: 0 below the spec node in the deployment JSON screenshot.](images/Hands-onlabstep-by-step-ContainersandDevOpsimages/media/image86.png)
+1. Scroll down in the Kubernetes dashboard until you can see "Secrets" in the left hand menu.  Click it.
 
-11. Copy the updated JSON document from notepad into the clipboard. Return to the Kubernetes dashboard, which should still be viewing the "api" deployment.
+    ![Kubernetes](images/Hands-onlabstep-by-step-ContainersandDevOpsimages/media/Ex2-Task1.14.png)
 
-    Click Edit.
+1. View the details for the "mongodb" secret.  Click the eyeball icon to show the secret.
 
-    ![In the Workloads \> Deployments \> api bar, the Edit icon is highlighted.](images/Hands-onlabstep-by-step-ContainersandDevOpsimages/media/image87.png)
+    ![Kubernetes](images/Hands-onlabstep-by-step-ContainersandDevOpsimages/media/Ex2-Task1.15.png)
 
-    Paste the updated JSON document.
+1. Next, download the api deployment configuration using the following command in your WSL window:
 
-    Click Update.
+    ```bash
+    kubectl get -o=yaml --export=true deployment api > api.deployment.yml
+    ```
 
-    ![UPDATE is highlighted in the Edit a Deployment dialog box.](images/Hands-onlabstep-by-step-ContainersandDevOpsimages/media/image88.png)
+1. Edit the downloaded file:
 
-12. Now, select **Scale** and, from the Scale a Deployment dialog, set the desired number of pods to 1 and select **OK**.
+    ```bash
+    vi api.deployment.yml
+    ```
 
-    ![In the Workloads \> Deployments \> api bar, the Scale icon is highlighted.](images/Hands-onlabstep-by-step-ContainersandDevOpsimages/media/image89.png)
+    Add the following environment configuration to the container spec, below the "image" property:
 
-    ![In the Scale a Deployment dialog box, 1 is entered in the Desired number of pods box.](images/Hands-onlabstep-by-step-ContainersandDevOpsimages/media/image90.png)
+    ```yaml
+    - image: fabmedicalsol2.azurecr.io/fabmedical/content-api
+      env:
+        - name: MONGODB_CONNECTION
+          valueFrom:
+            secretKeyRef:
+              name: mongodb
+              key: db
+    ```
 
-13. From the navigation menu, select the **Workloads** view.
+    ![Kubernetes](images/Hands-onlabstep-by-step-ContainersandDevOpsimages/media/Ex2-Task1.17.png)
 
-    ![A red arrow points at Workloads, which is selected in the navigation menu. Deployments is selected below that.](images/Hands-onlabstep-by-step-ContainersandDevOpsimages/media/image91.png)
+1. Update the api deployment by using `kubectl` to apply the new configuration.
 
-14. From the Workloads view, you can see the deployed objects and the replica sets that correspond to your two API deployments After the deployment is successful, it will transition to a Running state as shown in the following screenshot.
+    ```bash
+    kubectl apply -f ./api.deployment.yml
+    ```
 
-    ![Workloads is selected in the navigation menu on the left, and at right are three boxes that display various information regarding deployed objects, pods, and replica sets.](images/Hands-onlabstep-by-step-ContainersandDevOpsimages/media/image92.png)
+1. Click "Deployments" then "api" to view the api deployment, it now has a healthy instance and the logs indicate it has connected to mongodb.
+
+    ![Kubernetes](images/Hands-onlabstep-by-step-ContainersandDevOpsimages/media/Ex2-Task1.19.png)
 
 ### Task 3: Deploy a service using Kubernetes REST API
 
