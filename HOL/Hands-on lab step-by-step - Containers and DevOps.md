@@ -1533,11 +1533,11 @@ In this task, you will try to increase the number of instances for the API servi
 
     ![In the Scale a Deployment dialog box, 4 is entered in the Desired number of pods box.](images/Hands-onlabstep-by-step-ContainersandDevOpsimages/media/image119.png)
 
-4.  From the navigation menu, select Services view under Discovery and Load Balancing. Select the api service from the Services list. From the api service view, you'll see it has two healthy instances and two unhealthy (or possibly pending depending on timing) instances.
+1. From the navigation menu, select Services view under Discovery and Load Balancing. Select the api service from the Services list. From the api service view, you'll see it has two healthy instances and two unhealthy (or possibly pending depending on timing) instances.
 
     ![In the api service view, various information is displayed in the Details box and in the Pods box. At this time, we are unable to capture all of the information in the window. Future versions of this course should address this.](images/Hands-onlabstep-by-step-ContainersandDevOpsimages/media/image120.png)
 
-5.  After a few minutes, select Workloads from the navigation menu. From this view, you should see an alert reported for the api deployment.
+1. After a few minutes, select Workloads from the navigation menu. From this view, you should see an alert reported for the api deployment.
 
     ![Workloads is selected in the navigation menu. At right, an exclamation point (!) appears next to the api deployment listing in the Deployments box. At this time, we are unable to capture all of the information in the window. Future versions of this course should address this.](images/Hands-onlabstep-by-step-ContainersandDevOpsimages/media/image121.png)
 
@@ -1553,51 +1553,51 @@ In this task, you will try to increase the number of instances for the API servi
 
 In this task, you will restart containers and validate that the restart does not impact the running service.
 
-1.  From the navigation menu on the left, select Services view under Discovery and Load Balancing. From the Services list, select the external endpoint hyperlink for the web service and visit the stats page by adding /stats.html to the URL. Keep this open and handy to be refreshed as you complete the steps that follow.
+1. From the navigation menu on the left, select Services view under Discovery and Load Balancing. From the Services list, select the external endpoint hyperlink for the web service and visit the stats page by adding /stats.html to the URL. Keep this open and handy to be refreshed as you complete the steps that follow.
 
     ![In the Services box, a red arrow points at the hyperlinked external endpoint for the web service. ](images/Hands-onlabstep-by-step-ContainersandDevOpsimages/media/image112.png)
 
     ![The Stats page is visible in this screenshot of the Contoso Neuro 2017 web application. At this time, we are unable to capture all of the information in the window. Future versions of this course should address this.](images/Hands-onlabstep-by-step-ContainersandDevOpsimages/media/image123.png)
 
-2.  From the navigation menu, select Workloads\>Deployments. From Deployments list, select the API deployment.
+1. From the navigation menu, select Workloads>Deployments. From Deployments list, select the API deployment.
 
     ![A red arrows points at Deployments, which is selected below Workloads in the navigation menu. At right, the API deployment is highlighted in the Deployments box.](images/Hands-onlabstep-by-step-ContainersandDevOpsimages/media/image124.png)
 
-3.  From the API deployment view, select **Scale** and from the dialog presented, enter 4 for the desired number of pods. Select **OK**.
+1. From the API deployment view, select **Scale** and from the dialog presented, enter 4 for the desired number of pods. Select **OK**.
 
-4.  From the navigation menu, select Workloads\>Replica Sets. Select the api replica set and, from the Replica Set view, you will see that two pods cannot deploy.
+1. From the navigation menu, select Workloads>Replica Sets. Select the api replica set and, from the Replica Set view, you will see that two pods cannot deploy.
 
     ![Replica Sets is selected under Workloads in the navigation menu on the left. On the right are the Details and Pods boxes. In the Pods box, two pods have exclamation point (!) alerts and messages indicating that they cannot deploy.](images/Hands-onlabstep-by-step-ContainersandDevOpsimages/media/image125.png)
 
-5.  Return to the browser tab with the web application stats page loaded. Refresh the page over and over. You will not see any errors, but you will see the api host name change between the two api pod instances periodically. The task id and pid might also change between the two api pod instances.
+1. Return to the browser tab with the web application stats page loaded. Refresh the page over and over. You will not see any errors, but you will see the api host name change between the two api pod instances periodically. The task id and pid might also change between the two api pod instances.
 
     ![On the Stats page in the Contoso Neuro 2017 web application, two different api host name values are highlighted. At this time, we are unable to capture all of the information in the window. Future versions of this course should address this.](images/Hands-onlabstep-by-step-ContainersandDevOpsimages/media/image126.png)
 
-6.  After refreshing enough times to see that the hostName value is changing, and the service remains healthy, return to the Replica Sets view for the API. From the navigation menu, select Replica Sets under Workloads and select the API replica set.
+1. After refreshing enough times to see that the hostName value is changing, and the service remains healthy, return to the Replica Sets view for the API. From the navigation menu, select Replica Sets under Workloads and select the API replica set.
 
-7.  From this view, take note that the hostName value shown in the web application stats page matches the pod names for the pods that are running.
+1. From this view, take note that the hostName value shown in the web application stats page matches the pod names for the pods that are running.
 
     ![Two different pod names are highlighted in the Pods box, which match the values from the previous Stats page.](images/Hands-onlabstep-by-step-ContainersandDevOpsimages/media/image127.png)
 
-8.  Note the remaining pods are still pending, since there are not enough port resources available to launch another instance. Make some room by deleting a running instance. Select the context menu and choose Delete for one of the healthy pods.
+1. Note the remaining pods are still pending, since there are not enough port resources available to launch another instance. Make some room by deleting a running instance. Select the context menu and choose Delete for one of the healthy pods.
 
     ![A red arrow points at the context menu for the previous pod names that were highlighted in the Pod box. Delete is selected and highlighted in the submenu.](images/Hands-onlabstep-by-step-ContainersandDevOpsimages/media/image128.png)
 
-9.  Once the running instance is gone, Kubernetes will be able to launch one of the pending instances. However, because you set the desired size of the deploy to 4, Kubernetes will add a new pending instance. Removing a running instance allowed a pending instance to start, but in the end, the number of pending and running instances is unchanged.
+1. Once the running instance is gone, Kubernetes will be able to launch one of the pending instances. However, because you set the desired size of the deploy to 4, Kubernetes will add a new pending instance. Removing a running instance allowed a pending instance to start, but in the end, the number of pending and running instances is unchanged.
 
     ![The first row of the Pods box is highlighted, and the pod has a green check mark and is running.](images/Hands-onlabstep-by-step-ContainersandDevOpsimages/media/image129.png)
 
-10. From the navigation menu, select Deployments under Workloads. From the view's Deployments list select the API deployment.
+1. From the navigation menu, select Deployments under Workloads. From the view's Deployments list select the API deployment.
 
-11. From the API Deployment view, select Scale and enter 1 as the desired number of pods. Select OK.
+1. From the API Deployment view, select Scale and enter 1 as the desired number of pods. Select OK.
 
     ![In the Scale a Deployment dialog box, 1 is entered in the Desired number of pods box.](images/Hands-onlabstep-by-step-ContainersandDevOpsimages/media/image130.png)
 
-12. Return to the web site's stats.html page in the browser, and refresh while this is scaling down. You'll notice that only one API host name shows up, even though you may still see several running pods in the API replica set view. Even though several pods are running, Kubernetes will no longer send traffic to the pods it has selected to scale down. In a few moments, only one pod will show in the API replica set view.
+1. Return to the web site's stats.html page in the browser, and refresh while this is scaling down. You'll notice that only one API host name shows up, even though you may still see several running pods in the API replica set view. Even though several pods are running, Kubernetes will no longer send traffic to the pods it has selected to scale down. In a few moments, only one pod will show in the API replica set view.
 
     ![Replica Sets is selected under Workloads in the navigation menu on the left. On the right are the Details and Pods boxes. Only one API host name, which has a green check mark and is listed as running, appears in the Pods box.](images/Hands-onlabstep-by-step-ContainersandDevOpsimages/media/image131.png)
 
-13. From the navigation menu, select Workloads. From this view, note that there is only one API pod now.
+1. From the navigation menu, select Workloads. From this view, note that there is only one API pod now.
 
     ![Workloads is selected in the navigation menu on the left. On the right are the Deployment, Pods, and Replica Sets boxes. At this time, we are unable to capture all of the information in the window. Future versions of this course should address this.](images/Hands-onlabstep-by-step-ContainersandDevOpsimages/media/image132.png)
 
@@ -1605,77 +1605,35 @@ In this task, you will restart containers and validate that the restart does not
 
 **Duration**: 45 minutes
 
-Until now there have been some restrictions to the scale properties of the service. In this exercise, you will configure a replica set to create pods that use dynamic port mappings to eliminate the port resource constraint during scale activities.
+In the previous exercise we introduced a restriction to the scale properties of the service. In this exercise, you will configure the api deployments to create pods that use dynamic port mappings to eliminate the port resource constraint during scale activities.
 
 Kubernetes services can discover the ports assigned to each pod, allowing you to run multiple instances of the pod on the same agent node --- something that is not possible when you configure a specific static port (such as 3001 for the API service).
 
-### Task 1: Create a public load balancer for a service
+### Task 1: Scale a service without port constraints
 
-Any external access to Kubernetes pods requires a load balancer. Because of this, you defined the web service with the type LoadBalancer in the YAML description, and you can access the web application using the public IP. In this task, you will change the API service type to LoadBalancer. When you change the type of the service to LoadBalancer, the AKS will create a public-facing load balancer with a public IP address.
+In this task, we will reconfigure the API deployment so that it will produce pods that choose a dynamic hostPort for improved scalability.
 
-1.  From the navigation menu, select Services under Discovery and Load Balancing. From the view's Services list, select the API service.
+1. From the navigation menu select Deployments under Workloads. From the view's Deployments list select the API deployment.
 
-2.  Select Edit.
+1. Select Edit.
 
-3.  From the Edit a Service dialog, scroll down to the type setting and change it from ClusterIP to LoadBalancer. Select Update to save the changes.
+1. From the Edit a Deployment dialog, do the following:
 
-    ![This is a screenshot of the Edit a Service dialog box with various displayed information about spec, ports, and selector. Under the selector node, type: LoadBalancer is highlighted.](images/Hands-onlabstep-by-step-ContainersandDevOpsimages/media/image133.png)
+    - Scroll to the first spec node that describes replicas as shown in the screenshot. Set the value for replicas to 4.
 
-4.  The API service will enter a pending state.
-
-    ![In the Services box, the API service (second row) is in a pending state.](images/Hands-onlabstep-by-step-ContainersandDevOpsimages/media/image134.png)
-
-5.  When the API service is ready again, it will have an external endpoint. You can select the hyperlink and navigate to the http://\<external IP\>:3001/stats path to see a JSON response. For example, considering the screenshot, the following URL would be used:
-
-    http://40.68.255.235:3001/stats
-
-    ![In the Services box, the API service (second row) has a green check mark and a hyperlinked external endpoint of http://40.68.255.235:3001.](images/Hands-onlabstep-by-step-ContainersandDevOpsimages/media/image135.png)
-
-    ![This is a screenshot of the JSON response at http://40.68.255.235:3001/stats. At this time, we are unable to capture all of the information in the window. Future versions of this course should address this.](images/Hands-onlabstep-by-step-ContainersandDevOpsimages/media/image136.png)
-
-### Task 2: Scale a service without port constraints
-
-In this task, we will reconfigure the API deployment so that it will produce pods that choose a dynamic hostPort for routing from the Azure load balancer.
-
-1.  From the navigation menu select Deployments under Workloads. From the view's Deployments list select the API deployment.
-
-2.  Select Edit.
-
-3.  From the Edit a Deployment dialog, do the following:
-
-    -   Scroll to the first spec node that describes replicas as shown in the screenshot. Set the value for replicas to 4.
-
-    -   Within the replicas spec, beneath the template node, find the "api" containers spec as shown in the screenshot. Remove the hostPort entry for the API container's port mapping.
+    - Within the replicas spec, beneath the template node, find the "api" containers spec as shown in the screenshot. Remove the hostPort entry for the API container's port mapping.
 
         ![This is a screenshot of the Edit a Deployment dialog box with various displayed information about spec, selector, and template. Under the spec node, replicas: 4 is highlighted. Further down, ports are highlighted.](images/Hands-onlabstep-by-step-ContainersandDevOpsimages/media/image137.png)
 
-4.  Select **Update**. New pods will now choose a dynamic port.
+1. Select **Update**. New pods will now choose a dynamic port.
 
-5.  The API service can now scale to 4 pods since it is no longer constrained to an instance per node -- a previous limitation while using port 3001. ![Replica Sets is selected under Workloads in the navigation menu on the left. On the right, four pods are listed in the Pods box, and all have green check marks and are listed as Running.](images/Hands-onlabstep-by-step-ContainersandDevOpsimages/media/image138.png)
+1. The API service can now scale to 4 pods since it is no longer constrained to an instance per node -- a previous limitation while using port 3001.
 
-6.  Return to the browser and refresh the API stats endpoint previously loaded. Now open a second browser and visit the API stats endpoint, in the second browser you should see a different hostName in the JSON produced by the stats endpoint.
+    ![Replica Sets is selected under Workloads in the navigation menu on the left. On the right, four pods are listed in the Pods box, and all have green check marks and are listed as Running.](images/Hands-onlabstep-by-step-ContainersandDevOpsimages/media/image138.png)
 
-### Task 3: Update a service to support dynamic service discovery without a load balancer
+1. Return to the browser and refresh the stats.html page.  You should see all 4 pods serve responses as you refresh.
 
-The API service does not need a public endpoint to take advantage of the dynamic port discovery. Earlier in this lab you added a public load balancer with an external endpoint to directly observe dynamic discovery to learn about constraints. Now you will restore the API service to its original configuration in preparation for the following tasks that show off how seamlessly Kubernetes supports scaling services for internal endpoints as well.
-
-1.  From the navigation menu, select Services under Discovery and Load Balancing. From the view's Services list select the API service.
-
-2.  Select **Edit**.
-
-3.  From the Edit a Service dialog, do the following:
-
-    -   Scroll down to the *type* setting and change it from LoadBalancer to ClusterIP.
-
-    -   Remove the *nodePort* setting from the service port mapping.
-
-    -   Select **Update**.
-
-        ![This is a screenshot of the Edit a Service dialog box with various displayed information about spec, ports, and selector. The ports node is highlighted, and the clusterIP and type are highlighted.](images/Hands-onlabstep-by-step-ContainersandDevOpsimages/media/image139.png)
-
-    When the deployment update is complete, and the API service is ready, you will no longer be able to access /stats from the public endpoint. In the next task, you will update the web service to support dynamic discovery, but you will still be able to access the web application path at /stats.html as before and observe hostName and taskId changes to reflect the four API pods being called as you refresh.
-
-### Task 4: Update an external service to support dynamic discovery with a load balancer
+### Task 2: Update an external service to support dynamic discovery with a load balancer
 
 In this task, you will update the web service so that it supports dynamic discovery through the Azure load balancer.
 
@@ -1697,7 +1655,7 @@ In this task, you will update the web service so that it supports dynamic discov
 
 Like the API deployment, the web deployment used a fixed *hostPort*, and your ability to scale was limited by the number of available agent nodes. However, after resolving this issue for the web service by removing the *hostPort* setting, the web deployment is still unable to scale past two pods due to CPU constraints. The deployment is requesting more CPU than the web application needs, so you will fix this constraint in the next task.
 
-### Task 5: Adjust CPU constraints to improve scale
+### Task 3: Adjust CPU constraints to improve scale
 
 In this task, you will modify the CPU requirements for the web service so that it can scale out to more instances.
 
@@ -1719,7 +1677,7 @@ In this task, you will modify the CPU requirements for the web service so that i
 
 7.  Return to the browser tab with the web application loaded and refresh the stats page at /stats.html to watch the display update to reflect the different api pods by observing the host name refresh.
 
-### Task 6: Perform a rolling update
+### Task 4: Perform a rolling update
 
 In this task, you will edit the web application source code and update the Docker image used by the deployment. Then you will perform a rolling update to demonstrate how to deploy a code change in a production scenario.
 
