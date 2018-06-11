@@ -1659,23 +1659,23 @@ Like the API deployment, the web deployment used a fixed *hostPort*, and your ab
 
 In this task, you will modify the CPU requirements for the web service so that it can scale out to more instances.
 
-1.  From the navigation menu, select Deployments under Workloads. From the view's Deployments list select the web deployment.
+1. From the navigation menu, select Deployments under Workloads. From the view's Deployments list select the web deployment.
 
-2.  Select **Edit**.
+1. Select **Edit**.
 
-3.  From the Edit a Deployment dialog, find the *cpu* resource requirements for the web container. Change this value to "125m".
+1. From the Edit a Deployment dialog, find the *cpu* resource requirements for the web container. Change this value to "125m".
 
     ![This is a screenshot of the Edit a Deployment dialog box with various displayed information about ports, env, and resources. The resources node , with cpu: 125m selected, is highlighted.](images/Hands-onlabstep-by-step-ContainersandDevOpsimages/media/image142.png)
 
-4.  Select **Update** to save the changes and update the deployment.
+1. Select **Update** to save the changes and update the deployment.
 
-5.  From the navigation menu, select Replica Sets under Workloads. From the view's Replica Sets list select the web replica set.
+1. From the navigation menu, select Replica Sets under Workloads. From the view's Replica Sets list select the web replica set.
 
-6.  When the deployment update completes, four web pods should be shown in running state.
+1. When the deployment update completes, four web pods should be shown in running state.
 
     ![Four web pods are listed in the Pods box, and all have green check marks and are listed as Running.](images/Hands-onlabstep-by-step-ContainersandDevOpsimages/media/image143.png)
 
-7.  Return to the browser tab with the web application loaded and refresh the stats page at /stats.html to watch the display update to reflect the different api pods by observing the host name refresh.
+1. Return to the browser tab with the web application loaded and refresh the stats page at /stats.html to watch the display update to reflect the different api pods by observing the host name refresh.
 
 ### Task 4: Perform a rolling update
 
