@@ -41,7 +41,7 @@ Microsoft and the trademarks listed at https://www.microsoft.com/en-us/legal/int
     - [Exercise 2: Deploy the solution to Azure Kubernetes Service](#exercise-2-deploy-the-solution-to-azure-container-service)
         - [Task 1: Tunnel into the Azure Kubernetes Service cluster](#task-1-tunnel-into-the-azure-container-service-cluster)
         - [Task 2: Deploy a service using the Kubernetes management dashboard](#task-2-deploy-a-service-using-the-kubernetes-management-dashboard)
-        - [Task 3: Deploy a service using Kubernetes REST API](#task-3-deploy-a-service-using-kubernetes-rest-api)
+        - [Task 3: Deploy a service using kubectl](#task-3-deploy-a-service-using-kubernetes-rest-api)
         - [Task 4: Explore service instance logs and resolve an issue](#task-4-explore-service-instance-logs-and-resolve-an-issue)
         - [Task 5: Test the application in a browser](#task-5-test-the-application-in-a-browser)
     - [Exercise 3: Scale the application and test HA](#exercise-3-scale-the-application-and-test-ha)
@@ -1212,21 +1212,20 @@ In this task, you will deploy the API application to the Azure Kubernetes Servic
 
     ![Kubernetes](images/Hands-onlabstep-by-step-ContainersandDevOpsimages/media/Ex2-Task1.19.png)
 
-### Task 3: Deploy a service using Kubernetes REST API
+### Task 3: Deploy a service using kubectl
 
-In this task, you will make HTTP requests using kubectl. These requests will deploy the web application using the REST API.
+In this task, deploy the web service using `kubectl`.
 
-1.  Open a **new** WSL console.
+1. Open a **new** WSL console.
 
-2.  Create a text file in this directory called kubernetes-web.yaml using Vim and press the "i\" key to go into edit mode.
+1. Create a text file called web.deployment.yml using Vim and press the "i" key to go into edit mode.
 
-    vi kubernetes-web.yaml
-
-    ```text
+    ```bash
+    vi web.deployment.yml
     <i>
     ```
 
-3.  Copy and paste the following text into the editor.
+1. Copy and paste the following text into the editor.
 
     **NOTE: Be sure to copy and paste only the contents of the code block carefully to avoid introducing any special characters.**
 
@@ -1234,109 +1233,115 @@ In this task, you will make HTTP requests using kubectl. These requests will dep
     apiVersion: extensions/v1beta1
     kind: Deployment
     metadata:
-    labels:
-        app: web
-    name: web
+      labels:
+          app: web
+      name: web
     spec:
-    replicas: 1
-    selector:
-        matchLabels:
+      replicas: 1
+      selector:
+          matchLabels:
             app: web
-    strategy:
-        rollingUpdate:
+      strategy:
+          rollingUpdate:
             maxSurge: 1
             maxUnavailable: 1
-        type: RollingUpdate
-    template:
-        metadata:
+          type: RollingUpdate
+      template:
+          metadata:
             labels:
                 app: web
             name: web
-        spec:
+          spec:
             containers:
             - image: [LOGINSERVER].azurecr.io/content-web
-            env:
+              env:
                 - name: CONTENT_API_URL
-                value: http://api:3001
-            livenessProbe:
+                  value: http://api:3001
+              livenessProbe:
                 httpGet:
                     path: /
-                    port: 80
+                    port: 3000
                 initialDelaySeconds: 30
                 periodSeconds: 20
                 timeoutSeconds: 10
                 failureThreshold: 3
-            imagePullPolicy: Always
-            name: web
-            ports:
-                - containerPort: 80
-                hostPort: 80
-                protocol: TCP
-            resources:
+              imagePullPolicy: Always
+              name: web
+              ports:
+                - containerPort: 3000
+                  hostPort: 80
+                  protocol: TCP
+              resources:
                 requests:
                     cpu: 1000m
                     memory: 128Mi
-            securityContext:
+              securityContext:
                 privileged: false
-            terminationMessagePath: /dev/termination-log
-            terminationMessagePolicy: File
+              terminationMessagePath: /dev/termination-log
+              terminationMessagePolicy: File
             dnsPolicy: ClusterFirst
             restartPolicy: Always
             schedulerName: default-scheduler
             securityContext: {}
             terminationGracePeriodSeconds: 30
-    ---
-    apiVersion: v1
-    kind: Service
-    metadata:
-    labels:
-        app: web
-    name: web
-    spec:
-    ports:
-        - name: web-traffic
-        port: 80
-        protocol: TCP
-        targetPort: 3000
-    selector:
-        app: web
-    sessionAffinity: None
-    type: LoadBalancer
     ```
 
-4.  Edit this file and update the \[LOGINSERVER\] entry to match the name of your ACR login server.
+1. Edit this file and update the [LOGINSERVER] entry to match the name of your ACR login server.
 
-5.  Press the Escape key and type ":wq" and then press the Enter key to save and close the file.
-    ```
+1. Press the Escape key and type ":wq" and then press the Enter key to save and close the file.
+
+    ```text
     <Esc>
-
     :wq
-
     <Enter>
     ```
 
-6.  Type the following command to deploy the application described by the YAML file. You will receive a message indicating the items kubectl has created --- a web deployment and a web service.
+1. Create a text file called web.service.yml using Vim and press the "i" key to go into edit mode.
+
+    ```bash
+    vi web.service.yml
     ```
-    kubectl apply -f kubernetes-web.yaml
+
+1. Copy and paste the following text into the editor.
+
+    **NOTE: Be sure to copy and paste only the contents of the code block carefully to avoid introducing any special characters.**
+
+    ```yaml
+    apiVersion: v1
+    kind: Service
+    metadata:
+      labels:
+          app: web
+      name: web
+    spec:
+      ports:
+        - name: web-traffic
+          port: 80
+          protocol: TCP
+          targetPort: 3000
+      selector:
+          app: web
+      sessionAffinity: None
+      type: LoadBalancer
+    ```
+
+1. Press the Escape key and type ":wq" and then press the Enter key to save and close the file.
+
+1. Type the following command to deploy the application described by the YAML files. You will receive a message indicating the items kubectl has created a web deployment and a web service.
+
+    ```bash
+    kubectl create --save-config=true -f web.deployment.yml -f web.service.yml
     ```
 
     ![In this screenshot of the WSL console, kubectl apply -f kubernetes-web.yaml has been typed and run at the command prompt. Messages about web deployment and web service creation appear below.](images/Hands-onlabstep-by-step-ContainersandDevOpsimages/media/image93.png)
 
-7.  Return to the browser where you have the Kubernetes management dashboard open. From the navigation menu, select Services view under Discovery and Load Balancing. From the Services view, select the web service and, from this view, you will see the web service deploying. This deployment can take a few minutes. In the meantime, continue to the next step.
+1. Return to the browser where you have the Kubernetes management dashboard open. From the navigation menu, select Services view under Discovery and Load Balancing. From the Services view, select the web service and, from this view, you will see the web service deploying. This deployment can take a few minutes. When it completes you should be able to access the website via an external endpoint.
 
     ![In the Kubernetes management dashboard, Services is selected below Discovery and Load Balancing in the navigation menu. At right are three boxes that display various information about the web service deployment: Details, Pods, and Events. At this time, we are unable to capture all of the information in the window. Future versions of this course should address this.](images/Hands-onlabstep-by-step-ContainersandDevOpsimages/media/image94.png)
 
-8.  From the navigation menu, select Services view under Discovery and Load Balancing. Select the API service. Take note of its health status. It will be healthy as indicated by a restart count of 0.
+1. Click the speakers and sessions links, and note that no data is displayed, although we have connected to our CosmosDb instance, there is no data loaded.  You will resolve this by running the content-init application as a Kubernetes Job.
 
-    ![In the Kubernetes management dashboard, Services is selected below Discovery and Load Balancing in the navigation menu. At right are three boxes that display various information about the API service deployment: Details, Pods, and Events. Restarts 0 is highlighted in the Pods box.](images/Hands-onlabstep-by-step-ContainersandDevOpsimages/media/image95.png)
-
-9.  From the navigation menu, select Services view under Discovery and Load Balancing. Select the web service. At some point, if you wait long enough, you will see it is in an unhealthy state (indicated by restarts in the screenshot below). This will only happen after you fail to deploy three consecutive times, so you should not wait for this state. In the meantime, it remains in the Deploying state. You will resolve this in the next task.
-
-    ![In the Kubernetes management dashboard, Services is selected below Discovery and Load Balancing in the navigation menu. At right are three boxes that display various information about the web service deployment: Details, Pods, and Events. Restarts 2 is highlighted in the Pods box.](images/Hands-onlabstep-by-step-ContainersandDevOpsimages/media/image96.png)
-
-10. From the navigation menu, select Services view under Discovery and Load Balancing. On the Services view, you will see two services deployed. Note that the "kubernetes" API service is always running by default to allow you to manage the cluster.
-
-    ![In the Kubernetes management dashboard, Services is selected below Discovery and Load Balancing in the navigation menu. At right is a Services box in which you can see information about three deployed services: web, api, and kubernetes.](images/Hands-onlabstep-by-step-ContainersandDevOpsimages/media/image97.png)
+    ![Browser](images/Hands-onlabstep-by-step-ContainersandDevOpsimages/media/Ex2-Task3.11.png)
 
 ### Task 4: Explore service instance logs and resolve an issue
 
