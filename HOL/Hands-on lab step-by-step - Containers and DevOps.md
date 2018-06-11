@@ -1894,6 +1894,182 @@ In this task, you will edit the web application source code to add Application I
 
 In this task you will setup a Kubernetes Ingress to take advantage of path based routing and TLS termination.
 
+1. Install helm, a package manager for Kubernetes.  Run the following commands in your WSL window.
+
+    ```bash
+    curl https://raw.githubusercontent.com/kubernetes/helm/master/scripts/get > get_helm.sh
+    chmod 700 get_helm.sh
+    ./get_helm.sh
+    ```
+
+1. Setup your local config and deploy the server side helm component `tiller`.
+
+    ```bash
+    helm init --upgrade --service-account default
+    ```
+
+1. Update your helm package list.
+
+    ```bash
+    helm repo update
+    ```
+
+1. Install the ingress controller resource, to handle ingress requests when they come in.  The ingress controller will receive a public IP of its own on the Azure Load Balancer, and be able to handle requests for multiple servicers over port 80 and 443.
+
+    ```bash
+    helm install stable/nginx-ingress --namespace kube-system --set rbac.create=false --set rbac.createRole=false --set rbac.createClusterRole=false
+    ```
+
+1. Set a DNS prefix on the IP address allocated to the ingress controller.  Visit the `kube-system` namespace in your kubeneretes dashboard to find the IP
+
+    http://localhost:8001/#!/service?namespace=kube-system
+
+    ![Kubernetes Dashboard](images/Hands-onlabstep-by-step-ContainersandDevOpsimages/media/Ex4-Task5.5.png)
+
+1. Create a script to update the public DNS name for the IP.
+
+    ```bash
+    vi update-ip.sh
+    <i>
+    ```
+
+    Paste the following as the contents and update the IP and SUFFIX values
+
+    ```bash
+    #!/bin/bash
+
+    # Public IP address
+    IP="[INGRESS PUBLIC IP]"
+
+    # Name to associate with public IP address
+    DNSNAME="fabmedical-[SUFFIX]-ingress"
+
+    # Get the resource-id of the public ip
+    PUBLICIPID=$(az network public-ip list --query "[?ipAddress!=null]|[?contains(ipAddress, '$IP')].[id]" --output tsv)
+
+    # Update public ip address with dns name
+    az network public-ip update --ids $PUBLICIPID --dns-name $DNSNAME
+    ```
+
+    ![VIM](images/Hands-onlabstep-by-step-ContainersandDevOpsimages/media/Ex4-Task5.6.png)
+
+1. Use `<esc>:wq` to save your script and exit VIM.
+
+1. Run the update script
+
+    ```bash
+    bash ./update-ip.sh
+    ```
+
+1. Verify the IP update by visiting the url in your browser.
+
+    > Note, it is normal to receive a 404 message at this time.
+
+    ```text
+    http://fabmedical-[SUFFIX]-ingress.eastus.cloudapp.azure.com/
+    ```
+
+    ![Browser](images/Hands-onlabstep-by-step-ContainersandDevOpsimages/media/Ex4-Task5.9.png)
+
+1. Use helm to install `cert-manager` a tool that can provision SSL certificates automatically from letsencrypt.org.
+
+    ```bash
+    helm install --name cert-manager --namespace kube-system --set rbac.create=false stable/cert-manager
+    ```
+
+1. Cert manager will need a custom ClusterIssuer resource to handle requesting SSL certificates.
+
+    ```bash
+    vi clusterissuer.yml
+    <i>
+    ```
+
+    The following resource configuration should work as is:
+
+    ```yaml
+    apiVersion: certmanager.k8s.io/v1alpha1
+    kind: ClusterIssuer
+    metadata:
+      name: letsencrypt-prod
+    spec:
+      acme:
+        # The ACME server URL
+        server: https://acme-v02.api.letsencryptorg/diretory
+        # Email address used for ACME registration
+        email: user@example.com
+        # Name of a secret used to store theACMEaccount private key
+        privateKeySecretRef:
+          name: letsencrypt-prod
+        # Enable HTTP01 validations
+        http01: {}
+    ```
+
+1. Save the file with `<esc>:wq`.
+
+1. Create the issuer using kubectl
+
+    ```bash
+    kubectl create --save-config=true -f clusterissuer.yml
+    ```
+
+1. Update the cert-manager to use the ClusterIssuer by default.
+
+    ```bash
+    helm upgrade cert-manager stable/cert-manager --namespace kube-system --set rbac.create=false --set ingressShim.defaultIssuerName=letsencrypt-prod --set ingressShim.defaultIssuerKind=ClusterIssuer
+    ```
+1. Now you can create an ingress resource for the content applications.
+
+    ```bash
+    vi content.ingress.yml
+    <i>
+    ```
+
+    Use the following as the contents, and update the [SUFFIX] to match your ingress DNS name.
+
+    ```yaml
+    apiVersion: extensions/v1beta1
+    kind: Ingress
+    metadata:
+      name: content-ingress
+      annotations:
+        kubernetes.io/tls-acme: "true"
+        nginx.ingress.kubernetes.io/rewrite-target: /
+    spec:
+      tls:
+      - hosts:
+        - fabmedical-[SUFFIX]-ingress.eastus.cloudapp.azure.com
+        secretName: tls-secret
+      rules:
+      - host:   fabmedical-[SUFFIX]-ingress.eastus.cloudapp.azure.com
+        http:
+          paths:
+          - path: /
+            backend:
+              serviceName: web
+              servicePort: 80
+          - path: /content-api
+            backend:
+              serviceName: api
+              servicePort: 3001
+
+    ```
+
+1. Save the file with `<esc>:wq`.
+
+1. Create the ingress using kubectl
+
+    ```bash
+    kubectl create --save-config=true -f content.ingress.yml
+    ```
+1. Refresh the ingress endpoint in your browser.  You should be able to visit the speakers and sessions pages and see all the content.
+
+1. Visit the api directly, by navigating to `/content-api/sessions` at the ingress endpoint.
+
+    ![Browser](images/Hands-onlabstep-by-step-ContainersandDevOpsimages/media/Ex4-Task5.19.png)
+
+1. Test TLS termination by visiting both services again using `https`
+
+    > It can take a few minutes before the SSL site becomes avaiable.  This is due to the delay involved with provisioning a TLS cert from letsencypt.
 
 ## After the hands-on lab
 
