@@ -1426,37 +1426,37 @@ At this point you have deployed a single instance of the web and API service con
 
 In this task, you will increase the number of instances for the API deployment in the Kubernetes management dashboard. While it is deploying, you will observe the changing status.
 
-1.  From the navigation menu, select Workloads\>Deployments and select the API deployment.
+1. From the navigation menu, select Workloads\>Deployments and select the API deployment.
 
-2.  Select SCALE.
+1. Select SCALE.
 
     ![In the Workloads \> Deployments \> api bar, the Scale icon is highlighted.](images/Hands-onlabstep-by-step-ContainersandDevOpsimages/media/image89.png)
 
-3.  Change the number of pods to 2, and then select **OK**.
+1. Change the number of pods to 2, and then select **OK**.
 
     ![In the Scale a Deployment dialog box, 2 is entered in the Desired number of pods box.](images/Hands-onlabstep-by-step-ContainersandDevOpsimages/media/image116.png)
 
 **NOTE: If the deployment completes quickly, you may not see the deployment Waiting states in the dashboard as described in the following steps**.
 
-4.  From the Replica Set view for the API, you'll see it is now deploying and that there is one healthy instance and one pending instance.
+1. From the Replica Set view for the API, you'll see it is now deploying and that there is one healthy instance and one pending instance.
 
     ![Replica Sets is selected under Workloads in the navigation menu on the left, and at right, Pods status: 1 pending, 1 running is highlighted. Below that, a red arrow points at the API deployment in the Pods box.](images/Hands-onlabstep-by-step-ContainersandDevOpsimages/media/image117.png)
 
-5.  From the navigation menu, select Deployments and from the list and note that the api service has a pending status indicated by the grey timer icon, and it shows a pod count 1 of 2 instances (shown as "1/2").
+1. From the navigation menu, select Deployments and from the list and note that the api service has a pending status indicated by the grey timer icon, and it shows a pod count 1 of 2 instances (shown as "1/2").
 
     ![In the Deployments box, the api service is highlighted with a grey timer icon at left and a pod count of 1/2 listed at right.](images/Hands-onlabstep-by-step-ContainersandDevOpsimages/media/image118.png)
 
-6.  From the Navigation menu, select Workloads. From this view note that the health overview in the right panel of this view. You'll see the following:
+1. From the Navigation menu, select Workloads. From this view note that the health overview in the right panel of this view. You'll see the following:
 
-    -   One deployment and one replica set are each healthy for the api service.
+    - One deployment and one replica set are each healthy for the api service.
 
-    -   One replica set is healthy for the web service.
+    - One replica set is healthy for the web service.
 
-    -   Three pods are healthy.
+    - Three pods are healthy.
 
-7.  Navigate to the web application from the browser again. The application should still work without errors as you navigate to Speakers and Sessions pages.
+1. Navigate to the web application from the browser again. The application should still work without errors as you navigate to Speakers and Sessions pages.
 
-    -   Navigate to the /stats.html page. You'll see information about the environment including:
+    - Navigate to the /stats.html page. You'll see information about the environment including:
 
         i.  webTaskId: the task identifier for the web service instance
 
@@ -1472,19 +1472,64 @@ In this task, you will increase the number of instances for the API deployment i
 
         vii. uptime: the up time for the API service
 
-    -   Refresh the page in the browser, and you can see the hostName change between the two API service instances. The letters after "api-{number}-" in the hostname will change.
+    - Refresh the page in the browser, and you can see the hostName change between the two API service instances. The letters after "api-{number}-" in the hostname will change.
 
 ### Task 2: Increase service instances beyond available resources
 
 In this task, you will try to increase the number of instances for the API service container beyond available resources in the cluster. You will observe how Kubernetes handles this condition and correct the problem.
 
-1.  From the navigation menu, select Deployments. From this view, select the API deployment.
+1. From the navigation menu, select Deployments. From this view, select the API deployment.
 
-2.  From the API deployment view, select **Scale**.
+1. Configure the deployment to use a fixed host port for initial testing. Select Edit.
+
+    ![In the Workloads \> Deployments \> api bar, the Edit icon is highlighted.](images/Hands-onlabstep-by-step-ContainersandDevOpsimages/media/image81.png)
+
+1. In the Edit a Deployment dialog you will see a list of settings shown in JSON format. Use the copy button to copy the text to your clipboard.
+
+    ![Screenshot of the Edit a Deployment dialog box.](images/Hands-onlabstep-by-step-ContainersandDevOpsimages/media/image82.png)
+
+1. Paste the contents into the text editor of your choice (notepad is shown here, MacOS users can use TextEdit).
+
+    ![Screenshot of the Edit a Deployment contents pasted into Notepad text editor.](images/Hands-onlabstep-by-step-ContainersandDevOpsimages/media/image83.png)
+
+1. Scroll down about half way to find the node "$.spec.template.spec.containers[0]" as shown in the screenshot below.
+
+    ![Screenshot of the deployment JSON code, with the \$.spec.template.spec.containers\[0\] section highlighted.](images/Hands-onlabstep-by-step-ContainersandDevOpsimages/media/image84.png)
+
+1. The containers spec has a single entry for the API container at the moment, you'll see the name of the container is "api" - this is how you know you are looking at the correct container spec.
+
+    Add the following JSON snippet below the "name" property in the container spec.
+
+    ```json
+    "ports": [
+        {
+        "containerPort": 3001,
+        "hostPort": 3001
+        }
+    ],
+    ```
+
+    Your container spec should now look like this:
+
+    ![Screenshot of the deployment JSON code, with the \$.spec.template.spec.containers\[0\] section highlighted, showing the updated values for containerPort and hostPost, both set to port 3001.](images/Hands-onlabstep-by-step-ContainersandDevOpsimages/media/image85.png)
+
+1. Copy the updated JSON document from notepad into the clipboard. Return to the Kubernetes dashboard, which should still be viewing the "api" deployment.
+
+    Click Edit.
+
+    ![In the Workloads \> Deployments \> api bar, the Edit icon is highlighted.](images/Hands-onlabstep-by-step-ContainersandDevOpsimages/media/image87.png)
+
+    Paste the updated JSON document.
+
+    Click Update.
+
+    ![UPDATE is highlighted in the Edit a Deployment dialog box.](images/Hands-onlabstep-by-step-ContainersandDevOpsimages/media/image88.png)
+
+1. From the API deployment view, select **Scale**.
 
     ![In the Workloads \> Deployments \> api bar, the Scale icon is highlighted.](images/Hands-onlabstep-by-step-ContainersandDevOpsimages/media/image89.png)
 
-3.  Change the number of pods to 4 and select **OK**.
+1. Change the number of pods to 4 and select **OK**.
 
     ![In the Scale a Deployment dialog box, 4 is entered in the Desired number of pods box.](images/Hands-onlabstep-by-step-ContainersandDevOpsimages/media/image119.png)
 
@@ -1496,11 +1541,11 @@ In this task, you will try to increase the number of instances for the API servi
 
     ![Workloads is selected in the navigation menu. At right, an exclamation point (!) appears next to the api deployment listing in the Deployments box. At this time, we are unable to capture all of the information in the window. Future versions of this course should address this.](images/Hands-onlabstep-by-step-ContainersandDevOpsimages/media/image121.png)
 
-**NOTE: This message indicates that there weren't enough available resources to match the requirements for a new pod instance. In this case, this is because the instance requires port 3001, and since there are only 2 nodes available in the cluster, only two api instances can be scheduled. The third and fourth pod instances will wait for a new node to be available that can run another instance using that port.**
+    **NOTE: This message indicates that there weren't enough available resources to match the requirements for a new pod instance. In this case, this is because the instance requires port 3001, and since there are only 2 nodes available in the cluster, only two api instances can be scheduled. The third and fourth pod instances will wait for a new node to be available that can run another instance using that port.**
 
-6.  Reduce the number of requested pods to 2 using the Scale button.
+1. Reduce the number of requested pods to 2 using the Scale button.
 
-7.  Almost immediately, the warning message from the Workloads dashboard should disappear, and the API deployment will show 2/2 pods are running.
+1. Almost immediately, the warning message from the Workloads dashboard should disappear, and the API deployment will show 2/2 pods are running.
 
     ![Workloads is selected in the navigation menu. A green check mark now appears next to the api deployment listing in the Deployments box at right. At this time, we are unable to capture all of the information in the window. Future versions of this course should address this.](images/Hands-onlabstep-by-step-ContainersandDevOpsimages/media/image122.png)
 
