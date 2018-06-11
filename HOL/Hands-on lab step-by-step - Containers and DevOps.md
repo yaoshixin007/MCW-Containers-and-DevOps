@@ -42,7 +42,7 @@ Microsoft and the trademarks listed at https://www.microsoft.com/en-us/legal/int
         - [Task 1: Tunnel into the Azure Kubernetes Service cluster](#task-1-tunnel-into-the-azure-container-service-cluster)
         - [Task 2: Deploy a service using the Kubernetes management dashboard](#task-2-deploy-a-service-using-the-kubernetes-management-dashboard)
         - [Task 3: Deploy a service using kubectl](#task-3-deploy-a-service-using-kubernetes-rest-api)
-        - [Task 4: Explore service instance logs and resolve an issue](#task-4-explore-service-instance-logs-and-resolve-an-issue)
+        - [Task 4: Initialize database with a Kubernetes Job](#task-4-explore-service-instance-logs-and-resolve-an-issue)
         - [Task 5: Test the application in a browser](#task-5-test-the-application-in-a-browser)
     - [Exercise 3: Scale the application and test HA](#exercise-3-scale-the-application-and-test-ha)
         - [Task 1: Increase service instances from the Kubernetes dashboard](#task-1-increase-service-instances-from-the-kubernetes-dashboard)
@@ -1343,85 +1343,74 @@ In this task, deploy the web service using `kubectl`.
 
     ![Browser](images/Hands-onlabstep-by-step-ContainersandDevOpsimages/media/Ex2-Task3.11.png)
 
-### Task 4: Explore service instance logs and resolve an issue
+### Task 4: Initialize database with a Kubernetes Job
 
-In this task, you will determine why the web service deployment is unhealthy and learn how to explore logs in Kubernetes to troubleshoot issues. You will then fix the problem and redeploy the service.
+In this task, you will use a Kubernetes Job to run a container that is meant to execute a task and terminate, rather than run all the time.
 
-1.  From the navigation menu, select the Replica Sets view under Workloads. From the Replica Sets view, select the api replica set from the list in the Replica Sets section of the view.
+1. In your WSL window create a text file called web.service.yml using Vim and press the "i" key to go into edit mode.
 
-**NOTE: The CPU usage and Memory usage graphs may not appear as it depends on the default configuration of the specific version of Kubernetes used by the template when you create the cluster. You can ignore if the graphs are not present.**
+    ```bash
+    vi init.job.yml
+    ```
 
-![In the Kubernetes management dashboard, a red arrow points at Replica Sets, which is selected below Workloads in the navigation menu.](images/Hands-onlabstep-by-step-ContainersandDevOpsimages/media/image98.png)
+1. Copy and paste the following text into the editor.
 
-![In the Kubernetes management dashboard, Replica Sets is selected below Workloads in the navigation menu. In the Replica Sets box on the right, a red arrow points at the second item in the list: api-2547917202.](images/Hands-onlabstep-by-step-ContainersandDevOpsimages/media/image99.png)
+    **NOTE: Be sure to copy and paste only the contents of the code block carefully to avoid introducing any special characters.**
 
-2.  You will see some messages indicating that API pods were launched and are running normally.
+    ```yaml
+    apiVersion: batch/v1
+    kind: Job
+    metadata:
+      name: init
+    spec:
+      template:
+        spec:
+          containers:
+          - name: init
+            image: [LOGINSERVER]/content-init
+            env:
+              - name: MONGODB_CONNECTION
+                valueFrom:
+                  secretKeyRef:
+                    name: mongodb
+                    key: db
+          restartPolicy: Never
+      backoffLimit: 4
+    ```
 
-    ![In the Kubernetes management dashboard, Replica Sets is selected below Workloads in the navigation menu. At right are the Pods and Services boxes, which contain information indicating that API pods were launched and are running normally. At this time, we are unable to capture all of the information in the window. Future versions of this course should address this.](images/Hands-onlabstep-by-step-ContainersandDevOpsimages/media/image100.png)
+1. Edit this file and update the [LOGINSERVER] entry to match the name of your ACR login server.
 
-3.  Select the logs icon to the right of the pod.
+1. Press the Escape key and type ":wq" and then press the Enter key to save and close the file.
 
-    ![In the Kubernetes management dashboard, Replica Sets is selected below Workloads in the navigation menu. In the Pods box, the logs icon is highlighted to the right of the pod.](images/Hands-onlabstep-by-step-ContainersandDevOpsimages/media/image101.png)
+1. Type the following command to deploy the job described by the YAML. You will receive a message indicating the kubectl has created an init "job.batch".
 
-4.  You'll see the console output (stdout) from the initialization of the API application container. The end of the output indicates the application is listening on port 3001.
+    ```bash
+    kubectl create --save-config=true -f init.job.yml
+    ```
 
-    ![The console output from the initialization of the API application container is open on the right side of the Kubernetes management dashboard.](images/Hands-onlabstep-by-step-ContainersandDevOpsimages/media/image102.png)
+1. View the Job by clicking "Jobs" under "Workloads" in the Kubernetes UI
 
-5.  From the navigation menu, select Services view under Discovery and Load Balancing. Select the web service. You should see a task in an unhealthy state (indicated by the number of restarts).
+    ![Dashboard](images/Hands-onlabstep-by-step-ContainersandDevOpsimages/media/Ex2-Task4.6.png)
 
-6.  From the navigation menu, select the Replica Sets view under Workloads. Select the web Replica Set, then select the web Pod. In the Events list, you will see warnings regarding failed health checks (indicated by orange warning triangle).
+1. Click the log icon to view the logs.
 
-    ![In the Kubernetes management dashboard, Pods is selected below Workloads in the navigation menu. At right is an Events box, which lists various messages; a message with an orange warning triangle appears toward the bottom of the list, indicating a failed health check. At this time, we are unable to capture all of the information in the window. Future versions of this course should address this.](images/Hands-onlabstep-by-step-ContainersandDevOpsimages/media/image103.png)
+    ![Dashboard](images/Hands-onlabstep-by-step-ContainersandDevOpsimages/media/Ex2-Task4.7.png)
 
-7.  In the Pods section, select the logs icon for the pod to show the service's console output.
+1. Next view your CosmosDb instance in the Azure portal and see that it now contains two collections.
 
-    ![The Logs icon is highlighted in the Pods section.](images/Hands-onlabstep-by-step-ContainersandDevOpsimages/media/image104.png)
-
-8.  You'll see a successful initialization where the service is listening at port 3000. Nothing here indicates a problem.
-
-    ![The Logs from web console in the Kubernetes management dashboard indicates a successful initialization where the service is listening at port 3000.](images/Hands-onlabstep-by-step-ContainersandDevOpsimages/media/image105.png)
-
-9.  Return to the web pod view to reexamine the events shown. Note the high number of failed health check occurrences. Note that the liveness probe is querying port 80. This is not the correct port.
-
-    ![This screenshot of the web pod view indicates many failed health checks and the querying of the incorrect port. At this time, we are unable to capture all of the information in the window. Future versions of this course should address this.](images/Hands-onlabstep-by-step-ContainersandDevOpsimages/media/image106.png)
-
-10. Return to the Deployment. Select **Edit** in the top navigation bar.
-
-    ![This is a screenshot of the Edit a Deployment dialog box with various displayed information about Deployment {5}, metadata {9}, and labels {1}. At this time, we are unable to capture all of the information in the window. Future versions of this course should address this.](images/Hands-onlabstep-by-step-ContainersandDevOpsimages/media/image107.png)
-
-11. Scroll down to view the Port Definitions used when you published the web application. Note the container port is incorrectly set to 80, it should be 3000. Therefore, the health check is failing. The public host port is set correctly to port 80.
-
-    ![Under ports in the Edit a Deployment dialog box, containerPort: 80 is highlighted.](images/Hands-onlabstep-by-step-ContainersandDevOpsimages/media/image108.png)
-
-12. Edit the ports section and set the containerPort entry to 3000.
-
-    ![Under ports in the Edit a Deployment dialog box containerPort: 3000 is highlighted.](images/Hands-onlabstep-by-step-ContainersandDevOpsimages/media/image109.png)
-
-13. In the same dialog, scroll down to the livenessProbe entry and change the port value to 3000.
-
-    ![Under livenessProbe in the Edit a Deployment dialog box, port: 3000 is highlighted.](images/Hands-onlabstep-by-step-ContainersandDevOpsimages/media/image110.png)
-
-14. Select **Update** to save the changes.
-
-15. From the navigation menu, select Workloads \>Replica Sets. You'll see that the web replica set is replaced. When it is fully initialized, the pod should run normally with no restarts.
-
-16. Select the web Replica Set. From the web Replica Set view, ensure the controller shows one pod and has 0 restarts.
-
-    ![One pod is listed in the Pods box, and 0 is listed under Restarts.](images/Hands-onlabstep-by-step-ContainersandDevOpsimages/media/image111.png)
+    ![Azure Portal](images/Hands-onlabstep-by-step-ContainersandDevOpsimages/media/Ex2-Task4.8.png)
 
 ### Task 5: Test the application in a browser
 
 In this task, you will verify that you can browse to the web service you have deployed and view the speaker and content information exposed by the API service.
 
-1.  From the Kubernetes management dashboard, in the navigation menu, select the Services view under Discovery and Load Balancing.
+1. From the Kubernetes management dashboard, in the navigation menu, select the Services view under Discovery and Load Balancing.
 
-2.  In the list of services, locate the external endpoint for the web service and select this hyperlink to launch the application.
+1. In the list of services, locate the external endpoint for the web service and select this hyperlink to launch the application.
 
     ![In the Services box, a red arrow points at the hyperlinked external endpoint for the web service.](images/Hands-onlabstep-by-step-ContainersandDevOpsimages/media/image112.png)
 
-3.  You will see the web application in your browser and be able to select the Speakers and Sessions links to view those pages without errors. The lack of errors means that the web application is correctly calling the API service to show the details on each of those pages.
-
-    ![This is a screenshot of the Contoso Neuro 2017 web application in a browser. In the center is the following information: September 14-17, 2017; Monterey Conference Center; Monterey, California. At the top right are links for Speakers and Sessions.](images/Hands-onlabstep-by-step-ContainersandDevOpsimages/media/image113.png)
+1. You will see the web application in your browser and be able to select the Speakers and Sessions links to view those pages without errors. The lack of errors means that the web application is correctly calling the API service to show the details on each of those pages.
 
     ![In this screenshot of the Contoso Neuro 2017 web application, Speakers has been selected, and sample speaker information appears at the bottom.](images/Hands-onlabstep-by-step-ContainersandDevOpsimages/media/image114.png)
 
