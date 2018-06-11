@@ -1679,89 +1679,162 @@ In this task, you will modify the CPU requirements for the web service so that i
 
 ### Task 4: Perform a rolling update
 
-In this task, you will edit the web application source code and update the Docker image used by the deployment. Then you will perform a rolling update to demonstrate how to deploy a code change in a production scenario.
+In this task, you will edit the web application source code to add Application Insights and update the Docker image used by the deployment. Then you will perform a rolling update to demonstrate how to deploy a code change.
 
-1.  Connect to your build agent VM using ssh as you did in Task 6: Connect securely to the build agent before the hands-on lab.
+1. Connect to your build agent VM using ssh as you did in Task 6: Connect securely to the build agent before the hands-on lab.
 
-2.  From the command line, navigate to the FabMedical/content-web directory.
+1. From the command line, navigate to the content-web directory.
 
-3.  Open the server.js file using VI:
+1. Install support for Application Insights
+
+    ```bash
+    npm install applicationinsights --save
     ```
+
+1. Open the server.js file using VI:
+
+    ```bash
     vi server.js
     ```
 
-4.  Enter insert mode by pressing \<i\>.
+1. Enter insert mode by pressing `<i>`.
 
-5.  Scroll to the stats endpoint definition:
-    ```
-    app.get('/api/stats', function (req, res) {
-    dataAccess.stats(function (error, data) {
-        if (error) {
-        return res.status(500).send(error);
-        }
-        else {
-        data.webTaskId = process.pid;
-        return res.status(200).send(data);
-        }
-    });
-    });
+1. Add the following lines immediately after the config is loaded
 
+    ```javascript
+    const appInsights = require("applicationinsights");
+    appInsights.setup(config.appInsightKey);
+    appInsights.start();
     ```
 
-6.  Change the line that sets data.webTaskId to the following:
-    ```
-    data.webTaskId = process.env.HOSTNAME;
-    ```
+1. Press the Escape key and type ":wq" and then press the Enter key to save and close the file.
 
-7.  Press the Escape key and type ":wq" and then press the Enter key to save and close the file.
-    ```
+    ```text
     <Esc>
-
     :wq
-
     <Enter>
     ```
 
-8.  Your current docker image for the web application should be "v1". Verify this by running the command to view your docker images and look for two content-web images with "latest" and "v1" tags.
+1. Update your config files to include the Application Insights Key
 
-    docker images
-
-9.  Build a new version of the docker image and then tag it with "v2":
+    ```bash
+    vi config/env/production.js
+    <i>
     ```
-    docker build -t [LOGINSERVER]/fabmedical/content-web .
+1. Add the following line to the `module.exports` object, and then update [YOUR APPINSIGHTS KEY] with the your Application Insights Key from the Azure portal.
 
-    docker tag [LOGINSERVER]/fabmedical/content-web:latest [LOGINSERVER]/fabmedical/content-web:v2
-    ```
-
-10. Push these two new tagged images:
-
-    ```
-    docker push [LOGINSERVER]/fabmedical/content-web:latest
-
-    docker push [LOGINSERVER]/fabmedical/content-web:v2
+    ```javascript
+    appInsightKey: '[YOUR APPINSIGHTS KEY]'
     ```
 
-11. Now that you have finished updating the docker image, you can exit the build agent.
+1. Press the Escape key and type ":wq" and then press the Enter key to save and close the file.
+
+1. Now update the development config.
+    ```bash
+    vi config/env/development.js
+    <i>
     ```
+1. Add the following line to the `module.exports` object, and then update [YOUR APPINSIGHTS KEY] with the your Application Insights Key from the Azure portal.
+
+    ```javascript
+    appInsightKey: '[YOUR APPINSIGHTS KEY]'
+    ```
+1. Press the Escape key and type ":wq" and then press the Enter key to save and close the file.
+
+1. Push these changes to your repository so that VSTS CI will build a new image while you work on updating the content-api application.
+
+    ```bash
+    git add .
+    git commit -m "Added Application Insights"
+    git push
+    ```
+
+1. Now update the content-api application
+
+    ```bash
+    cd ../content-api
+    npm install applicationinsights --save
+    ```
+
+1. Open the server.js file using VI:
+
+    ```bash
+    vi server.js
+    ```
+
+1. Enter insert mode by pressing `<i>`.
+
+1. Add the following lines immediately after the config is loaded
+
+    ```javascript
+    const appInsights = require("applicationinsights");
+    appInsights.setup(config.appInsightKey);
+    appInsights.start();
+    ```
+
+1. Press the Escape key and type ":wq" and then press the Enter key to save and close the file.
+
+    ```text
+    <Esc>
+    :wq
+    <Enter>
+    ```
+
+1. Update your config files to include the Application Insights Key
+
+    ```bash
+    vi config/config.js
+    <i>
+    ```
+1. Add the following line to the `exports.appSettings` object, and then update [YOUR APPINSIGHTS KEY] with the your Application Insights Key for **content-api** from the Azure portal.
+
+    ```javascript
+    appInsightKey: '[YOUR APPINSIGHTS KEY]'
+    ```
+
+1. Press the Escape key and type ":wq" and then press the Enter key to save and close the file.
+
+1. Push these changes to your repository so that VSTS CI will build a new image.
+
+    ```bash
+    git add .
+    git commit -m "Added Application Insights"
+    git push
+    ```
+
+1. Visit your ACR to see the new images and make a note of the tags assigned by VSTS.
+
+    - Make a note of the latest tag for content-web
+
+    - And the latest tag for content-api
+
+1. Now that you have finished updating the source code, you can exit the build agent.
+
+    ```bash
     exit
     ```
 
-12. From WSL, request a rolling update using this kubectl command:
-    ```
-    kubectl set image deployment/web web=[LOGINSERVER]/fabmedical/content-web:v2
+1. From WSL, request a rolling update using this kubectl command:
+
+    ```bash
+    kubectl set image deployment/web web=[LOGINSERVER]/content-web:[LATEST TAG]
     ```
 
-13. While this update runs, return the Kubernetes management dashboard in the browser.
+1. Next update the content-api application
 
-14. From the navigation menu select Replica Sets under Workloads. From this view you will see a new replica set for web which may still be in the process of deploying (as shown below) or already fully deployed.
+    ```bash
+    kubectl set image deployment/api api=[LOGINSERVER]/content-api:[LATEST TAG]
+    ```
+
+1. While this update runs, return the Kubernetes management dashboard in the browser.
+
+1. From the navigation menu select Replica Sets under Workloads. From this view you will see a new replica set for web which may still be in the process of deploying (as shown below) or already fully deployed.
 
     ![At the top of the list, a new web replica set is listed as a pending deployment in the Replica Set box.](images/Hands-onlabstep-by-step-ContainersandDevOpsimages/media/image144.png)
 
-15. While the deployment is in progress, you can navigate to the web application and visit the stats page at /stats.html. Refresh the page as the rolling update executes. Once the update completes, you will see the webTaskId begins to update correctly to show the hostName of the web pod, as shown here.
+1. While the deployment is in progress, you can navigate to the web application and visit the stats page at /stats.html. Refresh the page as the rolling update executes. Observe that the service is running normally and tasks continue to be load balanced..
 
     ![On the Stats page, the webTaskId is highlighted. At this time, we are unable to capture all of the information in the window. Future versions of this course should address this.](images/Hands-onlabstep-by-step-ContainersandDevOpsimages/media/image145.png)
-
-16. Open a second browser to view the web application stats page and note that the webTaskId is different for each browser as requests are routed among the available web pods. Notice also that the hostName of the API pod changes from time to time as well when the browser is refreshed.
 
 ## After the hands-on lab
 
