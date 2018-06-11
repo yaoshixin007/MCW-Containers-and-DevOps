@@ -1681,6 +1681,48 @@ In this task, you will modify the CPU requirements for the web service so that i
 
 In this task, you will edit the web application source code to add Application Insights and update the Docker image used by the deployment. Then you will perform a rolling update to demonstrate how to deploy a code change.
 
+1. First create an Application Insights key for content-web using the Azure Portal
+
+1. Click "+ Create a Resource" and search for "Application Insights" and select "Application Insights"
+
+    ![Azure Portal](images/Hands-onlabstep-by-step-ContainersandDevOpsimages/media/Ex4-Task4.2.png)
+
+1. Configure the resource as follows the click "Create":
+
+    - **Name**: content-web
+
+    - **Application Type**: Node.js Application
+
+    - **Subscription**: Use the same subscription you have been using throughout the lab.
+
+    - **Resource Group**: Use the existing resource group fabmedical-SUFFIX
+
+    - **Location**: Use the same location you have been using throughout the lab.
+
+    ![Azure Portal](images/Hands-onlabstep-by-step-ContainersandDevOpsimages/media/Ex4-Task4.3.png)
+
+1. While the Application Insights resource for content-web deploys, create a second Application Insights resource for content-api.  Configure the resource as follows the click "Create":
+
+    - **Name**: content-api
+
+    - **Application Type**: Node.js Application
+
+    - **Subscription**: Use the same subscription you have been using throughout the lab.
+
+    - **Resource Group**: Use the existing resource group fabmedical-SUFFIX
+
+    - **Location**: Use the same location you have been using throughout the lab.
+
+1. When both resources have deployed, locate them in your resource group.
+
+    ![Azure Portal](images/Hands-onlabstep-by-step-ContainersandDevOpsimages/media/Ex4-Task4.5.png)
+
+1. Click on the content-web resource to view the details.  Make a note of the Instrumentation Key, you will need it when configuring the content-web application.
+
+    ![Azure Portal](images/Hands-onlabstep-by-step-ContainersandDevOpsimages/media/Ex4-Task4.6.png)
+
+1. Return to your resource group and view the details of the content-api Application Insights resource.  Make a note of it's unique Instrumentation Key as well.
+
 1. Connect to your build agent VM using ssh as you did in Task 6: Connect securely to the build agent before the hands-on lab.
 
 1. From the command line, navigate to the content-web directory.
@@ -1706,6 +1748,7 @@ In this task, you will edit the web application source code to add Application I
     appInsights.setup(config.appInsightKey);
     appInsights.start();
     ```
+    ![VIM](images/Hands-onlabstep-by-step-ContainersandDevOpsimages/media/Ex4-Task4.13.png)
 
 1. Press the Escape key and type ":wq" and then press the Enter key to save and close the file.
 
@@ -1726,6 +1769,8 @@ In this task, you will edit the web application source code to add Application I
     ```javascript
     appInsightKey: '[YOUR APPINSIGHTS KEY]'
     ```
+
+    ![VIM](images/Hands-onlabstep-by-step-ContainersandDevOpsimages/media/Ex4-Task4.16.png)
 
 1. Press the Escape key and type ":wq" and then press the Enter key to save and close the file.
 
@@ -1772,6 +1817,8 @@ In this task, you will edit the web application source code to add Application I
     appInsights.start();
     ```
 
+    ![VIM](images/Hands-onlabstep-by-step-ContainersandDevOpsimages/media/Ex4-Task4.25.png)
+
 1. Press the Escape key and type ":wq" and then press the Enter key to save and close the file.
 
     ```text
@@ -1786,11 +1833,14 @@ In this task, you will edit the web application source code to add Application I
     vi config/config.js
     <i>
     ```
+
 1. Add the following line to the `exports.appSettings` object, and then update [YOUR APPINSIGHTS KEY] with the your Application Insights Key for **content-api** from the Azure portal.
 
     ```javascript
     appInsightKey: '[YOUR APPINSIGHTS KEY]'
     ```
+
+    ![VIM](images/Hands-onlabstep-by-step-ContainersandDevOpsimages/media/Ex4-Task4.28.png)
 
 1. Press the Escape key and type ":wq" and then press the Enter key to save and close the file.
 
@@ -1806,7 +1856,11 @@ In this task, you will edit the web application source code to add Application I
 
     - Make a note of the latest tag for content-web
 
+        ![VIM](images/Hands-onlabstep-by-step-ContainersandDevOpsimages/media/Ex4-Task4.31a.png)
+
     - And the latest tag for content-api
+
+        ![VIM](images/Hands-onlabstep-by-step-ContainersandDevOpsimages/media/Ex4-Task4.31b.png)
 
 1. Now that you have finished updating the source code, you can exit the build agent.
 
@@ -1835,6 +1889,11 @@ In this task, you will edit the web application source code to add Application I
 1. While the deployment is in progress, you can navigate to the web application and visit the stats page at /stats.html. Refresh the page as the rolling update executes. Observe that the service is running normally and tasks continue to be load balanced..
 
     ![On the Stats page, the webTaskId is highlighted. At this time, we are unable to capture all of the information in the window. Future versions of this course should address this.](images/Hands-onlabstep-by-step-ContainersandDevOpsimages/media/image145.png)
+
+### Task 5 Configure Kubernetes Ingress
+
+In this task you will setup a Kubernetes Ingress to take advantage of path based routing and TLS termination.
+
 
 ## After the hands-on lab
 
