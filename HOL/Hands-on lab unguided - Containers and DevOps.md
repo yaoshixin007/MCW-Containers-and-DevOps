@@ -1,16 +1,10 @@
-![](images/HeaderPic.png "Microsoft Cloud Workshops")
+!["Microsoft Cloud Workshops"](images/HeaderPic.png)
 
-<div class="MCWHeader1">
-Containers and DevOps
-</div>
+**Containers and DevOps**
 
-<div class="MCWHeader2">
-Hands-on lab unguided
-</div>
+**Hands-on lab step-by-step**
 
-<div class="MCWHeader3">
-March 2018
-</div>
+**June 2018**
 
 Information in this document, including URL and other Internet Web site references, is subject to change without notice. Unless otherwise noted, the example companies, organizations, products, domain names, e-mail addresses, logos, people, places, and events depicted herein are fictitious, and no association with any real company, organization, product, domain name, e-mail address, logo, person, place or event is intended or should be inferred. Complying with all applicable copyright laws is the responsibility of the user. Without limiting the rights under copyright, no part of this document may be reproduced, stored in or introduced into a retrieval system, or transmitted in any form or by any means (electronic, mechanical, photocopying, recording, or otherwise), or for any purpose, without the express written permission of Microsoft Corporation.
 
@@ -49,12 +43,10 @@ Microsoft and the trademarks listed at https://www.microsoft.com/en-us/legal/int
         - [Task 2: Increase service instances beyond available resources](#task-2-increase-service-instances-beyond-available-resources)
         - [Task 3: Restart containers and test HA](#task-3-restart-containers-and-test-ha)
     - [Exercise 4: Setup load balancing and service discovery](#exercise-4-setup-load-balancing-and-service-discovery)
-        - [Task 1: Create a public load balancer for a service](#task-1-create-a-public-load-balancer-for-a-service)
-        - [Task 2: Scale a service without port constraints](#task-2-scale-a-service-without-port-constraints)
-        - [Task 3: Update a service to support dynamic service discovery without a load balancer](#task-3-update-a-service-to-support-dynamic-service-discovery-without-a-load-balancer)
-        - [Task 4: Update an external service to support dynamic discovery with a load balancer](#task-4-update-an-external-service-to-support-dynamic-discovery-with-a-load-balancer)
-        - [Task 5: Adjust CPU constraints to improve scale](#task-5-adjust-cpu-constraints-to-improve-scale)
-        - [Task 6: Perform a rolling update](#task-6-perform-a-rolling-update)
+        - [Task 1: Scale a service without port constraints](#task-1-scale-a-service-without-port-constraints)
+        - [Task 2: Update an external service to support dynamic discovery with a load balancer](#task-2-update-an-external-service-to-support-dynamic-discovery-with-a-load-balancer)
+        - [Task 3: Adjust CPU constraints to improve scale](#task-3-adjust-cpu-constraints-to-improve-scale)
+        - [Task 4: Perform a rolling update](#task-4-perform-a-rolling-update)
     - [After the hands-on lab](#after-the-hands-on-lab)
 
 <!-- /TOC -->
@@ -63,7 +55,7 @@ Microsoft and the trademarks listed at https://www.microsoft.com/en-us/legal/int
 
 ## Abstract and learning objectives
 
-Build a PoC to deliver a multi-tenant web app hosting solution leveraging Azure Kubernetes Service, Docker containers, and Linux nodes.
+Build a PoC to deliver a multi-tenant web app hosting solution leveraging Azure Container Service (AKS), Docker containers, and Linux nodes.
 
 Attendees will be better able to deploy Docker-based applications and scale them with Azure Kubernetes Service and Kubernetes orchestration. In addition,
 
@@ -743,4 +735,3 @@ In this exercise, you will de-provision any Azure resources created in support o
     ```bash
     az ad sp delete --id "Fabmedical-sp"
     ```
-
