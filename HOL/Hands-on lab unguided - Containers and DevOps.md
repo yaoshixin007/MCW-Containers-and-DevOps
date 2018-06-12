@@ -1,16 +1,10 @@
-![](images/HeaderPic.png "Microsoft Cloud Workshops")
+!["Microsoft Cloud Workshops"](images/HeaderPic.png)
 
-<div class="MCWHeader1">
-Containers and DevOps
-</div>
+**Containers and DevOps**
 
-<div class="MCWHeader2">
-Hands-on lab unguided
-</div>
+**Hands-on lab step-by-step**
 
-<div class="MCWHeader3">
-March 2018
-</div>
+**June 2018**
 
 Information in this document, including URL and other Internet Web site references, is subject to change without notice. Unless otherwise noted, the example companies, organizations, products, domain names, e-mail addresses, logos, people, places, and events depicted herein are fictitious, and no association with any real company, organization, product, domain name, e-mail address, logo, person, place or event is intended or should be inferred. Complying with all applicable copyright laws is the responsibility of the user. Without limiting the rights under copyright, no part of this document may be reproduced, stored in or introduced into a retrieval system, or transmitted in any form or by any means (electronic, mechanical, photocopying, recording, or otherwise), or for any purpose, without the express written permission of Microsoft Corporation.
 
@@ -61,7 +55,7 @@ Microsoft and the trademarks listed at https://www.microsoft.com/en-us/legal/int
 
 ## Abstract and learning objectives 
 
-Build a PoC to deliver a multi-tenant web app hosting solution leveraging Azure Container Service (AKS), Docker containers, and Linux nodes.???
+Build a PoC to deliver a multi-tenant web app hosting solution leveraging Azure Container Service (AKS), Docker containers, and Linux nodes.
 
 Attendees will be better able to deploy Docker-based applications and scale them with Azure Container Service and Kubernetes orchestration. In addition,
 

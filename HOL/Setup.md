@@ -22,7 +22,6 @@
 
 3.  You will be asked to install other tools throughout the exercises.
 
-
 ## Before the hands-on lab
 
 **Duration**: 1 hour
