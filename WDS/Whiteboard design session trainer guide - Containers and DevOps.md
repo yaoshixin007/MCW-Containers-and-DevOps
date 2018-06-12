@@ -1,6 +1,6 @@
 !["Microsoft Cloud Workshops"](images/HeaderPic.png)
 
-=Containers and DevOps
+Containers and DevOps
 
 Whiteboard design session trainer guide
 
@@ -157,13 +157,13 @@ When participants are doing activities, you can **look ahead to refresh your mem
 
 ## Abstract and learning objectives 
 
-This hands-on lab is designed to guide you through the process of building and deploying Docker images to the Kubernetes platform hosted on Azure Kubernetes Services (AKS) in addition to learning how to work with dynamic service discovery, service scale-out and HA. The goal of the lab is to provide a foundation for the following:
+This hands-on lab is designed to guide you through the process of building and deploying Docker images to the Kubernetes platform hosted on Azure Kubernetes Service (AKS) in addition to learning how to work with dynamic service discovery, service scale-out and HA. The goal of the lab is to provide a foundation for the following:
 
 -   Creating the following Azure resources:
 
     -   Azure Container Registry
 
-    -   Azure Kubernetes Services (AKS)
+    -   Azure Kubernetes Service (AKS)
 
 -   Setting up an environment to do the following:
 
@@ -171,7 +171,7 @@ This hands-on lab is designed to guide you through the process of building and d
 
     -   Connect to Azure Container Registry
 
-    -   Connect to an Azure Kubernetes Services (AKS) cluster
+    -   Connect to an Azure Kubernetes Service (AKS) cluster
 
 -   Perform the following actions:
 
@@ -358,11 +358,11 @@ Directions: With all participants at your table, respond to the following questi
 
 4.  Explain how Azure Kubernetes Service (AKS) can route requests to multiple web site containers hosted on the same node at port 80/443.
 
-    *Scalability considerations*
+*Scalability considerations*
 
 1.  Explain to the customer how Azure Kubernetes Service (AKS) and their preconfigured Scale Sets support cluster auto-scaling.
 
-    *Automating DevOps workflows*
+*Automating DevOps workflows*
 
 1.  Describe how VSTS can help the customer automate their continuous integration and deployment workflows and the Azure Kubernetes Service (AKS) infrastructure.
 
