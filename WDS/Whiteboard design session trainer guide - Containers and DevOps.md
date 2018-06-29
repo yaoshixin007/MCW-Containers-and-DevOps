@@ -91,7 +91,7 @@ Outcome: Analyze your customer's needs
 
 **Step 2: Design a proof of concept solution (60 minutes)**
 
-Outcome: Prepare to present a solution for your target customer audience
+Outcome: Design a solution and prepare to present the solution to the target customer audience in a 15-minute chalk-talk format.
 
 -   Determine your target customer audience
 
@@ -453,7 +453,7 @@ They also decided to move forward with VSTS for container DevOps workflows.
 
 *High-level architecture*
 
-1.  *Based on the customer situation, what containers would you propose as part of the new microservices architecture for a single conference tenant?*
+1.  Based on the customer situation, what containers would you propose as part of the new microservices architecture for a single conference tenant?
 
 Each tenant will have the following containers:
 
@@ -469,15 +469,15 @@ Each tenant will have the following containers:
 
 -   **Content service**: the API that handles content for the conference such as speakers, sessions, workshops, and sponsors
 
-2.  *Without getting into the details (the following sections will address the particular details), diagram your initial vision of the container platform, the containers that should be deployed (for a single tenant), and the data tier.*
+2.  Without getting into the details (the following sections will address the particular details), diagram your initial vision of the container platform, the containers that should be deployed (for a single tenant), and the data tier.
 
-The solution will use Azure Kubernetes Service (AKS), which means that the container cluster topology is provisioned according to the number of requested nodes. The proposed containers deployed to the cluster are illustrated below, with MongoDB remaining as a managed service:
+    The solution will use Azure Kubernetes Service (AKS), which means that the container cluster topology is provisioned according to the number of requested nodes. The proposed containers deployed to the cluster are illustrated below, with MongoDB remaining as a managed service:
 
 ![The solution will use Azure Kubernetes Service (AKS). The proposed containers deployed to the cluster are illustrated in this diagram, with MongoDB remaining as a managed service.](images/Whiteboarddesignsessiontrainerguide-ContainersandDevOpsimages/media/image4.png)
 
 *Choosing a container platform on Azure*
 
-*List the potential platform choices for deploying containers to Azure.*
+1.  List the potential platform choices for deploying containers to Azure.
 
 **Azure App Service for Containers**
 
@@ -509,7 +509,7 @@ The Azure Container Service provides a turnkey container cluster management solu
 
 Azure Kubernetes Service (AKS) will provide a fully managed container platform solution based on Kubernetes. Currently in preview, the goal of AKS will be to remove the management overhead of container orchestration clusters, allowing teams to focus on the application and core DevOps workflows relevant to the solution.
 
-*Which would you recommend and why?*
+2.  Which would you recommend and why?
 
 Azure Kubernetes Service (AKS) is the recommended platform for the following reasons:
 
@@ -525,7 +525,7 @@ Azure Kubernetes Service (AKS) is the recommended platform for the following rea
 
 Generally, if the customer has experience with one of the supported orchestrators, you can apply that experience in Azure Kubernetes Service (AKS). There is a great deal of momentum in the community behind Kubernetes, and with Microsoft providing a fully managed solution based on this platform, it is the natural choice.
 
-*Describe how the customer can provision their Azure Kubernetes Service (AKS) environment to get their POC started.*
+3.  Describe how the customer can provision their Azure Kubernetes Service (AKS) environment to get their POC started.
 
 The Azure Kubernetes Service (AKS) environment is deployed using a few simple Azure CLI commands.
 
@@ -541,17 +541,17 @@ The Azure Kubernetes Service (AKS) environment is deployed using a few simple Az
 
 -   *Run containers using the Kubernetes dashboard*
 
-The basic workflow is to build an image from the service source repository, push the image to a registry from which it is deployed, and run as a container.
+    The basic workflow is to build an image from the service source repository, push the image to a registry from which it is deployed, and run as a container.
 
-A Dockerfile describing each container can reside in the Git repository together with the source. Using command line tools, the developers can build Docker images and push to the registry. A CI process can also automate building images and push to the registry when changes are checked in.
+    A Dockerfile describing each container can reside in the Git repository together with the source. Using command line tools, the developers can build Docker images and push to the registry. A CI process can also automate building images and push to the registry when changes are checked in.
 
-To deploy and run a container, the developer can:
+    To deploy and run a container, the developer can:
 
 -   Securely access the Kubernetes dashboard and create a deployment specifying an image from the repository manually
 
 -   POST a service definition file (JSON) to the REST API using kubectl from the command line. This process can also be automated as part of a CICD process.
 
-2.  *What options does the customer have for a Docker image registry, and what would you recommend?*
+2.  What options does the customer have for a Docker image registry, and what would you recommend?
 
 The image registry is core to the CICD workflow and must be a production worthy implementation as it is the source of container images, versioning, deployment, upgrade, and rollback strategies. Registry images can also be used for cross-environment promotion (between development, test, staging, and production for example).
 
@@ -567,13 +567,13 @@ The following are a few natural options for image registries that could support 
 
 Deploying and configuring a Docker Registry, clustered or not, is a complex and time-consuming task. We recommend the use of Azure Container Registry where possible for Azure solutions.
 
-3.  *How will the customer configure web site containers so that they are reachable publicly at port 80/443 from Azure Kubernetes Service (AKS)?*
+3.  How will the customer configure web site containers so that they are reachable publicly at port 80/443 from Azure Kubernetes Service (AKS)?
 
 When you configure services for a Kubernetes deployment, you can choose to use the public load balancer such that each service instance will be accessible through the Azure load balancer. So long as the required ports are openly accessible, the Azure load balancer will be able to route traffic to all available service instances associated with the endpoint.
 
 Kubernetes also seamlessly supports load balanced services without making them publicly accessible. Requests from within the cluster can reach internal services and will load balanced across all service instances.
 
-4.  *Explain how Azure Kubernetes Service (AKS) can route requests to multiple web site containers hosted on the same node at port 80/443*
+4.  Explain how Azure Kubernetes Service (AKS) can route requests to multiple web site containers hosted on the same node at port 80/443
 
 The location of a container across all nodes in the Azure Kubernetes Service (AKS) cluster should not matter to calling clients. A client application will send a request to a particular endpoint (URL) and expect it to find the correct container instance to service the request. Container routing is an important part of this.
 
@@ -581,19 +581,19 @@ Web application and api service containers bind to random ports on their host no
 
 *Scalability considerations*
 
-1.  *Explain to the customer how Azure Kubernetes Service (AKS) supports cluster auto-scaling*
+1.  Explain to the customer how Azure Kubernetes Service (AKS) supports cluster auto-scaling
 
 You can scale the agent nodes in the cluster with Azure CLI commands. As the service is still in preview, additional auto-scale details are not yet available.
 
 *Automating DevOps workflows*
 
-1.  *Describe how VSTS can help the customer automate their continuous integration and deployment workflows and the Azure Kubernetes Service (AKS) infrastructure.*
+1.  Describe how VSTS can help the customer automate their continuous integration and deployment workflows and the Azure Kubernetes Service (AKS) infrastructure.
 
 TODO:new content coming
 
 ## Checklist of preferred objection handling
 
-1.  *What is the simplest way to move to containers on Azure, based on our PaaS experience, while at the same time considering our scale and growth requirements?*
+1.  What is the simplest way to move to containers on Azure, based on our PaaS experience, while at the same time considering our scale and growth requirements?
 
     The easiest way to move to containers on Azure is to deploy containers to App Service for Containers; however, this option does not provide the typical management tools for container orchestration -- that can provide load balancing, dynamic discovery, self-healing, and a holistic approach to container monitoring.
 
@@ -601,7 +601,7 @@ TODO:new content coming
 
     Azure Kubernetes Service (AKS) provides a fully managed service with the full set of orchestration and management tools. This is the best possible choice for reduced management overhead while still having access to the features provided with orchestration platforms like Kubernetes.
 
-2.  *With so many platforms and tools for Docker and container orchestration, how should we choose an option for Azure?*
+2.  With so many platforms and tools for Docker and container orchestration, how should we choose an option for Azure?
 
     The best of all worlds is to go with a managed orchestration platform like AKS -- native to Azure. It reduces the cost and management overhead of the cluster, while still providing a solution that supports growth, scale, and native management tooling.
 
