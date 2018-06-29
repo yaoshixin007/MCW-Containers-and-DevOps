@@ -37,35 +37,16 @@ Microsoft and the trademarks listed at https://www.microsoft.com/en-us/legal/int
 
 ## Abstract and learning objectives 
 
-This whiteboard design session is designed to help attendees understand the choices related to building and deploying containerized applications in Azure, critical decisions around this and other aspects of the solution including ways to lift-and-shift parts of the application to reduce applications changes.
+This whiteboard design session is designed to help attendees understand the choices related to building and deploying containerized applications in Azure, critical decisions around this and other aspects of the solution including ways to lift-and-shift parts of the application to reduce applications changes. In addition,
 
--   Creating the following Azure resources:
+-	Create and run a Docker Application
 
-    -   Azure Container Registry
+-	Deploy to the Azure Container Service (AKS)
 
-    -   Azure Kubernetes Service (AKS)
+-	Implement load balancing and service discovery
 
--   Setting up an environment to do the following:
+-	Scale the application and test availability
 
-    -   Build Docker images
-
-    -   Connect to Azure Container Registry
-
-    -   Connect to an Azure Kubernetes Service (AKS) cluster
-
--   Perform the following actions:
-
-    -   Building Docker images locally and pushing them to Azure Container Registry
-
-    -   Deploying containers to a Kubernetes cluster
-
-    -   Load balancing containers with and without Azure Load Balancer
-
-    -   Working with service discovery
-
-    -   Performing rolling upgrades for services with zero downtime
-
-    -   Scaling services
 
 ## Step 1: Review the customer case study 
 
