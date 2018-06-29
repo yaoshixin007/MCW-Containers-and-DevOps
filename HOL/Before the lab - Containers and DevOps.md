@@ -176,13 +176,13 @@ In this section, you will create a Linux VM to act as your build agent. You will
 
 **NOTE: You can set up your local machine with Docker however the setup varies for different versions of Windows. For this lab, the build agent approach simply allows for predictable setup.**
 
-11. From the Azure Portal, select **+ Create a resource**, type "**Ubuntu**" in the Search the marketplace text box and press **Enter**
+1. From the Azure Portal, select **+ Create a resource**, type "**Ubuntu**" in the Search the marketplace text box and press **Enter**
 
     ![This screenshot of the marketplace search results for Ubuntu has the following columns: Name, Publisher, and Category. A red arrow points at the first search result, which has the following values: Ubuntu Server 16.04 LTS, Canonical, and Virtual Machines.](images/Setup/image19.png)
 
-12. Select **Ubuntu Server 16.04 LTS** and select **Create**
+2. Select **Ubuntu Server 16.04 LTS** and select **Create**
 
-13. On the Basics blade of the Virtual Machine setup, set the following:
+3. On the Basics blade of the Virtual Machine setup, set the following:
 
     -   **Name**: Provide a unique name, such as "fabmedical-SUFFIX" as shown in the following screenshot
 
@@ -228,23 +228,23 @@ In this section, you will create a Linux VM to act as your build agent. You will
 
     ![In the Basics blade, the values listed above appear in the corresponding boxes. The public key that you copied is pasted in the SSH public key box.](images/Setup/image21.png)
 
-14. From the Size blade search for "D2S_v3" and **Select**
+4. From the Size blade search for "D2S_v3" and **Select**
 
     !["D2S_v3" is entered in the Search box.  There is one result shown and it is selected.](images/Setup/image22.png)
 
-15. From the Settings blade, accept the default values for most settings and select "SSH (22)" as a public inbound port, then select **OK**
+5. From the Settings blade, accept the default values for most settings and select "SSH (22)" as a public inbound port, then select **OK**
 
     ![Settings](images/Setup/image22a.png)
 
-16. From the Create blade, you should see that validation passed and select **Create**
+6. From the Create blade, you should see that validation passed and select **Create**
 
     ![This is a screenshot of the Create blade indicating that validation passed. Offer details are also visible.](images/Setup/image23.png)
 
-17. The VM will begin deployment to your Azure subscription
+7. The VM will begin deployment to your Azure subscription
 
     ![The Deploying Ubuntu Server 16.04 LTS icon indicates that deployment has begun to your Azure subscription.](images/Setup/image24.png)
 
-18. Once provisioned, you will see the VM in your list of resources belonging to the resource group you created previously
+8. Once provisioned, you will see the VM in your list of resources belonging to the resource group you created previously
 
     ![This screenshot of your resource list has the following columns: Name, Type, and Location. The third row is highlighted with the following values: fabmedical-(suffix obscured), Virtual machine, and East US.](images/Setup/image25.png)
 
@@ -592,9 +592,10 @@ FabMedical has provided starter files for you. They have taken a copy of one of 
     content-init/
     content-web/
     ```
+
 6. Next log into your VisualStudio.com account.
 
-    i. If this is your first time logging into this account you will be taken through a first-run experience.
+   i. If this is your first time logging into this account you will be taken through a first-run experience.
 
         a. Confirm your contact information and click next.
 
@@ -677,28 +678,28 @@ FabMedical has provided starter files for you. They have taken a copy of one of 
 
                 1. When prompted, enter your VisualStudio.com username and the git credentials password you created earlier in this task.
 
-    1. Clone your repositories to the build agent
+    7. Clone your repositories to the build agent
 
-        1. From WSL, connect to the build agent VM as you did previously in Before the hands-on lab - Task 6: Connect securely to the build agent using the SSH command.
+        a. From WSL, connect to the build agent VM as you did previously in Before the hands-on lab - Task 6: Connect securely to the build agent using the SSH command.
 
-        1. In your browser, switch to the "content-web" repository and click "Clone" in the right corner.
+        b. In your browser, switch to the "content-web" repository and click "Clone" in the right corner.
 
             ![Clone](images/Setup/image51.png)
 
-        1. Copy the repository url.
+        c. Copy the repository url.
 
-        1. Use the repository url to clone the content-web code to your build agent machine.
+        d. Use the repository url to clone the content-web code to your build agent machine.
 
             ```bash
             git clone <REPOSITORY_URL>
             ```
 
-        1. In your browser, switch to the "content-api" repository and click "Clone" to see and copy the repository url.
+        e. In your browser, switch to the "content-api" repository and click "Clone" to see and copy the repository url.
 
-        1. Use the repository url and `git clone` to copy the content-api code to your build agent.
+        r. Use the repository url and `git clone` to copy the content-api code to your build agent.
 
-        1. In your browser, switch to the "content-init" repository and click "Clone" to see and copy the repository url.
+        g. In your browser, switch to the "content-init" repository and click "Clone" to see and copy the repository url.
 
-        1. Use the repository url and `git clone` to copy the content-init code to your build agent.
+        h. Use the repository url and `git clone` to copy the content-init code to your build agent.
 
 **NOTE: Keep this WSL window open as your build agent SSH connection. You will later open new WSL sessions to other machines.**
