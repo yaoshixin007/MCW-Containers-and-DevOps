@@ -696,7 +696,7 @@ FabMedical has provided starter files for you. They have taken a copy of one of 
 
         e. In your browser, switch to the "content-api" repository and click "Clone" to see and copy the repository url.
 
-        r. Use the repository url and `git clone` to copy the content-api code to your build agent.
+        f. Use the repository url and `git clone` to copy the content-api code to your build agent.
 
         g. In your browser, switch to the "content-init" repository and click "Clone" to see and copy the repository url.
 
