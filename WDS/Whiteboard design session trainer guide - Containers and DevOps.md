@@ -477,7 +477,7 @@ Each tenant will have the following containers:
 
 *Choosing a container platform on Azure*
 
-1.  List the potential platform choices for deploying containers to Azure.
+1. List the potential platform choices for deploying containers to Azure.
 
 **Azure App Service for Containers**
 
@@ -509,7 +509,7 @@ The Azure Container Service provides a turnkey container cluster management solu
 
 Azure Kubernetes Service (AKS) will provide a fully managed container platform solution based on Kubernetes. Currently in preview, the goal of AKS will be to remove the management overhead of container orchestration clusters, allowing teams to focus on the application and core DevOps workflows relevant to the solution.
 
-2.  Which would you recommend and why?
+2. Which would you recommend and why?
 
 Azure Kubernetes Service (AKS) is the recommended platform for the following reasons:
 
@@ -523,15 +523,15 @@ Azure Kubernetes Service (AKS) is the recommended platform for the following rea
 
 5.  Open source, mature, and production tested platform
 
-Generally, if the customer has experience with one of the supported orchestrators, you can apply that experience in Azure Kubernetes Service (AKS). There is a great deal of momentum in the community behind Kubernetes, and with Microsoft providing a fully managed solution based on this platform, it is the natural choice.
+    Generally, if the customer has experience with one of the supported orchestrators, you can apply that experience in Azure Kubernetes Service (AKS). There is a great deal of momentum in the community behind Kubernetes, and with Microsoft providing a fully managed solution based on this platform, it is the natural choice.
 
 3.  Describe how the customer can provision their Azure Kubernetes Service (AKS) environment to get their POC started.
 
-The Azure Kubernetes Service (AKS) environment is deployed using a few simple Azure CLI commands.
+    The Azure Kubernetes Service (AKS) environment is deployed using a few simple Azure CLI commands.
 
 *Containers, discovery and load-balancing*
 
-1.  *Describe the high-level manual steps developers will follow for building images and running containers on Azure Kubernetes Service (AKS) as they build their POC. Include the following components in the summary:*
+1. Describe the high-level manual steps developers will follow for building images and running containers on Azure Kubernetes Service (AKS) as they build their POC. Include the following components in the summary:
 
 -   *The Git repository containing their source*
 
@@ -551,11 +551,11 @@ The Azure Kubernetes Service (AKS) environment is deployed using a few simple Az
 
 -   POST a service definition file (JSON) to the REST API using kubectl from the command line. This process can also be automated as part of a CICD process.
 
-2.  What options does the customer have for a Docker image registry, and what would you recommend?
+2. What options does the customer have for a Docker image registry, and what would you recommend?
 
-The image registry is core to the CICD workflow and must be a production worthy implementation as it is the source of container images, versioning, deployment, upgrade, and rollback strategies. Registry images can also be used for cross-environment promotion (between development, test, staging, and production for example).
+   The image registry is core to the CICD workflow and must be a production worthy implementation as it is the source of container images, versioning, deployment, upgrade, and rollback strategies. Registry images can also be used for cross-environment promotion (between development, test, staging, and production for example).
 
-The following are a few natural options for image registries that could support Azure container deployments:
+    The following are a few natural options for image registries that could support Azure container deployments:
 
 -   Azure Container Registry is a natural fit with Azure deployments, and it integrates well with deployment options previously mentioned for Docker containers in Azure. This includes an integrated experience in the Azure portal to view the repositories, images, tags, and the contents of manifests associated with an image. Azure Container Registry itself is a free service. You are only charged for underlying infrastructure resources like Azure Storage block blobs used to store your images and data transfer.
 
@@ -565,29 +565,29 @@ The following are a few natural options for image registries that could support 
 
 -   You can deploy and manage your own Docker Registry in Azure VMs---which would have to be clustered for high availability and this is not trivial to set up. This is not a recommended option when a hosted repository can fit solution requirements.
 
-Deploying and configuring a Docker Registry, clustered or not, is a complex and time-consuming task. We recommend the use of Azure Container Registry where possible for Azure solutions.
+   Deploying and configuring a Docker Registry, clustered or not, is a complex and time-consuming task. We recommend the use of Azure Container Registry where possible for Azure solutions.
 
-3.  How will the customer configure web site containers so that they are reachable publicly at port 80/443 from Azure Kubernetes Service (AKS)?
+3. How will the customer configure web site containers so that they are reachable publicly at port 80/443 from Azure Kubernetes Service (AKS)?
 
-When you configure services for a Kubernetes deployment, you can choose to use the public load balancer such that each service instance will be accessible through the Azure load balancer. So long as the required ports are openly accessible, the Azure load balancer will be able to route traffic to all available service instances associated with the endpoint.
+   When you configure services for a Kubernetes deployment, you can choose to use the public load balancer such that each service instance will be accessible through the Azure load balancer. So long as the required ports are openly accessible, the Azure load balancer will be able to route traffic to all available service instances associated with the endpoint.
 
-Kubernetes also seamlessly supports load balanced services without making them publicly accessible. Requests from within the cluster can reach internal services and will load balanced across all service instances.
+   Kubernetes also seamlessly supports load balanced services without making them publicly accessible. Requests from within the cluster can reach internal services and will load balanced across all service instances.
 
-4.  Explain how Azure Kubernetes Service (AKS) can route requests to multiple web site containers hosted on the same node at port 80/443
+4. Explain how Azure Kubernetes Service (AKS) can route requests to multiple web site containers hosted on the same node at port 80/443
 
-The location of a container across all nodes in the Azure Kubernetes Service (AKS) cluster should not matter to calling clients. A client application will send a request to a particular endpoint (URL) and expect it to find the correct container instance to service the request. Container routing is an important part of this.
+   The location of a container across all nodes in the Azure Kubernetes Service (AKS) cluster should not matter to calling clients. A client application will send a request to a particular endpoint (URL) and expect it to find the correct container instance to service the request. Container routing is an important part of this.
 
-Web application and api service containers bind to random ports on their host node allowing multiple instances per node. Kubernetes supports dynamic service port discovery and will choose between all instances across nodes to route requests.
+   Web application and api service containers bind to random ports on their host node allowing multiple instances per node. Kubernetes supports dynamic service port discovery and will choose between all instances across nodes to route requests.
 
 *Scalability considerations*
 
-1.  Explain to the customer how Azure Kubernetes Service (AKS) supports cluster auto-scaling
+1. Explain to the customer how Azure Kubernetes Service (AKS) supports cluster auto-scaling
 
-You can scale the agent nodes in the cluster with Azure CLI commands. As the service is still in preview, additional auto-scale details are not yet available.
+   You can scale the agent nodes in the cluster with Azure CLI commands. As the service is still in preview, additional auto-scale details are not yet available.
 
 *Automating DevOps workflows*
 
-1.  Describe how VSTS can help the customer automate their continuous integration and deployment workflows and the Azure Kubernetes Service (AKS) infrastructure.
+1. Describe how VSTS can help the customer automate their continuous integration and deployment workflows and the Azure Kubernetes Service (AKS) infrastructure.
 
 TODO:new content coming
 
