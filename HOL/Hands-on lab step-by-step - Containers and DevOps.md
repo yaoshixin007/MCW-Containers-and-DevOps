@@ -56,17 +56,36 @@ Microsoft and the trademarks listed at https://www.microsoft.com/en-us/legal/int
 
 ## Abstract and learning objectives
 
-This hands-on lab is designed to guide you through the process of building and deploying Docker images to the Kubernetes platform hosted on Azure Kubernetes Service (AKS) in addition to learning how to work with dynamic service discovery, service scale-out and HA. 
+This hands-on lab is designed to guide you through the process of building and deploying Docker images to the Kubernetes platform hosted on Azure Container Services (AKS) in addition to learning how to work with dynamic service discovery, service scale-out and HA. The goal of the lab is to provide a foundation for the following:
 
-- Create and run a Docker Application
+-	Creating the following Azure resources:
 
-- Deploy to the Azure Kubernetes Service
+    -	Azure Container Registry
+    
+    -	Azure Container Services (AKS)
+    
+-	Setting up an environment to do the following:
 
-- Implement load balancing and service discovery
+    -	Build Docker images
+    
+    -	Connect to Azure Container Registry
+    
+    -	Connect to an Azure Container Services (AKS) cluster
+    
+-	Perform the following actions:
 
-- Scale the application and test availability
+    -	Building Docker images locally and pushing them to Azure Container Registry
+    
+    -	Deploying containers to a Kubernetes cluster
+    
+    -	Load balancing containers with and without Azure Load Balancer
+    
+    -	Working with service discovery
+    
+    -	Performing rolling upgrades for services with zero downtime
+    
+    -	Scaling services
 
-- Use Kubernetes ingress for path based routing and TLS termination.
 
 ## Overview
 
