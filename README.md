@@ -1,38 +1,31 @@
 # Abstract
 
+Fabrikam Medical Conferences provides conference web site services tailored to the medical community. Their business has grown and the management of many instances of the code base and change cycle per tenant has gotten out of control. The goal of this workshop is to help them build a POC that will migrate their code to a more managable process that involves containerization of tenant code, a better DevOps workflow, and a simple lift-and-shift story for the database back end. 
+
 ## Workshop
 
-Build a PoC to deliver a multi-tenant web app hosting solution leveraging Azure Container Service (AKS), Docker containers, and Linux nodes.???
+In this workshop, you will build a proof of concept (POC) that will transform an existing PaaS application to a container-based application. This POC will deliver a multi-tenant web app hosting solution leveraging Azure Container Service (AKS), Docker containers on Linux nodes and a migration from MongoDB to CosmosDB. 
 
-Attendees will be better able to deploy Docker-based applications and scale them with Azure Container Service and Kubernetes orchestration. In addition,
+## Target Audience
 
--   Create and run a Docker Application
+This lab targets two audiences:
 
--   Deploy to the Azure Container Service (AKS)
-
--   Implement load balancing and service discovery
-
--   Scale the application and test availability
-
-
+* Application developer
+* Infrastructure architect
 
 ## Whiteboard Design Session
-TBD
+
+This whiteboard design session is designed to help attendees understand the choices related to building and deploying containerized applications in Azure, critical decisions around this and other aspects of the solution including ways to lift-and-shift parts of the application to reduce applications changes. 
 
 ## Hand-on Lab
-TBD
 
+This hands-on lab is designed to guide you through the process of building and deploying Docker images to the Kubernetes platform hosted on Azure Kubernetes Service (AKS) in addition to learning how to work with dynamic service discovery, service scale-out and HA. 
 
 ## Azure services and related products
-- Azure Container Service
+- Azure Kubernetes Service (AKS)
+- Azure Container Registry
 - Docker 
-- Mesosphere DC/OS
-- Kuberenetes
-- Azure Storage
-- Azure API Management
-- Marathon
-- Load Balancer
-
+- CosmosDB (including MongoDB API)
 
 # Contributing
 
