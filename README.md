@@ -17,7 +17,7 @@ This lab targets two audiences:
 
 This whiteboard design session is designed to help attendees understand the choices related to building and deploying containerized applications in Azure, critical decisions around this and other aspects of the solution including ways to lift-and-shift parts of the application to reduce applications changes. 
 
-## Hand-on Lab
+## Hands-on Lab
 
 This hands-on lab is designed to guide you through the process of building and deploying Docker images to the Kubernetes platform hosted on Azure Kubernetes Service (AKS) in addition to learning how to work with dynamic service discovery, service scale-out and HA. 
 
