@@ -588,7 +588,7 @@ FabMedical has provided starter files for you. They have taken a copy of one of 
     ll
     ```
 
-5.  You'll see the listing includes three folders, one for the web site, another for the content API and one to initialize API data.
+5.  You'll see the listing includes three folders, one for the web site, another for the content API and one to initialize API data
 
     ```bash
     content-api/
@@ -596,31 +596,40 @@ FabMedical has provided starter files for you. They have taken a copy of one of 
     content-web/
     ```
 
-6. Next log into your VisualStudio.com account.
+6. Next log into your VisualStudio.com account
 
-    If this is your first time logging into this account you will be taken through a first-run experience.
+    If this is your first time logging into this account you will be taken through a first-run experience
 
-    * Confirm your contact information and click next.
-    * Click "Create new account"
-    * Enter a fabmedical-SUFFIX for your account name and click Continue
+    * Confirm your contact information and select next
+    * Select "Create new account"
+    * Enter a fabmedical-SUFFIX for your account name and select Continue
 
 7. Create repositories to host the code
 
-    * Click the icon in the top left corner to return to the account home page.
+    * Select the icon in the top left corner to return to the account home page
 
         ![Home page icon](images/Setup/image47.png)
-    * Click "New Project"
+        
+    * Select "New Project"
         * Enter fabmedical as the project name
-        * Click "Create"
-    c. Once the project creation has completed, click "Code".
-    d. Use the repository dropdown to create a new repository by clicking "+ New repository"
+        * Select "Create"
+        
+    c. Once the project creation has completed, select "Code"
+    
+    d. Use the repository dropdown to create a new repository by selecting "+ New repository"
+    
            ![Repository dropdown](images/Setup/image48.png)
-    * Enter "content-web" as the repository name.
+           
+    * Enter "content-web" as the repository name
+    
     * Once the project is created click "Generate Git credentials"
+    
           ![Generate Git Credentials](images/Setup/image50.png)
+          
         * Enter a password
         * Confirm the password
-        * Click "Save Git Credentials"
+        * Select "Save Git Credentials"
+        
     * Using your WSL window, initialize a new git repository
 
         ```bash
@@ -630,10 +639,15 @@ FabMedical has provided starter files for you. They have taken a copy of one of 
         git commit -m "Initial Commit"
         ```
     * Setup your VisualStudio.com repository as a new remote the push.  You can copy the commands to do this from your browser.  Paste these commands into your WSL window.
+    
         ![Commands to add remote](images/Setup/image49.png)
-        * When prompted, enter your VisualStudio.com username and the git credentials password you created earlier in this task.
+        
+        * When prompted, enter your VisualStudio.com username and the git credentials password you created earlier in this task
+        
     * Use the repository dropdown to create a second repository called "content-api"
+    
         * Using your WSL window, initialize a new git repository in the content-api directory.
+        
             ```bash
             cd ../content-api
             git init
@@ -641,9 +655,13 @@ FabMedical has provided starter files for you. They have taken a copy of one of 
             git commit -m "Initial Commit"
             ```
         * Setup your VisualStudio.com repository as a new remote the push.  Use the repository dropdown to switch to the "content-api" repository. You can then copy the commands for the setting up the content-api repository  from your browser.  Paste these commands into your WSL window.
-        * When prompted, enter your VisualStudio.com username and the git credentials password you created earlier in this task.
+        
+        * When prompted, enter your VisualStudio.com username and the git credentials password you created earlier in this task
+        
     * Use the repository dropdown to create a third repository called "content-init"
-        * Using your WSL window, initialize a new git repository in the content-init directory.
+    
+        * Using your WSL window, initialize a new git repository in the content-init directory
+        
             ```bash
             cd ../content-init
             git init
@@ -651,7 +669,8 @@ FabMedical has provided starter files for you. They have taken a copy of one of 
             git commit -m "Initial Commit"
             ```
         * Setup your VisualStudio.com repository as a new remote the push.  Use the repository dropdown to switch to the "content-init" repository. You can then copy the commands for the setting up the content-init repository  from your browser.  Paste these commands into your WSL window.
-        * When prompted, enter your VisualStudio.com username and the git credentials password you created earlier in this task.
+        
+        * When prompted, enter your VisualStudio.com username and the git credentials password you created earlier in this task
 
 8. Clone your repositories to the build agent
 
@@ -669,12 +688,12 @@ FabMedical has provided starter files for you. They have taken a copy of one of 
         git clone <REPOSITORY_URL>
         ```
 
-    * In your browser, switch to the "content-api" repository and click "Clone" to see and copy the repository url.
+    * In your browser, switch to the "content-api" repository and select "Clone" to see and copy the repository url
 
-    * Use the repository url and `git clone` to copy the content-api code to your build agent.
+    * Use the repository url and `git clone` to copy the content-api code to your build agent
 
-    * In your browser, switch to the "content-init" repository and click "Clone" to see and copy the repository url.
+    * In your browser, switch to the "content-init" repository and select "Clone" to see and copy the repository url
 
-    * Use the repository url and `git clone` to copy the content-init code to your build agent.
+    * Use the repository url and `git clone` to copy the content-init code to your build agent
 
 **NOTE: Keep this WSL window open as your build agent SSH connection. You will later open new WSL sessions to other machines.**
