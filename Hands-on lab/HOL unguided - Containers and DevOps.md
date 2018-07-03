@@ -80,7 +80,7 @@ Below is a diagram of the solution architecture you will build in this lab. Plea
 
 The solution will use Azure Kubernetes Service (AKS), which means that the container cluster topology is provisioned according to the number of requested nodes. The proposed containers deployed to the cluster are illustrated below- with MongoDB remaining as a managed service:
 
-![The solution will use Azure Kubernetes Service (AKS). The proposed containers deployed to the cluster are illustrated in this diagram, with MongoDB remaining as a managed service.](images/Hands-onlabstep-by-step-ContainersandDevOpsimages/media/image3.png)
+![A diagram showing the solution, using Azure Kubernetes Service with a CosmosDB back end.](images/Hands-onlabstep-by-step-ContainersandDevOpsimages/media/image3.png)
 
 Each tenant will have the following containers:
 
