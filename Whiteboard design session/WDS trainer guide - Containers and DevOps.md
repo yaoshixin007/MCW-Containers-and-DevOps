@@ -282,13 +282,13 @@ While multi-tenancy is a goal for the code base, even with this in place, Arthur
 
 *NOTE: this diagram is an illustration of the Kubernetes topology, however, given Azure Kubernetes Services (AKS) is managed, the details of the underlying Kubernetes deployment are not surfaced -- nor do customers have to manage it.*
 
-![Azure Kubernetes Service configured to use Kubernetes.](images/Whiteboarddesignsessiontrainerguide-ContainersandDevOpsimages/media/image2.png)
+![A diagram of a Kubernetes cluster topology illustrating master and agent nodes with load balancers.](images/Whiteboarddesignsessiontrainerguide-ContainersandDevOpsimages/media/image2.png)
 
 <https://docs.microsoft.com/en-us/azure/aks/intro-kubernetes>
 
 **CICD to Azure Kubernetes Service with VSTS**
 
-![VSTS DevOps workflow with Azure Kubernetes Service](https://almvm.azurewebsites.net/labs/vstsextend/kubernetes/images/vstsaksdevops.png)
+![A diagram showing the VSTS DevOps workflow to build Docker images from source code, push images to Azure Container Registry, and deploy to Azure Container Service using Kubernetes, Swarm or DCOS).](https://almvm.azurewebsites.net/labs/vstsextend/kubernetes/images/vstsaksdevops.png)
 
 <https://almvm.azurewebsites.net/labs/vstsextend/kubernetes/>
 
@@ -471,7 +471,7 @@ Each tenant will have the following containers:
 
     The solution will use Azure Kubernetes Service (AKS), which means that the container cluster topology is provisioned according to the number of requested nodes. The proposed containers deployed to the cluster are illustrated below, with MongoDB remaining as a managed service:
 
-![The solution will use Azure Kubernetes Service (AKS). The proposed containers deployed to the cluster are illustrated in this diagram, with MongoDB remaining as a managed service.](images/Whiteboarddesignsessiontrainerguide-ContainersandDevOpsimages/media/image4.png)
+![A diagram showing the solution, using Azure Kubernetes Service with a CosmosDB back end.](images/Whiteboarddesignsessiontrainerguide-ContainersandDevOpsimages/media/image4.png)
 
 *Choosing a container platform on Azure*
 

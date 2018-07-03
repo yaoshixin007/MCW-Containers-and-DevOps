@@ -162,13 +162,13 @@ While multi-tenancy is a goal for the code base, even with this in place, Arthur
 
 *NOTE: this diagram is an illustration of the Kubernetes topology, however, given Azure Kubernetes Services (AKS) is managed, the details of the underlying Kubernetes deployment are not surfaced -- nor do customers have to manage it.*
 
-![Azure Kubernetes Service configured to use Kubernetes.](images/Whiteboarddesignsessiontrainerguide-ContainersandDevOpsimages/media/image2.png)
+![A diagram of a Kubernetes cluster topology illustrating master and agent nodes with load balancers.](images/Whiteboarddesignsessiontrainerguide-ContainersandDevOpsimages/media/image2.png)
 
 <https://docs.microsoft.com/en-us/azure/aks/intro-kubernetes>
 
 **CICD to Azure Kubernetes Service with VSTS**
 
-![VSTS DevOps workflow with Azure Kubernetes Service](https://almvm.azurewebsites.net/labs/vstsextend/kubernetes/images/vstsaksdevops.png)
+![A diagram showing the VSTS DevOps workflow to build Docker images from source code, push images to Azure Container Registry, and deploy to Azure Container Service using Kubernetes, Swarm or DCOS).](https://almvm.azurewebsites.net/labs/vstsextend/kubernetes/images/vstsaksdevops.png)
 
 <https://almvm.azurewebsites.net/labs/vstsextend/kubernetes/>
 
