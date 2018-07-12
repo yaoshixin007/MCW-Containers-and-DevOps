@@ -54,6 +54,7 @@ Microsoft and the trademarks listed at https://www.microsoft.com/en-us/legal/int
         - [Task 2: Update an external service to support dynamic discovery with a load balancer](#task-2-update-an-external-service-to-support-dynamic-discovery-with-a-load-balancer)
         - [Task 3: Adjust CPU constraints to improve scale](#task-3-adjust-cpu-constraints-to-improve-scale)
         - [Task 4: Perform a rolling update](#task-4-perform-a-rolling-update)
+        - [Task 5: Configure Kubernetes Ingress](#task-5-configure-kubernetes-ingress)
     - [After the hands-on lab](#after-the-hands-on-lab)
 
 <!-- /TOC -->
