@@ -1813,7 +1813,7 @@ In this task, you will edit the web application source code to add Application I
 
     ```javascript
     const appInsights = require("applicationinsights");
-    appInsights.setup(config.appInsightKey);
+    appInsights.setup(config.appSettings.appInsightKey);
     appInsights.start();
     ```
 
