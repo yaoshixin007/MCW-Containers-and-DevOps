@@ -453,6 +453,13 @@ In this task, you will create a new Dockerfile that will be used to run the API 
 
     ![The node image (node) and your container image (content-api) are visible in this screenshot of the WSL window.](images/Hands-onlabstep-by-step-ContainersandDevOpsimages/media/image59.png)
 
+1. Commit and push the new Dockerfile before continuing.
+
+    - `git add .`
+    - `git commit -m "Added Dockerfile"`
+    - `git push`
+    - Enter credentials if prompted.
+
 4. Navigate to the content-web folder again and list the files. Note that this folder already has a Dockerfile.
 
     ```bash
