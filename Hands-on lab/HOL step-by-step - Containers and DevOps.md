@@ -844,8 +844,8 @@ In this task, you will push images to your ACR account, version images with tagg
 7. Push the images to your ACR account with the following command
 
     ```bash
-    docker push [LOGINSERVER]/fabmedical/content-web
-    docker push [LOGINSERVER]/fabmedical/content-api
+    docker push [LOGINSERVER]/content-web
+    docker push [LOGINSERVER]/content-api
     ```
 
     ![In this screenshot of the WSL window, an example of images being pushed to an ACR account results from typing and running the following at the command prompt: docker push \[LOGINSERVER\]/fabmedical/content-web.](images/Hands-onlabstep-by-step-ContainersandDevOpsimages/media/image67.png)
