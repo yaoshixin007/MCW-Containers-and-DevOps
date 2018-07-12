@@ -2039,7 +2039,7 @@ In this task you will setup a Kubernetes Ingress to take advantage of path based
       tls:
       - hosts:
         - fabmedical-[SUFFIX]-ingress.eastus.cloudapp.azure.com
---        secretName: tls-secret
+        secretName: tls-secret
       rules:
       - host:   fabmedical-[SUFFIX]-ingress.eastus.cloudapp.azure.com
         http:
