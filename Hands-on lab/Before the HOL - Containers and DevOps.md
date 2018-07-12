@@ -583,7 +583,7 @@ FabMedical has provided starter files for you. They have taken a copy of one of 
 1.  From WSL, download the starter files by typing the following curl instruction (case sensitive):
 
     ```bash
-    curl -L -o FabMedical.tgz http://bit.ly/2tRcRu6
+    curl -L -o FabMedical.tgz http://bit.ly/2uhZseT
     ```
 
 2.  Create a new directory named FabMedical by typing in the following command:
