@@ -295,15 +295,15 @@ Tip: Make sure to specify the fully qualified registry login server (all lowerca
 
 1. Next, setup VSTS to automate the process for creating images and pushing to ACR.  Add an Azure Service Principal to your VSTS account. Create docker container builds for all repositories that push images to your ACR instance.  Enable Continuous Integration for all repositories.
 
-## Exercise 2: Deploy the solution to Azure Container Service
+## Exercise 2: Deploy the solution to Azure Kubernetes Service
 
 **Duration**: 30 minutes
 
-In this exercise, you will connect to the Azure Container Service cluster you created before the hands-on lab, and deploy the Docker application to the cluster using Kubernetes.
+In this exercise, you will connect to the Azure Kubernetes Service cluster you created before the hands-on lab, and deploy the Docker application to the cluster using Kubernetes.
 
-### Task 1: Tunnel into the Azure Container Service cluster
+### Task 1: Tunnel into the Azure Kubernetes Service cluster
 
-In this task, you will gather the information you need about your Azure Container Service cluster to connect to the cluster and execute commands to connect to the Kubernetes management dashboard from your local machine.
+In this task, you will gather the information you need about your Azure Kubernetes Service cluster to connect to the cluster and execute commands to connect to the Kubernetes management dashboard from your local machine.
 
 1. Verify that Azure CLI is working correctly, and that you are logged in and connected to the correct default subscription
 
@@ -329,7 +329,7 @@ In this task, you will gather the information you need about your Azure Containe
 
 ### Task 2: Deploy a service using the Kubernetes management dashboard
 
-In this task, you will deploy the API application to the Azure Container Service cluster using the Kubernetes dashboard.
+In this task, you will deploy the API application to the Azure Kubernetes Service cluster using the Kubernetes dashboard.
 
 1. From the Kubernetes dashboard create a new deployment for the API application, based on the API image you pushed to your ACR. Use the following settings:
 

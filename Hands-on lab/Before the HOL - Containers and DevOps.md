@@ -409,7 +409,7 @@ In this task, you will update the packages and install Docker engine.
 
 ### Task 8: Create an Azure Container Registry
 
-You deploy Docker images from a registry. To complete the hands-on lab, you will need access to a registry that is accessible to the Azure Container Service cluster you are creating. In this task, you will create an Azure Container Registry (ACR) for this purpose, where you push images for deployment.
+You deploy Docker images from a registry. To complete the hands-on lab, you will need access to a registry that is accessible to the Azure Kubernetes Service cluster you are creating. In this task, you will create an Azure Container Registry (ACR) for this purpose, where you push images for deployment.
 
 1.  In the [Azure Portal](https://portal.azure.com/), select **+ Create a resource**, **Containers**, then click **Azure Container Registry**.
 
@@ -502,7 +502,7 @@ In this task, you will create your Azure Kubernetes Service cluster. You will us
     * **Kubernetes version**: 1.9.6.
     * **DNS Prefix**: Enter fabmedical-SUFFIX.
 
-        ![Basics is selected in the Create Azure Container Service blade, and the values listed above appear in the corresponding boxes in the Basics blade on the right.](images/Setup/image41.png)
+        ![Basics is selected in the Create Azure Kubernetes Service blade, and the values listed above appear in the corresponding boxes in the Basics blade on the right.](images/Setup/image41.png)
 
     * Configure your service principal
         * **Service principal client ID**: Use the service principal “appId” from the previous step.
@@ -530,9 +530,9 @@ In this task, you will create your Azure Kubernetes Service cluster. You will us
 
 8.  On the Summary blade, you should see that validation passed; select **OK**
 
-    ![Summary is selected in the Create Azure Container Service blade, and a Validation passed message appears in the Summary blade on the right.](images/Setup/image43.png)
+    ![Summary is selected in the Create Azure Kubernetes Service blade, and a Validation passed message appears in the Summary blade on the right.](images/Setup/image43.png)
 
-9.  The Azure Container Service cluster will begin deployment to your Azure subscription. You should see a successful deployment notification when the cluster is ready. It can take up to 10 minutes before your Azure Container Service cluster is listed in the Azure Portal. You can proceed to the next step while waiting for this to complete, then return to view the success of the deployment.
+9.  The Azure Kubernetes Service cluster will begin deployment to your Azure subscription. You should see a successful deployment notification when the cluster is ready. It can take up to 10 minutes before your Azure Kubernetes Service cluster is listed in the Azure Portal. You can proceed to the next step while waiting for this to complete, then return to view the success of the deployment.
 
     ![This is a screenshot of a deployment notification indicating that the deployments succeeded.](images/Setup/image45.png)
 
