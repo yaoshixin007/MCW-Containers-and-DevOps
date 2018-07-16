@@ -11,7 +11,7 @@ Fabrikam Medical Conferences provides conference web site services tailored to t
 
 ### Workshop
 
-In this workshop, you will build a proof of concept (POC) that will transform an existing PaaS application to a container-based application. This POC will deliver a multi-tenant web app hosting solution leveraging Azure Container Service (AKS), Docker containers on Linux nodes and a migration from MongoDB to CosmosDB.
+In this workshop, you will build a proof of concept (POC) that will transform an existing PaaS application to a container-based application. This POC will deliver a multi-tenant web app hosting solution leveraging Azure Kubernetes Service (AKS), Docker containers on Linux nodes and a migration from MongoDB to CosmosDB.
 
 ### Whiteboard Design Session
 
@@ -21,7 +21,7 @@ By the end of this design session you will be better able to design solutions th
 
 ### Hands-on Lab
 
-This hands-on lab is designed to guide you through the process of building and deploying Docker images to the Kubernetes platform hosted on Azure Container Services (AKS) in addition to learning how to work with dynamic service discovery, service scale-out and HA.
+This hands-on lab is designed to guide you through the process of building and deploying Docker images to the Kubernetes platform hosted on Azure Kubernetes Service (AKS) in addition to learning how to work with dynamic service discovery, service scale-out and HA.
 
 At the end of this lab you will be better able to build and deploy containerized applications to Azure Kubernetes Service and perform common DevOps procedures.
 
