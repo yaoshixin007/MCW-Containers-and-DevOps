@@ -506,13 +506,13 @@ The Azure Container Service provides a turnkey container cluster management solu
 
 **Azure Kubernetes Service (AKS)**
 
-Azure Kubernetes Service (AKS) will provide a fully managed container platform solution based on Kubernetes. Currently in preview, the goal of AKS will be to remove the management overhead of container orchestration clusters, allowing teams to focus on the application and core DevOps workflows relevant to the solution.
+Azure Kubernetes Service (AKS) will provide a fully managed container platform solution based on Kubernetes. The goal of AKS is to remove the management overhead of container orchestration clusters, allowing teams to focus on the application and core DevOps workflows relevant to the solution.
 
 2. Which would you recommend and why?
 
 Azure Kubernetes Service (AKS) is the recommended platform for the following reasons:
 
-1.  The timeline of the solution allows for adopting AKS (currently in preview) with the expectation that it will be released before the solution will go to production. It is desired because it is a fully managed platform and will reduce the overhead of managing containers.
+1.  Adopting AKS is desired because it is a fully managed platform and will reduce the overhead of managing containers.
 
 2.  Ability to monitor and manage applications using a Management UI
 
@@ -582,7 +582,7 @@ Azure Kubernetes Service (AKS) is the recommended platform for the following rea
 
 1. Explain to the customer how Azure Kubernetes Service (AKS) supports cluster auto-scaling
 
-   You can scale the agent nodes in the cluster with Azure CLI commands. As the service is still in preview, additional auto-scale details are not yet available.
+   You can scale the agent nodes in the cluster with Azure CLI commands. 
 
 *Automating DevOps workflows*
 
