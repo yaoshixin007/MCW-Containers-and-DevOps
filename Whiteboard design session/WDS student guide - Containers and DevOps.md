@@ -43,7 +43,7 @@ Microsoft and the trademarks listed at https://www.microsoft.com/en-us/legal/int
 
 ## Abstract and learning objectives 
 
-This whiteboard design session is designed to help attendees understand the choices related to building and deploying containerized applications in Azure, critical decisions around this and other aspects of the solution including ways to lift-and-shift parts of the application to reduce applications changes.
+In this whiteboard design session, you will learn about the choices related to building and deploying containerized applications in Azure, critical decisions around this, and other aspects of the solution, including ways to lift-and-shift parts of the application to reduce applications changes.
 
 By the end of this design session you will be better able to design solutions that target Azure Kubernetes Service (AKS) and define a DevOps workflow for containerized applications.
 
