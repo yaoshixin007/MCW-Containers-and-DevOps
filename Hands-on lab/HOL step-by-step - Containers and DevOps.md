@@ -1006,7 +1006,7 @@ In this task, you will gather the information you need about your Azure Kubernet
 
     a. This should produce output similar to this:
 
-        ![In this screenshot of the WSL console, example output from running az --version appears. At this time, we are unable to capture all of the information in the window. Future versions of this course should address this.](images/Hands-onlabstep-by-step-ContainersandDevOpsimages/media/image73.png)
+    ![In this screenshot of the WSL console, example output from running az --version appears. At this time, we are unable to capture all of the information in the window. Future versions of this course should address this.](images/Hands-onlabstep-by-step-ContainersandDevOpsimages/media/image73.png)
 
     b. If the output is not correct, review your steps from the instructions in Task 11: Install Azure CLI from the instructions before the lab exercises.
 
@@ -1018,7 +1018,7 @@ In this task, you will gather the information you need about your Azure Kubernet
 
     a. This should produce output similar to this:
 
-        ![In this screenshot of the WSL console, kubectl version has been typed and run at the command prompt, which displays Kubernetes CLI client information.](images/Hands-onlabstep-by-step-ContainersandDevOpsimages/media/image74.png)
+    ![In this screenshot of the WSL console, kubectl version has been typed and run at the command prompt, which displays Kubernetes CLI client information.](images/Hands-onlabstep-by-step-ContainersandDevOpsimages/media/image74.png)
 
     b. If the output is not correct, review the steps from the instructions in Task 12: Install Kubernetes CLI from the instructions before the lab exercises.
 
