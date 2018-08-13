@@ -39,8 +39,8 @@ Microsoft and the trademarks listed at https://www.microsoft.com/en-us/legal/int
         - [Task 5: Run a containerized application](#task-5-run-a-containerized-application)
         - [Task 6: Setup environment variables](#task-6-setup-environment-variables)
         - [Task 7: Push images to Azure Container Registry](#task-7-push-images-to-azure-container-registry)
-    - [Exercise 2: Deploy the solution to Azure Kubernetes Service](#exercise-2-deploy-the-solution-to-azure-container-service)
-        - [Task 1: Tunnel into the Azure Kubernetes Service cluster](#task-1-tunnel-into-the-azure-container-service-cluster)
+    - [Exercise 2: Deploy the solution to Azure Kubernetes Service](#exercise-2-deploy-the-solution-to-azure-kubernetes-service)
+        - [Task 1: Tunnel into the Azure Kubernetes Service cluster](#task-1-tunnel-into-the-azure-kubernetes-service-cluster)
         - [Task 2: Deploy a service using the Kubernetes management dashboard](#task-2-deploy-a-service-using-the-kubernetes-management-dashboard)
         - [Task 3: Deploy a service using kubectl](#task-3-deploy-a-service-using-kubernetes-rest-api)
         - [Task 4: Initialize database with a Kubernetes Job](#task-4-explore-service-instance-logs-and-resolve-an-issue)
@@ -85,37 +85,37 @@ The solution will use Azure Kubernetes Service (AKS), which means that the conta
 
 Each tenant will have the following containers:
 
--   **Conference Web site**: the SPA application that will use configuration settings to handle custom styles for the tenant
+- **Conference Web site**: the SPA application that will use configuration settings to handle custom styles for the tenant
 
--   **Admin Web site**: the SPA application that conference owners use to manage conference configuration details, manage attendee registrations, manage campaigns and communicate with attendees
+- **Admin Web site**: the SPA application that conference owners use to manage conference configuration details, manage attendee registrations, manage campaigns and communicate with attendees
 
--   **Registration service**: the API that handles all registration activities creating new conference registrations with the appropriate package selections and associated cost
+- **Registration service**: the API that handles all registration activities creating new conference registrations with the appropriate package selections and associated cost
 
--   **Email service**: the API that handles email notifications to conference attendees during registration, or when the conference owners choose to engage the attendees through their admin site
+- **Email service**: the API that handles email notifications to conference attendees during registration, or when the conference owners choose to engage the attendees through their admin site
 
--   **Config service**: the API that handles conference configuration settings such as dates, locations, pricing tables, early bird specials, countdowns, and related
+- **Config service**: the API that handles conference configuration settings such as dates, locations, pricing tables, early bird specials, countdowns, and related
 
--   **Content service**: the API that handles content for the conference such as speakers, sessions, workshops, and sponsors
+- **Content service**: the API that handles content for the conference such as speakers, sessions, workshops, and sponsors
 
 ## Requirements
 
 1. Microsoft Azure subscription must be pay-as-you-go or MSDN
 
-    -  Trial subscriptions will *not* work
+    - Trial subscriptions will *not* work
 
-    -  You must have rights to create a service principal as discussed in Task 9: Create a Service Principal --- and this typically requires a subscription owner to log in. You may have to ask another subscription owner to login to the portal and execute that step ahead of time if you do not have the rights.
+    - You must have rights to create a service principal as discussed in Task 9: Create a Service Principal --- and this typically requires a subscription owner to log in. You may have to ask another subscription owner to login to the portal and execute that step ahead of time if you do not have the rights.
 
-    -  You must have enough cores available in your subscription to create the build agent and Azure Kubernetes Service cluster in Task 5: Create a build agent VM and Task 10: Create an Azure Kubernetes Service cluster. You'll need eight cores if following the exact instructions in the lab, or more if you choose additional agents or larger VM sizes. If you execute the steps required before the lab, you will be able to see if you need to request more cores in your sub.
+    - You must have enough cores available in your subscription to create the build agent and Azure Kubernetes Service cluster in Task 5: Create a build agent VM and Task 10: Create an Azure Kubernetes Service cluster. You'll need eight cores if following the exact instructions in the lab, or more if you choose additional agents or larger VM sizes. If you execute the steps required before the lab, you will be able to see if you need to request more cores in your sub.
 
 2. Local machine or a virtual machine configured with:
 
-    -   A browser, preferably Chrome for consistency with the lab implementation tests
+    - A browser, preferably Chrome for consistency with the lab implementation tests
 
-    -   Command prompt
+    - Command prompt
 
-        -   On Windows, you will be using Bash on Ubuntu on Windows, hereon referred to as WSL
+        - On Windows, you will be using Bash on Ubuntu on Windows, hereon referred to as WSL
 
-        -   On Mac, all instructions should be executed using bash in Terminal
+        - On Mac, all instructions should be executed using bash in Terminal
 
 3. You will be asked to install other tools throughout the exercises.
 
@@ -247,7 +247,7 @@ The purpose of this task is to make sure you can run the application successfull
     curl http://localhost:3000
     ```
 
--16. Leave the application running for the next task
+16. Leave the application running for the next task
 
 17. If you received a JSON response to the /speakers content request and an HTML response from the web application, your environment is working as expected
 
@@ -1456,21 +1456,21 @@ In this task, you will increase the number of instances for the API deployment i
 
 7. Navigate to the web application from the browser again. The application should still work without errors as you navigate to Speakers and Sessions pages
 
-   - Navigate to the /stats.html page. You'll see information about the environment including:
+    - Navigate to the /stats.html page. You'll see information about the environment including:
 
-      -  webTaskId: the task identifier for the web service instance
+        - webTaskId: the task identifier for the web service instance
 
-      - taskId: the task identifier for the API service instance
+        - taskId: the task identifier for the API service instance
 
-      - hostName: the hostname identifier for the API service instance
+        - hostName: the hostname identifier for the API service instance
 
-      - pid: the process id for the API service instance
+        - pid: the process id for the API service instance
 
-      -  mem: some memory indicators returned from the API service instance
+        - mem: some memory indicators returned from the API service instance
 
-      - counters: counters for the service itself, as returned by the API service instance
+        - counters: counters for the service itself, as returned by the API service instance
 
-      - uptime: the up time for the API service
+        - uptime: the up time for the API service
 
     - Refresh the page in the browser, and you can see the hostName change between the two API service instances. The letters after "api-{number}-" in the hostname will change.
 
@@ -2082,11 +2082,11 @@ In this exercise, you will de-provision any Azure resources created in support o
 
 1. Delete both of the Resource Groups in which you placed all of your Azure resources
 
-     -  From the Portal, navigate to the blade of your Resource Group and then select Delete in the command bar at the top
+    - From the Portal, navigate to the blade of your Resource Group and then select Delete in the command bar at the top
 
-     -   Confirm the deletion by re-typing the resource group name and selecting Delete
+    - Confirm the deletion by re-typing the resource group name and selecting Delete
 
 2. Delete the Service Principal created on Task 9: Create a Service Principal before the hands-on lab
-    ```
+    ```bash
     az ad sp delete --id "Fabmedical-sp"
     ```
