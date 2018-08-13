@@ -99,7 +99,7 @@ Each tenant will have the following containers:
 
 ## Requirements
 
-1.  Microsoft Azure subscription must be pay-as-you-go or MSDN
+1. Microsoft Azure subscription must be pay-as-you-go or MSDN
 
     -  Trial subscriptions will *not* work
 
@@ -107,7 +107,7 @@ Each tenant will have the following containers:
 
     -  You must have enough cores available in your subscription to create the build agent and Azure Kubernetes Service cluster in Task 5: Create a build agent VM and Task 10: Create an Azure Kubernetes Service cluster. You'll need eight cores if following the exact instructions in the lab, or more if you choose additional agents or larger VM sizes. If you execute the steps required before the lab, you will be able to see if you need to request more cores in your sub.
 
-2.  Local machine or a virtual machine configured with:
+2. Local machine or a virtual machine configured with:
 
     -   A browser, preferably Chrome for consistency with the lab implementation tests
 
@@ -117,7 +117,7 @@ Each tenant will have the following containers:
 
         -   On Mac, all instructions should be executed using bash in Terminal
 
-3.  You will be asked to install other tools throughout the exercises.
+3. You will be asked to install other tools throughout the exercises.
 
 **VERY IMPORTANT: You should be typing all of the commands as they appear in the guide, except where explicitly stated in this document. Do not try to copy and paste from Word to your command windows or other documents where you are instructed to enter information shown in this document. There can be issues with Copy and Paste from Word that result in errors, execution of instructions, or creation of file content.**
 
@@ -454,21 +454,21 @@ In this task, you will create a new Dockerfile that will be used to run the API 
 
     ![The node image (node) and your container image (content-api) are visible in this screenshot of the WSL window.](images/Hands-onlabstep-by-step-ContainersandDevOpsimages/media/image59.png)
 
-1. Commit and push the new Dockerfile before continuing.
+4. Commit and push the new Dockerfile before continuing.
 
     - `git add .`
     - `git commit -m "Added Dockerfile"`
     - `git push`
     - Enter credentials if prompted.
 
-4. Navigate to the content-web folder again and list the files. Note that this folder already has a Dockerfile.
+5. Navigate to the content-web folder again and list the files. Note that this folder already has a Dockerfile.
 
     ```bash
     cd ../content-web
     ll
     ```
 
-5. View the Dockerfile contents -- which are similar to the file you created previously in the API folder. Type the following command:
+6. View the Dockerfile contents -- which are similar to the file you created previously in the API folder. Type the following command:
 
     ```bash
     cat Dockerfile
@@ -476,13 +476,13 @@ In this task, you will create a new Dockerfile that will be used to run the API 
 
     Notice that the content-web Dockerfile build stage includes additional tools to install bower packages in addition to the npm packages.
 
-6. Type the following command to create a Docker image for the web application
+7. Type the following command to create a Docker image for the web application
 
     ```bash
     docker build -t content-web .
     ```
 
-7. When complete, you will see seven images now exist when you run the Docker images command
+8. When complete, you will see seven images now exist when you run the Docker images command
 
     ```bash
     docker images
@@ -551,13 +551,13 @@ The web application container will be calling endpoints exposed by the API appli
     curl http://localhost:3001/speakers
     ```
 
-5. Create and start the web application container with a similar Docker run command -- instruct the docker engine to use any port with the `-P` command.
+6. Create and start the web application container with a similar Docker run command -- instruct the docker engine to use any port with the `-P` command.
 
     ```bash
     docker run --name web --net fabmedical -P -d content-web
     ```
 
-6. Enter the command to show running containers again and you'll observe that both the API and web containers are in the list. The web container shows a dynamically assigned port mapping to its internal container port 3000.
+7. Enter the command to show running containers again and you'll observe that both the API and web containers are in the list. The web container shows a dynamically assigned port mapping to its internal container port 3000.
 
     ```bash
     docker container ls
@@ -565,7 +565,7 @@ The web application container will be calling endpoints exposed by the API appli
 
     ![In this screenshot of the WSL window, docker container ls has again been typed and run at the command prompt. 0.0.0.0:32768->3000/tcp is highlighted under Ports, and a red arrow is pointing at it.](images/Hands-onlabstep-by-step-ContainersandDevOpsimages/media/image62.png)
 
-7. Test the web application by curling the URL. For the port, use the dynamically assigned port, which you can find in the output from the previous command. You will see HTML output, as you did when testing previously.
+8. Test the web application by curling the URL. For the port, use the dynamically assigned port, which you can find in the output from the previous command. You will see HTML output, as you did when testing previously.
 
     ```bash
     curl http://localhost:[PORT]/speakers.html
@@ -1436,7 +1436,7 @@ In this task, you will increase the number of instances for the API deployment i
 
     ![In the Scale a Deployment dialog box, 2 is entered in the Desired number of pods box.](images/Hands-onlabstep-by-step-ContainersandDevOpsimages/media/image116.png)
 
-**NOTE: If the deployment completes quickly, you may not see the deployment Waiting states in the dashboard as described in the following steps**.
+    **NOTE: If the deployment completes quickly, you may not see the deployment Waiting states in the dashboard as described in the following steps**.
 
 4. From the Replica Set view for the API, you'll see it is now deploying and that there is one healthy instance and one pending instance
 
@@ -2080,13 +2080,13 @@ In this task you will setup a Kubernetes Ingress to take advantage of path based
 
 In this exercise, you will de-provision any Azure resources created in support of this lab.
 
-1.  Delete both of the Resource Groups in which you placed all of your Azure resources
+1. Delete both of the Resource Groups in which you placed all of your Azure resources
 
      -  From the Portal, navigate to the blade of your Resource Group and then select Delete in the command bar at the top
 
      -   Confirm the deletion by re-typing the resource group name and selecting Delete
 
-2.  Delete the Service Principal created on Task 9: Create a Service Principal before the hands-on lab
+2. Delete the Service Principal created on Task 9: Create a Service Principal before the hands-on lab
     ```
     az ad sp delete --id "Fabmedical-sp"
     ```

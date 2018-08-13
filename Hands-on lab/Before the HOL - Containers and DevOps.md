@@ -319,43 +319,43 @@ In this section, you will validate that you can connect to the new build agent V
 
 In this task, you will update the packages and install Docker engine.
 
-1.  Go to the WSL window that has the SSH connection open to the build agent VM
+1. Go to the WSL window that has the SSH connection open to the build agent VM
 
-2.  Update the Ubuntu packages and install curl and support for repositories over HTTPS in a single step by typing the following in a single line command. When asked if you would like to proceed, respond by typing "y" and pressing enter.
+2. Update the Ubuntu packages and install curl and support for repositories over HTTPS in a single step by typing the following in a single line command. When asked if you would like to proceed, respond by typing "y" and pressing enter.
 
     ``` bash
     sudo apt-get update && sudo apt install apt-transport-https ca-certificates curl software-properties-common
     ```
 
-3.  Add Docker's official GPG key by typing the following in a single line command
+3. Add Docker's official GPG key by typing the following in a single line command
 
     ``` bash
     curl -fsSL https://download.docker.com/linux/ubuntu/gpg | sudo apt-key add -
     ```
-4.  Add Docker's stable repository to Ubuntu packages list by typing the following in a single line command
+4. Add Docker's stable repository to Ubuntu packages list by typing the following in a single line command
 
     ``` bash
     sudo add-apt-repository "deb [arch=amd64] https://download.docker.com/linux/ubuntu $(lsb_release -cs) stable"
     ```
-5.  Update the Ubuntu packages and install Docker engine, node.js and the node package manager in a single step by typing the following in a single line command. When asked if you would like to proceed, respond by typing "y" and pressing enter.
+5. Update the Ubuntu packages and install Docker engine, node.js and the node package manager in a single step by typing the following in a single line command. When asked if you would like to proceed, respond by typing "y" and pressing enter.
 
     ``` bash
     sudo apt-get update && sudo apt install docker-ce nodejs npm mongodb-clients
     ```
-6.  Now, upgrade the Ubuntu packages to the latest version by typing the following in a single line command. When asked if you would like to proceed, respond by typing "y" and pressing enter.
+6. Now, upgrade the Ubuntu packages to the latest version by typing the following in a single line command. When asked if you would like to proceed, respond by typing "y" and pressing enter.
 
     ``` bash
     sudo apt-get upgrade
     ```
 
-7.  Install `docker-compose`
+7. Install `docker-compose`
 
     ```bash
     sudo curl -L https://github.com/docker/compose/releases/download/1.21.2/docker-compose-`uname -s`-`uname -m` -o /usr/local/bin/docker-compose
     sudo chmod +x /usr/local/bin/docker-compose
     ```
 
-8.  When the command has completed, check the Docker version installed by executing this command. The output may look something like that shown in the following screen shot. Note that the server version is not shown yet, because you didn't run the command with elevated privileges (to be addressed shortly).
+8. When the command has completed, check the Docker version installed by executing this command. The output may look something like that shown in the following screen shot. Note that the server version is not shown yet, because you didn't run the command with elevated privileges (to be addressed shortly).
 
     ``` bash
     docker version
@@ -363,7 +363,7 @@ In this task, you will update the packages and install Docker engine.
 
     ![In this screenshot of a Command Prompt window, docker version has been typed and run at the command prompt. Docker version information appears in the window.](images/Setup/image28.png)
 
-9.  You may check the versions of node.js and npm as well, just for information purposes, using these commands
+9. You may check the versions of node.js and npm as well, just for information purposes, using these commands
 
     ``` bash
     nodejs --version
@@ -371,14 +371,14 @@ In this task, you will update the packages and install Docker engine.
     npm -version
     ```
 
-10.  Install `bower`
+10. Install `bower`
 
     ```bash
     sudo npm install -g bower
     sudo ln -s /usr/bin/nodejs /usr/bin/node
     ```
 
-11.  Add your user to the Docker group so that you do not have to elevate privileges with sudo for every command. You can ignore any errors you see in the output.
+11. Add your user to the Docker group so that you do not have to elevate privileges with sudo for every command. You can ignore any errors you see in the output.
     ``` bash
     sudo usermod -aG docker $USER
     ```
@@ -614,7 +614,7 @@ FabMedical has provided starter files for you. They have taken a copy of one of 
     content-web/
     ```
 
-6. Next log into your VisualStudio.com account
+6.  Next log into your VisualStudio.com account
 
     If this is your first time logging into this account you will be taken through a first-run experience
 
@@ -622,7 +622,7 @@ FabMedical has provided starter files for you. They have taken a copy of one of 
     * Select "Create new account"
     * Enter a fabmedical-SUFFIX for your account name and select Continue
 
-7. Create repositories to host the code
+7.  Create repositories to host the code
 
     * Select the icon in the top left corner to return to the account home page
 
@@ -632,17 +632,17 @@ FabMedical has provided starter files for you. They have taken a copy of one of 
         * Enter fabmedical as the project name
         * Select "Create"
         
-    c. Once the project creation has completed, select "Code"
+    * Once the project creation has completed, select "Code"
     
-    d. Use the repository dropdown to create a new repository by selecting "+ New repository"
+    * Use the repository dropdown to create a new repository by selecting "+ New repository"
     
-           ![Repository dropdown](images/Setup/image48.png)
+        ![Repository dropdown](images/Setup/image48.png)
            
     * Enter "content-web" as the repository name
     
     * Once the project is created click "Generate Git credentials"
     
-          ![Generate Git Credentials](images/Setup/image50.png)
+        ![Generate Git Credentials](images/Setup/image50.png)
           
         * Enter a password
         * Confirm the password
@@ -690,7 +690,7 @@ FabMedical has provided starter files for you. They have taken a copy of one of 
         
         * When prompted, enter your VisualStudio.com username and the git credentials password you created earlier in this task
 
-8. Clone your repositories to the build agent
+8.  Clone your repositories to the build agent
 
     * From WSL, connect to the build agent VM as you did previously in Before the hands-on lab - Task 6: Connect securely to the build agent using the SSH command.
 
