@@ -39,11 +39,11 @@ Microsoft and the trademarks listed at https://www.microsoft.com/en-us/legal/int
         - [Task 5: Run a containerized application](#task-5-run-a-containerized-application)
         - [Task 6: Setup environment variables](#task-6-setup-environment-variables)
         - [Task 7: Push images to Azure Container Registry](#task-7-push-images-to-azure-container-registry)
-    - [Exercise 2: Deploy the solution to Azure Kubernetes Service](#exercise-2-deploy-the-solution-to-azure-container-service)
-        - [Task 1: Tunnel into the Azure Kubernetes Service cluster](#task-1-tunnel-into-the-azure-container-service-cluster)
+    - [Exercise 2: Deploy the solution to Azure Kubernetes Service](#exercise-2-deploy-the-solution-to-azure-kubernetes-service)
+        - [Task 1: Tunnel into the Azure Kubernetes Service cluster](#task-1-tunnel-into-the-azure-kubernetes-service-cluster)
         - [Task 2: Deploy a service using the Kubernetes management dashboard](#task-2-deploy-a-service-using-the-kubernetes-management-dashboard)
-        - [Task 3: Deploy a service using kubectl](#task-3-deploy-a-service-using-kubernetes-rest-api)
-        - [Task 4: Initialize database with a Kubernetes Job](#task-4-explore-service-instance-logs-and-resolve-an-issue)
+        - [Task 3: Deploy a service using kubectl](#task-3-deploy-a-service-using-kubectl)
+        - [Task 4: Initialize database with a Kubernetes Job](#task-4-initialize-database-with-a-kubernetes-job)
         - [Task 5: Test the application in a browser](#task-5-test-the-application-in-a-browser)
     - [Exercise 3: Scale the application and test HA](#exercise-3-scale-the-application-and-test-ha)
         - [Task 1: Increase service instances from the Kubernetes dashboard](#task-1-increase-service-instances-from-the-kubernetes-dashboard)
@@ -85,39 +85,39 @@ The solution will use Azure Kubernetes Service (AKS), which means that the conta
 
 Each tenant will have the following containers:
 
--   **Conference Web site**: the SPA application that will use configuration settings to handle custom styles for the tenant
+- **Conference Web site**: the SPA application that will use configuration settings to handle custom styles for the tenant
 
--   **Admin Web site**: the SPA application that conference owners use to manage conference configuration details, manage attendee registrations, manage campaigns and communicate with attendees
+- **Admin Web site**: the SPA application that conference owners use to manage conference configuration details, manage attendee registrations, manage campaigns and communicate with attendees
 
--   **Registration service**: the API that handles all registration activities creating new conference registrations with the appropriate package selections and associated cost
+- **Registration service**: the API that handles all registration activities creating new conference registrations with the appropriate package selections and associated cost
 
--   **Email service**: the API that handles email notifications to conference attendees during registration, or when the conference owners choose to engage the attendees through their admin site
+- **Email service**: the API that handles email notifications to conference attendees during registration, or when the conference owners choose to engage the attendees through their admin site
 
--   **Config service**: the API that handles conference configuration settings such as dates, locations, pricing tables, early bird specials, countdowns, and related
+- **Config service**: the API that handles conference configuration settings such as dates, locations, pricing tables, early bird specials, countdowns, and related
 
--   **Content service**: the API that handles content for the conference such as speakers, sessions, workshops, and sponsors
+- **Content service**: the API that handles content for the conference such as speakers, sessions, workshops, and sponsors
 
 ## Requirements
 
-1.  Microsoft Azure subscription must be pay-as-you-go or MSDN
+1. Microsoft Azure subscription must be pay-as-you-go or MSDN
 
-    -  Trial subscriptions will *not* work
+    - Trial subscriptions will *not* work
 
-    -  You must have rights to create a service principal as discussed in Task 9: Create a Service Principal --- and this typically requires a subscription owner to log in. You may have to ask another subscription owner to login to the portal and execute that step ahead of time if you do not have the rights.
+    - You must have rights to create a service principal as discussed in Task 9: Create a Service Principal --- and this typically requires a subscription owner to log in. You may have to ask another subscription owner to login to the portal and execute that step ahead of time if you do not have the rights.
 
-    -  You must have enough cores available in your subscription to create the build agent and Azure Kubernetes Service cluster in Task 5: Create a build agent VM and Task 10: Create an Azure Kubernetes Service cluster. You'll need eight cores if following the exact instructions in the lab, or more if you choose additional agents or larger VM sizes. If you execute the steps required before the lab, you will be able to see if you need to request more cores in your sub.
+    - You must have enough cores available in your subscription to create the build agent and Azure Kubernetes Service cluster in Task 5: Create a build agent VM and Task 10: Create an Azure Kubernetes Service cluster. You'll need eight cores if following the exact instructions in the lab, or more if you choose additional agents or larger VM sizes. If you execute the steps required before the lab, you will be able to see if you need to request more cores in your sub.
 
-2.  Local machine or a virtual machine configured with:
+2. Local machine or a virtual machine configured with:
 
-    -   A browser, preferably Chrome for consistency with the lab implementation tests
+    - A browser, preferably Chrome for consistency with the lab implementation tests
 
-    -   Command prompt
+    - Command prompt
 
-        -   On Windows, you will be using Bash on Ubuntu on Windows, hereon referred to as WSL
+        - On Windows, you will be using Bash on Ubuntu on Windows, hereon referred to as WSL
 
-        -   On Mac, all instructions should be executed using bash in Terminal
+        - On Mac, all instructions should be executed using bash in Terminal
 
-3.  You will be asked to install other tools throughout the exercises.
+3. You will be asked to install other tools throughout the exercises.
 
 **VERY IMPORTANT: You should be typing all of the commands as they appear in the guide, except where explicitly stated in this document. Do not try to copy and paste from Word to your command windows or other documents where you are instructed to enter information shown in this document. There can be issues with Copy and Paste from Word that result in errors, execution of instructions, or creation of file content.**
 
@@ -247,7 +247,7 @@ The purpose of this task is to make sure you can run the application successfull
     curl http://localhost:3000
     ```
 
--16. Leave the application running for the next task
+16. Leave the application running for the next task
 
 17. If you received a JSON response to the /speakers content request and an HTML response from the web application, your environment is working as expected
 
@@ -454,21 +454,21 @@ In this task, you will create a new Dockerfile that will be used to run the API 
 
     ![The node image (node) and your container image (content-api) are visible in this screenshot of the WSL window.](images/Hands-onlabstep-by-step-ContainersandDevOpsimages/media/image59.png)
 
-1. Commit and push the new Dockerfile before continuing.
+4. Commit and push the new Dockerfile before continuing.
 
     - `git add .`
     - `git commit -m "Added Dockerfile"`
     - `git push`
     - Enter credentials if prompted.
 
-4. Navigate to the content-web folder again and list the files. Note that this folder already has a Dockerfile.
+5. Navigate to the content-web folder again and list the files. Note that this folder already has a Dockerfile.
 
     ```bash
     cd ../content-web
     ll
     ```
 
-5. View the Dockerfile contents -- which are similar to the file you created previously in the API folder. Type the following command:
+6. View the Dockerfile contents -- which are similar to the file you created previously in the API folder. Type the following command:
 
     ```bash
     cat Dockerfile
@@ -476,13 +476,13 @@ In this task, you will create a new Dockerfile that will be used to run the API 
 
     Notice that the content-web Dockerfile build stage includes additional tools to install bower packages in addition to the npm packages.
 
-6. Type the following command to create a Docker image for the web application
+7. Type the following command to create a Docker image for the web application
 
     ```bash
     docker build -t content-web .
     ```
 
-7. When complete, you will see seven images now exist when you run the Docker images command
+8. When complete, you will see seven images now exist when you run the Docker images command
 
     ```bash
     docker images
@@ -551,13 +551,13 @@ The web application container will be calling endpoints exposed by the API appli
     curl http://localhost:3001/speakers
     ```
 
-5. Create and start the web application container with a similar Docker run command -- instruct the docker engine to use any port with the `-P` command.
+6. Create and start the web application container with a similar Docker run command -- instruct the docker engine to use any port with the `-P` command.
 
     ```bash
     docker run --name web --net fabmedical -P -d content-web
     ```
 
-6. Enter the command to show running containers again and you'll observe that both the API and web containers are in the list. The web container shows a dynamically assigned port mapping to its internal container port 3000.
+7. Enter the command to show running containers again and you'll observe that both the API and web containers are in the list. The web container shows a dynamically assigned port mapping to its internal container port 3000.
 
     ```bash
     docker container ls
@@ -565,7 +565,7 @@ The web application container will be calling endpoints exposed by the API appli
 
     ![In this screenshot of the WSL window, docker container ls has again been typed and run at the command prompt. 0.0.0.0:32768->3000/tcp is highlighted under Ports, and a red arrow is pointing at it.](images/Hands-onlabstep-by-step-ContainersandDevOpsimages/media/image62.png)
 
-7. Test the web application by curling the URL. For the port, use the dynamically assigned port, which you can find in the output from the previous command. You will see HTML output, as you did when testing previously.
+8. Test the web application by curling the URL. For the port, use the dynamically assigned port, which you can find in the output from the previous command. You will see HTML output, as you did when testing previously.
 
     ```bash
     curl http://localhost:[PORT]/speakers.html
@@ -1006,7 +1006,7 @@ In this task, you will gather the information you need about your Azure Kubernet
 
     a. This should produce output similar to this:
 
-        ![In this screenshot of the WSL console, example output from running az --version appears. At this time, we are unable to capture all of the information in the window. Future versions of this course should address this.](images/Hands-onlabstep-by-step-ContainersandDevOpsimages/media/image73.png)
+    ![In this screenshot of the WSL console, example output from running az --version appears. At this time, we are unable to capture all of the information in the window. Future versions of this course should address this.](images/Hands-onlabstep-by-step-ContainersandDevOpsimages/media/image73.png)
 
     b. If the output is not correct, review your steps from the instructions in Task 11: Install Azure CLI from the instructions before the lab exercises.
 
@@ -1018,7 +1018,7 @@ In this task, you will gather the information you need about your Azure Kubernet
 
     a. This should produce output similar to this:
 
-        ![In this screenshot of the WSL console, kubectl version has been typed and run at the command prompt, which displays Kubernetes CLI client information.](images/Hands-onlabstep-by-step-ContainersandDevOpsimages/media/image74.png)
+    ![In this screenshot of the WSL console, kubectl version has been typed and run at the command prompt, which displays Kubernetes CLI client information.](images/Hands-onlabstep-by-step-ContainersandDevOpsimages/media/image74.png)
 
     b. If the output is not correct, review the steps from the instructions in Task 12: Install Kubernetes CLI from the instructions before the lab exercises.
 
@@ -1436,7 +1436,7 @@ In this task, you will increase the number of instances for the API deployment i
 
     ![In the Scale a Deployment dialog box, 2 is entered in the Desired number of pods box.](images/Hands-onlabstep-by-step-ContainersandDevOpsimages/media/image116.png)
 
-**NOTE: If the deployment completes quickly, you may not see the deployment Waiting states in the dashboard as described in the following steps**.
+    **NOTE: If the deployment completes quickly, you may not see the deployment Waiting states in the dashboard as described in the following steps**.
 
 4. From the Replica Set view for the API, you'll see it is now deploying and that there is one healthy instance and one pending instance
 
@@ -1456,21 +1456,21 @@ In this task, you will increase the number of instances for the API deployment i
 
 7. Navigate to the web application from the browser again. The application should still work without errors as you navigate to Speakers and Sessions pages
 
-   - Navigate to the /stats.html page. You'll see information about the environment including:
+    - Navigate to the /stats.html page. You'll see information about the environment including:
 
-      -  webTaskId: the task identifier for the web service instance
+        - webTaskId: the task identifier for the web service instance
 
-      - taskId: the task identifier for the API service instance
+        - taskId: the task identifier for the API service instance
 
-      - hostName: the hostname identifier for the API service instance
+        - hostName: the hostname identifier for the API service instance
 
-      - pid: the process id for the API service instance
+        - pid: the process id for the API service instance
 
-      -  mem: some memory indicators returned from the API service instance
+        - mem: some memory indicators returned from the API service instance
 
-      - counters: counters for the service itself, as returned by the API service instance
+        - counters: counters for the service itself, as returned by the API service instance
 
-      - uptime: the up time for the API service
+        - uptime: the up time for the API service
 
     - Refresh the page in the browser, and you can see the hostName change between the two API service instances. The letters after "api-{number}-" in the hostname will change.
 
@@ -2080,13 +2080,13 @@ In this task you will setup a Kubernetes Ingress to take advantage of path based
 
 In this exercise, you will de-provision any Azure resources created in support of this lab.
 
-1.  Delete both of the Resource Groups in which you placed all of your Azure resources
+1. Delete both of the Resource Groups in which you placed all of your Azure resources
 
-     -  From the Portal, navigate to the blade of your Resource Group and then select Delete in the command bar at the top
+    - From the Portal, navigate to the blade of your Resource Group and then select Delete in the command bar at the top
 
-     -   Confirm the deletion by re-typing the resource group name and selecting Delete
+    - Confirm the deletion by re-typing the resource group name and selecting Delete
 
-2.  Delete the Service Principal created on Task 9: Create a Service Principal before the hands-on lab
-    ```
+2. Delete the Service Principal created on Task 9: Create a Service Principal before the hands-on lab
+    ```bash
     az ad sp delete --id "Fabmedical-sp"
     ```
