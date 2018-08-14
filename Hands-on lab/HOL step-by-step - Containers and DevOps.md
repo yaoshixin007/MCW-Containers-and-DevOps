@@ -685,8 +685,15 @@ In this task, you will configure the "web" container to communicate with the API
     docker stop api && docker rm api
     docker stop mongo && docker rm mongo
     ```
-
-16. Navigate to your home directory (where you checked out the content repositories) and create a docker compose file
+16. Commit your changes and push to the repository
+    
+    ```bash
+    git add .
+    git commit -m "Setup Environment Variables"
+    git push
+    ```
+    
+17. Navigate to your home directory (where you checked out the content repositories) and create a docker compose file
 
     ```bash
     cd ~
@@ -722,7 +729,7 @@ In this task, you will configure the "web" container to communicate with the API
           - "3000:3000"
     ```
 
-17. Start the applications with the `up` command
+18. Start the applications with the `up` command
 
     ```bash
     docker-compose -f docker-compose.yml -p fabmedical up -d
@@ -730,11 +737,11 @@ In this task, you will configure the "web" container to communicate with the API
 
     ![This screenshot of the WSL window shows the creation of the network and three containers: mongo, api and web.](images/Hands-onlabstep-by-step-ContainersandDevOpsimages/media/Ex1-Task6.17.png)
 
-18. Visit the website in the browser; notice that we no longer have any data on the speakers or sessions pages
+19. Visit the website in the browser; notice that we no longer have any data on the speakers or sessions pages
 
     ![Browser view of the web site.](images/Hands-onlabstep-by-step-ContainersandDevOpsimages/media/Ex1-Task6.18.png)
 
-19. We stopped and removed our previous mongodb container; all the data contained in it has been removed.  Docker compose has created a new, empty mongodb instance that must be reinitialized.  If we care to persist our data between container instances, the docker has several mechanisms to do so. First we will update our compose file to persist mongodb data to a directory on the build agent.
+20. We stopped and removed our previous mongodb container; all the data contained in it has been removed.  Docker compose has created a new, empty mongodb instance that must be reinitialized.  If we care to persist our data between container instances, the docker has several mechanisms to do so. First we will update our compose file to persist mongodb data to a directory on the build agent.
 
     ```bash
     mkdir data
@@ -755,7 +762,7 @@ In this task, you will configure the "web" container to communicate with the API
 
     ![This screenshot of the VIM edit window shows the resulting compose file.](images/Hands-onlabstep-by-step-ContainersandDevOpsimages/media/Ex1-Task6.19.png)
 
-20. Next we will add a second file to our composition so that we can initialize the mongodb data when needed
+21. Next we will add a second file to our composition so that we can initialize the mongodb data when needed
 
     ```bash
     vi docker-compose.init.yml
@@ -776,7 +783,7 @@ In this task, you will configure the "web" container to communicate with the API
             MONGODB_CONNECTION: mongodb://mongo:27017/contentdb
     ```
 
-21. To reconfigure the mongodb volume, we need to bring down the mongodb service first
+22. To reconfigure the mongodb volume, we need to bring down the mongodb service first
 
     ```bash
     docker-compose -f docker-compose.yml -p fabmedical down
@@ -784,13 +791,13 @@ In this task, you will configure the "web" container to communicate with the API
 
     ![This screenshot of the WSL window shows the running containers stopping.](images/Hands-onlabstep-by-step-ContainersandDevOpsimages/media/Ex1-Task6.21.png)
 
-22. Now run `up` again with both files to update the mongodb configuration, and run the initialization script
+23. Now run `up` again with both files to update the mongodb configuration, and run the initialization script
 
     ```bash
     docker-compose -f docker-compose.yml -f docker-compose.init.yml -p fabmedical up -d
     ```
 
-23. Check the data folder to see that mongodb is now writing data files to the host
+24. Check the data folder to see that mongodb is now writing data files to the host
 
     ```bash
     ls ./data/
@@ -798,7 +805,7 @@ In this task, you will configure the "web" container to communicate with the API
 
     ![This screenshot of the WSL window shows the output of the data folder.](images/Hands-onlabstep-by-step-ContainersandDevOpsimages/media/Ex1-Task6.23.png)
 
-24. Check the results in the browser. The speaker and session data are now available.
+25. Check the results in the browser. The speaker and session data are now available.
 
     ![A screenshot of the sessions page.](images/Hands-onlabstep-by-step-ContainersandDevOpsimages/media/Ex1-Task6.24.png)
 
