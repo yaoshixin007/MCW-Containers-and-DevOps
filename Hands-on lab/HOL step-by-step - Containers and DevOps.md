@@ -2002,7 +2002,7 @@ In this task you will setup a Kubernetes Ingress to take advantage of path based
     spec:
       acme:
         # The ACME server URL
-        server: https://acme-v02.api.letsencryptorg/diretory
+        server: https://acme-v02.api.letsencrypt.org/directory
         # Email address used for ACME registration
         email: user@example.com
         # Name of a secret used to store theACMEaccount private key
