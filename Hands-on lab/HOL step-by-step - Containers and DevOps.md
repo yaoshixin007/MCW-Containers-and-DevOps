@@ -1915,7 +1915,7 @@ In this task you will setup a Kubernetes Ingress to take advantage of path based
     helm repo update
     ```
 
-4. Install the ingress controller resource to handle ingress requests as they come in.  The ingress controller will receive a public IP of its own on the Azure Load Balancer and be able to handle requests for multiple servicers over port 80 and 443.
+4. Install the ingress controller resource to handle ingress requests as they come in.  The ingress controller will receive a public IP of its own on the Azure Load Balancer and be able to handle requests for multiple services over port 80 and 443.
 
     ```bash
     helm install stable/nginx-ingress --namespace kube-system --set rbac.create=false --set rbac.createRole=false --set rbac.createClusterRole=false
@@ -1967,7 +1967,7 @@ In this task you will setup a Kubernetes Ingress to take advantage of path based
     > Note, it is normal to receive a 404 message at this time
 
     ```text
-    http://fabmedical-[SUFFIX]-ingress.eastus.cloudapp.azure.com/
+    http://fabmedical-[SUFFIX]-ingress.[AZURE-REGION].cloudapp.azure.com/
     ```
 
     ![A screenshot of the browser url.](images/Hands-onlabstep-by-step-ContainersandDevOpsimages/media/Ex4-Task5.9.png)
@@ -2026,7 +2026,7 @@ In this task you will setup a Kubernetes Ingress to take advantage of path based
     <i>
     ```
 
-    Use the following as the contents and update the [SUFFIX] to match your ingress DNS name
+    Use the following as the contents and update the [SUFFIX] and [AZURE-REGION] to match your ingress DNS name
 
     ```yaml
     apiVersion: extensions/v1beta1
@@ -2039,10 +2039,10 @@ In this task you will setup a Kubernetes Ingress to take advantage of path based
     spec:
       tls:
       - hosts:
-        - fabmedical-[SUFFIX]-ingress.eastus.cloudapp.azure.com
+        - fabmedical-[SUFFIX]-ingress.[AZURE-REGION].cloudapp.azure.com
         secretName: tls-secret
       rules:
-      - host:   fabmedical-[SUFFIX]-ingress.eastus.cloudapp.azure.com
+      - host:   fabmedical-[SUFFIX]-ingress.[AZURE-REGION].cloudapp.azure.com
         http:
           paths:
           - path: /
