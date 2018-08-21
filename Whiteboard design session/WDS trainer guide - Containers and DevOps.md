@@ -283,7 +283,7 @@ While multi-tenancy is a goal for the code base, even with this in place, Arthur
 
 *NOTE: this diagram is an illustration of the Kubernetes topology, however, given Azure Kubernetes Services (AKS) is managed, the details of the underlying Kubernetes deployment are not surfaced -- nor do customers have to manage it.*
 
-![A diagram of a Kubernetes cluster topology illustrating master and agent nodes with load balancers.](images/Whiteboarddesignsessiontrainerguide-ContainersandDevOpsimages/media/image2.png)
+![A diagram of a Kubernetes cluster topology illustrating master and agent nodes with load balancers.](media/image2.png)
 
 <https://docs.microsoft.com/en-us/azure/aks/intro-kubernetes>
 
@@ -472,7 +472,7 @@ Each tenant will have the following containers:
 
     The solution will use Azure Kubernetes Service (AKS), which means that the container cluster topology is provisioned according to the number of requested nodes. The proposed containers deployed to the cluster are illustrated below, with MongoDB remaining as a managed service:
 
-![A diagram showing the solution, using Azure Kubernetes Service with a CosmosDB back end.](images/Whiteboarddesignsessiontrainerguide-ContainersandDevOpsimages/media/image4.png)
+![A diagram showing the solution, using Azure Kubernetes Service with a CosmosDB back end.](media/image4.png)
 
 *Choosing a container platform on Azure*
 

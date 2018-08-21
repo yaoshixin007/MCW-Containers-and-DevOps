@@ -59,15 +59,15 @@ You will create an Azure Resource Group to hold most of the resources that you c
 
 2.  Select **+ Create a resource** in the navigation bar at the left
 
-    ![This is a screenshot of the + Create a resource link in the navigation bar.](images/Setup/image4.png)
+    ![This is a screenshot of the + Create a resource link in the navigation bar.](media/b4-image4.png)
 
 3.  In the Search the Marketplace search box, type \"Resource group\" and press Enter
 
-    ![Resource Group is typed in the Marketplace search box.](images/Setup/image5.png)
+    ![Resource Group is typed in the Marketplace search box.](media/b4-image5.png)
 
 4.  Select **Resource group** on the Everything blade and select **Create**
 
-    ![This is a screenshot of Resource group on the Everything blade.](images/Setup/image6.png)
+    ![This is a screenshot of Resource group on the Everything blade.](media/b4-image6.png)
 
 5.  On the new Resource group blade, set the following:
 
@@ -77,13 +77,13 @@ You will create an Azure Resource Group to hold most of the resources that you c
 
     c.  Resource group location: Choose a region where all Azure Container Registry SKUs are available, which is currently East US, West Central US, or West Europe, and remember this for future steps so that the resources you create in Azure are all kept within the same region.
 
-    ![In the Resource group blade, the value for the Resource group name box is fabmedical-sol, and the value of the Resource group location box is East US.](images/Setup/image7.png)
+    ![In the Resource group blade, the value for the Resource group name box is fabmedical-sol, and the value of the Resource group location box is East US.](media/b4-image7.png)
 
     d.  Select **Create**
 
 6.  When this completes, your Resource Group will be listed in the Azure Portal
 
-    ![In this screenshot of the Azure Portal, the fabmedical-sol Resource group is listed.](images/Setup/image8.png)
+    ![In this screenshot of the Azure Portal, the fabmedical-sol Resource group is listed.](media/b4-image8.png)
 
 ### Task 2: Create a Windows 10 Development VM
 
@@ -99,7 +99,7 @@ In this section, you will create a Windows 10 VM to act as your development mach
 
 1.  From the Azure Portal, select **+ Create a resource**, type "**Windows 10**" in the Search the marketplace text box and press **Enter**
 
-    ![This is a screenshot of the search results for Windows 10. A red arrow points at the fourth result: Windows 10 Pro N, Version 1709.](images/Setup/image9.png)
+    ![This is a screenshot of the search results for Windows 10. A red arrow points at the fourth result: Windows 10 Pro N, Version 1709.](media/b4-image9.png)
 
 2.  Select **Windows 10 Pro N, Version 1709** and select **Create**
 
@@ -123,29 +123,29 @@ In this section, you will create a Windows 10 VM to act as your development mach
 
     -   Select **OK** to complete the Basics blade
 
-    ![In the Basics blade, the values listed above appear in the corresponding boxes. The suffix after the fabmedicald- value is obscured in the Name box and the Resource group box, as is the value for the Subscription box.](images/Setup/image10.png)
+    ![In the Basics blade, the values listed above appear in the corresponding boxes. The suffix after the fabmedicald- value is obscured in the Name box and the Resource group box, as is the value for the Subscription box.](media/b4-image10.png)
 
 4.  From the Size blade search for "DS2_v2", choose **D2S\_V2 Standard** and **Select**
 
-    !["DS2_v2" is entered in the Search box.  There is one result shown and it is selected.](images/Setup/image11.png)
+    !["DS2_v2" is entered in the Search box.  There is one result shown and it is selected.](media/b4-image11.png)
 
 5.  From the Settings blade, accept the default values for all settings and select **OK**
 
 6.  From the Create blade, you should see that validation passed and select **Create**
 
-    ![This is a screenshot of the Create blade indicating that validation passed. Offer details are also visible.](images/Setup/image12.png)
+    ![This is a screenshot of the Create blade indicating that validation passed. Offer details are also visible.](media/b4-image12.png)
 
 7.  The VM will begin deployment to your Azure subscription
 
-    ![The Deploying Windows 10 Pro N, Version 1709 icon indicates that deployment has begun to your Azure subscription.](images/Setup/image13.png)
+    ![The Deploying Windows 10 Pro N, Version 1709 icon indicates that deployment has begun to your Azure subscription.](media/b4-image13.png)
 
 8.  Once provisioned, you will see the VM in your list of resources belonging to the resource group you created previously and select the new VM
 
-    ![This screenshot of your resource list has the following columns: Name, Type, and Location. The first row is highlighted with the following values: fabmedicald-(suffix obscured), Virtual machine, and West Europe.](images/Setup/image14.png)
+    ![This screenshot of your resource list has the following columns: Name, Type, and Location. The first row is highlighted with the following values: fabmedicald-(suffix obscured), Virtual machine, and West Europe.](media/b4-image14.png)
 
 9.  In the Overview area for the VM, select Connect to establish a Remote Desktop Connection (RDP) for the VM
 
-    ![In this screenshot of the Overview area for the VM, a red arrow points at the Connect icon.](images/Setup/image15.png)
+    ![In this screenshot of the Overview area for the VM, a red arrow points at the Connect icon.](media/b4-image15.png)
 
 10. Complete the steps to establish the RDP session and ensure that you are connected to the new VM
 
@@ -163,11 +163,11 @@ In this section, you will create an SSH key to securely access the VMs you creat
 
 1.  Open a WSL command window
 
-    ![This is an icon for Bash on Ubuntu on Windows (Desktop app).](images/Setup/image16.png)
+    ![This is an icon for Bash on Ubuntu on Windows (Desktop app).](media/b4-image16.png)
 
     or
 
-    ![This is an icon for Ubuntu (Trusted Microsoft Store app).](images/Setup/image17.png)
+    ![This is an icon for Ubuntu (Trusted Microsoft Store app).](media/b4-image17.png)
 
 2.  From the command line, enter the following command to ensure that a directory for the SSH keys is created. You can ignore any errors you see in the output.
 
@@ -189,7 +189,7 @@ In this section, you will create an SSH key to securely access the VMs you creat
 
 7.  Keep this WSL window open and remain in the default directory, you will use it in later tasks
 
-    ![In this screenshot of the WSL window, ssh-keygen -t RSA -b 2048 -C admin\@fabmedical has been typed and run at the command prompt. Information about the generated key appears in the window. At this time, we are unable to capture all of the information in the window. Future versions of this course should address this.](images/Setup/image18.png)
+    ![In this screenshot of the WSL window, ssh-keygen -t RSA -b 2048 -C admin\@fabmedical has been typed and run at the command prompt. Information about the generated key appears in the window. At this time, we are unable to capture all of the information in the window. Future versions of this course should address this.](media/b4-image18.png)
 
 ### Task 5: Create a build agent VM
 
@@ -199,7 +199,7 @@ In this section, you will create a Linux VM to act as your build agent. You will
 
 1. From the Azure Portal, select **+ Create a resource**, type "**Ubuntu**" in the Search the marketplace text box and press **Enter**
 
-    ![This screenshot of the marketplace search results for Ubuntu has the following columns: Name, Publisher, and Category. A red arrow points at the first search result, which has the following values: Ubuntu Server 16.04 LTS, Canonical, and Virtual Machines.](images/Setup/image19.png)
+    ![This screenshot of the marketplace search results for Ubuntu has the following columns: Name, Publisher, and Category. A red arrow points at the first search result, which has the following values: Ubuntu Server 16.04 LTS, Canonical, and Virtual Machines.](media/b4-image19.png)
 
 2. Select **Ubuntu Server 16.04 LTS** and select **Create**
 
@@ -227,7 +227,7 @@ In this section, you will create a Linux VM to act as your build agent. You will
             cat .ssh/fabmedical.pub
             ```
 
-            ![In this screenshot of the WSL window, cat .ssh/fabmedical.pub has been typed and run at the command prompt, which displays the public key that you generated.](images/Setup/image20.png)
+            ![In this screenshot of the WSL window, cat .ssh/fabmedical.pub has been typed and run at the command prompt, which displays the public key that you generated.](media/b4-image20.png)
 
         - Copy the entire contents of the file to the clipboard.
 
@@ -247,27 +247,27 @@ In this section, you will create a Linux VM to act as your build agent. You will
 
     -   Select **OK** to complete the Basics blade
 
-    ![In the Basics blade, the values listed above appear in the corresponding boxes. The public key that you copied is pasted in the SSH public key box.](images/Setup/image21.png)
+    ![In the Basics blade, the values listed above appear in the corresponding boxes. The public key that you copied is pasted in the SSH public key box.](media/b4-image21.png)
 
 4. From the Size blade search for "D2S_v3" and **Select**
 
-    !["D2S_v3" is entered in the Search box.  There is one result shown and it is selected.](images/Setup/image22.png)
+    !["D2S_v3" is entered in the Search box.  There is one result shown and it is selected.](media/b4-image22.png)
 
 5. From the Settings blade, accept the default values for most settings and select "SSH (22)" as a public inbound port, then select **OK**
 
-    ![Settings](images/Setup/image22a.png)
+    ![Settings](media/b4-image22a.png)
 
 6. From the Create blade, you should see that validation passed and select **Create**
 
-    ![This is a screenshot of the Create blade indicating that validation passed. Offer details are also visible.](images/Setup/image23.png)
+    ![This is a screenshot of the Create blade indicating that validation passed. Offer details are also visible.](media/b4-image23.png)
 
 7. The VM will begin deployment to your Azure subscription
 
-    ![The Deploying Ubuntu Server 16.04 LTS icon indicates that deployment has begun to your Azure subscription.](images/Setup/image24.png)
+    ![The Deploying Ubuntu Server 16.04 LTS icon indicates that deployment has begun to your Azure subscription.](media/b4-image24.png)
 
 8. Once provisioned, you will see the VM in your list of resources belonging to the resource group you created previously
 
-    ![This screenshot of your resource list has the following columns: Name, Type, and Location. The third row is highlighted with the following values: fabmedical-(suffix obscured), Virtual machine, and East US.](images/Setup/image25.png)
+    ![This screenshot of your resource list has the following columns: Name, Type, and Location. The third row is highlighted with the following values: fabmedical-(suffix obscured), Virtual machine, and East US.](media/b4-image25.png)
 
 ### Task 6: Connect securely to the build agent
 
@@ -277,7 +277,7 @@ In this section, you will validate that you can connect to the new build agent V
 
 2.  In the Overview area for the VM, take note of the public IP address for the VM
 
-    ![In this screenshot of the Overview area for the VM, Public IP address 52.174.141.11 is highlighted.](images/Setup/image26.png)
+    ![In this screenshot of the Overview area for the VM, Public IP address 52.174.141.11 is highlighted.](media/b4-image26.png)
 
 3.  From your local machine, return to your open WSL window and make sure you are in your user directory **\~** where the key pair was previously created. This command will take you there:
 
@@ -311,7 +311,7 @@ In this section, you will validate that you can connect to the new build agent V
 
     adminfabmedical\@fabmedical-SUFFIX:~$
 
-    ![In this screenshot of a Command Prompt window, ssh -i .ssh/fabmedical adminfabmedical\@52.174.141.11 has been typed and run at the command prompt. The information detailed above appears in the window. At this time, we are unable to capture all of the information in the window. Future versions of this course should address this.](images/Setup/image27.png)
+    ![In this screenshot of a Command Prompt window, ssh -i .ssh/fabmedical adminfabmedical\@52.174.141.11 has been typed and run at the command prompt. The information detailed above appears in the window. At this time, we are unable to capture all of the information in the window. Future versions of this course should address this.](media/b4-image27.png)
 
 **NOTE: If you have issues connecting, you may have pasted the SSH public key incorrectly. Unfortunately, if this is the case, you will have to recreate the VM and try again.**
 
@@ -361,7 +361,7 @@ In this task, you will update the packages and install Docker engine.
     docker version
     ```
 
-    ![In this screenshot of a Command Prompt window, docker version has been typed and run at the command prompt. Docker version information appears in the window.](images/Setup/image28.png)
+    ![In this screenshot of a Command Prompt window, docker version has been typed and run at the command prompt. Docker version information appears in the window.](media/b4-image28.png)
 
 9. You may check the versions of node.js and npm as well, just for information purposes, using these commands
 
@@ -383,13 +383,13 @@ In this task, you will update the packages and install Docker engine.
     sudo usermod -aG docker $USER
     ```
 
-    ![In this screenshot of a Command Prompt window, sudo usermod -aG docker \$USER has been typed and run at the command prompt. Errors appear in the window.](images/Setup/image29.png)
+    ![In this screenshot of a Command Prompt window, sudo usermod -aG docker \$USER has been typed and run at the command prompt. Errors appear in the window.](media/b4-image29.png)
 
 12. In order for the user permission changes to take effect, exit the SSH session by typing 'exit', then press \<Enter\>. Repeat the commands in Task 6: Connect securely to the build agent from step 4 to establish the SSH session again.
 
 13. Run the Docker version command again, and note the output now shows the server version as well
 
-    ![In this screenshot of a Command Prompt window, docker version has been typed and run at the command prompt. Docker version information appears in the window, in addition to server version information.](images/Setup/image30.png)
+    ![In this screenshot of a Command Prompt window, docker version has been typed and run at the command prompt. Docker version information appears in the window, in addition to server version information.](media/b4-image30.png)
 
 14. Run a few Docker commands
 
@@ -405,7 +405,7 @@ In this task, you will update the packages and install Docker engine.
 
 15. In both cases, you will have an empty list but no errors running the command. Your build agent is ready with Docker engine running properly.
 
-    ![In this screenshot of a Command Prompt window, docker container ls has been typed and run at the command prompt, as has the docker container ls -a command.](images/Setup/image31.png)
+    ![In this screenshot of a Command Prompt window, docker container ls has been typed and run at the command prompt, as has the docker container ls -a command.](media/b4-image31.png)
 
 ### Task 8: Create an Azure Container Registry
 
@@ -413,7 +413,7 @@ You deploy Docker images from a registry. To complete the hands-on lab, you will
 
 1.  In the [Azure Portal](https://portal.azure.com/), select **+ Create a resource**, **Containers**, then click **Azure Container Registry**.
 
-    ![In this screenshot of the Azure portal, + Create a resource is highlighted and labeled 1 on the left side. To the right, Containers is highlighted and labeled 2 under Azure Marketplace. To the right of that, Azure Container Registry is highlighted and labeled 3 under Featured.](images/Setup/image32.png)
+    ![In this screenshot of the Azure portal, + Create a resource is highlighted and labeled 1 on the left side. To the right, Containers is highlighted and labeled 2 under Azure Marketplace. To the right of that, Azure Container Registry is highlighted and labeled 3 under Featured.](media/b4-image32.png)
 
 2.  On the Create container registry blade, enter the following:
 
@@ -429,13 +429,13 @@ You deploy Docker images from a registry. To complete the hands-on lab, you will
 
     -   SKU: Select Standard.
 
-        ![In the Create container registry blade, the values listed above appear in the corresponding boxes.](images/Setup/image33.png)
+        ![In the Create container registry blade, the values listed above appear in the corresponding boxes.](media/b4-image33.png)
 
 3.  Select **Create**
 
 4.  Navigate to your ACR account in the Azure Portal. As this is a new account, you will not see any repositories yet. You will create these during the hands-on lab.
 
-    ![This is a screenshot of your ACR account in the Azure portal. No repositories are visible yet.](images/Setup/image34.png)
+    ![This is a screenshot of your ACR account in the Azure portal. No repositories are visible yet.](media/b4-image34.png)
 
 ### Task 9: Create a Service Principal
 
@@ -445,11 +445,11 @@ Azure Kubernetes Service requires an Azure Active Directory service principal to
 
 1.  Open cloud shell by selecting the cloud shell icon in the menu bar
 
-    ![The cloud shell icon is highlighted on the menu bar.](images/Setup/image35.png)
+    ![The cloud shell icon is highlighted on the menu bar.](media/b4-image35.png)
 
 2.  The cloud shell will open in the browser window. Choose "Bash (Linux)" if prompted or use the left-hand dropdown on the shell menu bar to choose "Bash" (as shown).
 
-    ![This is a screenshot of the cloud shell opened in a browser window. Bash was selected.](images/Setup/image36.png)
+    ![This is a screenshot of the cloud shell opened in a browser window. Bash was selected.](media/b4-image36.png)
 
 3.  Before completing the steps to create the service principal, you should make sure to set your default subscription correctly. To view your current subscription type:
 
@@ -457,7 +457,7 @@ Azure Kubernetes Service requires an Azure Active Directory service principal to
     az account show
     ```
 
-    ![In this screenshot of a Bash window, az account show has been typed and run at the command prompt. Some subscription information is visible in the window, and some information is obscured.](images/Setup/image37.png)
+    ![In this screenshot of a Bash window, az account show has been typed and run at the command prompt. Some subscription information is visible in the window, and some information is obscured.](media/b4-image37.png)
 
 4.  To list all of your subscriptions, type:
 
@@ -465,7 +465,7 @@ Azure Kubernetes Service requires an Azure Active Directory service principal to
     az account list
     ```
 
-    ![In this screenshot of a Bash window, az account list has been typed and run at the command prompt. Some subscription information is visible in the window, and some information is obscured.](images/Setup/image38.png)
+    ![In this screenshot of a Bash window, az account list has been typed and run at the command prompt. Some subscription information is visible in the window, and some information is obscured.](media/b4-image38.png)
 
 5.  To set your default subscription to something other than the current selection, type the following, replacing {id} with the desired subscription id value:
 
@@ -481,7 +481,7 @@ Azure Kubernetes Service requires an Azure Active Directory service principal to
 
 7.  The service principal command will produce output like this. Copy this information; you will need it later.
 
-    ![In this screenshot of a Bash window, az ad sp create-for-rbac \--role=\"Contributor\" \--scopes=\"/subscriptions/{id}\" \--name=\"Fabmedical-sp\" has been typed and run at the command prompt. Service principal information is visible in the window, but at this time, we are unable to capture all of the information in the window. Future versions of this course should address this.](images/Setup/image39.png)
+    ![In this screenshot of a Bash window, az ad sp create-for-rbac \--role=\"Contributor\" \--scopes=\"/subscriptions/{id}\" \--name=\"Fabmedical-sp\" has been typed and run at the command prompt. Service principal information is visible in the window, but at this time, we are unable to capture all of the information in the window. Future versions of this course should address this.](media/b4-image39.png)
 
 ### Task 10: Create an Azure Kubernetes Service cluster
 
@@ -489,7 +489,7 @@ In this task, you will create your Azure Kubernetes Service cluster. You will us
 
 1.  From the Azure Portal, select **+ Create a resource**, **Containers** and select **Kubernetes Service**
 
-    ![In this screenshot of the Azure portal, + Create a resource is highlighted and labeled 1 on the left side. To the right, Containers is highlighted and labeled 2 under Azure Marketplace. To the right of that, Kubernetes Service is highlighted and labeled 3 under Featured.](images/Setup/image40.png)
+    ![In this screenshot of the Azure portal, + Create a resource is highlighted and labeled 1 on the left side. To the right, Containers is highlighted and labeled 2 under Azure Marketplace. To the right of that, Kubernetes Service is highlighted and labeled 3 under Featured.](media/b4-image40.png)
 
 2.  In the Basics blade provide the information shown in the screenshot that follows:
 
@@ -502,13 +502,13 @@ In this task, you will create your Azure Kubernetes Service cluster. You will us
     * **Kubernetes version**: 1.9.6.
     * **DNS Prefix**: Enter fabmedical-SUFFIX.
 
-        ![Basics is selected in the Create Azure Kubernetes Service blade, and the values listed above appear in the corresponding boxes in the Basics blade on the right.](images/Setup/image41.png)
+        ![Basics is selected in the Create Azure Kubernetes Service blade, and the values listed above appear in the corresponding boxes in the Basics blade on the right.](media/b4-image41.png)
 
     * Configure your service principal
         * **Service principal client ID**: Use the service principal “appId” from the previous step.
         * **Service principal client secret**: Use the service principal “password” from the previous step.
 
-            ![Microsoft Azure](images/Setup/image41a.png)
+            ![Microsoft Azure](media/b4-image41a.png)
 
     * Configure your VM size
 
@@ -516,11 +516,11 @@ In this task, you will create your Azure Kubernetes Service cluster. You will us
         * Search for "D2_v2"
         * Select "D2_v2"
 
-            ![Microsoft Azure](images/Setup/image41b.png)
+            ![Microsoft Azure](media/b4-image41b.png)
 
     * Set the Node Count to 2
 
-        ![Microsoft Azure](images/Setup/image41c.png)
+        ![Microsoft Azure](media/b4-image41c.png)
 
 3. Select "Next: Networking".
 4. Keep the defaults and select "Next: Monitoring"
@@ -530,11 +530,11 @@ In this task, you will create your Azure Kubernetes Service cluster. You will us
 
 8.  On the Summary blade, you should see that validation passed; select **OK**
 
-    ![Summary is selected in the Create Azure Kubernetes Service blade, and a Validation passed message appears in the Summary blade on the right.](images/Setup/image43.png)
+    ![Summary is selected in the Create Azure Kubernetes Service blade, and a Validation passed message appears in the Summary blade on the right.](media/b4-image43.png)
 
 9.  The Azure Kubernetes Service cluster will begin deployment to your Azure subscription. You should see a successful deployment notification when the cluster is ready. It can take up to 10 minutes before your Azure Kubernetes Service cluster is listed in the Azure Portal. You can proceed to the next step while waiting for this to complete, then return to view the success of the deployment.
 
-    ![This is a screenshot of a deployment notification indicating that the deployments succeeded.](images/Setup/image45.png)
+    ![This is a screenshot of a deployment notification indicating that the deployments succeeded.](media/b4-image45.png)
 
 **NOTE: If you experience errors related to lack of available cores, you may have to delete some other compute resources or request additional cores to your subscription and then try this again.**
 
@@ -626,7 +626,7 @@ FabMedical has provided starter files for you. They have taken a copy of one of 
 
     * Select the icon in the top left corner to return to the account home page
 
-        ![Home page icon](images/Setup/image47.png)
+        ![Home page icon](media/b4-image47.png)
         
     * Select "New Project"
         * Enter fabmedical as the project name
@@ -636,13 +636,13 @@ FabMedical has provided starter files for you. They have taken a copy of one of 
     
     * Use the repository dropdown to create a new repository by selecting "+ New repository"
     
-        ![Repository dropdown](images/Setup/image48.png)
+        ![Repository dropdown](media/b4-image48.png)
            
     * Enter "content-web" as the repository name
     
     * Once the project is created click "Generate Git credentials"
     
-        ![Generate Git Credentials](images/Setup/image50.png)
+        ![Generate Git Credentials](media/b4-image50.png)
           
         * Enter a password
         * Confirm the password
@@ -658,7 +658,7 @@ FabMedical has provided starter files for you. They have taken a copy of one of 
         ```
     * Setup your VisualStudio.com repository as a new remote the push.  You can copy the commands to do this from your browser.  Paste these commands into your WSL window.
     
-        ![Commands to add remote](images/Setup/image49.png)
+        ![Commands to add remote](media/b4-image49.png)
         
         * When prompted, enter your VisualStudio.com username and the git credentials password you created earlier in this task
         
@@ -696,7 +696,7 @@ FabMedical has provided starter files for you. They have taken a copy of one of 
 
     * In your browser, switch to the "content-web" repository and click "Clone" in the right corner.
 
-        ![Clone](images/Setup/image51.png)
+        ![Clone](media/b4-image51.png)
 
     * Copy the repository url.
 

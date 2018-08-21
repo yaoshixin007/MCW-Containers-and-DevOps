@@ -33,17 +33,17 @@ Microsoft and the trademarks listed at https://www.microsoft.com/en-us/legal/int
     - [Requirements](#requirements)
     - [Exercise 1: Create and run a Docker application](#exercise-1-create-and-run-a-docker-application)
         - [Task 1: Test the application](#task-1-test-the-application)
-        - [Task 2: Enable browsing to the web application](#task-2-enable-browsing-to-the-web-application)
+        - [Task 2: Enable browsing to the web site](#task-2-enable-browsing-to-the-web-site)
         - [Task 3: Create a Dockerfile](#task-3-create-a-dockerfile)
         - [Task 4: Create Docker images](#task-4-create-docker-images)
         - [Task 5: Run a containerized application](#task-5-run-a-containerized-application)
         - [Task 6: Setup environment variables](#task-6-setup-environment-variables)
         - [Task 7: Push images to Azure Container Registry](#task-7-push-images-to-azure-container-registry)
-    - [Exercise 2: Deploy the solution to Azure Kubernetes Service](#exercise-2-deploy-the-solution-to-azure-container-service)
-        - [Task 1: Tunnel into the Azure Kubernetes Service cluster](#task-1-tunnel-into-the-azure-container-service-cluster)
+    - [Exercise 2: Deploy the solution to Azure Kubernetes Service](#exercise-2-deploy-the-solution-to-azure-kubernetes-service)
+        - [Task 1: Tunnel into the Azure Kubernetes Service cluster](#task-1-tunnel-into-the-azure-kubernetes-service-cluster)
         - [Task 2: Deploy a service using the Kubernetes management dashboard](#task-2-deploy-a-service-using-the-kubernetes-management-dashboard)
-        - [Task 3: Deploy a service using kubectl](#task-3-deploy-a-service-using-kubernetes-rest-api)
-        - [Task 4: Initialize database with a Kubernetes Job](#task-4-explore-service-instance-logs-and-resolve-an-issue)
+        - [Task 3: Deploy a service using kubectl](#task-3-deploy-a-service-using-kubectl)
+        - [Task 4: Initialize database with a Kubernetes Job](#task-4-initialize-database-with-a-kubernetes-job)
         - [Task 5: Test the application in a browser](#task-5-test-the-application-in-a-browser)
     - [Exercise 3: Scale the application and test HA](#exercise-3-scale-the-application-and-test-ha)
         - [Task 1: Increase service instances from the Kubernetes dashboard](#task-1-increase-service-instances-from-the-kubernetes-dashboard)
@@ -54,6 +54,7 @@ Microsoft and the trademarks listed at https://www.microsoft.com/en-us/legal/int
         - [Task 2: Update an external service to support dynamic discovery with a load balancer](#task-2-update-an-external-service-to-support-dynamic-discovery-with-a-load-balancer)
         - [Task 3: Adjust CPU constraints to improve scale](#task-3-adjust-cpu-constraints-to-improve-scale)
         - [Task 4: Perform a rolling update](#task-4-perform-a-rolling-update)
+        - [Task 5 Configure Kubernetes Ingress](#task-5-configure-kubernetes-ingress)
     - [After the hands-on lab](#after-the-hands-on-lab)
 
 <!-- /TOC -->
@@ -80,7 +81,7 @@ Below is a diagram of the solution architecture you will build in this lab. Plea
 
 The solution will use Azure Kubernetes Service (AKS), which means that the container cluster topology is provisioned according to the number of requested nodes. The proposed containers deployed to the cluster are illustrated below- with MongoDB remaining as a managed service:
 
-![A diagram showing the solution, using Azure Kubernetes Service with a CosmosDB back end.](images/Hands-onlabstep-by-step-ContainersandDevOpsimages/media/image3.png)
+![A diagram showing the solution, using Azure Kubernetes Service with a CosmosDB back end.](media/image3.png)
 
 Each tenant will have the following containers:
 

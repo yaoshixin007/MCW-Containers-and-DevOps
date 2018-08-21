@@ -163,7 +163,7 @@ While multi-tenancy is a goal for the code base, even with this in place, Arthur
 
 *NOTE: this diagram is an illustration of the Kubernetes topology, however, given Azure Kubernetes Services (AKS) is managed, the details of the underlying Kubernetes deployment are not surfaced -- nor do customers have to manage it.*
 
-![A diagram of a Kubernetes cluster topology illustrating master and agent nodes with load balancers.](images/Whiteboarddesignsessiontrainerguide-ContainersandDevOpsimages/media/image2.png)
+![A diagram of a Kubernetes cluster topology illustrating master and agent nodes with load balancers.](media/image2.png)
 
 <https://docs.microsoft.com/en-us/azure/aks/intro-kubernetes>
 
