@@ -21,6 +21,28 @@ The names of manufacturers, products, or URLs are provided for informational pur
 
 © 2018 Microsoft Corporation. All rights reserved.
 
+**Contents**
+<!-- TOC -->
+
+- [Requirements](#requirements)
+- [Before the hands-on lab](#before-the-hands-on-lab)
+    - [Task 1: Resource Group](#task-1-resource-group)
+    - [Task 2: Create a Windows 10 Development VM](#task-2-create-a-windows-10-development-vm)
+    - [Task 3: Install WSL (Bash on Ubuntu on Windows)](#task-3-install-wsl-bash-on-ubuntu-on-windows)
+    - [Task 4: Create an SSH key](#task-4-create-an-ssh-key)
+    - [Task 5: Create a build agent VM](#task-5-create-a-build-agent-vm)
+    - [Task 6: Connect securely to the build agent](#task-6-connect-securely-to-the-build-agent)
+    - [Task 7: Complete the build agent setup](#task-7-complete-the-build-agent-setup)
+    - [Task 8: Create an Azure Container Registry](#task-8-create-an-azure-container-registry)
+    - [Task 9: Create a Service Principal](#task-9-create-a-service-principal)
+    - [Task 10: Create an Azure Kubernetes Service cluster](#task-10-create-an-azure-kubernetes-service-cluster)
+    - [Task 11: Install Azure CLI](#task-11-install-azure-cli)
+    - [Task 12: Install Kubernetes CLI](#task-12-install-kubernetes-cli)
+    - [Task 13: Download the FabMedical starter files](#task-13-download-the-fabmedical-starter-files)
+
+<!-- /TOC -->
+
+
 ## Requirements
 
 1.  Microsoft Azure subscription must be pay-as-you-go or MSDN
