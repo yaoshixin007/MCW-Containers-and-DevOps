@@ -57,9 +57,9 @@ Timeframe: 15 minutes
 
 Directions: With all participants in the session, the facilitator/SME presents an overview of the customer case study along with technical tips. 
 
-1.  Meet your table participants and trainer 
-2.  Read all of the directions for steps 1–3 in the student guide 
-3.  As a table team, review the following customer case study
+1.  Meet your table participants and trainer. 
+2.  Read all of the directions for steps 1–3 in the student guide. 
+3.  As a table team, review the following customer case study.
 
 ### Customer situation
 
@@ -71,85 +71,85 @@ The VP of Engineering at Fabrikam, Arthur Block, has a team of 12 developers who
 
 The conference sites are currently hosted in Azure with the following topology and platform implementation:
 
--   The conference web sites are built with the MEAN stack (Mongo, Express, Angular, Node.js)
+-   The conference web sites are built with the MEAN stack (Mongo, Express, Angular, Node.js).
 
--   Web sites and APIs are hosted in Azure App Services
+-   Web sites and APIs are hosted in Azure App Services.
 
--   MongoDB is a managed service provided by mLab on Azure
+-   MongoDB is a managed service provided by mLab on Azure.
 
 Customers are considered "tenants", and each tenant is treated as a unique deployment whereby the following happens:
 
--   Each tenant has a database in the MongoDB cluster with its own collections
+-   Each tenant has a database in the MongoDB cluster with its own collections.
 
--   A copy of the most recent functional conference code base is taken and configured to point at the tenant database
+-   A copy of the most recent functional conference code base is taken and configured to point at the tenant database.
 
-    -   This includes a web site code base and an administrative site code base for entering conference content such as speakers, sessions, workshops, and sponsors
+    -   This includes a web site code base and an administrative site code base for entering conference content such as speakers, sessions, workshops, and sponsors.
 
--   Modifications to support the customer's styles, graphics, layout, and other custom requests are applied
+-   Modifications to support the customer's styles, graphics, layout, and other custom requests are applied.
 
--   The conference owner is given access to the admin site to enter event details
+-   The conference owner is given access to the admin site to enter event details.
 
-    -   They will continue to use this admin site each conference, every year
+    -   They will continue to use this admin site each conference, every year.
 
-    -   They have the ability to add new events and isolate speakers, sessions, workshops and other details
+    -   They have the ability to add new events and isolate speakers, sessions, workshops and other details.
 
--   The tenant's code (conference and admin web site) is deployed to Web Apps in an App Service Plan
+-   The tenant's code (conference and admin web site) is deployed to Web Apps in an App Service Plan.
 
--   Once the conference site is live, the inevitable requests for changes to the web site pages, styles, registration requirements, and any number of custom requests begin
+-   Once the conference site is live,. the inevitable requests for changes to the web site pages, styles, registration requirements, and any number of custom requests begin
 
 Arthur is painfully aware that this small business, which evolved into something bigger, has organically grown into what should be a fully multi-tenanted application suite for conferences. However, the team is having difficulty approaching this goal. They are constantly updating the code base for each tenant and doing their best to merge improvements into a core code base they can use to spin up new conferences. The pace of change is fast, the budget is tight, and they simply do not have time to stop and restructure the core code base to support all the flexibilities customers require.
 
 Arthur is looking to take a step in this direction with the following goals in mind:
 
--   Reduce regressions introduced in a single tenant when changes are made
+-   Reduce regressions introduced in a single tenant when changes are made.
 
     -   One of the issues with the code base is that it has many dependencies across features. Seemingly simple changes to an area of code introduce issues with layout, responsiveness, registration functionality, content refresh, and more.
 
-    -   To avoid this, he would like to rework the core code base so that registration, email notifications and templates, content and configuration are cleanly separated from each other and from the front end
+    -   To avoid this, he would like to rework the core code base so that registration, email notifications and templates, content and configuration are cleanly separated from each other and from the front end.
 
-    -   Ideally, changes to individual areas will no longer require a full regression test of the site; however, given the number of sites they manage, this is not tenable
+    -   Ideally, changes to individual areas will no longer require a full regression test of the site; however, given the number of sites they manage, this is not tenable.
 
--   Improve the DevOps lifecycle
+-   Improve the DevOps lifecycle.
 
-    -   The time it takes to onboard a new tenant, launch a new site for an existing tenant, and manage all the live tenants throughout the lifecycle of the conference is highly inefficient
+    -   The time it takes to onboard a new tenant, launch a new site for an existing tenant, and manage all the live tenants throughout the lifecycle of the conference is highly inefficient.
 
     -   By reducing the effort to onboard customers, manage deployed sites, and monitor health, the company can contain costs and overhead as they continue to grow. This may allow for time to improve the multi-tenant platform they would like to build for long-term growth.
 
--   Increase visibility into system operations and health
+-   Increase visibility into system operations and health.
 
-    -   The team has little to no aggregate views of health across the web sites deployed
+    -   The team has little to no aggregate views of health across the web sites deployed.
 
 While multi-tenancy is a goal for the code base, even with this in place, Arthur believes there will always be the need for custom copies of code for a particular tenant who requires a one-off custom implementation. Arthur feels that Docker containers may be a good solution to support their short-term DevOps and development agility needs, while also being the right direction once they reach a majority multi-tenant application solution.
 
 ### Customer needs 
 
-1.  Reduce the overhead in time, complexity, and cost for deploying new conference tenants
+1.  Reduce the overhead in time, complexity, and cost for deploying new conference tenants.
 
-2.  Improve the reliability of conference tenant updates
+2.  Improve the reliability of conference tenant updates.
 
 3.  Choose a suitable platform for their Docker container strategy on Azure. The platform choice should:
 
-    -   Make it easy to deploy and manage infrastructure
+    -   Make it easy to deploy and manage infrastructure.
 
-    -   Provide tooling to help them with monitoring and managing container health
+    -   Provide tooling to help them with monitoring and managing container health.
 
-    -   Be affordable, if possible, with no additional licensing
+    -   Be affordable, if possible, with no additional licensing.
 
-4.  Migrate data from MongoDB hosted by mLab to CosmosDB in order to take advantage of Azure native features, with the least change possible to the application code
+4.  Migrate data from MongoDB hosted by mLab to CosmosDB in order to take advantage of Azure native features, with the least change possible to the application code.
 
-5.  Continue to use Git repositories for source control and integrat into a CICD workflow
+5.  Continue to use Git repositories for source control and integrat into a CICD workflow.
 
 6.  Prefer a complete suite of operational management tools with:
 
-    -   UI for manual deployment and management during development and initial POC work
+    -   UI for manual deployment and management during development and initial POC work.
 
-    -   APIs for integrated CICD automation
+    -   APIs for integrated CICD automation.
 
-    -   Container scheduling and orchestration
+    -   Container scheduling and orchestration.
 
-    -   Health monitoring and alerts, visualizing status
+    -   Health monitoring and alerts, visualizing status.
 
-7.  Complete an implementation of the proposed solution for a single tenant to train the team and perfect the process
+7.  Complete an implementation of the proposed solution for a single tenant to train the team and perfect the process.
   
 ### Customer objections 
 
@@ -161,7 +161,7 @@ While multi-tenancy is a goal for the code base, even with this in place, Arthur
 
 **Kubernetes Architecture**
 
-*NOTE: this diagram is an illustration of the Kubernetes topology, however, given Azure Kubernetes Services (AKS) is managed, the details of the underlying Kubernetes deployment are not surfaced -- nor do customers have to manage it.*
+*Note: this diagram is an illustration of the Kubernetes topology, however, given Azure Kubernetes Services (AKS) is managed, the details of the underlying Kubernetes deployment are not surfaced -- nor do customers have to manage it.*
 
 ![A diagram of a Kubernetes cluster topology illustrating master and agent nodes with load balancers.](media/image2.png)
 
@@ -169,26 +169,27 @@ While multi-tenancy is a goal for the code base, even with this in place, Arthur
 
 **CICD to Azure Kubernetes Service with VSTS**
 
-![A diagram showing the VSTS DevOps workflow to build Docker images from source code, push images to Azure Container Registry, and deploy to Azure Container Service using Kubernetes, Swarm or DCOS).](https://almvm.azurewebsites.net/labs/vstsextend/kubernetes/images/vstsaksdevops.png)
+![A diagram showing the VSTS DevOps workflow to build Docker images from source code, push images to Azure Container Registry, and deploy to Azure Container Service using Kubernetes, Swarm or DCOS).(https://almvm.azurewebsites.net/labs/vstsextend/kubernetes/images/vstsaksdevops.png)
 
 <https://almvm.azurewebsites.net/labs/vstsextend/kubernetes/>
 
 ## Step 2: Design a proof of concept solution
 
 **Outcome** 
+
 Design a solution and prepare to present the solution to the target customer audience in a 15-minute chalk-talk format. 
 
 Timeframe: 60 minutes
 
 **Business needs**
 
-Directions: With all participants at your table, answer the following questions and list the answers on a flip chart.
+Directions: With all participants at your table, answer the following questions and list the answers on a flip chart:
 
 1.  Who should you present this solution to? Who is your target customer audience? Who are the decision makers? 
 2.  What customer business needs do you need to address with your solution?
 
 **Design** 
-Directions: With all participants at your table, respond to the following questions on a flip chart.
+Directions: With all participants at your table, respond to the following questions on a flip chart:
 
 *High-level architecture*
 
@@ -202,29 +203,29 @@ Directions: With all participants at your table, respond to the following questi
 
 2.  Which would you recommend and why?
 
-3.  Describe how the customer can provision their Azure Kubernetes Service (AKS) environment to get their POC started
+3.  Describe how the customer can provision their Azure Kubernetes Service (AKS) environment to get their POC started.
 
 *Containers, discovery, and load balancing*
 
 1.  Describe the high-level manual steps developers will follow for building images and running containers on Azure Kubernetes Service (AKS) as they build their POC. Include the following components in the summary:
 
-    -   The Git repository containing their source
+    -   The Git repository containing their source.
 
-    -   Docker image registry
+    -   Docker image registry.
 
-    -   Steps to build Docker images and push to the registry
+    -   Steps to build Docker images and push to the registry.
 
-    -   Run containers using the Kubernetes dashboard
+    -   Run containers using the Kubernetes dashboard.
 
 2.  What options does the customer have for a Docker image registry, and what would you recommend?
 
 3.  How will the customer configure web site containers so that they are reachable publicly at port 80/443 from Azure Kubernetes Service (AKS)?
 
-4.  Explain how Azure Kubernetes Service (AKS) can route requests to multiple web site containers hosted on the same node at port 80/443
+4.  Explain how Azure Kubernetes Service (AKS) can route requests to multiple web site containers hosted on the same node at port 80/443.
 
 *Scalability considerations*
 
-1.  Explain to the customer how Azure Kubernetes Service (AKS) and their preconfigured Scale Sets support cluster auto-scaling
+1.  Explain to the customer how Azure Kubernetes Service (AKS) and their preconfigured Scale Sets support cluster auto-scaling.
 
 *Automating DevOps workflows*
 
@@ -234,9 +235,9 @@ Directions: With all participants at your table, respond to the following questi
 
 Directions: With all participants at your table: 
 
-1.  Identify any customer needs that are not addressed with the proposed solution 
-2.  Identify the benefits of your solution
-3.  Determine how you will respond to the customer’s objections
+1.  Identify any customer needs that are not addressed with the proposed solution. 
+2.  Identify the benefits of your solution.
+3.  Determine how you will respond to the customer’s objections.
 
 Prepare a 15-minute chalk-talk style presentation to the customer. 
 
@@ -251,13 +252,13 @@ Timeframe: 30 minutes
 **Presentation** 
 
 Directions:
-1.  Pair with another table
-2.  One table is the Microsoft team and the other table is the customer
-3.  The Microsoft team presents their proposed solution to the customer
-4.  The customer makes one of the objections from the list of objections
-5.  The Microsoft team responds to the objection
-6.  The customer team gives feedback to the Microsoft team
-7.  Tables switch roles and repeat Steps 2–6
+1.  Pair with another table.
+2.  One table is the Microsoft team and the other table is the customer.
+3.  The Microsoft team presents their proposed solution to the customer.
+4.  The customer makes one of the objections from the list of objections.
+5.  The Microsoft team responds to the objection.
+6.  The customer team gives feedback to the Microsoft team.
+7.  Tables switch roles and repeat Steps 2–6.
 
 ##  Wrap-up 
 
