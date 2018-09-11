@@ -45,27 +45,27 @@ The names of manufacturers, products, or URLs are provided for informational pur
 
 ## Requirements
 
-1.  Microsoft Azure subscription must be pay-as-you-go or MSDN
+1.  Microsoft Azure subscription must be pay-as-you-go or MSDN.
 
-    - Trial subscriptions will *not* work
+    - Trial subscriptions will *not* work.
 
     - You must have rights to create a service principal as discussed in Task 9: Create a Service Principal --- and this typically requires a subscription owner to log in. You may have to ask another subscription owner to login to the portal and execute that step ahead of time if you do not have the rights.
 
     - You must have enough cores available in your subscription to create the build agent and Azure Kurbernetes Service cluster in Task 5: Create a build agent VM and Task 10: Create an Azure Kubernetes Service cluster. You'll need eight cores if following the exact instructions in the lab, more if you choose additional agents or larger VM sizes. If you execute the steps required before the lab, you will be able to see if you need to request more cores in your sub.
 
-2. A VisualStudio.com account
+2. A VisualStudio.com account.
 
 3. Local machine or a virtual machine configured with:
 
-    - A browser, preferably Chrome for consistency with the lab implementation tests
+    - A browser, preferably Chrome for consistency with the lab implementation tests.
 
-    - Command prompt
+    - Command prompt.
 
-        i.  On Windows, you will be using Bash on Ubuntu on Windows, hereon referred to as WSL
+         i.  On Windows, you will be using Bash on Ubuntu on Windows, hereon referred to as WSL.
 
-        ii. On Mac, all instructions should be executed using bash in Terminal
+         ii. On Mac, all instructions should be executed using bash in Terminal.
 
-4. You will be asked to install other tools throughout the exercises
+4. You will be asked to install other tools throughout the exercises.
 
 ## Before the hands-on lab
 
@@ -77,33 +77,33 @@ You should follow all of the steps provided in this section *before* taking part
 
 You will create an Azure Resource Group to hold most of the resources that you create in this hands-on lab. This approach will make it easier to clean up later. You will be instructed to create new resources in this Resource Group during the remaining exercises.
 
-1.  In your browser, navigate to the **Azure Portal** (<https://portal.azure.com>)
+1.  In your browser, navigate to the **Azure Portal** (<https://portal.azure.com>).
 
-2.  Select **+ Create a resource** in the navigation bar at the left
+2.  Select **+ Create a resource** in the navigation bar at the left.
 
     ![This is a screenshot of the + Create a resource link in the navigation bar.](media/b4-image4.png)
 
-3.  In the Search the Marketplace search box, type \"Resource group\" and press Enter
+3.  In the Search the Marketplace search box, type \"Resource group\" and press Enter.
 
     ![Resource Group is typed in the Marketplace search box.](media/b4-image5.png)
 
-4.  Select **Resource group** on the Everything blade and select **Create**
+4.  Select **Resource group** on the Everything blade and select **Create**.
 
     ![This is a screenshot of Resource group on the Everything blade.](media/b4-image6.png)
 
 5.  On the new Resource group blade, set the following:
 
-    a.  Resource group name: Enter something like "fabmedical-SUFFIX", as shown in the following screenshot
+    a.  **Resource group name:** Enter something like "fabmedical-SUFFIX", as shown in the following screenshot.
 
-    b.  Subscription: Select the subscription you will use for all the steps during the lab
+    b.  **Subscription:** Select the subscription you will use for all the steps during the lab.
 
-    c.  Resource group location: Choose a region where all Azure Container Registry SKUs are available, which is currently East US, West Central US, or West Europe, and remember this for future steps so that the resources you create in Azure are all kept within the same region.
+    c.  **Resource group location:** Choose a region where all Azure Container Registry SKUs are available, which is currently East US, West Central US, or West Europe, and remember this for future steps so that the resources you create in Azure are all kept within the same region.
 
     ![In the Resource group blade, the value for the Resource group name box is fabmedical-sol, and the value of the Resource group location box is East US.](media/b4-image7.png)
 
-    d.  Select **Create**
+    d.  Select **Create**.
 
-6.  When this completes, your Resource Group will be listed in the Azure Portal
+6.  When this completes, your Resource Group will be listed in the Azure Portal.
 
     ![In this screenshot of the Azure Portal, the fabmedical-sol Resource group is listed.](media/b4-image8.png)
 
@@ -111,69 +111,69 @@ You will create an Azure Resource Group to hold most of the resources that you c
 
 You will follow these steps to create a development VM (machine) for the following reasons:
 
--   If your operating system is earlier than Windows 10 Anniversary Update, you will need it to work with WSL as instructed in the lab
+-   If your operating system is earlier than Windows 10 Anniversary Update, you will need it to work with WSL as instructed in the lab.
 
--   If you are not sure if you set up WSL correctly, given there are a few ways to do this, it may be easier to create the development machine for a predictable experience
+-   If you are not sure if you set up WSL correctly, given there are a few ways to do this, it may be easier to create the development machine for a predictable experience.
 
-**NOTE: Setting up the development machine is optional for Mac OS since you will use Terminal for commands. Setting up the development machine is also optional if you are certain you have a working installation of WSL on your current Windows 10 VM.**
+> **NOTE: Setting up the development machine is optional for Mac OS since you will use Terminal for commands. Setting up the development machine is also optional if you are certain you have a working installation of WSL on your current Windows 10 VM.**
 
 In this section, you will create a Windows 10 VM to act as your development machine. You will install the required components to complete the lab using this machine. You will use this machine instead of your local machine to carry out the instructions during the lab.
 
-1.  From the Azure Portal, select **+ Create a resource**, type "**Windows 10**" in the Search the marketplace text box and press **Enter**
+1.  From the Azure Portal, select **+ Create a resource**, type "**Windows 10**" in the Search the marketplace text box and press **Enter**.
 
     ![This is a screenshot of the search results for Windows 10. A red arrow points at the fourth result: Windows 10 Pro N, Version 1709.](media/b4-image9.png)
 
-2.  Select **Windows 10 Pro N, Version 1709** and select **Create**
+2.  Select **Windows 10 Pro N, Version 1709** and select **Create**.
 
 3.  On the Basics blade of the Virtual Machine setup, set the following:
 
-    -   **Name**: Provide a unique name, such as "fabmedicald-SUFFIX" as shown in the following screenshot
+    -   **Name**: Provide a unique name, such as "fabmedicald-SUFFIX" as shown in the following screenshot.
 
-    -   **VM disk type**: Leave as SSD
+    -   **VM disk type**: Leave as SSD.
 
-    -   **User name**: Provide a user name, such as "adminfabmedical"
+    -   **User name**: Provide a user name, such as "adminfabmedical".
 
-    -   **Password**: Provide a password, such as "Password\$123"
+    -   **Password**: Provide a password, such as "Password\$123".
 
-    -   **Confirm password**: Confirm the previously entered password
+    -   **Confirm password**: Confirm the previously entered password.
 
-    -   **Subscription**: Choose the same subscription you are using for all your work
+    -   **Subscription**: Choose the same subscription you are using for all your work.
 
-    -   **Resource group**: Choose Use existing and select the resource group you created previously
+    -   **Resource group**: Choose Use existing and select the resource group you created previously.
 
-    -   **Location**: Choose the same region that you did before
+    -   **Location**: Choose the same region that you did before.
 
-    -   Select **OK** to complete the Basics blade
+    -   Select **OK** to complete the Basics blade.
 
     ![In the Basics blade, the values listed above appear in the corresponding boxes. The suffix after the fabmedicald- value is obscured in the Name box and the Resource group box, as is the value for the Subscription box.](media/b4-image10.png)
 
-4.  From the Size blade search for "DS2_v2", choose **D2S\_V2 Standard** and **Select**
+4.  From the Size blade search for "DS2_v2", choose **D2S\_V2 Standard** and **Select**.
 
     !["DS2_v2" is entered in the Search box.  There is one result shown and it is selected.](media/b4-image11.png)
 
-5.  From the Settings blade, accept the default values for all settings and select **OK**
+5.  From the Settings blade, accept the default values for all settings and select **OK**.
 
-6.  From the Create blade, you should see that validation passed and select **Create**
+6.  From the Create blade, you should see that validation passed and select **Create**.
 
     ![This is a screenshot of the Create blade indicating that validation passed. Offer details are also visible.](media/b4-image12.png)
 
-7.  The VM will begin deployment to your Azure subscription
+7.  The VM will begin deployment to your Azure subscription.
 
     ![The Deploying Windows 10 Pro N, Version 1709 icon indicates that deployment has begun to your Azure subscription.](media/b4-image13.png)
 
-8.  Once provisioned, you will see the VM in your list of resources belonging to the resource group you created previously and select the new VM
+8.  Once provisioned, you will see the VM in your list of resources belonging to the resource group you created previously and select the new VM.
 
     ![This screenshot of your resource list has the following columns: Name, Type, and Location. The first row is highlighted with the following values: fabmedicald-(suffix obscured), Virtual machine, and West Europe.](media/b4-image14.png)
 
-9.  In the Overview area for the VM, select Connect to establish a Remote Desktop Connection (RDP) for the VM
+9.  In the Overview area for the VM, select Connect to establish a Remote Desktop Connection (RDP) for the VM.
 
     ![In this screenshot of the Overview area for the VM, a red arrow points at the Connect icon.](media/b4-image15.png)
 
-10. Complete the steps to establish the RDP session and ensure that you are connected to the new VM
+10. Complete the steps to establish the RDP session and ensure that you are connected to the new VM.
 
 ### Task 3: Install WSL (Bash on Ubuntu on Windows)
 
-**NOTE: If you are using a Windows 10 development machine, follow these steps. For Mac OS you can ignore this step since you will be using Terminal for all commands.**
+>**NOTE: If you are using a Windows 10 development machine, follow these steps. For Mac OS you can ignore this step since you will be using Terminal for all commands.**
 
 You will need WSL to complete various steps. A complete list of instructions for supported Windows 10 versions is available on this page:
 
@@ -183,7 +183,7 @@ You will need WSL to complete various steps. A complete list of instructions for
 
 In this section, you will create an SSH key to securely access the VMs you create during the upcoming exercises.
 
-1.  Open a WSL command window
+1.  Open a WSL command window.
 
     ![This is an icon for Bash on Ubuntu on Windows (Desktop app).](media/b4-image16.png)
 
@@ -205,11 +205,11 @@ In this section, you will create an SSH key to securely access the VMs you creat
 
 4.  You will be asked to save the generated key to a file. Enter \".ssh/fabmedical\" for the name.
 
-5.  Enter a passphrase when prompted, and don't forget it!
+5.  Enter a passphrase when prompted, and **don't forget it**!
 
 6.  Because you entered ".ssh/fabmedical", the file will be generated in the ".ssh" folder in your user folder, where WSL opens by default.
 
-7.  Keep this WSL window open and remain in the default directory, you will use it in later tasks
+7.  Keep this WSL window open and remain in the default directory, you will use it in later tasks.
 
     ![In this screenshot of the WSL window, ssh-keygen -t RSA -b 2048 -C admin\@fabmedical has been typed and run at the command prompt. Information about the generated key appears in the window. At this time, we are unable to capture all of the information in the window. Future versions of this course should address this.](media/b4-image18.png)
 
@@ -217,25 +217,25 @@ In this section, you will create an SSH key to securely access the VMs you creat
 
 In this section, you will create a Linux VM to act as your build agent. You will install Docker to this VM once it is set up, and you will use this VM during the lab to develop and deploy.
 
-**NOTE: You can set up your local machine with Docker however the setup varies for different versions of Windows. For this lab, the build agent approach simply allows for predictable setup.**
+>**NOTE: You can set up your local machine with Docker however the setup varies for different versions of Windows. For this lab, the build agent approach simply allows for predictable setup.**
 
-1. From the Azure Portal, select **+ Create a resource**, type "**Ubuntu**" in the Search the marketplace text box and press **Enter**
+1. From the Azure Portal, select **+ Create a resource**, type "**Ubuntu**" in the Search the marketplace text box and press **Enter**.
 
     ![This screenshot of the marketplace search results for Ubuntu has the following columns: Name, Publisher, and Category. A red arrow points at the first search result, which has the following values: Ubuntu Server 16.04 LTS, Canonical, and Virtual Machines.](media/b4-image19.png)
 
-2. Select **Ubuntu Server 16.04 LTS** and select **Create**
+2. Select **Ubuntu Server 16.04 LTS** and select **Create**.
 
 3. On the Basics blade of the Virtual Machine setup, set the following:
 
-    -   **Name**: Provide a unique name, such as "fabmedical-SUFFIX" as shown in the following screenshot
+    -   **Name**: Provide a unique name, such as "fabmedical-SUFFIX" as shown in the following screenshot.
 
-    -   **VM disk type**: Leave as SSD
+    -   **VM disk type**: Leave as SSD.
 
-    -   **User name**: Provide a user name, such as "adminfabmedical"
+    -   **User name**: Provide a user name, such as "adminfabmedical".
 
-    -   **Authentication** **type**: Leave as SSH public key
+    -   **Authentication** **type**: Leave as SSH public key.
 
-    -   **SSH public key**: From your local machine, copy the public key portion of the SSH key pair you created previously, to the clipboard
+    -   **SSH public key**: From your local machine, copy the public key portion of the SSH key pair you created previously, to the clipboard.
 
         -  From WSL, verify you are in your user directory shown as "**\~"**. This command will take you there:
 
@@ -243,7 +243,7 @@ In this section, you will create a Linux VM to act as your build agent. You will
             cd ~
             ```
 
-        - Type the following command at the prompt to display the public key that you generated.
+        - Type the following command at the prompt to display the public key that you generated:
 
             ``` bash
             cat .ssh/fabmedical.pub
@@ -259,35 +259,35 @@ In this section, you will create a Linux VM to act as your build agent. You will
 
         - Paste this value in the SSH public key textbox of the blade.
 
-    -   **Login with Azure Active Directory**: Leave disabled
+    -   **Login with Azure Active Directory**: Leave disabled.
 
-    -   **Subscription**: Choose the same subscription you are using for all your work
+    -   **Subscription**: Choose the same subscription you are using for all your work.
 
-    -   **Resource group**: Choose Use existing and select the resource group you created previously
+    -   **Resource group**: Choose Use existing and select the resource group you created previously.
 
-    -   **Location**: Choose the same region that you did before
+    -   **Location**: Choose the same region that you did before.
 
-    -   Select **OK** to complete the Basics blade
+    -   Select **OK** to complete the Basics blade.
 
     ![In the Basics blade, the values listed above appear in the corresponding boxes. The public key that you copied is pasted in the SSH public key box.](media/b4-image21.png)
 
-4. From the Size blade search for "D2S_v3" and **Select**
+4. From the Size blade search for "D2S_v3" and **Select**.
 
     !["D2S_v3" is entered in the Search box.  There is one result shown and it is selected.](media/b4-image22.png)
 
-5. From the Settings blade, accept the default values for most settings and select "SSH (22)" as a public inbound port, then select **OK**
+5. From the Settings blade, accept the default values for most settings and select "SSH (22)" as a public inbound port, then select **OK**.
 
     ![Settings](media/b4-image22a.png)
 
-6. From the Create blade, you should see that validation passed and select **Create**
+6. From the Create blade, you should see that validation passed and select **Create**.
 
     ![This is a screenshot of the Create blade indicating that validation passed. Offer details are also visible.](media/b4-image23.png)
 
-7. The VM will begin deployment to your Azure subscription
+7. The VM will begin deployment to your Azure subscription.
 
     ![The Deploying Ubuntu Server 16.04 LTS icon indicates that deployment has begun to your Azure subscription.](media/b4-image24.png)
 
-8. Once provisioned, you will see the VM in your list of resources belonging to the resource group you created previously
+8. Once provisioned, you will see the VM in your list of resources belonging to the resource group you created previously.
 
     ![This screenshot of your resource list has the following columns: Name, Type, and Location. The third row is highlighted with the following values: fabmedical-(suffix obscured), Virtual machine, and East US.](media/b4-image25.png)
 
@@ -295,9 +295,9 @@ In this section, you will create a Linux VM to act as your build agent. You will
 
 In this section, you will validate that you can connect to the new build agent VM.
 
-1.  From the Azure portal, navigate to the Resource Group you created previously and select the new VM, fabmedical-SUFFIX
+1.  From the Azure portal, navigate to the Resource Group you created previously and select the new VM, fabmedical-SUFFIX.
 
-2.  In the Overview area for the VM, take note of the public IP address for the VM
+2.  In the Overview area for the VM, take note of the public IP address for the VM.
 
     ![In this screenshot of the Overview area for the VM, Public IP address 52.174.141.11 is highlighted.](media/b4-image26.png)
 
@@ -307,7 +307,7 @@ In this section, you will validate that you can connect to the new build agent V
     cd ~
     ```
 
-4.  Connect to the new VM you created by typing the following command
+4.  Connect to the new VM you created by typing the following command:
 
     ``` bash
      ssh -i [PRIVATEKEYNAME] [BUILDAGENTUSERNAME]@[BUILDAGENTIP]
@@ -335,13 +335,13 @@ In this section, you will validate that you can connect to the new build agent V
 
     ![In this screenshot of a Command Prompt window, ssh -i .ssh/fabmedical adminfabmedical\@52.174.141.11 has been typed and run at the command prompt. The information detailed above appears in the window. At this time, we are unable to capture all of the information in the window. Future versions of this course should address this.](media/b4-image27.png)
 
-**NOTE: If you have issues connecting, you may have pasted the SSH public key incorrectly. Unfortunately, if this is the case, you will have to recreate the VM and try again.**
+>**NOTE: If you have issues connecting, you may have pasted the SSH public key incorrectly. Unfortunately, if this is the case, you will have to recreate the VM and try again.**
 
 ### Task 7: Complete the build agent setup
 
 In this task, you will update the packages and install Docker engine.
 
-1. Go to the WSL window that has the SSH connection open to the build agent VM
+1. Go to the WSL window that has the SSH connection open to the build agent VM.
 
 2. Update the Ubuntu packages and install curl and support for repositories over HTTPS in a single step by typing the following in a single line command. When asked if you would like to proceed, respond by typing "y" and pressing enter.
 
@@ -349,12 +349,12 @@ In this task, you will update the packages and install Docker engine.
     sudo apt-get update && sudo apt install apt-transport-https ca-certificates curl software-properties-common
     ```
 
-3. Add Docker's official GPG key by typing the following in a single line command
+3. Add Docker's official GPG key by typing the following in a single line command:
 
     ``` bash
     curl -fsSL https://download.docker.com/linux/ubuntu/gpg | sudo apt-key add -
     ```
-4. Add Docker's stable repository to Ubuntu packages list by typing the following in a single line command
+4. Add Docker's stable repository to Ubuntu packages list by typing the following in a single line command:
 
     ``` bash
     sudo add-apt-repository "deb [arch=amd64] https://download.docker.com/linux/ubuntu $(lsb_release -cs) stable"
@@ -385,7 +385,7 @@ In this task, you will update the packages and install Docker engine.
 
     ![In this screenshot of a Command Prompt window, docker version has been typed and run at the command prompt. Docker version information appears in the window.](media/b4-image28.png)
 
-9. You may check the versions of node.js and npm as well, just for information purposes, using these commands
+9. You may check the versions of node.js and npm as well, just for information purposes, using these commands:
 
     ``` bash
     nodejs --version
@@ -409,18 +409,18 @@ In this task, you will update the packages and install Docker engine.
 
 12. In order for the user permission changes to take effect, exit the SSH session by typing 'exit', then press \<Enter\>. Repeat the commands in Task 6: Connect securely to the build agent from step 4 to establish the SSH session again.
 
-13. Run the Docker version command again, and note the output now shows the server version as well
+13. Run the Docker version command again, and note the output now shows the server version as well.
 
     ![In this screenshot of a Command Prompt window, docker version has been typed and run at the command prompt. Docker version information appears in the window, in addition to server version information.](media/b4-image30.png)
 
-14. Run a few Docker commands
+14. Run a few Docker commands:
 
-    -   One to see if there are any containers presently running
+    -   One to see if there are any containers presently running.
     ``` bash
     docker container ls
     ```
 
-    -   One to see if any containers exist whether running or not
+    -   One to see if any containers exist whether running or not.
     ``` bash
     docker container ls -a
     ```
@@ -439,21 +439,21 @@ You deploy Docker images from a registry. To complete the hands-on lab, you will
 
 2.  On the Create container registry blade, enter the following:
 
-    -   Registry name: Enter a name, such as "fabmedicalSUFFIX", as shown in the following screenshot.
+    -   **Registry name:** Enter a name, such as "fabmedicalSUFFIX", as shown in the following screenshot.
 
-    -   Subscription: Choose the same subscription you are using for all your work.
+    -   **Subscription:** Choose the same subscription you are using for all your work.
 
-    -   Resource group: Choose Use existing and select the resource group you created previously.
+    -   **Resource group:** Choose Use existing and select the resource group you created previously.
 
-    -   Location: Choose the same region that you did before.
+    -   **Location:** Choose the same region that you did before.
 
-    -   Admin user: Select Enable.
+    -   **Admin user:** Select Enable.
 
-    -   SKU: Select Standard.
+    -   **SKU:** Select Standard.
 
         ![In the Create container registry blade, the values listed above appear in the corresponding boxes.](media/b4-image33.png)
 
-3.  Select **Create**
+3.  Select **Create**.
 
 4.  Navigate to your ACR account in the Azure Portal. As this is a new account, you will not see any repositories yet. You will create these during the hands-on lab.
 
@@ -463,9 +463,9 @@ You deploy Docker images from a registry. To complete the hands-on lab, you will
 
 Azure Kubernetes Service requires an Azure Active Directory service principal to interact with Azure APIs. The service principal is needed to dynamically manage resources such as user-defined routes and the Layer 4 Azure Load Balancer. The easiest way to set up the service principal is using the Azure cloud shell.
 
-**NOTE: By default, creating a service principal in Azure AD requires account owner permission. You may have trouble creating a service principal if you are not the account owner.**
+> **NOTE: By default, creating a service principal in Azure AD requires account owner permission. You may have trouble creating a service principal if you are not the account owner.**
 
-1.  Open cloud shell by selecting the cloud shell icon in the menu bar
+1.  Open cloud shell by selecting the cloud shell icon in the menu bar.
 
     ![The cloud shell icon is highlighted on the menu bar.](media/b4-image35.png)
 
@@ -509,13 +509,13 @@ Azure Kubernetes Service requires an Azure Active Directory service principal to
 
 In this task, you will create your Azure Kubernetes Service cluster. You will use the same SSH key you created previously to connect to this cluster in the next task.
 
-1.  From the Azure Portal, select **+ Create a resource**, **Containers** and select **Kubernetes Service**
+1.  From the Azure Portal, select **+ Create a resource**, **Containers** and select **Kubernetes Service**.
 
     ![In this screenshot of the Azure portal, + Create a resource is highlighted and labeled 1 on the left side. To the right, Containers is highlighted and labeled 2 under Azure Marketplace. To the right of that, Kubernetes Service is highlighted and labeled 3 under Featured.](media/b4-image40.png)
 
 2.  In the Basics blade provide the information shown in the screenshot that follows:
 
-    > Note: you may need to scroll to see all values.
+    > NOTE: You may need to scroll to see all values.
 
     * **Subscription**: Choose your subscription which you have been using throughout the lab.
     * **Resource group**: Select the resource group you have been using through the lab.
@@ -526,31 +526,32 @@ In this task, you will create your Azure Kubernetes Service cluster. You will us
 
         ![Basics is selected in the Create Azure Kubernetes Service blade, and the values listed above appear in the corresponding boxes in the Basics blade on the right.](media/b4-image41.png)
 
-    * Configure your service principal
+    * Configure your service principal.
+    
         * **Service principal client ID**: Use the service principal “appId” from the previous step.
         * **Service principal client secret**: Use the service principal “password” from the previous step.
 
             ![Microsoft Azure](media/b4-image41a.png)
 
-    * Configure your VM size
+    * Configure your VM size.
 
-        * Click "Change Size"
-        * Search for "D2_v2"
-        * Select "D2_v2"
+        * Click "Change Size".
+        * Search for "D2_v2".
+        * Select "D2_v2".
 
             ![Microsoft Azure](media/b4-image41b.png)
 
-    * Set the Node Count to 2
+    * Set the Node Count to 2.
 
         ![Microsoft Azure](media/b4-image41c.png)
 
 3. Select "Next: Networking".
-4. Keep the defaults and select "Next: Monitoring"
-5. Keep the defaults and select "Next: Tags"
-6. Keep the defaults and select "Review + create"
+4. Keep the defaults and select "Next: Monitoring".
+5. Keep the defaults and select "Next: Tags".
+6. Keep the defaults and select "Review + create".
 7. You should see that validation passed; select "Create".
 
-8.  On the Summary blade, you should see that validation passed; select **OK**
+8.  On the Summary blade, you should see that validation passed; select **OK**.
 
     ![Summary is selected in the Create Azure Kubernetes Service blade, and a Validation passed message appears in the Summary blade on the right.](media/b4-image43.png)
 
@@ -558,7 +559,7 @@ In this task, you will create your Azure Kubernetes Service cluster. You will us
 
     ![This is a screenshot of a deployment notification indicating that the deployments succeeded.](media/b4-image45.png)
 
-**NOTE: If you experience errors related to lack of available cores, you may have to delete some other compute resources or request additional cores to your subscription and then try this again.**
+> **NOTE: If you experience errors related to lack of available cores, you may have to delete some other compute resources or request additional cores to your subscription and then try this again.**
 
 ### Task 11: Install Azure CLI
 
@@ -566,7 +567,7 @@ In later exercises, you will need the Azure CLI 2.0 to connect to your Kubernete
 
 <https://docs.microsoft.com/en-us/cli/azure/install-azure-cli?view=azure-cli-latest>
 
-1.  For MacOS -- use homebrew
+1.  For MacOS -- use homebrew:
 
     ``` bash
     brew update
@@ -574,7 +575,7 @@ In later exercises, you will need the Azure CLI 2.0 to connect to your Kubernete
     brew install azure-cli
     ```
 
-2.  For Windows -- using WSL _on your local machine (not the build agent)_
+2.  For Windows -- using WSL _on your local machine (not the build agent)_:
 
     ``` bash
     AZ_REPO=$(lsb_release -cs)
@@ -590,7 +591,7 @@ In later exercises, you will need the Azure CLI 2.0 to connect to your Kubernete
 
 In later exercises, you will need the Kubernetes CLI (kubectl) to deploy to your Kubernetes cluster and run commands from your local machine.
 
-1.  Install the Kubernetes client using Azure CLI
+1.  Install the Kubernetes client using Azure CLI:
 
     ``` bash
     az login
@@ -620,7 +621,7 @@ FabMedical has provided starter files for you. They have taken a copy of one of 
     tar -C FabMedical -xzf FabMedical.tgz
     ```
 
-4.  Navigate to FabMedical folder and list the contents
+4.  Navigate to FabMedical folder and list the contents.
 
     ```bash
     cd FabMedical
@@ -628,7 +629,7 @@ FabMedical has provided starter files for you. They have taken a copy of one of 
     ll
     ```
 
-5.  You'll see the listing includes three folders, one for the web site, another for the content API and one to initialize API data
+5.  You'll see the listing includes three folders, one for the web site, another for the content API and one to initialize API data:
 
     ```bash
     content-api/
@@ -636,41 +637,41 @@ FabMedical has provided starter files for you. They have taken a copy of one of 
     content-web/
     ```
 
-6.  Next log into your VisualStudio.com account
+6.  Next log into your VisualStudio.com account.
 
-    If this is your first time logging into this account you will be taken through a first-run experience
+    If this is your first time logging into this account you will be taken through a first-run experience:
 
-    * Confirm your contact information and select next
-    * Select "Create new account"
-    * Enter a fabmedical-SUFFIX for your account name and select Continue
+    * Confirm your contact information and select next.
+    * Select "Create new account".
+    * Enter a fabmedical-SUFFIX for your account name and select Continue.
 
-7.  Create repositories to host the code
+7.  Create repositories to host the code.
 
-    * Select the icon in the top left corner to return to the account home page
+    * Select the icon in the top left corner to return to the account home page.
 
         ![Home page icon](media/b4-image47.png)
         
-    * Select "New Project"
-        * Enter fabmedical as the project name
-        * Select "Create"
+    * Select "New Project".
+        * Enter fabmedical as the project name.
+        * Select "Create".
         
-    * Once the project creation has completed, select "Code"
+    * Once the project creation has completed, select "Code".
     
-    * Use the repository dropdown to create a new repository by selecting "+ New repository"
+    * Use the repository dropdown to create a new repository by selecting "+ New repository".
     
         ![Repository dropdown](media/b4-image48.png)
            
-    * Enter "content-web" as the repository name
+    * Enter "content-web" as the repository name.
     
-    * Once the project is created click "Generate Git credentials"
+    * Once the project is created click "Generate Git credentials".
     
         ![Generate Git Credentials](media/b4-image50.png)
           
-        * Enter a password
-        * Confirm the password
-        * Select "Save Git Credentials"
+        * Enter a password.
+        * Confirm the password.
+        * Select "Save Git Credentials".
         
-    * Using your WSL window, initialize a new git repository
+    * Using your WSL window, initialize a new git repository.
 
         ```bash
         cd content-web
@@ -682,9 +683,9 @@ FabMedical has provided starter files for you. They have taken a copy of one of 
     
         ![Commands to add remote](media/b4-image49.png)
         
-        * When prompted, enter your VisualStudio.com username and the git credentials password you created earlier in this task
+        * When prompted, enter your VisualStudio.com username and the git credentials password you created earlier in this task.
         
-    * Use the repository dropdown to create a second repository called "content-api"
+    * Use the repository dropdown to create a second repository called "content-api".
     
         * Using your WSL window, initialize a new git repository in the content-api directory.
         
@@ -696,11 +697,11 @@ FabMedical has provided starter files for you. They have taken a copy of one of 
             ```
         * Setup your VisualStudio.com repository as a new remote the push.  Use the repository dropdown to switch to the "content-api" repository. You can then copy the commands for the setting up the content-api repository  from your browser.  Paste these commands into your WSL window.
         
-        * When prompted, enter your VisualStudio.com username and the git credentials password you created earlier in this task
+        * When prompted, enter your VisualStudio.com username and the git credentials password you created earlier in this task.
         
-    * Use the repository dropdown to create a third repository called "content-init"
+    * Use the repository dropdown to create a third repository called "content-init".
     
-        * Using your WSL window, initialize a new git repository in the content-init directory
+        * Using your WSL window, initialize a new git repository in the content-init directory.
         
             ```bash
             cd ../content-init
@@ -710,9 +711,9 @@ FabMedical has provided starter files for you. They have taken a copy of one of 
             ```
         * Setup your VisualStudio.com repository as a new remote the push.  Use the repository dropdown to switch to the "content-init" repository. You can then copy the commands for the setting up the content-init repository  from your browser.  Paste these commands into your WSL window.
         
-        * When prompted, enter your VisualStudio.com username and the git credentials password you created earlier in this task
+        * When prompted, enter your VisualStudio.com username and the git credentials password you created earlier in this task.
 
-8.  Clone your repositories to the build agent
+8.  Clone your repositories to the build agent.
 
     * From WSL, connect to the build agent VM as you did previously in Before the hands-on lab - Task 6: Connect securely to the build agent using the SSH command.
 
@@ -728,12 +729,15 @@ FabMedical has provided starter files for you. They have taken a copy of one of 
         git clone <REPOSITORY_URL>
         ```
 
-    * In your browser, switch to the "content-api" repository and select "Clone" to see and copy the repository url
+    * In your browser, switch to the "content-api" repository and select "Clone" to see and copy the repository url.
 
-    * Use the repository url and `git clone` to copy the content-api code to your build agent
+    * Use the repository url and `git clone` to copy the content-api code to your build agent.
 
-    * In your browser, switch to the "content-init" repository and select "Clone" to see and copy the repository url
+    * In your browser, switch to the "content-init" repository and select "Clone" to see and copy the repository url.
 
-    * Use the repository url and `git clone` to copy the content-init code to your build agent
+    * Use the repository url and `git clone` to copy the content-init code to your build agent.
 
-**NOTE: Keep this WSL window open as your build agent SSH connection. You will later open new WSL sessions to other machines.**
+>**NOTE: Keep this WSL window open as your build agent SSH connection. You will later open new WSL sessions to other machines.**
+
+You should follow all steps provided *before* performing the Hands-on lab.
+
