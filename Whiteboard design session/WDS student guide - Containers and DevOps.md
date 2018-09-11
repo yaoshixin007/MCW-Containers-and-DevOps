@@ -169,9 +169,9 @@ While multi-tenancy is a goal for the code base, even with this in place, Arthur
 
 **CICD to Azure Kubernetes Service with VSTS**
 
-![A diagram showing the VSTS DevOps workflow to build Docker images from source code, push images to Azure Container Registry, and deploy to Azure Container Service using Kubernetes, Swarm or DCOS.](https://almvm.azurewebsites.net/labs/vstsextend/kubernetes/images/vstsaksdevops.png)
+![A diagram showing the VSTS DevOps workflow to build Docker images from source code, push images to Azure Container Registry, and deploy to Azure Container Service using Kubernetes, Swarm or DCOS).](media/vsts-aks-devops.png)
 
-<https://almvm.azurewebsites.net/labs/vstsextend/kubernetes/>
+<https://www.azuredevopslabs.com/labs/vstsextend/kubernetes/>
 
 ## Step 2: Design a proof of concept solution
 
