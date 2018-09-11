@@ -325,9 +325,9 @@ In this section, you will validate that you can connect to the new build agent V
     ssh -i .ssh/fabmedical adminfabmedical@52.174.141.11
     ```
 
-5.  When asked to confirm if you want to connect, as the authenticity of the connection cannot be validated, type "yes"
+5.  When asked to confirm if you want to connect, as the authenticity of the connection cannot be validated, type "yes".
 
-6.  When asked for the passphrase for the private key you created previously, enter this value
+6.  When asked for the passphrase for the private key you created previously, enter this value.
 
 7.  You will connect to the VM with a command prompt such as the following. Keep this command prompt open for the next step.
 
