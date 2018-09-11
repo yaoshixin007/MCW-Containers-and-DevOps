@@ -477,17 +477,17 @@ They also decided to move forward with VSTS for container DevOps workflows.
 
 Each tenant will have the following containers:
 
--   **Conference Web site**: the SPA application that will use configuration settings to handle custom styles for the tenant
+-   **Conference Web site**: The SPA application that will use configuration settings to handle custom styles for the tenant.
 
--   **Admin Web site**: the SPA application that conference owners use to manage conference configuration details, manage attendee registrations, manage campaigns, and communicate with attendees
+-   **Admin Web site**: The SPA application that conference owners use to manage conference configuration details, manage attendee registrations, manage campaigns, and communicate with attendees.
 
--   **Registration service**: the API that handles all registration activities, creating new conference registrations with the appropriate package selections, and associated cost
+-   **Registration service**: The API that handles all registration activities, creating new conference registrations with the appropriate package selections, and associated cost.
 
--   **Email service**: the API that handles email notifications to conference attendees during registration, or when the conference owners choose to engage the attendees through their admin site
+-   **Email service**: The API that handles email notifications to conference attendees during registration, or when the conference owners choose to engage the attendees through their admin site.
 
--   **Config service**: the API that handles conference configuration settings such as dates, locations, pricing tables, early bird specials, countdowns, and related
+-   **Config service**: The API that handles conference configuration settings such as dates, locations, pricing tables, early bird specials, countdowns, and related.
 
--   **Content service**: the API that handles content for the conference such as speakers, sessions, workshops, and sponsors
+-   **Content service**: The API that handles content for the conference such as speakers, sessions, workshops, and sponsors.
 
 2.  Without getting into the details (the following sections will address the particular details), diagram your initial vision of the container platform, the containers that should be deployed (for a single tenant), and the data tier.
 
@@ -508,22 +508,29 @@ Azure App Service specifically targets container deployments, which makes it eas
 Azure Container Instances represent containers as a first-class resource in the Azure environment. They provide a serverless approach to container deployment without management tooling at this time.
 
 **Docker Engine with a Swarm Cluster running on Azure Virtual Machines**
+
 Docker Engine now comes with Docker Swarm built in. Docker Swarm turns a pool of Docker hosts into a single virtual Docker engine. This provides a central management cluster (via Docker Swarm) to communicate with the application (agent) nodes. As of Docker 1.12, Docker Swarm can now support many workflows, including service discovery and load balancing. A command line interface exists for these workflows; however, a management UI to simplify this process is not built-in. By manually setting up the Docker Swarm cluster and agent nodes, you can achieve any desired topology---even one similar to that provided by Azure Container Service for Swarm---however, this comes with additional work, and will not allow you to take advantage of future benefits that will be provided when deploying with Azure Container Service templates.
 
 **Docker Enterprise Edition (EE) on Azure**
+
 The Docker EE is the enterprise-grade cluster management solution from Docker Inc. providing additional features and tools on top of Docker Engine and Docker Swarm orchestration. Docker EE has additional licensing costs per Docker engine (usually, per VM). This offering packages features you can manually deploy and manage with features similar to that of other container orchestration platforms.
 
 **Windows Server Containers on Windows Server 2016**
+
 Windows Server Containers allow Windows applications to be containerized. This environment has support for the Docker platform including Docker Swarm for scheduling and orchestration. You are responsible for setting up any Docker Swarm clustering and related configurations, and there are no built-in management tools at this time to help you with visibility into the deployment, health monitoring, and related tasks.
 
 **Azure Container Service**
+
 The Azure Container Service provides a turnkey container cluster management solution allowing you to choose between Docker Swarm, DC/OS, and Kubernetes for orchestration. Regardless of the choice of orchestration platform, Azure Container Service provides a simplified way to set up an initial infrastructure topology and platform deployment with ARM templates, as well as manage updates via ARM.
 
--   **Azure Container Service with Docker Swarm orchestration** Azure Container Service with Docker Swarm orchestration provides features that are equivalent to installing Docker Swarm solutions manually on Azure Virtual Machines (previously mentioned). Docker Swarm supports command-line management for necessary management workflows.
+-   **Azure Container Service with Docker Swarm orchestration** 
+    Azure Container Service with Docker Swarm orchestration provides features that are equivalent to installing Docker Swarm solutions manually on Azure Virtual Machines (previously mentioned). Docker Swarm supports command-line management for necessary management workflows.
 
--   **Azure Container Service with DC/OS orchestration** DC/OS is a mature, production-grade full-featured platform for distributed workloads based on Apache Mesos and the Marathon container orchestration platform. Marathon has a feature rich UI, allowing for simple container management. It also supports CICD and automation through the REST API. DC/OS adds the desirable management UI and related features that are missing in the other options. The management UI provides an interactive tool for deploying and managing container lifecycles, health checks and self-healing configurations, tasks management, scaling actions, and related.
+-   **Azure Container Service with DC/OS orchestration** 
+    DC/OS is a mature, production-grade full-featured platform for distributed workloads based on Apache Mesos and the Marathon container orchestration platform. Marathon has a feature rich UI, allowing for simple container management. It also supports CICD and automation through the REST API. DC/OS adds the desirable management UI and related features that are missing in the other options. The management UI provides an interactive tool for deploying and managing container lifecycles, health checks and self-healing configurations, tasks management, scaling actions, and related.
 
--   **Azure Container Service with Kubernetes orchestration** Kubernetes orchestration is available with the Azure Container Service offering. Like DC/OS, Kubernetes is an open source solution for automating deployment, scaling, and management of containerized deployments. Kubernetes features automatic bin packing to maximize resource utilization; on-demand or automatic horizontal scaling; service discovery and load balancing; user-defined health-checks; rolling updates and rollbacks; secrets and configuration management; cloud/private storage orchestration; and batch workloads. Kubernetes also provides a management UI as well as command line tools for management workflows.
+-   **Azure Container Service with Kubernetes orchestration** 
+    Kubernetes orchestration is available with the Azure Container Service offering. Like DC/OS, Kubernetes is an open source solution for automating deployment, scaling, and management of containerized deployments. Kubernetes features automatic bin packing to maximize resource utilization; on-demand or automatic horizontal scaling; service discovery and load balancing; user-defined health-checks; rolling updates and rollbacks; secrets and configuration management; cloud/private storage orchestration; and batch workloads. Kubernetes also provides a management UI as well as command line tools for management workflows.
 
 **Azure Kubernetes Service (AKS)**
 
@@ -533,21 +540,21 @@ Azure Kubernetes Service (AKS) will provide a fully managed container platform s
 
 Azure Kubernetes Service (AKS) is the recommended platform for the following reasons:
 
-1.  Adopting AKS is desired because it is a fully managed platform and will reduce the overhead of managing containers.
+-   Adopting AKS is desired because it is a fully managed platform and will reduce the overhead of managing containers.
 
-2.  Ability to monitor and manage applications using a Management UI
+-   Ability to monitor and manage applications using a Management UI.
 
-3.  Full set of integrated features, working out of the box including load balancing, service discovery, self-healing capabilities, scheduling, orchestration, task monitoring, and more
+-   Full set of integrated features, working out of the box including load balancing, service discovery, self-healing capabilities, scheduling, orchestration, task monitoring, and more.
 
-4.  Simple REST API supporting automation with DevOps workflows
+-   Simple REST API supporting automation with DevOps workflows.
 
-5.  Open source, mature, and production tested platform
+-   Open source, mature, and production tested platform.
 
     Generally, if the customer has experience with one of the supported orchestrators, you can apply that experience in Azure Kubernetes Service (AKS). There is a great deal of momentum in the community behind Kubernetes, and with Microsoft providing a fully managed solution based on this platform, it is the natural choice.
 
 3.  Describe how the customer can provision their Azure Kubernetes Service (AKS) environment to get their POC started.
 
-    The Azure Kubernetes Service (AKS) environment is deployed using a few simple Azure CLI commands.
+-   The Azure Kubernetes Service (AKS) environment is deployed using a few simple Azure CLI commands.
 
 *Containers, discovery and load-balancing*
 
@@ -601,7 +608,7 @@ Azure Kubernetes Service (AKS) is the recommended platform for the following rea
 
 *Scalability considerations*
 
-1. Explain to the customer how Azure Kubernetes Service (AKS) supports cluster auto-scaling
+1. Explain to the customer how Azure Kubernetes Service (AKS) supports cluster auto-scaling.
 
    You can scale the agent nodes in the cluster with Azure CLI commands. 
 
@@ -630,9 +637,9 @@ Azure Kubernetes Service (AKS) is the recommended platform for the following rea
 
     With Kubernetes you will have additional features at your fingertips beyond the pure Docker approach including:
 
-    -   The Kubernetes dashboard includes web interface and remote APIs for managing, running, and scaling containers, including CICD integration options
+    -   The Kubernetes dashboard includes web interface and remote APIs for managing, running, and scaling containers, including CICD integration options.
 
-    -   The kubectl command line tool for engaging remote Kubernetes APIs and assisting with automation
+    -   The kubectl command line tool for engaging remote Kubernetes APIs and assisting with automation.
 
     -   Built-in dynamic service discovery simplifies the deployment of new container instances to a load balanced environment.
 
