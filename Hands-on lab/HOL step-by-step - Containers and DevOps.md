@@ -73,7 +73,7 @@ Fabrikam Medical Conferences (FabMedical) provides conference website services t
 
 In this hands-on lab, you will assist with completing this POC with a subset of the application code base. You will create a build agent based on Linux, and an Azure Kubernetes Service cluster for running deployed applications. You will be helping them to complete the Docker setup for their application, test locally, push to an image repository, deploy to the cluster, and test load-balancing and scale.
 
-**IMPORTANT: Most Azure resources require unique names. Throughout these steps you will see the word "SUFFIX" as part of resource names. You should replace this with your Microsoft email prefix to ensure the resource is uniquely named.**
+> **IMPORTANT: Most Azure resources require unique names. Throughout these steps you will see the word "SUFFIX" as part of resource names. You should replace this with your Microsoft email prefix to ensure the resource is uniquely named.**
 
 ## Solution architecture
 
@@ -85,23 +85,23 @@ The solution will use Azure Kubernetes Service (AKS), which means that the conta
 
 Each tenant will have the following containers:
 
-- **Conference Web site**: the SPA application that will use configuration settings to handle custom styles for the tenant
+- **Conference Web site**: The SPA application that will use configuration settings to handle custom styles for the tenant.
 
-- **Admin Web site**: the SPA application that conference owners use to manage conference configuration details, manage attendee registrations, manage campaigns and communicate with attendees
+- **Admin Web site**: The SPA application that conference owners use to manage conference configuration details, manage attendee registrations, manage campaigns and communicate with attendees.
 
-- **Registration service**: the API that handles all registration activities creating new conference registrations with the appropriate package selections and associated cost
+- **Registration service**: The API that handles all registration activities creating new conference registrations with the appropriate package selections and associated cost.
 
-- **Email service**: the API that handles email notifications to conference attendees during registration, or when the conference owners choose to engage the attendees through their admin site
+- **Email service**: The API that handles email notifications to conference attendees during registration, or when the conference owners choose to engage the attendees through their admin site.
 
-- **Config service**: the API that handles conference configuration settings such as dates, locations, pricing tables, early bird specials, countdowns, and related
+- **Config service**: The API that handles conference configuration settings such as dates, locations, pricing tables, early bird specials, countdowns, and related.
 
-- **Content service**: the API that handles content for the conference such as speakers, sessions, workshops, and sponsors
+- **Content service**: The API that handles content for the conference such as speakers, sessions, workshops, and sponsors.
 
 ## Requirements
 
-1. Microsoft Azure subscription must be pay-as-you-go or MSDN
+1. Microsoft Azure subscription must be pay-as-you-go or MSDN.
 
-    - Trial subscriptions will *not* work
+    - Trial subscriptions will *not* work.
 
     - You must have rights to create a service principal as discussed in Task 9: Create a Service Principal --- and this typically requires a subscription owner to log in. You may have to ask another subscription owner to login to the portal and execute that step ahead of time if you do not have the rights.
 
@@ -109,17 +109,17 @@ Each tenant will have the following containers:
 
 2. Local machine or a virtual machine configured with:
 
-    - A browser, preferably Chrome for consistency with the lab implementation tests
+    - A browser, preferably Chrome for consistency with the lab implementation tests.
 
-    - Command prompt
+    - Command prompts:
 
-        - On Windows, you will be using Bash on Ubuntu on Windows, hereon referred to as WSL
+        - On Windows, you will be using Bash on Ubuntu on Windows, hereon referred to as WSL.
 
-        - On Mac, all instructions should be executed using bash in Terminal
+        - On Mac, all instructions should be executed using bash in Terminal.
 
 3. You will be asked to install other tools throughout the exercises.
 
-**VERY IMPORTANT: You should be typing all of the commands as they appear in the guide, except where explicitly stated in this document. Do not try to copy and paste from Word to your command windows or other documents where you are instructed to enter information shown in this document. There can be issues with Copy and Paste from Word that result in errors, execution of instructions, or creation of file content.**
+> **VERY IMPORTANT: You should be typing all of the commands as they appear in the guide, except where explicitly stated in this document. Do not try to copy and paste from Word to your command windows or other documents where you are instructed to enter information shown in this document. There can be issues with Copy and Paste from Word that result in errors, execution of instructions, or creation of file content.**
 
 
 ## Exercise 1: Create and run a Docker application
@@ -128,27 +128,27 @@ Each tenant will have the following containers:
 
 In this exercise, you will take the starter files and run the node.js application as a Docker application. You will create a Dockerfile, build Docker images, and run containers to execute the application.
 
-**NOTE: Complete these tasks from the WSL window with the build agent session.**
+>**NOTE**: Complete these tasks from the WSL window with the build agent session.
 
 ### Task 1: Test the application
 
 The purpose of this task is to make sure you can run the application successfully before applying changes to run it as a Docker application.
 
-1. From the WSL window, connect to your build agent if you are not already connected
+1. From the WSL window, connect to your build agent if you are not already connected.
 
-2. Type the following command to create a Docker network named "fabmedical"
+2. Type the following command to create a Docker network named "fabmedical":
 
     ```bash
     docker network create fabmedical
     ```
 
-3. Run an instance of mongodb to use for local testing
+3. Run an instance of mongodb to use for local testing.
 
     ```bash
     docker run --name mongo --net fabmedical -p 27017:27017 -d mongo
     ```
 
-4. Confirm that the mongo container is running and ready
+4. Confirm that the mongo container is running and ready.
 
     ```bash
     docker container list
@@ -158,7 +158,7 @@ The purpose of this task is to make sure you can run the application successfull
 
     ![In this screenshot of the WSL window, docker container list has been typed and run at the command prompt, and the “api” container is in the list. Below this the log output is shown.](media/Ex1-Task1.4.png)
 
-5. Connect to the mongo instance using the mongo shell and test some basic commands
+5. Connect to the mongo instance using the mongo shell and test some basic commands:
 
     ```bash
     mongo
@@ -171,14 +171,14 @@ The purpose of this task is to make sure you can run the application successfull
 
     ![This screenshot of the WSL window shows the output from connecting to mongo.](media/Ex1-Task1.5.png)
 
-6. To initialize the local database with test content, first navigate to the content-init directory and run npm install
+6. To initialize the local database with test content, first navigate to the content-init directory and run npm install.
 
     ```bash
     cd content-init
     npm install
     ```
 
-7. Initialize the database
+7. Initialize the database.
 
     ```bash
     nodejs server.js
@@ -186,7 +186,7 @@ The purpose of this task is to make sure you can run the application successfull
 
     ![This screenshot of the WSL window shows output from running the database initialization.](media/Ex1-Task1.7.png)
 
-8. Confirm that the database now contains test data
+8. Confirm that the database now contains test data.
 
     ```bash
     mongo
@@ -205,14 +205,14 @@ The purpose of this task is to make sure you can run the application successfull
 
     ![This screenshot of the WSL window shows the data output.](media/Ex1-Task1.8.png)
 
-9. Now navigate to the content-api directory and run npm install
+9. Now navigate to the content-api directory and run npm install.
 
     ```bash
     cd ../content-api
     npm install
     ```
 
-10. Start the API as a background process
+10. Start the API as a background process.
 
     ```bash
     nodejs ./server.js &
@@ -220,7 +220,7 @@ The purpose of this task is to make sure you can run the application successfull
 
     ![In this screenshot, nodejs ./server.js & has been typed and run at the command prompt, which starts the API as a background process.](media/image47.png)
 
-11. Press ENTER again to get to a command prompt for the next step
+11. Press ENTER again to get to a command prompt for the next step.
 
 12. Test the API using curl. You will request the speakers content, and this will return a JSON result.
 
@@ -239,7 +239,7 @@ The purpose of this task is to make sure you can run the application successfull
 
     ![In this screenshot, after navigating to the web application directory, nodejs ./server.js & has been typed and run at the command prompt, which runs the application as a background process as well.](media/image48.png)
 
-14. Press ENTER again to get a command prompt for the next step
+14. Press ENTER again to get a command prompt for the next step.
 
 15. Test the web application using curl. You will see HTML output returned without errors.
 
@@ -247,25 +247,25 @@ The purpose of this task is to make sure you can run the application successfull
     curl http://localhost:3000
     ```
 
-16. Leave the application running for the next task
+16. Leave the application running for the next task.
 
-17. If you received a JSON response to the /speakers content request and an HTML response from the web application, your environment is working as expected
+17. If you received a JSON response to the /speakers content request and an HTML response from the web application, your environment is working as expected.
 
 ### Task 2: Enable browsing to the web application
 
 In this task, you will open a port range on the agent VM so that you can browse to the web application for testing.
 
-1. From the Azure portal select the resource group you created named fabmedical-SUFFIX
+1. From the Azure portal select the resource group you created named fabmedical-SUFFIX.
 
-2. Select the Network Security Group associated with the build agent from your list of available resources
+2. Select the Network Security Group associated with the build agent from your list of available resources.
 
     ![In this screenshot of your list of available resources, the sixth item is selected: fabmedical-(suffix obscured)-nsg (Network security group).](media/image49.png)
 
-3. From the Network interface essentials blade, select **Inbound security rules**
+3. From the Network interface essentials blade, select **Inbound security rules**.
 
     ![In the Network interface essentials blade, Inbound security rules is highlighted under Settings.](media/image50.png)
 
-4. Select **Add** to add a new rule
+4. Select **Add** to add a new rule.
 
     ![In this screenshot of the Inbound security rules windows, a red arrow points at Add.](media/image51.png)
 
@@ -283,21 +283,21 @@ In this task, you will open a port range on the agent VM so that you can browse 
 
     - **Action**: Allow
 
-    - **Priority**: Leave at the default priority setting
+    - **Priority**: Leave at the default priority setting.
 
-    - **Name**: Enter "allow-app-endpoints"
+    - **Name**: Enter "allow-app-endpoints".
 
         ![In the Add inbound security rule blade, the values listed above appear in the corresponding boxes.](media/image52.png)
 
-6. Select **OK** to save the new rule
+6. Select **OK** to save the new rule.
 
     ![In this screenshot, a table has the following columns: Priority, Name, Port, Protocol, Source, Destination, and Action. The first row is highlighted with the following values: 100, allow-app-endpoints, 3000-3010, Any, Any, Any, and Allow (which has a green check mark next to it).](media/image53.png)
 
-7. From the resource list shown in step 2, select the build agent VM named fabmedical-SUFFIX
+7. From the resource list shown in step 2, select the build agent VM named fabmedical-SUFFIX.
 
     ![In this screenshot of your list of available resources, the first item is selected, which has the following values for Name, Type, and Location: fabmedical-soll (a red arrows points to this name), Virtual machine, and East US 2.](media/image54.png)
 
-8. From the Virtual Machine blade overview, find the IP address of the VM
+8. From the Virtual Machine blade overview, find the IP address of the VM.
 
     ![In the Virtual Machine blade, Overview is selected on the left and Public IP address 52.174.141.11 is highlighted on the right.](media/image26.png)
 
@@ -321,7 +321,7 @@ In this task, you will open a port range on the agent VM so that you can browse 
 
 In this task, you will create a new Dockerfile that will be used to run the API application as a containerized application.
 
-**NOTE: You will be working in a Linux VM without friendly editor tools. You must follow the steps very carefully to work with Vim for a few editing exercises if you are not already familiar with Vim.**
+> **NOTE: You will be working in a Linux VM without friendly editor tools. You must follow the steps very carefully to work with Vim for a few editing exercises if you are not already familiar with Vim.**
 
 1. From WSL, navigate to the content-api folder. List the files in the folder with this command. The output should look like the screenshot below.
 
@@ -346,37 +346,37 @@ In this task, you will create a new Dockerfile that will be used to run the API 
 
 4. Type the following into the file. These statements produce a Dockerfile that describes the following:
 
-    - The base stage includes environment setup which we expect to change very rarely, if at all
+    - The base stage includes environment setup which we expect to change very rarely, if at all.
 
       - Creates a new Docker image from the base image node:alpine. This base image has node.js on it and is optimized fro small size.
 
-      - Add `curl` to the base image to support Docker health checks
-
-      - Creates a directory on the image where the application files can be copied
-
-      - Exposes application port 3001 to the container environment so that the application can be reached at port 3001
-
-    - The build stage contains all the tools and intermediate files needed to create the application
-
-      - Creates a new Docker image from node:argon
+      - Add `curl` to the base image to support Docker health checks.
 
       - Creates a directory on the image where the application files can be copied.
 
-      - Copies package.json to the working directory
+      - Exposes application port 3001 to the container environment so that the application can be reached at port 3001.
 
-      - Runs npm install to initialize the node application environment
+    - The build stage contains all the tools and intermediate files needed to create the application.
 
-      - Copies the source files for the application over to the image
+      - Creates a new Docker image from node:argon.
 
-    - The final stage combines the base image with the build output from the build stage
+      - Creates a directory on the image where the application files can be copied.
 
-      - Sets the working directory to the application file location
+      - Copies package.json to the working directory.
 
-      - Copies the app files from the build stage
+      - Runs npm install to initialize the node application environment.
 
-      - Indicates the command to start the node application when the container is run
+      - Copies the source files for the application over to the image.
 
-    **NOTE: Type the following into the editor, as you may have errors with copying and pasting.**
+    - The final stage combines the base image with the build output from the build stage.
+
+      - Sets the working directory to the application file location.
+
+      - Copies the app files from the build stage.
+
+      - Indicates the command to start the node application when the container is run.
+
+    > **NOTE: Type the following into the editor, as you may have errors with copying and pasting:**
 
     ```Dockerfile
     FROM node:alpine AS base
@@ -400,7 +400,7 @@ In this task, you will create a new Dockerfile that will be used to run the API 
     CMD [ "npm", "start" ]
     ```
 
-5. When you are finished typing, hit the Esc key and type ":wq" and hit the Enter key to save the changes and close the file
+5. When you are finished typing, hit the Esc key and type ":wq" and hit the Enter key to save the changes and close the file.
 
     ```bash
     <Esc>
@@ -408,7 +408,7 @@ In this task, you will create a new Dockerfile that will be used to run the API 
     <Enter>
     ```
 
-6. List the contents of the folder again to verify that the new Dockerfile has been created
+6. List the contents of the folder again to verify that the new Dockerfile has been created.
 
     ```bash
     ll
@@ -476,13 +476,13 @@ In this task, you will create a new Dockerfile that will be used to run the API 
 
     Notice that the content-web Dockerfile build stage includes additional tools to install bower packages in addition to the npm packages.
 
-7. Type the following command to create a Docker image for the web application
+7. Type the following command to create a Docker image for the web application.
 
     ```bash
     docker build -t content-web .
     ```
 
-8. When complete, you will see seven images now exist when you run the Docker images command
+8. When complete, you will see seven images now exist when you run the Docker images command.
 
     ```bash
     docker images
@@ -496,13 +496,13 @@ The web application container will be calling endpoints exposed by the API appli
 
 1. Create and start the API application container with the following command. The command does the following:
 
-    -- Names the container "api" for later reference with Docker commands
+    -- Names the container "api" for later reference with Docker commands.
 
-    -- Instructs the Docker engine to use the "fabmedical" network
+    -- Instructs the Docker engine to use the "fabmedical" network.
 
-    -- Instructs the Docker engine to use port 3001 and map that to the internal container port 3001
+    -- Instructs the Docker engine to use port 3001 and map that to the internal container port 3001.
 
-    -- Creates a container from the specified image, by its tag, such as content-api
+    -- Creates a container from the specified image, by its tag, such as content-api.
 
     ```bash
     docker run --name api --net fabmedical -p 3001:3001 content-api
@@ -621,7 +621,7 @@ In this task, you will configure the "web" container to communicate with the API
     <i>
     ```
 
-7. Locate the EXPOSE line shown below, and add a line above it that sets the default value for the environment variable as shown in the screenshot
+7. Locate the EXPOSE line shown below, and add a line above it that sets the default value for the environment variable as shown in the screenshot.
 
     ```Dockerfile
     ENV CONTENT_API_URL http://localhost:3001
@@ -629,7 +629,7 @@ In this task, you will configure the "web" container to communicate with the API
 
     ![In this screenshot of Dockerfile, ENV CONTENT\_API\_URL http://localhost:3001 appears above Expose 3000.](media/image63.png)
 
-8. Press the Escape key and type ":wq" and then press the Enter key to save and close the file
+8. Press the Escape key and type ":wq" and then press the Enter key to save and close the file.
 
     ```text
     <Esc>
@@ -637,7 +637,7 @@ In this task, you will configure the "web" container to communicate with the API
     <Enter>
     ```
 
-9. Rebuild the web application Docker image using the same command as you did previously
+9. Rebuild the web application Docker image using the same command as you did previously.
 
     ```bash
     docker build -t content-web .
@@ -685,7 +685,7 @@ In this task, you will configure the "web" container to communicate with the API
     docker stop api && docker rm api
     docker stop mongo && docker rm mongo
     ```
-16. Commit your changes and push to the repository
+16. Commit your changes and push to the repository.
     
     ```bash
     git add .
@@ -693,14 +693,14 @@ In this task, you will configure the "web" container to communicate with the API
     git push
     ```
     
-17. Navigate to your home directory (where you checked out the content repositories) and create a docker compose file
+17. Navigate to your home directory (where you checked out the content repositories) and create a docker compose file.
 
     ```bash
     cd ~
     vi docker-compose.yml
     ```
 
-    Type the following as the contents of `docker-compose.yml`
+    Type the following as the contents of `docker-compose.yml`.
 
     ```yaml
     version: '3.4'
@@ -729,7 +729,7 @@ In this task, you will configure the "web" container to communicate with the API
           - "3000:3000"
     ```
 
-18. Start the applications with the `up` command
+18. Start the applications with the `up` command.
 
     ```bash
     docker-compose -f docker-compose.yml -p fabmedical up -d
@@ -737,7 +737,7 @@ In this task, you will configure the "web" container to communicate with the API
 
     ![This screenshot of the WSL window shows the creation of the network and three containers: mongo, api and web.](media/Ex1-Task6.17.png)
 
-19. Visit the website in the browser; notice that we no longer have any data on the speakers or sessions pages
+19. Visit the website in the browser; notice that we no longer have any data on the speakers or sessions pages.
 
     ![Browser view of the web site.](media/Ex1-Task6.18.png)
 
@@ -748,7 +748,7 @@ In this task, you will configure the "web" container to communicate with the API
     vi docker-compose.yml
     ```
 
-    Update the mongo service to mount the local data directory onto to the `/data/db` volume in the docker container
+    Update the mongo service to mount the local data directory onto to the `/data/db` volume in the docker container.
 
     ```yaml
     mongo:
@@ -758,17 +758,17 @@ In this task, you will configure the "web" container to communicate with the API
         - ./data:/data/db
     ```
 
-    The result should look similar to the following screenshot
+    The result should look similar to the following screenshot:
 
     ![This screenshot of the VIM edit window shows the resulting compose file.](media/Ex1-Task6.19.png)
 
-21. Next we will add a second file to our composition so that we can initialize the mongodb data when needed
+21. Next we will add a second file to our composition so that we can initialize the mongodb data when needed.
 
     ```bash
     vi docker-compose.init.yml
     ```
 
-    Add the following as the content
+    Add the following as the content:
 
     ```yaml
     version: '3.4'
@@ -783,7 +783,7 @@ In this task, you will configure the "web" container to communicate with the API
             MONGODB_CONNECTION: mongodb://mongo:27017/contentdb
     ```
 
-22. To reconfigure the mongodb volume, we need to bring down the mongodb service first
+22. To reconfigure the mongodb volume, we need to bring down the mongodb service first.
 
     ```bash
     docker-compose -f docker-compose.yml -p fabmedical down
@@ -791,13 +791,13 @@ In this task, you will configure the "web" container to communicate with the API
 
     ![This screenshot of the WSL window shows the running containers stopping.](media/Ex1-Task6.21.png)
 
-23. Now run `up` again with both files to update the mongodb configuration, and run the initialization script
+23. Now run `up` again with both files to update the mongodb configuration, and run the initialization script.
 
     ```bash
     docker-compose -f docker-compose.yml -f docker-compose.init.yml -p fabmedical up -d
     ```
 
-24. Check the data folder to see that mongodb is now writing data files to the host
+24. Check the data folder to see that mongodb is now writing data files to the host.
 
     ```bash
     ls ./data/
@@ -823,7 +823,7 @@ In this task, you will push images to your ACR account, version images with tagg
 
 3. The Access keys blade displays the Login server, username, and password that will be required for the next step. Keep this handy as you perform actions on the build VM.
 
-    **NOTE: If the username and password do not appear, select Enable on the Admin user option.**
+    > **NOTE: If the username and password do not appear, select Enable on the Admin user option.**
 
 4. From the WSL session connected to your build VM, login to your ACR account by typing the following command. Follow the instructions to complete the login.
 
@@ -841,7 +841,7 @@ In this task, you will push images to your ACR account, version images with tagg
 
     **Tip: Make sure to specify the fully qualified registry login server (all lowercase).**
 
-5. Run the following commands to properly tag your images to match your ACR account name
+5. Run the following commands to properly tag your images to match your ACR account name.
 
     ```bash
     docker tag content-web [LOGINSERVER]/content-web
@@ -856,7 +856,7 @@ In this task, you will push images to your ACR account, version images with tagg
 
     ![This is a screenshot of a docker images list example.](media/image66.png)
 
-7. Push the images to your ACR account with the following command
+7. Push the images to your ACR account with the following command:
 
     ```bash
     docker push [LOGINSERVER]/content-web
@@ -894,11 +894,11 @@ In this task, you will push images to your ACR account, version images with tagg
     docker pull [LOGINSERVER]/content-web:v1
     ```
 
-    --- **Azure subscription**: Choose "azurecloud-sol"
+    --- **Azure subscription**: Choose "azurecloud-sol".
 
-    --- **Azure Container Registry**: Choose your ACR instance by name
+    --- **Azure Container Registry**: Choose your ACR instance by name.
 
-    --- **Include Latest Tag**: Checked
+    --- **Include Latest Tag**: Checked.
 
 13. Next we will use VSTS to automate the process for creating images and pushing to ACR.  First, you need to add an Azure Service Principal to your VSTS account.  Login to your VisualStudio.com account and click the gear icon to access your settings. Then select Services.
 
@@ -909,14 +909,14 @@ In this task, you will push images to your ACR account, version images with tagg
     ![A screenshot of the New Service Endpoint selection in VSTS with Azure Resource Manager highlighted.](media/Ex1-Task7.14.png)
 
 
-15. Select the link indicated in the screenshot below to access the advanced settings
+15. Select the link indicated in the screenshot below to access the advanced settings.
 
     ![A screenshot of the Add Azure Resource Manager dialog where you can enter your subscription information.](media/Ex1-Task7.15.png)
 
 
-16. Enter the required information using the service principal information you created before the lab
+16. Enter the required information using the service principal information you created before the lab.
 
-    > Note if you don't have your Subscription information handy you can view it using `az account show` on your **local** machine (not the build agent)
+    > **NOTE:** I you don't have your Subscription information handy you can view it using `az account show` on your **local** machine (not the build agent).
 
     ---- **Connection name**: azurecloud-sol
 
@@ -934,7 +934,7 @@ In this task, you will push images to your ACR account, version images with tagg
 
     ![A screenshot of the Add Resource Manager Add Service Endpoint dialog.](media/Ex1-Task7.16.png)
 
-17. Select "Verify connection" then select "OK"
+17. Select "Verify connection" then select "OK".
 
     > If the connection does not verify, then recheck and reenter the required data.
 
@@ -942,39 +942,39 @@ In this task, you will push images to your ACR account, version images with tagg
 
     ![A screenshot of VSTS build definitions.](media/Ex1-Task7.18.png)
 
-19. Choose the content-web repository and accept the other defaults
+19. Choose the content-web repository and accept the other defaults.
 
     ![A screenshot of the source selection showing VSTS highlighted.](media/Ex1-Task7.19.png)
 
-20. Next, search for "Docker" templates and choose "Container" then select "Apply"
+20. Next, search for "Docker" templates and choose "Container" then select "Apply".
 
     ![A screenshot of template selection showing Container selected.](media/Ex1-Task7.20.png)
 
-21. Change the build name to "content-web-Container-CI"
+21. Change the build name to "content-web-Container-CI".
 
     ![A screenshot of the dialog where you can enter the name for the build.](media/Ex1-Task7.21.png)
 
-22. Select "Build an image"
+22. Select "Build an image":
 
-    ----- **Azure subscription**: Choose "azurecloud-sol"
+    ----- **Azure subscription**: Choose "azurecloud-sol".
 
-    ----- **Azure Container Registry**: Choose your ACR instance by name
+    ----- **Azure Container Registry**: Choose your ACR instance by name.
 
     ----- **Include Latest Tag**: Checked
 
     ![A screenshot of the dialog where you can describe the image build.](media/Ex1-Task7.22.png)
 
-23. Select "Push an image"
+23. Select "Push an image".
 
-    ----- **Azure subscription**: Choose "azurecloud-sol"
+    ----- **Azure subscription**: Choose "azurecloud-sol".
 
-    ----- **Azure Container Registry**: Choose your ACR instance by name
+    ----- **Azure Container Registry**: Choose your ACR instance by name.
 
     ----- **Include Latest Tag**: Checked
 
     ![A screenshot of the dialog where you can describe the image push.](media/Ex1-Task7.23.png)
 
-24. Select "Triggers"
+24. Select "Triggers".
 
     ----- **Enable continuous integration**: Checked
 
@@ -983,7 +983,7 @@ In this task, you will push images to your ACR account, version images with tagg
     ![A screenshot of the dialog where you can setup triggers.](media/Ex1-Task7.24.png)
 
 
-25. Select "Save & queue"; then select "Save & queue" two more times to kick off the first build
+25. Select "Save & queue"; then select "Save & queue" two more times to kick off the first build.
 
     ![A screenshot showing the queued build.](media/Ex1-Task7.26.png)
 
@@ -1048,7 +1048,7 @@ In this task, you will gather the information you need about your Azure Kubernet
     az account set --subscription {id}
     ```
 
-5. Configure kubectl to connect to the Kubernetes cluster
+5. Configure kubectl to connect to the Kubernetes cluster.
 
     ```bash
     az aks get-credentials --name fabmedical-SUFFIX --resource-group fabmedical-SUFFIX
@@ -1064,7 +1064,7 @@ In this task, you will gather the information you need about your Azure Kubernet
 
 7. Create an SSH tunnel linking a local port (8001) on your machine to port 80 on the management node of the cluster. Execute the command below replacing the values as follows:
 
-    ***NOTE:* After you run this command, it may work at first and later lose its connection, so you may have to run this again to reestablish the connection. If the Kubernetes dashboard becomes unresponsive in the browser this is an indication to return here and check your tunnel or rerun the command.**
+   > ***NOTE:* After you run this command, it may work at first and later lose its connection, so you may have to run this again to reestablish the connection. If the Kubernetes dashboard becomes unresponsive in the browser this is an indication to return here and check your tunnel or rerun the command.**
 
     ```bash
     az aks browse --name fabmedical-SUFFIX --resource-group fabmedical-SUFFIX
@@ -1088,25 +1088,25 @@ In this task, you will deploy the API application to the Azure Kubernetes Servic
 
 1. From the Kubernetes dashboard, select Create in the top right corner.
 
-2. From the Resource creation view, select Create an App
+2. From the Resource creation view, select Create an App.
 
     ![This is a screenshot of the Deploy a Containerized App dialog box. Specify app details below is selected, and the fields have been filled in with the information that follows. At the bottom of the dialog box is a SHOW ADVANCED OPTIONS link.](media/image78.png)
 
-    - Enter "api" for the App name
+    - Enter "api" for the App name.
 
-    - Enter [LOGINSERVER]/content-api for the Container Image, replacing [LOGINSERVER] with your ACR login server, such as fabmedicalsol.azurecr.io
+    - Enter [LOGINSERVER]/content-api for the Container Image, replacing [LOGINSERVER] with your ACR login server, such as fabmedicalsol.azurecr.io.
 
-    - Set Number of pods to 1
+    - Set Number of pods to 1.
 
-    - Set Service to "Internal"
+    - Set Service to "Internal".
 
-    - Use 3001 for Port and 3001 for Target port
+    - Use 3001 for Port and 3001 for Target port.
 
 3. Select SHOW ADVANCED OPTIONS-----
 
-    - Enter 0.125 for the CPU requirement
+    - Enter 0.125 for the CPU requirement.
 
-    - Enter 128 for the Memory requirement
+    - Enter 128 for the Memory requirement.
 
     ![In the Advanced options dialog box, the above information has been entered. At the bottom of the dialog box is a Deploy button.](media/image79.png)
 
@@ -1122,7 +1122,7 @@ In this task, you will deploy the API application to the Azure Kubernetes Servic
 
     ![This screenshot of the Kubernetes management dashboard shows logs output for the api container.](media/Ex2-Task1.6.png)
 
-7. Open the Azure portal in your browser and click "+ Create a resource".  Search for "Database as a service for MongoDB", select the result and click "Create"
+7. Open the Azure portal in your browser and click "+ Create a resource".  Search for "Database as a service for MongoDB", select the result and click "Create".
 
     ![A screenshot of the Azure Portal selection to create Database as a service for MongoDB.](media/Ex2-Task1.7.png)
 
@@ -1145,7 +1145,7 @@ In this task, you will deploy the API application to the Azure Kubernetes Servic
 
     ![A screenshot of the Azure Portal showing the quick start for setting up Cosmos DB with MongoDB API.](media/Ex2-Task1.10.png)
 
-11. Update the provided connection string with a database "contentdb" and a replica set "globaldb"
+11. Update the provided connection string with a database "contentdb" and a replica set "globaldb".
 
     > Note: User name and password redacted for brevity.
 
@@ -1195,7 +1195,7 @@ In this task, you will deploy the API application to the Azure Kubernetes Servic
     vi api.deployment.yml
     ```
 
-       a. Add the following environment configuration to the container spec, below the "image" property:
+       - Add the following environment configuration to the container spec, below the "image" property:
 
     ```yaml
     - image: fabmedicalsol2.azurecr.io/fabmedical/content-api
@@ -1209,7 +1209,7 @@ In this task, you will deploy the API application to the Azure Kubernetes Servic
 
     ![A screenshot of the Kubernetes management dashboard showing part of the deployment file.](media/Ex2-Task1.17.png)
 
-18. Update the api deployment by using `kubectl` to apply the new configuration
+18. Update the api deployment by using `kubectl` to apply the new configuration.
 
     ```bash
     kubectl apply -f ./api.deployment.yml
@@ -1223,9 +1223,9 @@ In this task, you will deploy the API application to the Azure Kubernetes Servic
 
 In this task, deploy the web service using `kubectl`.
 
-1. Open a **new** WSL console
+1. Open a **new** WSL console.
 
-2. Create a text file called web.deployment.yml using Vim and press the "i" key to go into edit mode
+2. Create a text file called web.deployment.yml using Vim and press the "i" key to go into edit mode.
 
     ```bash
     vi web.deployment.yml
@@ -1234,7 +1234,7 @@ In this task, deploy the web service using `kubectl`.
 
 3. Copy and paste the following text into the editor:
 
-    **NOTE: Be sure to copy and paste only the contents of the code block carefully to avoid introducing any special characters.**
+    >**NOTE: Be sure to copy and paste only the contents of the code block carefully to avoid introducing any special characters.**
 
     ```yaml
     apiVersion: extensions/v1beta1
@@ -1293,7 +1293,7 @@ In this task, deploy the web service using `kubectl`.
             terminationGracePeriodSeconds: 30
     ```
 
-4. Edit this file and update the [LOGINSERVER] entry to match the name of your ACR login server
+4. Edit this file and update the [LOGINSERVER] entry to match the name of your ACR login server.
 
 5. Press the Escape key and type ":wq". Then press the Enter key to save and close the file.
 
@@ -1303,7 +1303,7 @@ In this task, deploy the web service using `kubectl`.
     <Enter>
     ```
 
-6. Create a text file called web.service.yml using Vim, and press the "i" key to go into edit mode
+6. Create a text file called web.service.yml using Vim, and press the "i" key to go into edit mode.
 
     ```bash
     vi web.service.yml
@@ -1311,7 +1311,7 @@ In this task, deploy the web service using `kubectl`.
 
 7. Copy and paste the following text into the editor:
 
-    **NOTE: Be sure to copy and paste only the contents of the code block carefully to avoid introducing any special characters.**
+    >**NOTE: Be sure to copy and paste only the contents of the code block carefully to avoid introducing any special characters.**
 
     ```yaml
     apiVersion: v1
@@ -1332,7 +1332,7 @@ In this task, deploy the web service using `kubectl`.
       type: LoadBalancer
     ```
 
-8. Press the Escape key and type ":wq"; then press the Enter key to save and close the file
+8. Press the Escape key and type ":wq"; then press the Enter key to save and close the file.
 
 9. Type the following command to deploy the application described by the YAML files. You will receive a message indicating the items kubectl has created a web deployment and a web service.
 
@@ -1354,7 +1354,7 @@ In this task, deploy the web service using `kubectl`.
 
 In this task, you will use a Kubernetes Job to run a container that is meant to execute a task and terminate, rather than run all the time.
 
-1. In your WSL window create a text file called web.service.yml using Vim, and press the "i" key to go into edit mode
+1. In your WSL window create a text file called web.service.yml using Vim, and press the "i" key to go into edit mode.
 
     ```bash
     vi init.job.yml
@@ -1362,7 +1362,7 @@ In this task, you will use a Kubernetes Job to run a container that is meant to 
 
 2. Copy and paste the following text into the editor:
 
-    **NOTE: Be sure to copy and paste only the contents of the code block carefully to avoid introducing any special characters.**
+   > **NOTE: Be sure to copy and paste only the contents of the code block carefully to avoid introducing any special characters.**
 
     ```yaml
     apiVersion: batch/v1
@@ -1385,7 +1385,7 @@ In this task, you will use a Kubernetes Job to run a container that is meant to 
       backoffLimit: 4
     ```
 
-3. Edit this file and update the [LOGINSERVER] entry to match the name of your ACR login server
+3. Edit this file and update the [LOGINSERVER] entry to match the name of your ACR login server.
 
 4. Press the Escape key and type ":wq". Then press the Enter key to save and close the file.
 
@@ -1395,15 +1395,15 @@ In this task, you will use a Kubernetes Job to run a container that is meant to 
     kubectl create --save-config=true -f init.job.yml
     ```
 
-6. View the Job by selecting "Jobs" under "Workloads" in the Kubernetes UI
+6. View the Job by selecting "Jobs" under "Workloads" in the Kubernetes UI.
 
     ![A screenshot of the Kubernetes management dashboard showing jobs.](media/Ex2-Task4.6.png)
 
-7. Select the log icon to view the logs
+7. Select the log icon to view the logs.
 
     ![A screenshot of the Kubernetes management dashboard showing log output.](media/Ex2-Task4.7.png)
 
-8. Next view your CosmosDb instance in the Azure portal and see that it now contains two collections
+8. Next view your CosmosDb instance in the Azure portal and see that it now contains two collections.
 
     ![A screenshot of the Azure Portal showing Cosmos DB collections.](media/Ex2-Task4.8.png)
 
@@ -1411,9 +1411,9 @@ In this task, you will use a Kubernetes Job to run a container that is meant to 
 
 In this task, you will verify that you can browse to the web service you have deployed and view the speaker and content information exposed by the API service.
 
-1. From the Kubernetes management dashboard, in the navigation menu, select the Services view under Discovery and Load Balancing
+1. From the Kubernetes management dashboard, in the navigation menu, select the Services view under Discovery and Load Balancing.
 
-2. In the list of services, locate the external endpoint for the web service and select this hyperlink to launch the application
+2. In the list of services, locate the external endpoint for the web service and select this hyperlink to launch the application.
 
     ![In the Services box, a red arrow points at the hyperlinked external endpoint for the web service.](media/image112.png)
 
@@ -1433,19 +1433,19 @@ At this point you have deployed a single instance of the web and API service con
 
 In this task, you will increase the number of instances for the API deployment in the Kubernetes management dashboard. While it is deploying, you will observe the changing status.
 
-1. From the navigation menu, select Workloads\>Deployments, and then select the API deployment
+1. From the navigation menu, select Workloads\>Deployments, and then select the API deployment.
 
-2. Select SCALE
+2. Select SCALE.
 
     ![In the Workloads \> Deployments \> api bar, the Scale icon is highlighted.](media/image89.png)
 
-3. Change the number of pods to 2, and then select **OK**
+3. Change the number of pods to 2, and then select **OK**.
 
     ![In the Scale a Deployment dialog box, 2 is entered in the Desired number of pods box.](media/image116.png)
 
-    **NOTE: If the deployment completes quickly, you may not see the deployment Waiting states in the dashboard as described in the following steps**.
+    >**NOTE: If the deployment completes quickly, you may not see the deployment Waiting states in the dashboard as described in the following steps**.
 
-4. From the Replica Set view for the API, you'll see it is now deploying and that there is one healthy instance and one pending instance
+4. From the Replica Set view for the API, you'll see it is now deploying and that there is one healthy instance and one pending instance.
 
     ![Replica Sets is selected under Workloads in the navigation menu on the left, and at right, Pods status: 1 pending, 1 running is highlighted. Below that, a red arrow points at the API deployment in the Pods box.](media/image117.png)
 
@@ -1455,29 +1455,29 @@ In this task, you will increase the number of instances for the API deployment i
 
 6. From the Navigation menu, select Workloads. From this view, note that the health overview in the right panel of this view. You'll see the following:
 
-    - One deployment and one replica set are each healthy for the api service
+    - One deployment and one replica set are each healthy for the api service.
 
-    - One replica set is healthy for the web service
+    - One replica set is healthy for the web service.
 
-    - Three pods are healthy
+    - Three pods are healthy.
 
 7. Navigate to the web application from the browser again. The application should still work without errors as you navigate to Speakers and Sessions pages
 
     - Navigate to the /stats.html page. You'll see information about the environment including:
 
-        - webTaskId: the task identifier for the web service instance
+        - **webTaskId:** The task identifier for the web service instance.
 
-        - taskId: the task identifier for the API service instance
+        - **taskId:** The task identifier for the API service instance.
 
-        - hostName: the hostname identifier for the API service instance
+        - **hostName:** The hostname identifier for the API service instance.
 
-        - pid: the process id for the API service instance
+        - **pid:** The process id for the API service instance.
 
-        - mem: some memory indicators returned from the API service instance
+        - **mem:** Some memory indicators returned from the API service instance.
 
-        - counters: counters for the service itself, as returned by the API service instance
+        - **counters:** Counters for the service itself, as returned by the API service instance.
 
-        - uptime: the up time for the API service
+        - **uptime:** The up time for the API service.
 
     - Refresh the page in the browser, and you can see the hostName change between the two API service instances. The letters after "api-{number}-" in the hostname will change.
 
@@ -1495,17 +1495,17 @@ In this task, you will try to increase the number of instances for the API servi
 
     ![Screenshot of the Edit a Deployment dialog box.](media/image82.png)
 
-4. Paste the contents into the text editor of your choice (notepad is shown here, MacOS users can use TextEdit)
+4. Paste the contents into the text editor of your choice (notepad is shown here, MacOS users can use TextEdit).
 
     ![Screenshot of the Edit a Deployment contents pasted into Notepad text editor.](media/image83.png)
 
-5. Scroll down about half way to find the node "$.spec.template.spec.containers[0]", as shown in the screenshot below
+5. Scroll down about half way to find the node "$.spec.template.spec.containers[0]", as shown in the screenshot below.
 
     ![Screenshot of the deployment JSON code, with the \$.spec.template.spec.containers\[0\] section highlighted.](media/image84.png)
 
 6. The containers spec has a single entry for the API container at the moment. You'll see that the name of the container is "api" - this is how you know you are looking at the correct container spec.
 
-    - Add the following JSON snippet below the "name" property in the container spec
+    - Add the following JSON snippet below the "name" property in the container spec:
 
     ```json
     "ports": [
@@ -1522,21 +1522,21 @@ In this task, you will try to increase the number of instances for the API servi
 
 7. Copy the updated JSON document from notepad into the clipboard. Return to the Kubernetes dashboard, which should still be viewing the "api" deployment.
 
-    -- Select Edit
+    -- Select Edit.
 
     ![In the Workloads \> Deployments \> api bar, the Edit icon is highlighted.](media/image87.png)
 
-    -- Paste the updated JSON document
+    -- Paste the updated JSON document.
 
-    -- Select Update
+    -- Select Update.
 
     ![UPDATE is highlighted in the Edit a Deployment dialog box.](media/image88.png)
 
-8. From the API deployment view, select **Scale**
+8. From the API deployment view, select **Scale**.
 
     ![In the Workloads \> Deployments \> api bar, the Scale icon is highlighted.](media/image89.png)
 
-9. Change the number of pods to 4 and select **OK**
+9. Change the number of pods to 4 and select **OK**.
 
     ![In the Scale a Deployment dialog box, 4 is entered in the Desired number of pods box.](media/image119.png)
 
@@ -1548,11 +1548,11 @@ In this task, you will try to increase the number of instances for the API servi
 
     ![Workloads is selected in the navigation menu. At right, an exclamation point (!) appears next to the api deployment listing in the Deployments box.](media/image121.png)
 
-    **NOTE: This message indicates that there weren't enough available resources to match the requirements for a new pod instance. In this case, this is because the instance requires port 3001, and since there are only 2 nodes available in the cluster, only two api instances can be scheduled. The third and fourth pod instances will wait for a new node to be available that can run another instance using that port.**
+    >**NOTE: This message indicates that there weren't enough available resources to match the requirements for a new pod instance. In this case, this is because the instance requires port 3001, and since there are only 2 nodes available in the cluster, only two api instances can be scheduled. The third and fourth pod instances will wait for a new node to be available that can run another instance using that port.**
 
-12. Reduce the number of requested pods to 2 using the Scale button
+12. Reduce the number of requested pods to 2 using the Scale button.
 
-13. Almost immediately, the warning message from the Workloads dashboard should disappear, and the API deployment will show 2/2 pods are running
+13. Almost immediately, the warning message from the Workloads dashboard should disappear, and the API deployment will show 2/2 pods are running.
 
     ![Workloads is selected in the navigation menu. A green check mark now appears next to the api deployment listing in the Deployments box at right.](media/image122.png)
 
@@ -1622,7 +1622,7 @@ In this task, we will reconfigure the API deployment so that it will produce pod
 
 1. From the navigation menu select Deployments under Workloads. From the view's Deployments list select the API deployment.
 
-2. Select Edit
+2. Select Edit.
 
 3. From the Edit a Deployment dialog, do the following:
 
@@ -1645,14 +1645,14 @@ In this task, we will reconfigure the API deployment so that it will produce pod
 In this task, you will update the web service so that it supports dynamic discovery through the Azure load balancer.
 
 1. From the navigation menu, select Deployments under Workloads. From the view's Deployments list select the web deployment.
-
+.
 2. Select **Edit**
 
 3. From the Edit a Deployment dialog, scroll to the web containers spec as shown in the screenshot. Remove the hostPort entry for the web container's port mapping.
 
     ![This is a screenshot of the Edit a Deployment dialog box with various displayed information about spec, containers, ports, and env. The ports node, containerPort: 3001 and protocol: TCP are highlighted.](media/image140.png)
 
-4. Select **Update**
+4. Select **Update**.
 
 5. From the web Deployments view, select **Scale**. From the dialog presented enter 4 as the desired number of pods and select **OK**.
 
@@ -1668,17 +1668,17 @@ In this task, you will modify the CPU requirements for the web service so that i
 
 1. From the navigation menu, select Deployments under Workloads. From the view's Deployments list select the web deployment.
 
-2. Select **Edit**
+2. Select **Edit**.
 
 3. From the Edit a Deployment dialog, find the *cpu* resource requirements for the web container. Change this value to "125m".
 
     ![This is a screenshot of the Edit a Deployment dialog box with various displayed information about ports, env, and resources. The resources node, with cpu: 125m selected, is highlighted.](media/image142.png)
 
-4. Select **Update** to save the changes and update the deployment
+4. Select **Update** to save the changes and update the deployment.
 
 5. From the navigation menu, select Replica Sets under Workloads. From the view's Replica Sets list select the web replica set.
 
-6. When the deployment update completes, four web pods should be shown in running state
+6. When the deployment update completes, four web pods should be shown in running state.
 
     ![Four web pods are listed in the Pods box, and all have green check marks and are listed as Running.](media/image143.png)
 
@@ -1688,9 +1688,9 @@ In this task, you will modify the CPU requirements for the web service so that i
 
 In this task, you will edit the web application source code to add Application Insights and update the Docker image used by the deployment. Then you will perform a rolling update to demonstrate how to deploy a code change.
 
-1. First create an Application Insights key for content-web using the Azure Portal
+1. First create an Application Insights key for content-web using the Azure Portal.
 
-2. Select "+ Create a Resource" and search for "Application Insights" and select "Application Insights"
+2. Select "+ Create a Resource" and search for "Application Insights" and select "Application Insights".
 
     ![A screenshot of the Azure Portal showing a listing of Application Insights resources from search results.](media/Ex4-Task4.2.png)
 
@@ -1700,11 +1700,11 @@ In this task, you will edit the web application source code to add Application I
 
     - **Application Type**: Node.js Application
 
-    - **Subscription**: Use the same subscription you have been using throughout the lab
+    - **Subscription**: Use the same subscription you have been using throughout the lab.
 
-    - **Resource Group**: Use the existing resource group fabmedical-SUFFIX
+    - **Resource Group**: Use the existing resource group fabmedical-SUFFIX.
 
-    - **Location**: Use the same location you have been using throughout the lab
+    - **Location**: Use the same location you have been using throughout the lab.
 
     ![A screenshot of the Azure Portal showing the new Application Insights blade.](media/Ex4-Task4.3.png)
 
@@ -1714,13 +1714,13 @@ In this task, you will edit the web application source code to add Application I
 
    - **Application Type**: Node.js Application
 
-   - **Subscription**: Use the same subscription you have been using throughout the lab
+   - **Subscription**: Use the same subscription you have been using throughout the lab.
 
-   - **Resource Group**: Use the existing resource group fabmedical-SUFFIX
+   - **Resource Group**: Use the existing resource group fabmedical-SUFFIX.
 
-   - **Location**: Use the same location you have been using throughout the lab
+   - **Location**: Use the same location you have been using throughout the lab.
 
-5. When both resources have deployed, locate them in your resource group
+5. When both resources have deployed, locate them in your resource group.
 
     ![A screenshot of the Azure Portal showing the new Application Insights resources in the resource group.](media/Ex4-Task4.5.png)
 
@@ -1730,11 +1730,11 @@ In this task, you will edit the web application source code to add Application I
 
 7. Return to your resource group and view the details of the content-api Application Insights resource.  Make a note of it's unique Instrumentation Key as well.
 
-8. Connect to your build agent VM using ssh as you did in Task 6: Connect securely to the build agent before the hands-on lab
+8. Connect to your build agent VM using ssh as you did in Task 6: Connect securely to the build agent before the hands-on lab.
 
-9. From the command line, navigate to the content-web directory
+9. From the command line, navigate to the content-web directory.
 
-10. Install support for Application Insights
+10. Install support for Application Insights.
 
     ```bash
     npm install applicationinsights --save
@@ -1746,9 +1746,9 @@ In this task, you will edit the web application source code to add Application I
     vi server.js
     ```
 
-12. Enter insert mode by pressing `<i>`
+12. Enter insert mode by pressing `<i>`.
 
-13. Add the following lines immediately after the config is loaded
+13. Add the following lines immediately after the config is loaded.
 
     ```javascript
     const appInsights = require("applicationinsights");
@@ -1765,7 +1765,7 @@ In this task, you will edit the web application source code to add Application I
     <Enter>
     ```
 
-15. Update your config files to include the Application Insights Key
+15. Update your config files to include the Application Insights Key.
 
     ```bash
     vi config/env/production.js
@@ -1782,19 +1782,19 @@ In this task, you will edit the web application source code to add Application I
 
 17. Press the Escape key and type ":wq". Then press the Enter key to save and close the file.
 
-18. Now update the development config
+18. Now update the development config:
     ```bash
     vi config/env/development.js
     <i>
     ```
-19. Add the following line to the `module.exports` object, and then update [YOUR APPINSIGHTS KEY] with the your Application Insights Key from the Azure portal
+19. Add the following line to the `module.exports` object, and then update [YOUR APPINSIGHTS KEY] with the your Application Insights Key from the Azure portal.
 
     ```javascript
     appInsightKey: '[YOUR APPINSIGHTS KEY]'
     ```
 20. Press the Escape key and type ":wq". Then press the Enter key to save and close the file.
 
-21. Push these changes to your repository so that VSTS CI will build a new image while you work on updating the content-api application
+21. Push these changes to your repository so that VSTS CI will build a new image while you work on updating the content-api application.
 
     ```bash
     git add .
@@ -1802,7 +1802,7 @@ In this task, you will edit the web application source code to add Application I
     git push
     ```
 
-22. Now update the content-api application
+22. Now update the content-api application.
 
     ```bash
     cd ../content-api
@@ -1815,7 +1815,7 @@ In this task, you will edit the web application source code to add Application I
     vi server.js
     ```
 
-24. Enter insert mode by pressing `<i>`
+24. Enter insert mode by pressing `<i>`.
 
 25. Add the following lines immediately after the config is loaded:
 
@@ -1835,14 +1835,14 @@ In this task, you will edit the web application source code to add Application I
     <Enter>
     ```
 
-27. Update your config files to include the Application Insights Key
+27. Update your config files to include the Application Insights Key.
 
     ```bash
     vi config/config.js
     <i>
     ```
 
-28. Add the following line to the `exports.appSettings` object, and then update [YOUR APPINSIGHTS KEY] with the your Application Insights Key for **content-api** from the Azure portal
+28. Add the following line to the `exports.appSettings` object, and then update [YOUR APPINSIGHTS KEY] with the your Application Insights Key for **content-api** from the Azure portal.
 
     ```javascript
     appInsightKey: '[YOUR APPINSIGHTS KEY]'
@@ -1852,7 +1852,7 @@ In this task, you will edit the web application source code to add Application I
 
 29. Press the Escape key and type ":wq". Then press the Enter key to save and close the file.
 
-30. Push these changes to your repository so that VSTS CI will build a new image
+30. Push these changes to your repository so that VSTS CI will build a new image.
 
     ```bash
     git add .
@@ -1860,17 +1860,17 @@ In this task, you will edit the web application source code to add Application I
     git push
     ```
 
-31. Visit your ACR to see the new images and make a note of the tags assigned by VSTS
+31. Visit your ACR to see the new images and make a note of the tags assigned by VSTS.
 
-     - Make a note of the latest tag for content-web
+     - Make a note of the latest tag for content-web.
 
         ![A screenshot of the Azure Container Registry listing showing the tagged versions of the content-web image.](media/Ex4-Task4.31a.png)
 
-     - And the latest tag for content-api
+     - And the latest tag for content-api.
 
         ![A screenshot of the Azure Container Registry listing showing the tagged versions of the content-api image.](media/Ex4-Task4.31b.png)
 
-32. Now that you have finished updating the source code, you can exit the build agent
+32. Now that you have finished updating the source code, you can exit the build agent.
 
     ```bash
     exit
@@ -1882,13 +1882,13 @@ In this task, you will edit the web application source code to add Application I
     kubectl set image deployment/web web=[LOGINSERVER]/content-web:[LATEST TAG]
     ```
 
-34. Next update the content-api application
+34. Next update the content-api application.
 
     ```bash
     kubectl set image deployment/api api=[LOGINSERVER]/content-api:[LATEST TAG]
     ```
 
-35. While this update runs, return the Kubernetes management dashboard in the browser
+35. While this update runs, return the Kubernetes management dashboard in the browser.
 
 36. From the navigation menu, select Replica Sets under Workloads. From this view you will see a new replica set for web which may still be in the process of deploying (as shown below) or already fully deployed.
 
@@ -1910,13 +1910,12 @@ In this task you will setup a Kubernetes Ingress to take advantage of path based
     ./get_helm.sh
     ```
 
-2. Setup your local config and deploy the server side helm component `tiller`
+2. Setup your local config and deploy the server side helm component `tiller`.
 
     ```bash
-    helm init --upgrade --service-account default
     ```
 
-3. Update your helm package list
+3. Update your helm package list.
 
     ```bash
     helm repo update
@@ -1928,20 +1927,20 @@ In this task you will setup a Kubernetes Ingress to take advantage of path based
     helm install stable/nginx-ingress --namespace kube-system --set rbac.create=false --set rbac.createRole=false --set rbac.createClusterRole=false
     ```
 
-5. Set a DNS prefix on the IP address allocated to the ingress controller.  Visit the `kube-system` namespace in your kubeneretes dashboard to find the IP
+5. Set a DNS prefix on the IP address allocated to the ingress controller.  Visit the `kube-system` namespace in your kubeneretes dashboard to find the IP.
 
     http://localhost:8001/#!/service?namespace=kube-system
 
     ![A screenshot of the Kubernetes management dashboard showing the ingress controller settings.](media/Ex4-Task5.5.png)
 
-6. Create a script to update the public DNS name for the IP
+6. Create a script to update the public DNS name for the IP.
 
     ```bash
     vi update-ip.sh
     <i>
     ```
 
-    Paste the following as the contents and update the IP and SUFFIX values
+    Paste the following as the contents and update the IP and SUFFIX values:
 
     ```bash
     #!/bin/bash
@@ -1961,17 +1960,17 @@ In this task you will setup a Kubernetes Ingress to take advantage of path based
 
     ![A screenshot of VIM editor showing the updated file.](media/Ex4-Task5.6.png)
 
-7. Use `<esc>:wq` to save your script and exit VIM
+7. Use `<esc>:wq` to save your script and exit VIM.
 
-8. Run the update script
+8. Run the update script.
 
     ```bash
     bash ./update-ip.sh
     ```
 
-9. Verify the IP update by visiting the url in your browser
+9. Verify the IP update by visiting the url in your browser.
 
-    > Note, it is normal to receive a 404 message at this time
+    >**NOTE:** It is normal to receive a 404 message at this time.
 
     ```text
     http://fabmedical-[SUFFIX]-ingress.eastus.cloudapp.azure.com/
@@ -1979,13 +1978,13 @@ In this task you will setup a Kubernetes Ingress to take advantage of path based
 
     ![A screenshot of the browser url.](media/Ex4-Task5.9.png)
 
-10. Use helm to install `cert-manager`; a tool that can provision SSL certificates automatically from letsencrypt.org
+10. Use helm to install `cert-manager`; a tool that can provision SSL certificates automatically from letsencrypt.org.
 
     ```bash
     helm install --name cert-manager --namespace kube-system --set rbac.create=false stable/cert-manager
     ```
 
-11. Cert manager will need a custom ClusterIssuer resource to handle requesting SSL certificates
+11. Cert manager will need a custom ClusterIssuer resource to handle requesting SSL certificates.
 
     ```bash
     vi clusterissuer.yml
@@ -2012,28 +2011,28 @@ In this task you will setup a Kubernetes Ingress to take advantage of path based
         http01: {}
     ```
 
-12. Save the file with `<esc>:wq`
+12. Save the file with `<esc>:wq`.
 
-13. Create the issuer using kubectl
+13. Create the issuer using kubectl.
 
     ```bash
     kubectl create --save-config=true -f clusterissuer.yml
     ```
 
-14. Update the cert-manager to use the ClusterIssuer by default
+14. Update the cert-manager to use the ClusterIssuer by default.
 
     ```bash
     helm upgrade cert-manager stable/cert-manager --namespace kube-system --set rbac.create=false --set ingressShim.defaultIssuerName=letsencrypt-prod --set ingressShim.defaultIssuerKind=ClusterIssuer
     ```
 
-15. Now you can create an ingress resource for the content applications
+15. Now you can create an ingress resource for the content applications.
 
     ```bash
     vi content.ingress.yml
     <i>
     ```
 
-    Use the following as the contents and update the [SUFFIX] to match your ingress DNS name
+    Use the following as the contents and update the [SUFFIX] to match your ingress DNS name:
 
     ```yaml
     apiVersion: extensions/v1beta1
@@ -2063,9 +2062,9 @@ In this task you will setup a Kubernetes Ingress to take advantage of path based
 
     ```
 
-16. Save the file with `<esc>:wq`
+16. Save the file with `<esc>:wq`.
 
-17. Create the ingress using kubectl
+17. Create the ingress using kubectl.
 
     ```bash
     kubectl create --save-config=true -f content.ingress.yml
@@ -2073,11 +2072,11 @@ In this task you will setup a Kubernetes Ingress to take advantage of path based
 
 18. Refresh the ingress endpoint in your browser.  You should be able to visit the speakers and sessions pages and see all the content.
 
-19. Visit the api directly, by navigating to `/content-api/sessions` at the ingress endpoint
+19. Visit the api directly, by navigating to `/content-api/sessions` at the ingress endpoint.
 
     ![A screenshot showing the output of the sessions content in the browser.](media/Ex4-Task5.19.png)
 
-20. Test TLS termination by visiting both services again using `https`
+20. Test TLS termination by visiting both services again using `https`.
 
     > It can take a few minutes before the SSL site becomes avaiable.  This is due to the delay involved with provisioning a TLS cert from letsencypt.
 
@@ -2089,11 +2088,12 @@ In this exercise, you will de-provision any Azure resources created in support o
 
 1. Delete both of the Resource Groups in which you placed all of your Azure resources
 
-    - From the Portal, navigate to the blade of your Resource Group and then select Delete in the command bar at the top
+    - From the Portal, navigate to the blade of your Resource Group and then select Delete in the command bar at the top.
 
-    - Confirm the deletion by re-typing the resource group name and selecting Delete
+    - Confirm the deletion by re-typing the resource group name and selecting Delete.
 
-2. Delete the Service Principal created on Task 9: Create a Service Principal before the hands-on lab
+2. Delete the Service Principal created on Task 9: Create a Service Principal before the hands-on lab.
+
     ```bash
     az ad sp delete --id "Fabmedical-sp"
     ```
