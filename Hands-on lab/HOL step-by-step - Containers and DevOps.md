@@ -424,7 +424,7 @@ In this task, you will create a new Dockerfile that will be used to run the API 
 
 ### Task 4: Create Docker images
 
--In this task, you will create Docker images for the application --- one for the API application and another for the web application. Each image will be created via Docker commands that rely on a Dockerfile.
+In this task, you will create Docker images for the application --- one for the API application and another for the web application. Each image will be created via Docker commands that rely on a Dockerfile.
 
 1. From WSL, type the following command to view any Docker images on the VM. The list will only contain the mongodb image downloaded earlier.
 
@@ -496,13 +496,13 @@ The web application container will be calling endpoints exposed by the API appli
 
 1. Create and start the API application container with the following command. The command does the following:
 
-    -- Names the container "api" for later reference with Docker commands.
+    - Names the container "api" for later reference with Docker commands.
 
-    -- Instructs the Docker engine to use the "fabmedical" network.
+    - Instructs the Docker engine to use the "fabmedical" network.
 
-    -- Instructs the Docker engine to use port 3001 and map that to the internal container port 3001.
+    - Instructs the Docker engine to use port 3001 and map that to the internal container port 3001.
 
-    -- Creates a container from the specified image, by its tag, such as content-api.
+    - Creates a container from the specified image, by its tag, such as content-api.
 
     ```bash
     docker run --name api --net fabmedical -p 3001:3001 content-api
@@ -700,7 +700,7 @@ In this task, you will configure the "web" container to communicate with the API
     vi docker-compose.yml
     ```
 
-    Type the following as the contents of `docker-compose.yml`.
+    Type the following as the contents of `docker-compose.yml`:
 
     ```yaml
     version: '3.4'
@@ -815,9 +815,9 @@ To run containers in a remote environment, you will typically push images to a D
 
 In this task, you will push images to your ACR account, version images with tagging, and setup continuous integration (CI) to build future versions of your containers and push them to ACR automatically.
 
-1. In the [Azure Portal](https://portal.azure.com/), navigate to the ACR you created in Before the hands-on lab
+1. In the [Azure Portal](https://portal.azure.com/), navigate to the ACR you created in Before the hands-on lab.
 
-2. Select Access keys under Settings on the left-hand menu
+2. Select Access keys under Settings on the left-hand menu.
 
     ![In this screenshot of the left-hand menu, Access keys is highlighted below Settings.](media/image64.png)
 
@@ -894,11 +894,11 @@ In this task, you will push images to your ACR account, version images with tagg
     docker pull [LOGINSERVER]/content-web:v1
     ```
 
-    --- **Azure subscription**: Choose "azurecloud-sol".
+    - **Azure subscription**: Choose "azurecloud-sol".
 
-    --- **Azure Container Registry**: Choose your ACR instance by name.
+    - **Azure Container Registry**: Choose your ACR instance by name.
 
-    --- **Include Latest Tag**: Checked.
+    - **Include Latest Tag**: Checked
 
 13. Next we will use VSTS to automate the process for creating images and pushing to ACR.  First, you need to add an Azure Service Principal to your VSTS account.  Login to your VisualStudio.com account and click the gear icon to access your settings. Then select Services.
 
@@ -918,19 +918,19 @@ In this task, you will push images to your ACR account, version images with tagg
 
     > **NOTE:** I you don't have your Subscription information handy you can view it using `az account show` on your **local** machine (not the build agent).
 
-    ---- **Connection name**: azurecloud-sol
+    - **Connection name**: azurecloud-sol
 
-    ---- **Environment**: AzureCloud
+    - **Environment**: AzureCloud
 
-    ---- **Subscription ID**: `id` from `az account show` output
+    - **Subscription ID**: `id` from `az account show` output
 
-    ---- **Subscription Name**: `name` from `az account show` output
+    - **Subscription Name**: `name` from `az account show` output
 
-    ---- **Service Principal Client ID**: `appId` from service principal output.
+    - **Service Principal Client ID**: `appId` from service principal output.
 
-    ---- **Service Principal Key**: `password` from service principal output.
+    - **Service Principal Key**: `password` from service principal output.
 
-    ---- **Tenant ID**: `tenant` from service principal output.
+    - **Tenant ID**: `tenant` from service principal output.
 
     ![A screenshot of the Add Resource Manager Add Service Endpoint dialog.](media/Ex1-Task7.16.png)
 
@@ -956,29 +956,29 @@ In this task, you will push images to your ACR account, version images with tagg
 
 22. Select "Build an image":
 
-    ----- **Azure subscription**: Choose "azurecloud-sol".
+    - **Azure subscription**: Choose "azurecloud-sol".
 
-    ----- **Azure Container Registry**: Choose your ACR instance by name.
+    - **Azure Container Registry**: Choose your ACR instance by name.
 
-    ----- **Include Latest Tag**: Checked
+    - **Include Latest Tag**: Checked
 
     ![A screenshot of the dialog where you can describe the image build.](media/Ex1-Task7.22.png)
 
 23. Select "Push an image".
 
-    ----- **Azure subscription**: Choose "azurecloud-sol".
+    - **Azure subscription**: Choose "azurecloud-sol".
 
-    ----- **Azure Container Registry**: Choose your ACR instance by name.
+    - **Azure Container Registry**: Choose your ACR instance by name.
 
-    ----- **Include Latest Tag**: Checked
+    - **Include Latest Tag**: Checked
 
     ![A screenshot of the dialog where you can describe the image push.](media/Ex1-Task7.23.png)
 
 24. Select "Triggers".
 
-    ----- **Enable continuous integration**: Checked
+    - **Enable continuous integration**: Checked
 
-    ----- **Batch changes while a build is in progress**: Checked
+    - **Batch changes while a build is in progress**: Checked
 
     ![A screenshot of the dialog where you can setup triggers.](media/Ex1-Task7.24.png)
 
@@ -1011,7 +1011,7 @@ In this task, you will gather the information you need about your Azure Kubernet
     az --version
     ```
 
-    a. This should produce output similar to this:
+    a.  This should produce output similar to this:
 
     ![In this screenshot of the WSL console, example output from running az --version appears. At this time, we are unable to capture all of the information in the window. Future versions of this course should address this.](media/image73.png)
 
@@ -1128,13 +1128,13 @@ In this task, you will deploy the API application to the Azure Kubernetes Servic
 
 8. Configure Azure CosmosDb as follows and click "Create":
 
-    -- **ID**: fabmedical-SUFFIX
+    - **ID**: fabmedical-SUFFIX
 
-    -- **Subscription**: Use the same subscription you have used for all your other work.
+    - **Subscription**: Use the same subscription you have used for all your other work.
 
-    -- **Resource Group**: fabmedical-SUFFIX
+    - **Resource Group**: fabmedical-SUFFIX
 
-    -- **Geo-redundancy**: default (checked)
+    - **Geo-redundancy**: default (checked)
 
     ![A screenshot of the Azure Portal settings blade for Cosmos DB.](media/Ex2-Task1.8.png)
 
@@ -1147,7 +1147,7 @@ In this task, you will deploy the API application to the Azure Kubernetes Servic
 
 11. Update the provided connection string with a database "contentdb" and a replica set "globaldb".
 
-    > Note: User name and password redacted for brevity.
+    > NOTE: User name and password redacted for brevity.
 
     ```text
     mongodb://<USERNAME>:<PASSWORD>@fabmedical-sol2.documents.azure.com:10255/contentdb?ssl=true&replicaSet=globaldb
@@ -1522,13 +1522,13 @@ In this task, you will try to increase the number of instances for the API servi
 
 7. Copy the updated JSON document from notepad into the clipboard. Return to the Kubernetes dashboard, which should still be viewing the "api" deployment.
 
-    -- Select Edit.
+    - Select Edit.
 
     ![In the Workloads \> Deployments \> api bar, the Edit icon is highlighted.](media/image87.png)
 
-    -- Paste the updated JSON document.
+    - Paste the updated JSON document.
 
-    -- Select Update.
+    - Select Update.
 
     ![UPDATE is highlighted in the Edit a Deployment dialog box.](media/image88.png)
 
@@ -1645,8 +1645,8 @@ In this task, we will reconfigure the API deployment so that it will produce pod
 In this task, you will update the web service so that it supports dynamic discovery through the Azure load balancer.
 
 1. From the navigation menu, select Deployments under Workloads. From the view's Deployments list select the web deployment.
-.
-2. Select **Edit**
+
+2. Select **Edit**.
 
 3. From the Edit a Deployment dialog, scroll to the web containers spec as shown in the screenshot. Remove the hostPort entry for the web container's port mapping.
 
