@@ -85,23 +85,23 @@ The solution will use Azure Kubernetes Service (AKS), which means that the conta
 
 Each tenant will have the following containers:
 
-- **Conference Web site**: the SPA application that will use configuration settings to handle custom styles for the tenant
+- **Conference Web site**: the SPA application that will use configuration settings to handle custom styles for the tenant.
 
-- **Admin Web site**: the SPA application that conference owners use to manage conference configuration details, manage attendee registrations, manage campaigns and communicate with attendees
+- **Admin Web site**: the SPA application that conference owners use to manage conference configuration details, manage attendee registrations, manage campaigns and communicate with attendees.
 
-- **Registration service**: the API that handles all registration activities creating new conference registrations with the appropriate package selections and associated cost
+- **Registration service**: the API that handles all registration activities creating new conference registrations with the appropriate package selections and associated cost.
 
-- **Email service**: the API that handles email notifications to conference attendees during registration, or when the conference owners choose to engage the attendees through their admin site
+- **Email service**: the API that handles email notifications to conference attendees during registration, or when the conference owners choose to engage the attendees through their admin site.
 
-- **Config service**: the API that handles conference configuration settings such as dates, locations, pricing tables, early bird specials, countdowns and related
+- **Config service**: the API that handles conference configuration settings such as dates, locations, pricing tables, early bird specials, countdowns and related.
 
-- **Content service**: the API that handles content for the conference such as speakers, sessions, workshops and sponsors
+- **Content service**: the API that handles content for the conference such as speakers, sessions, workshops and sponsors.
 
 ## Requirements
 
-1. Microsoft Azure subscription must be pay-as-you-go or MSDN
+1. Microsoft Azure subscription must be pay-as-you-go or MSDN.
 
-    -  Trial subscriptions will *not* work
+    -  Trial subscriptions will *not* work.
 
     -  You must have rights to create a service principal as discussed in Task 9: Create a Service Principal --- and this typically requires a subscription owner to log in. You may have to ask another subscription owner to login to the portal and execute that step ahead of time if you do not have the rights.
 
@@ -109,15 +109,15 @@ Each tenant will have the following containers:
 
 1. Local machine or a virtual machine configured with:
 
-    - A browser, preferably Chrome for consistency with the lab implementation tests
+    - A browser, preferably Chrome for consistency with the lab implementation tests.
 
-    - Command prompt
+    - Command prompts:
 
         - On Windows, you will be using Bash on Ubuntu on Windows, hereon referred to as WSL.
 
         - On Mac, all instructions should be executed using bash in Terminal.
 
-1. You will be asked to install other tools throughout the exercises
+1. You will be asked to install other tools throughout the exercises.
 
 **VERY IMPORTANT: You should be typing all of the commands as they appear in the guide, except where explicitly stated in this document. Do not try to copy and paste from Word to your command windows or other documents where you are instructed to enter information shown in this document. There can be issues with Copy and Paste from Word that result in errors, execution of instructions, or creation of file content.**
 
@@ -128,23 +128,23 @@ Each tenant will have the following containers:
 
 In this exercise, you will take the starter files and run the node.js application as a Docker application. You will create a Dockerfile, build Docker images, and run containers to execute the application.
 
-**NOTE: Complete these tasks from the WSL window with the build agent session.**
+>**NOTE: Complete these tasks from the WSL window with the build agent session.**
 
 ### Task 1: Test the application
 
 The purpose of this task is to make sure you can run the application successfully before applying changes to run it as a Docker application.
 
-1. On the build agent VM create a new Docker network named "fabmedical"
+1. On the build agent VM create a new Docker network named "fabmedical".
 
-1. Run mongodb as a container, and be sure it is accessible from services running on the same host
+2. Run mongodb as a container, and be sure it is accessible from services running on the same host.
 
-1. Run the content init application by navigating to the conent-init directory and running these commands:
+3. Run the content init application by navigating to the conent-init directory and running these commands:
 
     ```bash
     npm install
     nodejs server.js
     ```
-1. Run the API and web applications in that order by navigating to their respective folders and running these commands:
+4. Run the API and web applications in that order by navigating to their respective folders and running these commands:
 
 
     ```bash
@@ -152,7 +152,7 @@ The purpose of this task is to make sure you can run the application successfull
     nodejs server.js &
     ```
 
-1. Test the results by curling these URLs and observing the JSON responses:
+5. Test the results by curling these URLs and observing the JSON responses:
 
     API Application:
 
@@ -172,11 +172,11 @@ In this task, you will open a port range on the agent VM so that you can browse 
 
 1. From the Azure portal, select the Network Security Group associated with the build agent VM. Create an inbound security rule to allow TCP calls over port range 3000-3010.
 
-1. Find the IP address for the VM and browse to that IP address with port 3000.
+2. Find the IP address for the VM and browse to that IP address with port 3000.
 
-1. You can browse to the website and see the speakers and session pages; you can reach the web application from a browser and correctly open the port on the agent VM
+3. You can browse to the website and see the speakers and session pages; you can reach the web application from a browser and correctly open the port on the agent VM.
 
-1. Once you have seen the website running, you can stop the running node processes with this command:
+4. Once you have seen the website running, you can stop the running node processes with this command:
 
     ```bash
     killall nodejs
@@ -186,78 +186,78 @@ In this task, you will open a port range on the agent VM so that you can browse 
 
 In this task, you will create a new Dockerfile that will be used to run the API as a containerized application.
 
-**NOTE: You will be working in a Linux VM without friendly editor tools. You must follow the steps very carefully to work with Vim for a few editing exercises if you are not already familiar with Vim.**
+>**NOTE: You will be working in a Linux VM without friendly editor tools. You must follow the steps very carefully to work with Vim for a few editing exercises if you are not already familiar with Vim.**
 
-1. From the content-api folder, using Vim create a new file named Dockerfile
+1. From the content-api folder, using Vim create a new file named Dockerfile.
 
-1. Create a multi-stage Dockerfile based on the node:argon image for build stage(s) and node:alpine for the deployable artifact
+2. Create a multi-stage Dockerfile based on the node:argon image for build stage(s) and node:alpine for the deployable artifact.
 
-1. Include instructions to copy the source files for the application to the image and to run npm install
+3. Include instructions to copy the source files for the application to the image and to run npm install.
 
-1. Expose port 3001 and put the startup command npm
+4. Expose port 3001 and put the startup command npm.
 
-1. Verify the file contents, to ensure it saved as expected
+5. Verify the file contents, to ensure it saved as expected.
 
 ### Task 4: Create Docker images
 
 In this task, you will create Docker images for the application -- one for the API and another for the web application. Each image will be created via Docker commands that rely on a Dockerfile.
 
-1. From the content-api directory, build a Docker image using the Dockerfile you created
+1. From the content-api directory, build a Docker image using the Dockerfile you created.
 
-1. From the content-web directory, build a Docker image with the existing Dockerfile in the folder
+2. From the content-web directory, build a Docker image with the existing Dockerfile in the folder.
 
-1. Once both images are successfully built, you will see three images now exist when you run the Docker images command. One for API, one for web, and another for node.
+3. Once both images are successfully built, you will see three images now exist when you run the Docker images command. One for API, one for web, and another for node.
 
 ### Task 5: Run a containerized application
 
 The web application container will be calling endpoints exposed by the API application container. In this exercise, you will create a bridge network so that containers can communicate with one another, and then launch the images you created as containers in that network.
 
-1. Start the API container with this command
+1. Start the API container with this command:
 
     ```bash
      docker run --name api --net fabmedical -p 3001:3001 content-api
     ```
 
-1. Diagnose the failure with the api container and resolve by setting the MONGODB_CONNECTION environment variable within the container
+2. Diagnose the failure with the api container and resolve by setting the MONGODB_CONNECTION environment variable within the container.
 
-1. Start the API and web containers with these commands:
+3. Start the API and web containers with these commands:
 
     ```bash
     docker run --name web --net fabmedical -P -d content-web
     ```
 
-1. Test the API application by curling the speakers URL once again
+4. Test the API application by curling the speakers URL once again.
 
-1. Test the web application by curling the site, but using the dynamic port assigned to the container from the run command
+5. Test the web application by curling the site, but using the dynamic port assigned to the container from the run command.
 
 ### Task 6: Setup environment variables
 
 In this task, you will configure the web container to communicate with the API container using an environment variable. You will modify the web application to read the URL from the environment variable, rebuild the Docker image, and then run the container again to test connectivity.
 
-1. From WSL, stop and remove the web container
+1. From WSL, stop and remove the web container.
 
-1. Edit content-web\\data-access\\index.js and locate the TODO item and modify the code so that the contentApiUrl variable will be set to an environment variable
+2. Edit content-web\\data-access\\index.js and locate the TODO item and modify the code so that the contentApiUrl variable will be set to an environment variable.
 
-1. Edit the Dockerfile in content-web to add an environment variable CONTENT_API_URL matching http://localhost:3001
+3. Edit the Dockerfile in content-web to add an environment variable CONTENT_API_URL matching http://localhost:3001.
 
-1. Rebuild the web Docker image
+4. Rebuild the web Docker image.
 
-1. Create and start the image, passing the correct URI to the API container as an environment variable, and then check the port that the container is running on
+5. Create and start the image, passing the correct URI to the API container as an environment variable, and then check the port that the container is running on.
 
     ```bash
     docker run --d --P --name web --net fabmedical --e CONTENT_API_URL=http://api:3001 content-web
     ```
-1. Curl the speakers path again, using the port assigned to the web container
+6. Curl the speakers path again, using the port assigned to the web container.
 
-1. Stop and restart the container so that it uses port 3000 and then browse to the URL at the build agent IP address with that port to view the web application
+7. Stop and restart the container so that it uses port 3000 and then browse to the URL at the build agent IP address with that port to view the web application.
 
-1. Stop and remove all the running docker containers, including the mongo container
+8. Stop and remove all the running docker containers, including the mongo container.
 
-1. Create a docker-compose yaml file that will run all containers together.  Make sure all dependencies are considered so that the containers start in the correct order.
+9. Create a docker-compose yaml file that will run all containers together.  Make sure all dependencies are considered so that the containers start in the correct order.
 
-1. Update the docker-compose solution to initialize and persist mongodb data
+10. Update the docker-compose solution to initialize and persist mongodb data.
 
-1. Check the results in the browser, the speaker and session data is now available
+11. Check the results in the browser, the speaker and session data is now available.
 
 ### Task 7: Push images to Azure Container Registry
 
@@ -265,28 +265,28 @@ To run containers in a remote environment, you will typically push images to a D
 
 In this task, you will push images to your ACR account, version images with tagging, and run containers from an image in your ACR.
 
-1. Gather credentials for your ACR in the Azure Portal
+1. Gather credentials for your ACR in the Azure Portal.
 
-1. Login to your ACR from the build agent VM
+2. Login to your ACR from the build agent VM.
 
-Tip: Make sure to specify the fully qualified registry login server (all lowercase).
+>Tip: Make sure to specify the fully qualified registry login server (all lowercase).
 
-1. Tag your images to match your ACR account name
+3. Tag your images to match your ACR account name.
 
     ```bash
     docker tag content-web [LOGINSERVER]/content-web
 
     docker tag content-api [LOGINSERVER]/content-api
     ```
-1. Push the API and web images to the ACR
+4. Push the API and web images to the ACR.
 
-1. Assign a new tag "v1" to both images, and push the newly tagged version of the images to the ACR
+5. Assign a new tag "v1" to both images, and push the newly tagged version of the images to the ACR.
 
-1. Verify the tagged images are created in the ACR
+6. Verify the tagged images are created in the ACR.
 
-1. From your build agent VM, perform a pull on each image to validate that pulls are working from the VM
+7. From your build agent VM, perform a pull on each image to validate that pulls are working from the VM.
 
-1. Next, setup VSTS to automate the process for creating images and pushing to ACR.  Add an Azure Service Principal to your VSTS account. Create docker container builds for all repositories that push images to your ACR instance.  Enable Continuous Integration for all repositories.
+8. Next, setup VSTS to automate the process for creating images and pushing to ACR.  Add an Azure Service Principal to your VSTS account. Create docker container builds for all repositories that push images to your ACR instance.  Enable Continuous Integration for all repositories.
 
 ## Exercise 2: Deploy the solution to Azure Kubernetes Service
 
@@ -298,27 +298,27 @@ In this exercise, you will connect to the Azure Kubernetes Service cluster you c
 
 In this task, you will gather the information you need about your Azure Kubernetes Service cluster to connect to the cluster and execute commands to connect to the Kubernetes management dashboard from your local machine.
 
-1. Verify that Azure CLI is working correctly, and that you are logged in and connected to the correct default subscription
+1. Verify that Azure CLI is working correctly, and that you are logged in and connected to the correct default subscription.
 
-1. Verify that Kubernetes CLI is working correctly
+2. Verify that Kubernetes CLI is working correctly.
 
-1. Configure kubectl to connect to the Kubernetes cluster
+3. Configure kubectl to connect to the Kubernetes cluster.
 
     ```bash
     az aks get-credentials --name fabmedical-SUFFIX --resource-group fabmedical-SUFFIX-2
     ```
 
-1. List the cluster nodes to verify the connection is working
+4. List the cluster nodes to verify the connection is working.
 
-1. Create an SSH tunnel linking a local port (8001) on your machine to port 80 on the management node of the cluster. Execute the command below replacing the values accordingly:
+5. Create an SSH tunnel linking a local port (8001) on your machine to port 80 on the management node of the cluster. Execute the command below replacing the values accordingly:
 
-    **NOTE: After you run this command, it may work at first and later lose its connection, so you may have to run this again to reestablish the connection. If the Kubernetes dashboard becomes unresponsive in the browser this is an indication to return here and check your tunnel or rerun the command.**
+    >**NOTE: After you run this command, it may work at first and later lose its connection, so you may have to run this again to reestablish the connection. If the Kubernetes dashboard becomes unresponsive in the browser this is an indication to return here and check your tunnel or rerun the command.**
 
     ```bash
     az aks browse --name fabmedical-SUFFIX --resource-group fabmedical-SUFFIX-2
     ```
 
-1. Open a browser and navigate to the Kubernetes management dashboard
+6. Open a browser and navigate to the Kubernetes management dashboard.
 
 ### Task 2: Deploy a service using the Kubernetes management dashboard
 
@@ -326,21 +326,21 @@ In this task, you will deploy the API application to the Azure Kubernetes Servic
 
 1. From the Kubernetes dashboard create a new deployment for the API application, based on the API image you pushed to your ACR. Use the following settings:
 
-    - Set Number of pods to 1
+    - Set Number of pods to 1.
 
-    - Set Service to "Internal"
+    - Set Service to "Internal".
 
-    - Use 3001 for Port and 3001 for Target port
+    - Use 3001 for Port and 3001 for Target port.
 
-    - Use 0.125 for the CPU requirement
+    - Use 0.125 for the CPU requirement.
 
-    - Use 128 for the Memory requirement
+    - Use 128 for the Memory requirement.
 
-1. When Kubernetes indicates a problem with the deployment, investigate using the pod logs
+2. When Kubernetes indicates a problem with the deployment, investigate using the pod logs.
 
-1. Deploy a CosmosDb instance to provide a mongodb data store for the api.  Configure the API deployment to access the CosmosDb connection string using a Kubernetes secret.
+3. Deploy a CosmosDb instance to provide a mongodb data store for the api.  Configure the API deployment to access the CosmosDb connection string using a Kubernetes secret.
 
-1. View the api deployment; it now has a healthy instance and the logs indicate it has connected to mongodb
+4. View the api deployment; it now has a healthy instance and the logs indicate it has connected to mongodb.
 
 ### Task 3: Deploy a service using kubectl
 
@@ -405,9 +405,9 @@ In this task, deploy the web service using `kubectl`.
             terminationGracePeriodSeconds: 30
     ```
 
-1. Edit this file and update the [LOGINSERVER] entry to match the name of your ACR login server
+2. Edit this file and update the [LOGINSERVER] entry to match the name of your ACR login server.
 
-1. Create a text file called web.service.yml using Vim and copy and paste the following text into the editor
+3. Create a text file called web.service.yml using Vim and copy and paste the following text into the editor:
 
     ```yaml
     apiVersion: v1
@@ -428,13 +428,13 @@ In this task, deploy the web service using `kubectl`.
       type: LoadBalancer
     ```
 
-1. Type the following command to deploy the application described by the YAML files
+4. Type the following command to deploy the application described by the YAML files.
 
     ```bash
     kubectl create --save-config=true -f web.deployment.yml -f web.service.yml
     ```
 
-1. Test the website in the browser and see that no data is available on the speakers and sessions pages
+5. Test the website in the browser and see that no data is available on the speakers and sessions pages.
 
 ### Task 4: Initialize database with a Kubernetes Job
 
@@ -463,9 +463,9 @@ In this task, you will use a Kubernetes Job to run a container that is meant to 
       backoffLimit: 4
     ```
 
-1. Edit this file and update the [LOGINSERVER] entry to match the name of your ACR login server
+2. Edit this file and update the [LOGINSERVER] entry to match the name of your ACR login server.
 
-1. Type the following command to deploy the job described by the YAML:
+3. Type the following command to deploy the job described by the YAML:
 
     ```bash
     kubectl create --save-config=true -f init.job.yml
@@ -477,7 +477,7 @@ In this task, you will verify that you can browse to the "web" service you have 
 
 1. From the Kubernetes management dashboard, navigate to services, find the endpoint for the web service, and launch the application in the browser.
 
-1. You will see the web application in your browser and be able to select the Speakers and Sessions links to view those pages without errors. The lack of errors means that the web service is correctly calling the API service to show the details on each of those pages.
+2. You will see the web application in your browser and be able to select the Speakers and Sessions links to view those pages without errors. The lack of errors means that the web service is correctly calling the API service to show the details on each of those pages.
 
 ## Exercise 3: Scale the application and test HA
 
@@ -489,15 +489,15 @@ At this point, you have deployed a single instance of the web and API service co
 
 In this task, you will increase the number of instances for the API deployment in the Kubernetes management dashboard. While it is deploying, you will observe the changing status.
 
-1. From the Kubernetes dashboard, scale the number of pods for the API deployment to 2
+1. From the Kubernetes dashboard, scale the number of pods for the API deployment to 2.
 
-1. Go to the Replica Sets view of the API and note that there is a pending instance deploying
+2. Go to the Replica Sets view of the API and note that there is a pending instance deploying.
 
-1. Go to the Services view and note that the API is pending
+3. Go to the Services view and note that the API is pending.
 
-1. Go to the Workloads view and by this time note that the API and web services are healthy
+4. Go to the Workloads view and by this time note that the API and web services are healthy.
 
-1. Navigate to the web application in the browser to view the content at /stats.html. Take note of the following details as you refresh the page:
+5. Navigate to the web application in the browser to view the content at /stats.html. Take note of the following details as you refresh the page:
 
     - webTaskId: the task identifier for the web service instance
 
@@ -513,7 +513,7 @@ In this task, you will increase the number of instances for the API deployment i
 
     - uptime: the up time for the API service
 
-1. The taskId and hostName for the API service will change as you refresh since there are two pods
+6. The taskId and hostName for the API service will change as you refresh since there are two pods.
 
 ### Task 2: Increase service instances beyond available resources
 
@@ -530,13 +530,13 @@ In this task, you will try to increase the number of instances for the API servi
     ],
     ```
 
-1. API deployment and scale the API deployment to four pods
+2. API deployment and scale the API deployment to four pods.
 
-1. From the API deployments view, note that four pods are running and one pending
+3. From the API deployments view, note that four pods are running and one pending.
 
-1. Navigate to the Workloads view and note that there are errors in the API deployment. These errors are due to the fixed port requirement. Only two instances of the API pod can be deployed as there are only two nodes with port 3001 available.
+4. Navigate to the Workloads view and note that there are errors in the API deployment. These errors are due to the fixed port requirement. Only two instances of the API pod can be deployed as there are only two nodes with port 3001 available.
 
-1. Scale the API deployment back down to 2 pods and note that the errors are almost immediately resolved
+5. Scale the API deployment back down to 2 pods and note that the errors are almost immediately resolved.
 
 ### Task 3: Restart containers and test HA
 
@@ -544,21 +544,21 @@ In this task, you will restart containers and validate that the restart does not
 
 1. Navigate to the Services view and select the external endpoint for the web service. Add /stats.html to the URL to browse to the stats page of the web application.
 
-1. Navigate to the API deployment and scale it to 4 pods
+2. Navigate to the API deployment and scale it to 4 pods.
 
-1. Navigate to the API Replica Set view and note that two pods cannot deploy
+3. Navigate to the API Replica Set view and note that two pods cannot deploy.
 
-1. Return to the browser tab with the web application stats page loaded. Refresh the page over and over. You will not see any errors, but you will see the API hostName change between the two API pod instances periodically.
+4. Return to the browser tab with the web application stats page loaded. Refresh the page over and over. You will not see any errors, but you will see the API hostName change between the two API pod instances periodically.
 
-1. Return to the API Replica Set view and note that as you refresh the page, the hostName from the stats page switches between the pod names for the API pods that are running
+5. Return to the API Replica Set view and note that as you refresh the page, the hostName from the stats page switches between the pod names for the API pods that are running.
 
-1. Note the remaining pods are still pending, since there are not enough port resources available to launch another instance. Make some room by deleting a running pod instance.
+6. Note the remaining pods are still pending, since there are not enough port resources available to launch another instance. Make some room by deleting a running pod instance.
 
-1. Note that a new pod instance is deployed, and since the desired state is four pods, another pending instance is created
+7. Note that a new pod instance is deployed, and since the desired state is four pods, another pending instance is created.
 
-1. Scale the API deployment down to 1 pod. As it scales down, return to the web application stats page and refresh, noting that only one API hostName and taskId displays. Kubernetes has already stopped sending requests to the pods that are scaling down.
+8. Scale the API deployment down to 1 pod. As it scales down, return to the web application stats page and refresh, noting that only one API hostName and taskId displays. Kubernetes has already stopped sending requests to the pods that are scaling down.
 
-1. Navigate to the Workloads view and note that eventually, there is only one API pod deployed
+9. Navigate to the Workloads view and note that eventually, there is only one API pod deployed.
 
 ## Exercise 4: Setup load balancing and service discovery
 
@@ -574,9 +574,9 @@ In this task, we will reconfigure the deployment's container template so that it
 
 1. Edit the API deployment. Set replicas to 4 and remove the hostPort entry.
 
-1. This time the deployment will be able to run 4 pods since the hostPort restriction has been removed.
+2. This time the deployment will be able to run 4 pods since the hostPort restriction has been removed.
 
-1. Refresh the stats endpoint for the API service deployment in the browser. Note that the hostPort entry will start to change as you refresh to match the names of the 4 pods.
+3. Refresh the stats endpoint for the API service deployment in the browser. Note that the hostPort entry will start to change as you refresh to match the names of the 4 pods.
 
 ### Task 2: Update an external service to support dynamic discovery with a load balancer
 
@@ -584,9 +584,9 @@ In this task, you will update the web service so that it supports dynamic discov
 
 1. Edit the web deployment. Remove the *hostPort* setting to allow a dynamic port assignment as pods are created.
 
-1. Scale the web deployment to 4 pods
+2. Scale the web deployment to 4 pods.
 
-1. Refresh the web Deployments view and note the error indicating that the deployment cannot scale beyond 2 pod instances. This is due to a CPU constraint since the web service is asking for more CPU than is available. The port constraint has already been resolved by allowing dynamic discovery.
+3. Refresh the web Deployments view and note the error indicating that the deployment cannot scale beyond 2 pod instances. This is due to a CPU constraint since the web service is asking for more CPU than is available. The port constraint has already been resolved by allowing dynamic discovery.
 
 ### Task 3: Adjust CPU constraints to improve scale
 
@@ -594,25 +594,25 @@ In this task you will modify the CPU requirements for the web service so that it
 
 1. Edit the web deployment. Set the *cpu* resource requirement to 125m.
 
-1. Navigate to the web replica set and note that the four pods will show as deployed and running health
+2. Navigate to the web replica set and note that the four pods will show as deployed and running health.
 
-1. Return to the browser tab with the web application loaded and refresh the stats page at /stats.html to watch the display update to reflect the different API pod names for the hostName.
+3. Return to the browser tab with the web application loaded and refresh the stats page at /stats.html to watch the display update to reflect the different API pod names for the hostName.
 
 ### Task 4: Perform a rolling update
 
 In this task, you will edit the web application source code to add Application Insights, and update the Docker image used by the deployment. Then you will perform a rolling update to demonstrate how to deploy a code change.
 
-1. Create an Application Insights key for content-web and content-api using the Azure Portal
+1. Create an Application Insights key for content-web and content-api using the Azure Portal.
 
-1. On your build agent VM, navigate to the content-web directory
+2. On your build agent VM, navigate to the content-web directory.
 
-1. Install support for Application Insights
+3. Install support for Application Insights.
 
     ```bash
     npm install applicationinsights --save
     ```
 
-1. Open the server.js file using Vim and add support for application insights with code similar to this:
+4. Open the server.js file using Vim and add support for application insights with code similar to this:
 
     ```javascript
     const appInsights = require("applicationinsights");
@@ -620,25 +620,25 @@ In this task, you will edit the web application source code to add Application I
     appInsights.start();
     ```
 
-1. Repeat the process to add support to content-api
+5. Repeat the process to add support to content-api.
 
-1. Push the changes to your repository so that VSTS CI will build a new image
+6. Push the changes to your repository so that VSTS CI will build a new image.
 
-1. Visit your ACR to see the new images, and make a note of the tags assigned by VSTS
+7. Visit your ACR to see the new images, and make a note of the tags assigned by VSTS.
 
-1. From WSL on your local machine, request a rolling update using this kubectl command:
+8. From WSL on your local machine, request a rolling update using this kubectl command:
 
     ```bash
     kubectl set image deployment/web web=[LOGINSERVER]/content-web:[LATEST TAG]
     ```
 
-1. Next update the content-api application
+9. Next update the content-api application.
 
     ```bash
     kubectl set image deployment/api api=[LOGINSERVER]/content-api:[LATEST TAG]
     ```
 
-1. While the deployment is in progress, you can navigate to the web application and visit the stats page at /stats.html. Refresh the page as the rolling update executes. Observe that the service is running normally and tasks continue to be load balanced.
+10. While the deployment is in progress, you can navigate to the web application and visit the stats page at /stats.html. Refresh the page as the rolling update executes. Observe that the service is running normally and tasks continue to be load balanced.
 
 ### Task 5 Configure Kubernetes Ingress
 
@@ -646,13 +646,13 @@ In this task you will setup a Kubernetes Ingress to take advantage of path based
 
 1. Install helm: a package manager for Kubernetes.  Initialize your local configuration and install Tiller on your cluster.  Update your chart repository list.
 
-1. Install the nginx-ingress controller resource to handle ingress requests when they come in
+2. Install the nginx-ingress controller resource to handle ingress requests when they come in.
 
-1. Set a DNS prefix on the IP address allocated to the ingress controller
+3. Set a DNS prefix on the IP address allocated to the ingress controller.
 
-1. Use helm to install `cert-manager` a tool that can provision SSL certificates automatically from letsencrypt.org
+4. Use helm to install `cert-manager` a tool that can provision SSL certificates automatically from letsencrypt.org.
 
-1. Cert manager will need a custom ClusterIssuer resource to handle requesting SSL certificates
+5. Cert manager will need a custom ClusterIssuer resource to handle requesting SSL certificates.
 
     ```yaml
     apiVersion: certmanager.k8s.io/v1alpha1
@@ -672,13 +672,13 @@ In this task you will setup a Kubernetes Ingress to take advantage of path based
         http01: {}
     ```
 
-1. Update the cert-manager to use the ClusterIssuer by default
+6. Update the cert-manager to use the ClusterIssuer by default.
 
     ```bash
     helm upgrade cert-manager stable/cert-manager --namespace kube-system --set rbac.create=false --set ingressShim.defaultIssuerName=letsencrypt-prod --set ingressShim.defaultIssuerKind=ClusterIssuer
     ```
 
-1. Now you can create an ingress resource for the content applications
+7. Now you can create an ingress resource for the content applications.
 
     ```yaml
     apiVersion: extensions/v1beta1
@@ -708,13 +708,13 @@ In this task you will setup a Kubernetes Ingress to take advantage of path based
 
     ```
 
-1. Visit the ingress endpoint in your browser.  You should be able to visit the speakers and sessions pages and see all the content.
+8. Visit the ingress endpoint in your browser.  You should be able to visit the speakers and sessions pages and see all the content.
 
-1. Visit the api directly by navigating to `/content-api/sessions` at the ingress endpoint
+9. Visit the api directly by navigating to `/content-api/sessions` at the ingress endpoint.
 
-1. Test TLS termination by visiting both services again using `https`
+10. Test TLS termination by visiting both services again using `https`.
 
-    > It can take a few minutes before the SSL site becomes avaiable.  This is due to the delay involved with provisioning a TLS cert from letsencypt.
+    > NOTE: It can take a few minutes before the SSL site becomes avaiable.  This is due to the delay involved with provisioning a TLS cert from letsencypt.
 
 ## After the hands-on lab
 
@@ -722,13 +722,13 @@ In this task you will setup a Kubernetes Ingress to take advantage of path based
 
 In this exercise, you will de-provision any Azure resources created in support of this lab.
 
-1. Delete both of the Resource Groups in which you placed all of your Azure resources
+1. Delete both of the Resource Groups in which you placed all of your Azure resources.
 
-    - From the Portal, navigate to the blade of your Resource Group and select Delete in the command bar at the top
+    - From the Portal, navigate to the blade of your Resource Group and select Delete in the command bar at the top.
 
-    - Confirm the deletion by re-typing the resource group name and selecting Delete
+    - Confirm the deletion by re-typing the resource group name and selecting Delete.
 
-1. Delete the Service Principal created on Task 9: Create a Service Principal before the hands-on lab
+2. Delete the Service Principal created on Task 9: Create a Service Principal before the hands-on lab.
 
     ```bash
     az ad sp delete --id "Fabmedical-sp"
