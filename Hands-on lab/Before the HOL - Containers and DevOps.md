@@ -277,7 +277,7 @@ In this section, you will create a Linux VM to act as your build agent. You will
 
 5. From the Settings blade, accept the default values for most settings and select "SSH (22)" as a public inbound port, then select **OK**.
 
-    ![Settings](media/b4-image22a.png)
+    ![This is the screenshot of the Settings blade with SSH selected as a public inbound port.](media/b4-image22a.png)
 
 6. From the Create blade, you should see that validation passed and select **Create**.
 
@@ -719,7 +719,7 @@ FabMedical has provided starter files for you. They have taken a copy of one of 
 
     * In your browser, switch to the "content-web" repository and click "Clone" in the right corner.
 
-        ![Clone](media/b4-image51.png)
+        ![This is a screenshot of the content-web repository page with the Clone button indicated.](media/b4-image51.png)
 
     * Copy the repository url.
 
