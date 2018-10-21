@@ -653,6 +653,7 @@ FabMedical has provided starter files for you. They have taken a copy of one of 
         
     * Select "New Project".
         * Enter fabmedical as the project name.
+        * Ensure the Version control is set to Git.
         * Select "Create".
         
     * Once the project creation has completed, select "Code".
@@ -679,7 +680,7 @@ FabMedical has provided starter files for you. They have taken a copy of one of 
         git add .
         git commit -m "Initial Commit"
         ```
-    * Setup your VisualStudio.com repository as a new remote the push.  You can copy the commands to do this from your browser.  Paste these commands into your WSL window.
+    * Setup your VisualStudio.com repository as a new remote for push. You can copy the commands to do this from your browser.  Paste these commands into your WSL window.
     
         ![Commands to add remote](media/b4-image49.png)
         
@@ -695,7 +696,7 @@ FabMedical has provided starter files for you. They have taken a copy of one of 
             git add .
             git commit -m "Initial Commit"
             ```
-        * Setup your VisualStudio.com repository as a new remote the push.  Use the repository dropdown to switch to the "content-api" repository. You can then copy the commands for the setting up the content-api repository  from your browser.  Paste these commands into your WSL window.
+        * Setup your VisualStudio.com repository as a new remote the push. Use the repository dropdown to switch to the "content-api" repository. You can then copy the commands for the setting up the content-api repository  from your browser. Paste these commands into your WSL window.
         
         * When prompted, enter your VisualStudio.com username and the git credentials password you created earlier in this task.
         
@@ -740,4 +741,3 @@ FabMedical has provided starter files for you. They have taken a copy of one of 
 >**NOTE: Keep this WSL window open as your build agent SSH connection. You will later open new WSL sessions to other machines.**
 
 You should follow all steps provided *before* performing the Hands-on lab.
-

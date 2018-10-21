@@ -286,7 +286,7 @@ In this task, you will push images to your ACR account, version images with tagg
 
 7. From your build agent VM, perform a pull on each image to validate that pulls are working from the VM.
 
-8. Next, setup VSTS to automate the process for creating images and pushing to ACR.  Add an Azure Service Principal to your VSTS account. Create docker container builds for all repositories that push images to your ACR instance.  Enable Continuous Integration for all repositories.
+8. Next, setup Azure DevOps to automate the process for creating images and pushing to ACR.  Add an Azure Service Principal to your Azure DevOps account. Create docker container builds for all repositories that push images to your ACR instance.  Enable Continuous Integration for all repositories.
 
 ## Exercise 2: Deploy the solution to Azure Kubernetes Service
 
@@ -622,9 +622,9 @@ In this task, you will edit the web application source code to add Application I
 
 5. Repeat the process to add support to content-api.
 
-6. Push the changes to your repository so that VSTS CI will build a new image.
+6. Push the changes to your repository so that Azure DevOps CI will build a new image.
 
-7. Visit your ACR to see the new images, and make a note of the tags assigned by VSTS.
+7. Visit your ACR to see the new images, and make a note of the tags assigned by Azure DevOps.
 
 8. From WSL on your local machine, request a rolling update using this kubectl command:
 

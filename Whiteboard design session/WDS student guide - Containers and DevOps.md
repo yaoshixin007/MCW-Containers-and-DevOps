@@ -151,7 +151,7 @@ While multi-tenancy is a goal for the code base, even with this in place, Arthur
 
 7.  Complete an implementation of the proposed solution for a single tenant to train the team and perfect the process.
   
-### Customer objections 
+### Customer objections
 
 1.  With so many platforms and tools for Docker and container orchestration, how should we choose an option for Azure?
 
@@ -167,9 +167,9 @@ While multi-tenancy is a goal for the code base, even with this in place, Arthur
 
 <https://docs.microsoft.com/en-us/azure/aks/intro-kubernetes>
 
-**CICD to Azure Kubernetes Service with VSTS**
+**CICD to Azure Kubernetes Service with Azure DevOps**
 
-![A diagram showing the VSTS DevOps workflow to build Docker images from source code, push images to Azure Container Registry, and deploy to Azure Container Service using Kubernetes, Swarm or DCOS).](media/vsts-aks-devops.png)
+![A diagram showing the Azure DevOps workflow to build Docker images from source code, push images to Azure Container Registry, and deploy to Azure Container Service using Kubernetes, Swarm or DCOS).](media/azure-devops-aks.png)
 
 <https://www.azuredevopslabs.com/labs/vstsextend/kubernetes/>
 
@@ -177,7 +177,7 @@ While multi-tenancy is a goal for the code base, even with this in place, Arthur
 
 **Outcome** 
 
-Design a solution and prepare to present the solution to the target customer audience in a 15-minute chalk-talk format. 
+Design a solution and prepare to present the solution to the target customer audience in a 15-minute chalk-talk format.
 
 Timeframe: 60 minutes
 
@@ -185,10 +185,11 @@ Timeframe: 60 minutes
 
 Directions: With all participants at your table, answer the following questions and list the answers on a flip chart:
 
-1.  Who should you present this solution to? Who is your target customer audience? Who are the decision makers? 
+1.  Who should you present this solution to? Who is your target customer audience? Who are the decision makers?
+
 2.  What customer business needs do you need to address with your solution?
 
-**Design** 
+**Design**
 Directions: With all participants at your table, respond to the following questions on a flip chart:
 
 *High-level architecture*
@@ -229,7 +230,7 @@ Directions: With all participants at your table, respond to the following questi
 
 *Automating DevOps workflows*
 
-1.  Describe how VSTS can help the customer automate their continuous integration and deployment workflows and the Azure Kubernetes Service (AKS) infrastructure.
+1.  Describe how Azure DevOps can help the customer automate their continuous integration and deployment workflows and the Azure Kubernetes Service (AKS) infrastructure.
 
 **Prepare**
 
@@ -260,19 +261,20 @@ Directions:
 6.  The customer team gives feedback to the Microsoft team.
 7.  Tables switch roles and repeat Steps 2–6.
 
-##  Wrap-up 
+##  Wrap-up
 
 Timeframe: 15 minutes
 
-Directions: Tables reconvene with the larger group to hear the facilitator/SME share the preferred solution for the case study. 
+Directions: Tables reconvene with the larger group to hear the facilitator/SME share the preferred solution for the case study.
 
 ##  Additional references
 
 |    |            |
-|----------|:-------------:|
+|----------|:-------------|
 | **Description** | **Links** |
 | Azure Kubernetes Services (AKS) | <https://docs.microsoft.com/en-us/azure/aks/intro-kubernetes/> |
 | Docker Enterprise Edition (Docker EE) | <https://docs.docker.com/enterprise/> |
 | DC/OS | <https://docs.mesosphere.com/1.9/overview/> |
 | Kubernetes | <https://kubernetes.io/docs/home/> |
-| VSTS Pipelines | <https://docs.microsoft.com/en-us/vsts/pipelines>
+| Azure Pipelines | <https://docs.microsoft.com/en-us/azure/devops/pipelines/>
+|

@@ -1,6 +1,6 @@
 # Containers and DevOps
 
-Fabrikam Medical Conferences provides conference web site services, tailored to the medical community. Their business has grown and the management of many instances of the code base and change cycle per tenant has gotten out of control. 
+Fabrikam Medical Conferences provides conference web site services, tailored to the medical community. Their business has grown and the management of many instances of the code base and change cycle per tenant has gotten out of control.
 
 The goal of this workshop is to help them build a proof of concept (POC) that will migrate their code to a more manageable process that involves containerization of tenant code, a better DevOps workflow, and a simple lift-and-shift story for their database backend.
 
@@ -33,8 +33,9 @@ At the end of this lab you will be better able to build and deploy containerized
 
 - Azure Kubernetes Service (AKS)
 - Azure Container Registry
+- Azure DevOps
 - Docker
-- CosmosDB (including MongoDB API)
+- Cosmos DB (including MongoDB API)
 
 ## Azure solutions
 App Modernization
@@ -42,4 +43,3 @@ App Modernization
 ## Related references
 
 - [MCW](https://github.com/Microsoft/MCW)
-

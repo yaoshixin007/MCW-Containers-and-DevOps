@@ -249,7 +249,7 @@ Arthur is looking to take a step in this direction with the following goals in m
 
 While multi-tenancy is a goal for the code base, even with this in place, Arthur believes there will always be the need for custom copies of code for a particular tenant who requires a one-off custom implementation. Arthur feels that Docker containers may be a good solution to support their short-term DevOps and development agility needs, while also being the right direction once they reach a majority multi-tenant application solution.
 
-### Customer needs 
+### Customer needs
 
 1.  Reduce the overhead in time, complexity, and cost for deploying new conference tenants.
 
@@ -279,7 +279,7 @@ While multi-tenancy is a goal for the code base, even with this in place, Arthur
 
 7.  Complete an implementation of the proposed solution for a single tenant to train the team and perfect the process.
   
-### Customer objections 
+### Customer objections
 
 1.  With so many platforms and tools for Docker and container orchestration, how should we choose an option for Azure?
 
@@ -295,9 +295,9 @@ While multi-tenancy is a goal for the code base, even with this in place, Arthur
 
 <https://docs.microsoft.com/en-us/azure/aks/intro-kubernetes>
 
-**CICD to Azure Kubernetes Service with VSTS**
+**CICD to Azure Kubernetes Service with Azure DevOps**
 
-![A diagram showing the VSTS DevOps workflow to build Docker images from source code, push images to Azure Container Registry, and deploy to Azure Container Service using Kubernetes, Swarm or DCOS).](media/vsts-aks-devops.png)
+![A diagram showing the Azure DevOps workflow to build Docker images from source code, push images to Azure Container Registry, and deploy to Azure Container Service using Kubernetes, Swarm or DCOS).](media/azure-devops-aks.png)
 
 <https://www.azuredevopslabs.com/labs/vstsextend/kubernetes/>
 
@@ -359,7 +359,7 @@ Directions: With all participants at your table, respond to the following questi
 
 *Automating DevOps workflows*
 
-1.  Describe how VSTS can help the customer automate their continuous integration and deployment workflows and the Azure Kubernetes Service (AKS) infrastructure.
+1.  Describe how Azure DevOps can help the customer automate their continuous integration and deployment workflows and the Azure Kubernetes Service (AKS) infrastructure.
 
 **Prepare**
 
@@ -399,7 +399,7 @@ Directions:
 
 7.  Tables switch roles and repeat Steps 2-6.
 
-##  Wrap-up 
+##  Wrap-up
 
 Timeframe: 15 minutes
 
@@ -408,13 +408,13 @@ Directions: Tables reconvene with the larger group to hear the facilitator/SME s
 ##  Additional references
 
 |    |            |
-|----------|:-------------:|
+|----------|:-------------|
 | **Description** | **Links** |
 | Azure Kubernetes Services (AKS) | <https://docs.microsoft.com/en-us/azure/aks/intro-kubernetes/> |
 | Docker Enterprise Edition (Docker EE) | <https://docs.docker.com/enterprise/> |
 | DC/OS | <https://docs.mesosphere.com/1.9/overview/> |
 | Kubernetes | <https://kubernetes.io/docs/home/> |
-| VSTS Pipelines | <https://docs.microsoft.com/en-us/vsts/pipelines>
+| Azure Pipelines | <https://docs.microsoft.com/en-us/azure/devops/pipelines/>
 
 
 # Containers and DevOps whiteboard design session trainer guide
@@ -467,9 +467,9 @@ The primary audience is the technical strategic decision-maker with influential 
 
 ## Preferred solution
 
-After evaluating the options for container platforms on Azure and discussing Azure Kubernetes Service (AKS) features with the team at Microsoft, Fabrikam Medical Conferences decided to move forward with Azure Kubernetes Service (AKS). 
+After evaluating the options for container platforms on Azure and discussing Azure Kubernetes Service (AKS) features with the team at Microsoft, Fabrikam Medical Conferences decided to move forward with Azure Kubernetes Service (AKS).
 
-They also decided to move forward with VSTS for container DevOps workflows.
+They also decided to move forward with Azure DevOps for container DevOps workflows.
 
 *High-level architecture*
 
@@ -610,15 +610,15 @@ Azure Kubernetes Service (AKS) is the recommended platform for the following rea
 
 1. Explain to the customer how Azure Kubernetes Service (AKS) supports cluster auto-scaling.
 
-   You can scale the agent nodes in the cluster with Azure CLI commands. 
+   You can scale the agent nodes in the cluster with Azure CLI commands.
 
 *Automating DevOps workflows*
 
-1. Describe how VSTS can help the customer automate their continuous integration and deployment workflows and the Azure Kubernetes Service (AKS) infrastructure.
+1. Describe how Azure DevOps can help the customer automate their continuous integration and deployment workflows and the Azure Kubernetes Service (AKS) infrastructure.
 
-    With VSTS you can create build definitions that, on commit or check-in can produce build artifacts from the latest source (for example) and build Docker images, then push them to a Docker image repository such as Azure Container Registry. This build definition can be configured to respond to specific folder changes, can build one or more Docker image based on different project folders, and tag images with build number, required image repository tags and other information useful to your image promotion workflows. 
+    With Azure DevOps you can create build definitions that, on commit or check-in can produce build artifacts from the latest source (for example) and build Docker images, then push them to a Docker image repository such as Azure Container Registry. This build definition can be configured to respond to specific folder changes, can build one or more Docker image based on different project folders, and tag images with build number, required image repository tags and other information useful to your image promotion workflows.
 
-    To trigger deployment, you can also use VSTS to produce release definitions that can create or update services in AKS. You may, for example, want your development cluster to always deploy the latest images as code is committed. On the other hand, for test, UAT or production clusters you may want to manually run release jobs based on a specific image tag of the environment in order to control when a new version of a service or services are released. 
+    To trigger deployment, you can also use Azure DevOps to produce release definitions that can create or update services in AKS. You may, for example, want your development cluster to always deploy the latest images as code is committed. On the other hand, for test, UAT or production clusters you may want to manually run release jobs based on a specific image tag of the environment in order to control when a new version of a service or services are released.
 
 
 ## Checklist of preferred objection handling

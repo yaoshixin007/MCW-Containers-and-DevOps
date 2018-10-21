@@ -79,9 +79,9 @@ In this hands-on lab, you will assist with completing this POC with a subset of 
 
 Below is a diagram of the solution architecture you will build in this lab. Please study this carefully, so you understand the whole of the solution as you are working on the various components.
 
-The solution will use Azure Kubernetes Service (AKS), which means that the container cluster topology is provisioned according to the number of requested nodes. The proposed containers deployed to the cluster are illustrated below with CosmosDb as a managed service:
+The solution will use Azure Kubernetes Service (AKS), which means that the container cluster topology is provisioned according to the number of requested nodes. The proposed containers deployed to the cluster are illustrated below with Cosmos DB as a managed service:
 
-![A diagram showing the solution, using Azure Kubernetes Service with a CosmosDB back end.](media/image3.png)
+![A diagram showing the solution, using Azure Kubernetes Service with a Cosmos DB back end.](media/image3.png)
 
 Each tenant will have the following containers:
 
@@ -121,14 +121,13 @@ Each tenant will have the following containers:
 
 > **VERY IMPORTANT: You should be typing all of the commands as they appear in the guide, except where explicitly stated in this document. Do not try to copy and paste from Word to your command windows or other documents where you are instructed to enter information shown in this document. There can be issues with Copy and Paste from Word that result in errors, execution of instructions, or creation of file content.**
 
-
 ## Exercise 1: Create and run a Docker application
 
 **Duration**: 40 minutes
 
 In this exercise, you will take the starter files and run the node.js application as a Docker application. You will create a Dockerfile, build Docker images, and run containers to execute the application.
 
->**NOTE**: Complete these tasks from the WSL window with the build agent session.
+> **NOTE**: Complete these tasks from the WSL window with the build agent session.
 
 ### Task 1: Test the application
 
@@ -154,7 +153,6 @@ The purpose of this task is to make sure you can run the application successfull
     docker container list
     docker logs mongo
     ```
-
 
     ![In this screenshot of the WSL window, docker container list has been typed and run at the command prompt, and the “api” container is in the list. Below this the log output is shown.](media/Ex1-Task1.4.png)
 
@@ -900,13 +898,13 @@ In this task, you will push images to your ACR account, version images with tagg
 
     - **Include Latest Tag**: Checked
 
-13. Next we will use VSTS to automate the process for creating images and pushing to ACR.  First, you need to add an Azure Service Principal to your VSTS account.  Login to your VisualStudio.com account and click the gear icon to access your settings. Then select Services.
+13. Next we will use Azure DevOps to automate the process for creating images and pushing to ACR.  First, you need to add an Azure Service Principal to your Azure DevOps account.  Login to your VisualStudio.com account and click the gear icon to access your settings. Then select Services.
 
-    ![A screenshot of the VSTS menu.](media/Ex1-Task7.13.png)
+    ![A screenshot of the Azure DevOps menu.](media/Ex1-Task7.13.png)
 
 14. Choose "+ New Service Endpoint". Then pick "Azure Resource Manager" from the menu.
 
-    ![A screenshot of the New Service Endpoint selection in VSTS with Azure Resource Manager highlighted.](media/Ex1-Task7.14.png)
+    ![A screenshot of the New Service Endpoint selection in Azure DevOps with Azure Resource Manager highlighted.](media/Ex1-Task7.14.png)
 
 
 15. Select the link indicated in the screenshot below to access the advanced settings.
@@ -938,17 +936,17 @@ In this task, you will push images to your ACR account, version images with tagg
 
     > If the connection does not verify, then recheck and reenter the required data.
 
-18. Now create your first build. Select "Build and Release"; then select "+ New definition."
+18. Now create your first build. Select "Pipelines," then select "+ New definition."
 
-    ![A screenshot of VSTS build definitions.](media/Ex1-Task7.18.png)
+    ![A screenshot of Azure DevOps build definitions.](media/Ex1-Task7.18.png)
 
 19. Choose the content-web repository and accept the other defaults.
 
-    ![A screenshot of the source selection showing VSTS highlighted.](media/Ex1-Task7.19.png)
+    ![A screenshot of the source selection showing Azure DevOps highlighted.](media/Ex1-Task7.19.png)
 
-20. Next, search for "Docker" templates and choose "Container" then select "Apply".
+20. Next, search for "Docker" templates and choose "Docker Container" then select "Apply".
 
-    ![A screenshot of template selection showing Container selected.](media/Ex1-Task7.20.png)
+    ![A screenshot of template selection showing Docker Container selected.](media/Ex1-Task7.20.png)
 
 21. Change the build name to "content-web-Container-CI".
 
@@ -991,7 +989,7 @@ In this task, you will push images to your ACR account, version images with tagg
 
 27. While the content-api build runs, setup one last build for content-init by following the same steps as the previous two builds.
 
-28. Visit your ACR instance in the Azure portal, you should see new containers tagged with the VSTS build number.
+28. Visit your ACR instance in the Azure portal, you should see new containers tagged with the Azure DevOps build number.
 
     ![A screenhot of the container images in ACR.](media/Ex1-Task7.28.png)
 
@@ -1794,7 +1792,7 @@ In this task, you will edit the web application source code to add Application I
     ```
 20. Press the Escape key and type ":wq". Then press the Enter key to save and close the file.
 
-21. Push these changes to your repository so that VSTS CI will build a new image while you work on updating the content-api application.
+21. Push these changes to your repository so that Azure DevOps CI will build a new image while you work on updating the content-api application.
 
     ```bash
     git add .
@@ -1852,7 +1850,7 @@ In this task, you will edit the web application source code to add Application I
 
 29. Press the Escape key and type ":wq". Then press the Enter key to save and close the file.
 
-30. Push these changes to your repository so that VSTS CI will build a new image.
+30. Push these changes to your repository so that Azure DevOps CI will build a new image.
 
     ```bash
     git add .
@@ -1860,7 +1858,7 @@ In this task, you will edit the web application source code to add Application I
     git push
     ```
 
-31. Visit your ACR to see the new images and make a note of the tags assigned by VSTS.
+31. Visit your ACR to see the new images and make a note of the tags assigned by Azure DevOps.
 
      - Make a note of the latest tag for content-web.
 
