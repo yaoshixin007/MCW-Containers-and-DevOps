@@ -570,6 +570,7 @@ In this task, you will create your Azure Kubernetes Service cluster. You will us
     ![Summary is selected in the Create Azure Kubernetes Service blade, and a Validation passed message appears in the Summary blade on the right.](media/b4-image43.png)
 
 10.  The Azure Kubernetes Service cluster will begin deployment to your Azure subscription. You should see a successful deployment notification when the cluster is ready. It can take up to 10 minutes before your Azure Kubernetes Service cluster is listed in the Azure Portal. You can proceed to the next step while waiting for this to complete, then return to view the success of the deployment.
+
     ![This is a screenshot of a deployment notification indicating that the deployments succeeded.](media/b4-image45.png)
 
 > **NOTE: If you experience errors related to lack of available cores, you may have to delete some other compute resources or request additional cores to your subscription and then try this again.**
