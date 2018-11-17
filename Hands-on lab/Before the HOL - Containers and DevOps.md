@@ -127,9 +127,17 @@ In this section, you will create a Windows 10 VM to act as your development mach
 
 3.  On the Basics blade of the Virtual Machine setup, set the following:
 
+    -   **Subscription**: Choose the same subscription you are using for all your work.
+
+    -   **Resource group**: Choose Use existing and select the resource group you created previously.
+
     -   **Name**: Provide a unique name, such as "fabmedicald-SUFFIX" as shown in the following screenshot.
 
-    -   **VM disk type**: Leave as SSD.
+    -   **Region**: Choose the same region that you did before.
+
+    -   **Image**: Leave as default "Windows 10 Pro N, Version 1709"
+
+    -   **Size**: Leave as default "Standard DS2_V2"
 
     -   **User name**: Provide a user name, such as "adminfabmedical".
 
@@ -137,25 +145,25 @@ In this section, you will create a Windows 10 VM to act as your development mach
 
     -   **Confirm password**: Confirm the previously entered password.
 
-    -   **Subscription**: Choose the same subscription you are using for all your work.
+    -   Select **Next-Disks** to move to the next step.
 
-    -   **Resource group**: Choose Use existing and select the resource group you created previously.
+    ![In the Basics blade, the values listed above appear in the corresponding boxes. The suffix after the fabmedicald- value is obscured in the Name box and the Resource group box, as is the value for the Subscription box.](media/vm-basic-create-screen.png)
 
-    -   **Location**: Choose the same region that you did before.
+4.  From the Disks screen, choose OS disk type "Standard SSD" and select  **Next : Networking**.
 
-    -   Select **OK** to complete the Basics blade.
+    ![This is a screenshot of the vm disks screen to choose the OS disk type.](media/vm-basic-create-disks-screen.png)
 
-    ![In the Basics blade, the values listed above appear in the corresponding boxes. The suffix after the fabmedicald- value is obscured in the Name box and the Resource group box, as is the value for the Subscription box.](media/b4-image10.png)
+5.  From the Networking screen, leave everything as except the following:
+    -   **Public inbound ports**: Select Allow selected ports
+    -   **Select inbound ports**: Select RDP
+    -   Select **Review + create**.
 
-4.  From the Size blade search for "DS2_v2", choose **D2S\_V2 Standard** and **Select**.
+    ![This is a screenshot of the network settings for the vm to configure the ports to be allowed in.](media/vm-basic-create-network-screen.png)
 
-    !["DS2_v2" is entered in the Search box.  There is one result shown and it is selected.](media/b4-image11.png)
 
-5.  From the Settings blade, accept the default values for all settings and select **OK**.
+6.  From the Create screen, you should see that validation passed and select **Create**.
 
-6.  From the Create blade, you should see that validation passed and select **Create**.
-
-    ![This is a screenshot of the Create blade indicating that validation passed. Offer details are also visible.](media/b4-image12.png)
+    ![This is a screenshot of the Create blade indicating that validation passed. Offer details are also visible.](media/vm-basic-create-review-screen.png)
 
 7.  The VM will begin deployment to your Azure subscription.
 
@@ -226,10 +234,18 @@ In this section, you will create a Linux VM to act as your build agent. You will
 2. Select **Ubuntu Server 16.04 LTS** and select **Create**.
 
 3. On the Basics blade of the Virtual Machine setup, set the following:
+   
+    -   **Subscription**: Choose the same subscription you are using for all your work.
+
+    -   **Resource group**: Choose Use existing and select the resource group you created previously.
 
     -   **Name**: Provide a unique name, such as "fabmedical-SUFFIX" as shown in the following screenshot.
 
-    -   **VM disk type**: Leave as SSD.
+    -   **Region**: Choose the same region that you did before.
+
+    -   **Image**: Leave as "Ubuntu Server 16.04 LTS".
+
+    -   **Size**: Leave as "Standard D2s v3"
 
     -   **User name**: Provide a user name, such as "adminfabmedical".
 
@@ -261,27 +277,21 @@ In this section, you will create a Linux VM to act as your build agent. You will
 
     -   **Login with Azure Active Directory**: Leave disabled.
 
-    -   **Subscription**: Choose the same subscription you are using for all your work.
+    -   Select **Next : Disks** to move to the next step.
 
-    -   **Resource group**: Choose Use existing and select the resource group you created previously.
+    ![In the Basics blade, the values listed above appear in the corresponding boxes. The public key that you copied is pasted in the SSH public key box.](media/vm-basic-ubuntu-create-screen.png)
 
-    -   **Location**: Choose the same region that you did before.
+4. From the Disk screen select Standard SSD and then **Next : Netwroking**.
 
-    -   Select **OK** to complete the Basics blade.
+    !["From the list select Standard SSD for the OS disk type.](media/vm-basic-create-disks-ubuntu-screen.png)
 
-    ![In the Basics blade, the values listed above appear in the corresponding boxes. The public key that you copied is pasted in the SSH public key box.](media/b4-image21.png)
+5. From the Networking screen, accept the default values for most settings and select "SSH (22)" as a public inbound port, then select **Review + create**.
 
-4. From the Size blade search for "D2S_v3" and **Select**.
-
-    !["D2S_v3" is entered in the Search box.  There is one result shown and it is selected.](media/b4-image22.png)
-
-5. From the Settings blade, accept the default values for most settings and select "SSH (22)" as a public inbound port, then select **OK**.
-
-    ![This is the screenshot of the Settings blade with SSH selected as a public inbound port.](media/b4-image22a.png)
+    ![This is the screenshot of the Networking screen with SSH selected as a public inbound port.](media/vm-basic-create-network-ubuntu-screen.png)
 
 6. From the Create blade, you should see that validation passed and select **Create**.
 
-    ![This is a screenshot of the Create blade indicating that validation passed. Offer details are also visible.](media/b4-image23.png)
+    ![This is a screenshot of the Create blade indicating that validation passed. Offer details are also visible.](media/vm-basic-create-review-ubuntu-screen.png)
 
 7. The VM will begin deployment to your Azure subscription.
 
@@ -521,7 +531,7 @@ In this task, you will create your Azure Kubernetes Service cluster. You will us
     * **Resource group**: Select the resource group you have been using through the lab.
     * **Name**: Enter fabmedical-SUFFIX.
     * **Region**: Choose the same region as the resource group.
-    * **Kubernetes version**: 1.9.6.
+    * **Kubernetes version**: 1.9.10.
     * **DNS Prefix**: Enter fabmedical-SUFFIX.
 
         ![Basics is selected in the Create Azure Kubernetes Service blade, and the values listed above appear in the corresponding boxes in the Basics blade on the right.](media/b4-image41.png)
