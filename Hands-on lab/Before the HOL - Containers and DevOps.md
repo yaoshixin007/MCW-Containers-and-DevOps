@@ -536,13 +536,6 @@ In this task, you will create your Azure Kubernetes Service cluster. You will us
 
         ![Basics is selected in the Create Azure Kubernetes Service blade, and the values listed above appear in the corresponding boxes in the Basics blade on the right.](media/b4-image41.png)
 
-    * Configure your service principal.
-    
-        * **Service principal client ID**: Use the service principal “appId” from the previous step.
-        * **Service principal client secret**: Use the service principal “password” from the previous step.
-
-            ![Microsoft Azure](media/b4-image41a.png)
-
     * Configure your VM size.
 
         * Click "Change Size".
@@ -555,17 +548,28 @@ In this task, you will create your Azure Kubernetes Service cluster. You will us
 
         ![Microsoft Azure](media/b4-image41c.png)
 
-3. Select "Next: Networking".
-4. Keep the defaults and select "Next: Monitoring".
-5. Keep the defaults and select "Next: Tags".
-6. Keep the defaults and select "Review + create".
-7. You should see that validation passed; select "Create".
 
-8.  On the Summary blade, you should see that validation passed; select **OK**.
+3. Select "Next : Authentication"
+
+    * Configure your service principal.
+    
+        * **Service principal client ID**: Use the service principal “appId” from the previous step.
+        * **Service principal client secret**: Use the service principal “password” from the previous step.
+
+            ![Microsoft Azure](media/b4-image41a.png)
+
+
+4. Select "Next: Networking".
+5. Keep the defaults and select "Next: Monitoring".
+6. Keep the defaults and select "Next: Tags".
+7. Keep the defaults and select "Review + create".
+8. You should see that validation passed; select "Create".
+
+9.  On the Summary blade, you should see that validation passed; select **OK**.
 
     ![Summary is selected in the Create Azure Kubernetes Service blade, and a Validation passed message appears in the Summary blade on the right.](media/b4-image43.png)
 
-9.  The Azure Kubernetes Service cluster will begin deployment to your Azure subscription. You should see a successful deployment notification when the cluster is ready. It can take up to 10 minutes before your Azure Kubernetes Service cluster is listed in the Azure Portal. You can proceed to the next step while waiting for this to complete, then return to view the success of the deployment.
+10.  The Azure Kubernetes Service cluster will begin deployment to your Azure subscription. You should see a successful deployment notification when the cluster is ready. It can take up to 10 minutes before your Azure Kubernetes Service cluster is listed in the Azure Portal. You can proceed to the next step while waiting for this to complete, then return to view the success of the deployment.
 
     ![This is a screenshot of a deployment notification indicating that the deployments succeeded.](media/b4-image45.png)
 
