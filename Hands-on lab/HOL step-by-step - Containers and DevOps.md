@@ -892,12 +892,6 @@ In this task, you will push images to your ACR account, version images with tagg
     docker pull [LOGINSERVER]/content-web:v1
     ```
 
-    - **Azure subscription**: Choose "azurecloud-sol".
-
-    - **Azure Container Registry**: Choose your ACR instance by name.
-
-    - **Include Latest Tag**: Checked
-
 13. Next we will use Azure DevOps to automate the process for creating images and pushing to ACR.  First, you need to add an Azure Service Principal to your Azure DevOps account.  Login to your VisualStudio.com account and click the gear icon to access your settings. Then select Services.
 
     ![A screenshot of the Azure DevOps menu.](media/Ex1-Task7.13.png)
