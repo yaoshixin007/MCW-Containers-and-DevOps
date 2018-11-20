@@ -894,11 +894,9 @@ In this task, you will push images to your ACR account, version images with tagg
 
 13. Next we will use Azure DevOps to automate the process for creating images and pushing to ACR.  First, you need to add an Azure Service Principal to your Azure DevOps account.  Login to your VisualStudio.com account and click the gear icon to access your settings. Then select Services.
 
-    ![A screenshot of the Azure DevOps menu.](media/Ex1-Task7.13.png)
-
 14. Choose "+ New Service Endpoint". Then pick "Azure Resource Manager" from the menu.
 
-    ![A screenshot of the New Service Endpoint selection in Azure DevOps with Azure Resource Manager highlighted.](media/Ex1-Task7.14.png)
+    ![A screenshot of the New Service Endpoint selection in Azure DevOps with Azure Resource Manager highlighted.](media/vso-service-connection-settings.png)
 
 
 15. Select the link indicated in the screenshot below to access the advanced settings.
