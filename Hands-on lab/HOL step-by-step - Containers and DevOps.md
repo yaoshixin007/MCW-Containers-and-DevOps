@@ -901,7 +901,7 @@ In this task, you will push images to your ACR account, version images with tagg
 
 15. Select the link indicated in the screenshot below to access the advanced settings.
 
-    ![A screenshot of the Add Azure Resource Manager dialog where you can enter your subscription information.](media/Ex1-Task7.15.png)
+    ![A screenshot of the Add Azure Resource Manager dialog where you can enter your subscription information.](media/vso-service-connection-settings2.png)
 
 
 16. Enter the required information using the service principal information you created before the lab.
