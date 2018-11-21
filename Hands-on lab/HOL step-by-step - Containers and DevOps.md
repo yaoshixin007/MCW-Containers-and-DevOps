@@ -1116,13 +1116,15 @@ In this task, you will deploy the API application to the Azure Kubernetes Servic
 
     ![A screenshot of the Azure Portal selection to create Database as a service for MongoDB.](media/Ex2-Task1.7.png)
 
-8. Configure Azure CosmosDb as follows and click "Create":
-
-    - **ID**: fabmedical-SUFFIX
+8. Configure Azure CosmosDb as follows and click "Review + create" and then click "Create":
 
     - **Subscription**: Use the same subscription you have used for all your other work.
 
     - **Resource Group**: fabmedical-SUFFIX
+
+    - **Account Name**: fabmedical-SUFFIX
+
+    - **Location**: Choose the same region that you did before.
 
     - **Geo-redundancy**: default (checked)
 
