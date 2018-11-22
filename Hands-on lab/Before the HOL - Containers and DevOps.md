@@ -369,9 +369,11 @@ In this task, you will update the packages and install Docker engine.
     ``` bash
     sudo add-apt-repository "deb [arch=amd64] https://download.docker.com/linux/ubuntu $(lsb_release -cs) stable"
     ```
-5. Update the Ubuntu packages and install Docker engine, node.js and the node package manager in a single step by typing the following in a single line command. When asked if you would like to proceed, respond by typing "y" and pressing enter.
+5. Add NodeJs PPA to use NodeJS LTS release and Update the Ubuntu packages and install Docker engine, node.js and the node package manager in a single step by typing the following in a single line command. When asked if you would like to proceed, respond by typing "y" and pressing enter.
 
     ``` bash
+    sudo apt-get install curl python-software-properties
+    curl -sL https://deb.nodesource.com/setup_8.x | sudo -E bash -
     sudo apt-get update && sudo apt install docker-ce nodejs npm mongodb-clients
     ```
 6. Now, upgrade the Ubuntu packages to the latest version by typing the following in a single line command. When asked if you would like to proceed, respond by typing "y" and pressing enter.
