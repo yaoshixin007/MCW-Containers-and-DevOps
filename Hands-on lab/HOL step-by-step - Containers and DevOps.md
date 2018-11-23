@@ -1905,6 +1905,7 @@ In this task you will setup a Kubernetes Ingress to take advantage of path based
 2. Setup your local config and deploy the server side helm component `tiller`.
 
     ```bash
+    helm init
     ```
 
 3. Update your helm package list.
