@@ -1572,7 +1572,7 @@ In this task, you will restart containers and validate that the restart does not
 
     ![On the Stats page in the Contoso Neuro 2017 web application, two different api host name values are highlighted.](media/image126.png)
 
-6. After refreshing enough times to see that the hostName value is changing and the service remains healthy, return to the Replica Sets view for the API. From the navigation menu, select Replica Sets under Workloads and select the API replica set.
+6. After refreshing enough times to see that the hostName value is changing, and the service remains healthy, return to the Replica Sets view for the API. From the navigation menu, select Replica Sets under Workloads and select the API replica set.
 
 7. From this view, take note that the hostName value shown in the web application stats page matches the pod names for the pods that are running.
 
@@ -1720,7 +1720,7 @@ In this task, you will edit the web application source code to add Application I
 
     ![A screenshot of the Azure Portal showing the Instrumentation Key for an Application Insights resource.](media/Ex4-Task4.6.png)
 
-7. Return to your resource group and view the details of the content-api Application Insights resource.  Make a note of it's unique Instrumentation Key as well.
+7. Return to your resource group and view the details of the content-api Application Insights resource.  Make a note of its unique Instrumentation Key as well.
 
 8. Connect to your build agent VM using ssh as you did in Task 6: Connect securely to the build agent before the hands-on lab.
 
