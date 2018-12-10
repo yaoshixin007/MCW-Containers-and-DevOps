@@ -9,7 +9,7 @@ Before the hands-on lab setup guide
 </div>
 
 <div class="MCWHeader3">
-August 2018
+November 2018
 </div>
 
 
@@ -24,24 +24,26 @@ The names of manufacturers, products, or URLs are provided for informational pur
 **Contents**
 <!-- TOC -->
 
-- [Requirements](#requirements)
-- [Before the hands-on lab](#before-the-hands-on-lab)
-    - [Task 1: Resource Group](#task-1-resource-group)
-    - [Task 2: Create a Windows 10 Development VM](#task-2-create-a-windows-10-development-vm)
-    - [Task 3: Install WSL (Bash on Ubuntu on Windows)](#task-3-install-wsl-bash-on-ubuntu-on-windows)
-    - [Task 4: Create an SSH key](#task-4-create-an-ssh-key)
-    - [Task 5: Create a build agent VM](#task-5-create-a-build-agent-vm)
-    - [Task 6: Connect securely to the build agent](#task-6-connect-securely-to-the-build-agent)
-    - [Task 7: Complete the build agent setup](#task-7-complete-the-build-agent-setup)
-    - [Task 8: Create an Azure Container Registry](#task-8-create-an-azure-container-registry)
-    - [Task 9: Create a Service Principal](#task-9-create-a-service-principal)
-    - [Task 10: Create an Azure Kubernetes Service cluster](#task-10-create-an-azure-kubernetes-service-cluster)
-    - [Task 11: Install Azure CLI](#task-11-install-azure-cli)
-    - [Task 12: Install Kubernetes CLI](#task-12-install-kubernetes-cli)
-    - [Task 13: Download the FabMedical starter files](#task-13-download-the-fabmedical-starter-files)
+- [Containers and DevOps before the hands-on lab setup guide](#containers-and-devops-before-the-hands-on-lab-setup-guide)
+    - [Requirements](#requirements)
+    - [Before the hands-on lab](#before-the-hands-on-lab)
+        - [Task 1: Resource Group](#task-1-resource-group)
+        - [Task 2: Create a Windows 10 Development VM](#task-2-create-a-windows-10-development-vm)
+        - [Task 3: Install WSL (Bash on Ubuntu on Windows)](#task-3-install-wsl-bash-on-ubuntu-on-windows)
+        - [Task 4: Create an SSH key](#task-4-create-an-ssh-key)
+        - [Task 5: Create a build agent VM](#task-5-create-a-build-agent-vm)
+        - [Task 6: Connect securely to the build agent](#task-6-connect-securely-to-the-build-agent)
+        - [Task 7: Complete the build agent setup](#task-7-complete-the-build-agent-setup)
+        - [Task 8: Create an Azure Container Registry](#task-8-create-an-azure-container-registry)
+        - [Task 9: Create a Service Principal](#task-9-create-a-service-principal)
+        - [Task 10: Create an Azure Kubernetes Service cluster](#task-10-create-an-azure-kubernetes-service-cluster)
+        - [Task 11: Install Azure CLI](#task-11-install-azure-cli)
+        - [Task 12: Install Kubernetes CLI](#task-12-install-kubernetes-cli)
+        - [Task 13: Download the FabMedical starter files](#task-13-download-the-fabmedical-starter-files)
 
 <!-- /TOC -->
 
+# Containers and DevOps before the hands-on lab setup guide
 
 ## Requirements
 
@@ -115,7 +117,7 @@ You will follow these steps to create a development VM (machine) for the followi
 
 -   If you are not sure if you set up WSL correctly, given there are a few ways to do this, it may be easier to create the development machine for a predictable experience.
 
-> **NOTE: Setting up the development machine is optional for Mac OS since you will use Terminal for commands. Setting up the development machine is also optional if you are certain you have a working installation of WSL on your current Windows 10 VM.**
+> **Note: Setting up the development machine is optional for Mac OS since you will use Terminal for commands. Setting up the development machine is also optional if you are certain you have a working installation of WSL on your current Windows 10 VM.**
 
 In this section, you will create a Windows 10 VM to act as your development machine. You will install the required components to complete the lab using this machine. You will use this machine instead of your local machine to carry out the instructions during the lab.
 
@@ -127,9 +129,17 @@ In this section, you will create a Windows 10 VM to act as your development mach
 
 3.  On the Basics blade of the Virtual Machine setup, set the following:
 
+    -   **Subscription**: Choose the same subscription you are using for all your work.
+
+    -   **Resource group**: Choose Use existing and select the resource group you created previously.
+
     -   **Name**: Provide a unique name, such as "fabmedicald-SUFFIX" as shown in the following screenshot.
 
-    -   **VM disk type**: Leave as SSD.
+    -   **Region**: Choose the same region that you did before.
+
+    -   **Image**: Leave as default "Windows 10 Pro N, Version 1709".
+
+    -   **Size**: Leave as default "Standard DS2_V2".
 
     -   **User name**: Provide a user name, such as "adminfabmedical".
 
@@ -137,25 +147,25 @@ In this section, you will create a Windows 10 VM to act as your development mach
 
     -   **Confirm password**: Confirm the previously entered password.
 
-    -   **Subscription**: Choose the same subscription you are using for all your work.
+    -   Select **Next-Disks** to move to the next step.
 
-    -   **Resource group**: Choose Use existing and select the resource group you created previously.
+    ![In the Basics blade, the values listed above appear in the corresponding boxes. The suffix after the fabmedicald- value is obscured in the Name box and the Resource group box, as is the value for the Subscription box.](media/vm-basic-create-screen.png)
 
-    -   **Location**: Choose the same region that you did before.
+4.  From the Disks screen, choose OS disk type "Standard SSD" and select  **Next : Networking**.
 
-    -   Select **OK** to complete the Basics blade.
+    ![This is a screenshot of the vm disks screen to choose the OS disk type.](media/vm-basic-create-disks-screen.png)
 
-    ![In the Basics blade, the values listed above appear in the corresponding boxes. The suffix after the fabmedicald- value is obscured in the Name box and the Resource group box, as is the value for the Subscription box.](media/b4-image10.png)
+5.  From the Networking screen, leave everything as except the following:
+    -   **Public inbound ports**: Select Allow selected ports.
+    -   **Select inbound ports**: Select RDP.
+    -   Select **Review + create**.
 
-4.  From the Size blade search for "DS2_v2", choose **D2S\_V2 Standard** and **Select**.
+    ![This is a screenshot of the network settings for the vm to configure the ports to be allowed in.](media/vm-basic-create-network-screen.png)
 
-    !["DS2_v2" is entered in the Search box.  There is one result shown and it is selected.](media/b4-image11.png)
 
-5.  From the Settings blade, accept the default values for all settings and select **OK**.
+6.  From the Create screen, you should see that validation passed and select **Create**.
 
-6.  From the Create blade, you should see that validation passed and select **Create**.
-
-    ![This is a screenshot of the Create blade indicating that validation passed. Offer details are also visible.](media/b4-image12.png)
+    ![This is a screenshot of the Create blade indicating that validation passed. Offer details are also visible.](media/vm-basic-create-review-screen.png)
 
 7.  The VM will begin deployment to your Azure subscription.
 
@@ -173,7 +183,7 @@ In this section, you will create a Windows 10 VM to act as your development mach
 
 ### Task 3: Install WSL (Bash on Ubuntu on Windows)
 
->**NOTE: If you are using a Windows 10 development machine, follow these steps. For Mac OS you can ignore this step since you will be using Terminal for all commands.**
+>**Note: If you are using a Windows 10 development machine, follow these steps. For Mac OS you can ignore this step since you will be using Terminal for all commands.**
 
 You will need WSL to complete various steps. A complete list of instructions for supported Windows 10 versions is available on this page:
 
@@ -217,7 +227,7 @@ In this section, you will create an SSH key to securely access the VMs you creat
 
 In this section, you will create a Linux VM to act as your build agent. You will install Docker to this VM once it is set up, and you will use this VM during the lab to develop and deploy.
 
->**NOTE: You can set up your local machine with Docker however the setup varies for different versions of Windows. For this lab, the build agent approach simply allows for predictable setup.**
+>**Note: You can set up your local machine with Docker however the setup varies for different versions of Windows. For this lab, the build agent approach simply allows for predictable setup.**
 
 1. From the Azure Portal, select **+ Create a resource**, type "**Ubuntu**" in the Search the marketplace text box and press **Enter**.
 
@@ -226,10 +236,18 @@ In this section, you will create a Linux VM to act as your build agent. You will
 2. Select **Ubuntu Server 16.04 LTS** and select **Create**.
 
 3. On the Basics blade of the Virtual Machine setup, set the following:
+   
+    -   **Subscription**: Choose the same subscription you are using for all your work.
+
+    -   **Resource group**: Choose Use existing and select the resource group you created previously.
 
     -   **Name**: Provide a unique name, such as "fabmedical-SUFFIX" as shown in the following screenshot.
 
-    -   **VM disk type**: Leave as SSD.
+    -   **Region**: Choose the same region that you did before.
+
+    -   **Image**: Leave as "Ubuntu Server 16.04 LTS".
+
+    -   **Size**: Leave as "Standard D2s v3".
 
     -   **User name**: Provide a user name, such as "adminfabmedical".
 
@@ -261,27 +279,21 @@ In this section, you will create a Linux VM to act as your build agent. You will
 
     -   **Login with Azure Active Directory**: Leave disabled.
 
-    -   **Subscription**: Choose the same subscription you are using for all your work.
+    -   Select **Next : Disks** to move to the next step.
 
-    -   **Resource group**: Choose Use existing and select the resource group you created previously.
+    ![In the Basics blade, the values listed above appear in the corresponding boxes. The public key that you copied is pasted in the SSH public key box.](media/vm-basic-ubuntu-create-screen.png)
 
-    -   **Location**: Choose the same region that you did before.
+4. From the Disk screen select Standard SSD and then **Next : Netwroking**.
 
-    -   Select **OK** to complete the Basics blade.
+    !["From the list select Standard SSD for the OS disk type.](media/vm-basic-create-disks-ubuntu-screen.png)
 
-    ![In the Basics blade, the values listed above appear in the corresponding boxes. The public key that you copied is pasted in the SSH public key box.](media/b4-image21.png)
+5. From the Networking screen, accept the default values for most settings and select "SSH (22)" as a public inbound port, then select **Review + create**.
 
-4. From the Size blade search for "D2S_v3" and **Select**.
-
-    !["D2S_v3" is entered in the Search box.  There is one result shown and it is selected.](media/b4-image22.png)
-
-5. From the Settings blade, accept the default values for most settings and select "SSH (22)" as a public inbound port, then select **OK**.
-
-    ![This is the screenshot of the Settings blade with SSH selected as a public inbound port.](media/b4-image22a.png)
+    ![This is the screenshot of the Networking screen with SSH selected as a public inbound port.](media/vm-basic-create-network-ubuntu-screen.png)
 
 6. From the Create blade, you should see that validation passed and select **Create**.
 
-    ![This is a screenshot of the Create blade indicating that validation passed. Offer details are also visible.](media/b4-image23.png)
+    ![This is a screenshot of the Create blade indicating that validation passed. Offer details are also visible.](media/vm-basic-create-review-ubuntu-screen.png)
 
 7. The VM will begin deployment to your Azure subscription.
 
@@ -329,13 +341,13 @@ In this section, you will validate that you can connect to the new build agent V
 
 6.  When asked for the passphrase for the private key you created previously, enter this value.
 
-7.  You will connect to the VM with a command prompt such as the following. Keep this command prompt open for the next step.
+7.  You will connect to the VM with a command prompt such as the following. Keep this command prompt open for the next step:
 
     adminfabmedical\@fabmedical-SUFFIX:~$
 
     ![In this screenshot of a Command Prompt window, ssh -i .ssh/fabmedical adminfabmedical\@52.174.141.11 has been typed and run at the command prompt. The information detailed above appears in the window. At this time, we are unable to capture all of the information in the window. Future versions of this course should address this.](media/b4-image27.png)
 
->**NOTE: If you have issues connecting, you may have pasted the SSH public key incorrectly. Unfortunately, if this is the case, you will have to recreate the VM and try again.**
+>**Note: If you have issues connecting, you may have pasted the SSH public key incorrectly. Unfortunately, if this is the case, you will have to recreate the VM and try again.**
 
 ### Task 7: Complete the build agent setup
 
@@ -359,9 +371,11 @@ In this task, you will update the packages and install Docker engine.
     ``` bash
     sudo add-apt-repository "deb [arch=amd64] https://download.docker.com/linux/ubuntu $(lsb_release -cs) stable"
     ```
-5. Update the Ubuntu packages and install Docker engine, node.js and the node package manager in a single step by typing the following in a single line command. When asked if you would like to proceed, respond by typing "y" and pressing enter.
+5. Add NodeJs PPA to use NodeJS LTS release and Update the Ubuntu packages and install Docker engine, node.js and the node package manager in a single step by typing the following in a single line command. When asked if you would like to proceed, respond by typing "y" and pressing enter.
 
     ``` bash
+    sudo apt-get install curl python-software-properties
+    curl -sL https://deb.nodesource.com/setup_8.x | sudo -E bash -
     sudo apt-get update && sudo apt install docker-ce nodejs npm mongodb-clients
     ```
 6. Now, upgrade the Ubuntu packages to the latest version by typing the following in a single line command. When asked if you would like to proceed, respond by typing "y" and pressing enter.
@@ -463,7 +477,7 @@ You deploy Docker images from a registry. To complete the hands-on lab, you will
 
 Azure Kubernetes Service requires an Azure Active Directory service principal to interact with Azure APIs. The service principal is needed to dynamically manage resources such as user-defined routes and the Layer 4 Azure Load Balancer. The easiest way to set up the service principal is using the Azure cloud shell.
 
-> **NOTE: By default, creating a service principal in Azure AD requires account owner permission. You may have trouble creating a service principal if you are not the account owner.**
+> **Note: By default, creating a service principal in Azure AD requires account owner permission. You may have trouble creating a service principal if you are not the account owner.**
 
 1.  Open cloud shell by selecting the cloud shell icon in the menu bar.
 
@@ -521,17 +535,10 @@ In this task, you will create your Azure Kubernetes Service cluster. You will us
     * **Resource group**: Select the resource group you have been using through the lab.
     * **Name**: Enter fabmedical-SUFFIX.
     * **Region**: Choose the same region as the resource group.
-    * **Kubernetes version**: 1.9.6.
+    * **Kubernetes version**: 1.9.10.
     * **DNS Prefix**: Enter fabmedical-SUFFIX.
 
         ![Basics is selected in the Create Azure Kubernetes Service blade, and the values listed above appear in the corresponding boxes in the Basics blade on the right.](media/b4-image41.png)
-
-    * Configure your service principal.
-    
-        * **Service principal client ID**: Use the service principal “appId” from the previous step.
-        * **Service principal client secret**: Use the service principal “password” from the previous step.
-
-            ![Microsoft Azure](media/b4-image41a.png)
 
     * Configure your VM size.
 
@@ -545,21 +552,32 @@ In this task, you will create your Azure Kubernetes Service cluster. You will us
 
         ![Microsoft Azure](media/b4-image41c.png)
 
-3. Select "Next: Networking".
-4. Keep the defaults and select "Next: Monitoring".
-5. Keep the defaults and select "Next: Tags".
-6. Keep the defaults and select "Review + create".
-7. You should see that validation passed; select "Create".
 
-8.  On the Summary blade, you should see that validation passed; select **OK**.
+3. Select "Next : Authentication"
+
+    * Configure your service principal.
+    
+        * **Service principal client ID**: Use the service principal “appId” from the previous step.
+        * **Service principal client secret**: Use the service principal “password” from the previous step.
+
+            ![Microsoft Azure](media/b4-image41a.png)
+
+
+4. Select "Next: Networking".
+5. Keep the defaults and select "Next: Monitoring".
+6. Keep the defaults and select "Next: Tags".
+7. Keep the defaults and select "Review + create".
+8. You should see that validation passed; select "Create".
+
+9.  On the Summary blade, you should see that validation passed; select **OK**.
 
     ![Summary is selected in the Create Azure Kubernetes Service blade, and a Validation passed message appears in the Summary blade on the right.](media/b4-image43.png)
 
-9.  The Azure Kubernetes Service cluster will begin deployment to your Azure subscription. You should see a successful deployment notification when the cluster is ready. It can take up to 10 minutes before your Azure Kubernetes Service cluster is listed in the Azure Portal. You can proceed to the next step while waiting for this to complete, then return to view the success of the deployment.
+10. The Azure Kubernetes Service cluster will begin deployment to your Azure subscription. You should see a successful deployment notification when the cluster is ready. It can take up to 10 minutes before your Azure Kubernetes Service cluster is listed in the Azure Portal. You can proceed to the next step while waiting for this to complete, then return to view the success of the deployment.
 
     ![This is a screenshot of a deployment notification indicating that the deployments succeeded.](media/b4-image45.png)
 
-> **NOTE: If you experience errors related to lack of available cores, you may have to delete some other compute resources or request additional cores to your subscription and then try this again.**
+> **Note: If you experience errors related to lack of available cores, you may have to delete some other compute resources or request additional cores to your subscription and then try this again.**
 
 ### Task 11: Install Azure CLI
 
@@ -738,6 +756,6 @@ FabMedical has provided starter files for you. They have taken a copy of one of 
 
     * Use the repository url and `git clone` to copy the content-init code to your build agent.
 
->**NOTE: Keep this WSL window open as your build agent SSH connection. You will later open new WSL sessions to other machines.**
+>**Note: Keep this WSL window open as your build agent SSH connection. You will later open new WSL sessions to other machines.**
 
 You should follow all steps provided *before* performing the Hands-on lab.

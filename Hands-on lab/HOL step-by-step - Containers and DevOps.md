@@ -9,7 +9,7 @@ Hands-on lab step-by-step
 </div>
 
 <div class="MCWHeader3">
-August 2018
+November 2018
 </div>
 
 Information in this document, including URL and other Internet Web site references, is subject to change without notice. Unless otherwise noted, the example companies, organizations, products, domain names, e-mail addresses, logos, people, places, and events depicted herein are fictitious, and no association with any real company, organization, product, domain name, e-mail address, logo, person, place or event is intended or should be inferred. Complying with all applicable copyright laws is the responsibility of the user. Without limiting the rights under copyright, no part of this document may be reproduced, stored in or introduced into a retrieval system, or transmitted in any form or by any means (electronic, mechanical, photocopying, recording, or otherwise), or for any purpose, without the express written permission of Microsoft Corporation.
@@ -127,7 +127,7 @@ Each tenant will have the following containers:
 
 In this exercise, you will take the starter files and run the node.js application as a Docker application. You will create a Dockerfile, build Docker images, and run containers to execute the application.
 
-> **NOTE**: Complete these tasks from the WSL window with the build agent session.
+> **Note**: Complete these tasks from the WSL window with the build agent session.
 
 ### Task 1: Test the application
 
@@ -319,7 +319,7 @@ In this task, you will open a port range on the agent VM so that you can browse 
 
 In this task, you will create a new Dockerfile that will be used to run the API application as a containerized application.
 
-> **NOTE: You will be working in a Linux VM without friendly editor tools. You must follow the steps very carefully to work with Vim for a few editing exercises if you are not already familiar with Vim.**
+> **Note: You will be working in a Linux VM without friendly editor tools. You must follow the steps very carefully to work with Vim for a few editing exercises if you are not already familiar with Vim.**
 
 1. From WSL, navigate to the content-api folder. List the files in the folder with this command. The output should look like the screenshot below.
 
@@ -374,7 +374,7 @@ In this task, you will create a new Dockerfile that will be used to run the API 
 
       - Indicates the command to start the node application when the container is run.
 
-    > **NOTE: Type the following into the editor, as you may have errors with copying and pasting:**
+    > **Note: Type the following into the editor, as you may have errors with copying and pasting:**
 
     ```Dockerfile
     FROM node:alpine AS base
@@ -892,29 +892,21 @@ In this task, you will push images to your ACR account, version images with tagg
     docker pull [LOGINSERVER]/content-web:v1
     ```
 
-    - **Azure subscription**: Choose "azurecloud-sol".
-
-    - **Azure Container Registry**: Choose your ACR instance by name.
-
-    - **Include Latest Tag**: Checked
-
 13. Next we will use Azure DevOps to automate the process for creating images and pushing to ACR.  First, you need to add an Azure Service Principal to your Azure DevOps account.  Login to your VisualStudio.com account and click the gear icon to access your settings. Then select Services.
-
-    ![A screenshot of the Azure DevOps menu.](media/Ex1-Task7.13.png)
 
 14. Choose "+ New Service Endpoint". Then pick "Azure Resource Manager" from the menu.
 
-    ![A screenshot of the New Service Endpoint selection in Azure DevOps with Azure Resource Manager highlighted.](media/Ex1-Task7.14.png)
+    ![A screenshot of the New Service Endpoint selection in Azure DevOps with Azure Resource Manager highlighted.](media/vso-service-connection-settings.png)
 
 
 15. Select the link indicated in the screenshot below to access the advanced settings.
 
-    ![A screenshot of the Add Azure Resource Manager dialog where you can enter your subscription information.](media/Ex1-Task7.15.png)
+    ![A screenshot of the Add Azure Resource Manager dialog where you can enter your subscription information.](media/vso-service-connection-settings2.png)
 
 
 16. Enter the required information using the service principal information you created before the lab.
 
-    > **NOTE:** I you don't have your Subscription information handy you can view it using `az account show` on your **local** machine (not the build agent).
+    > **Note:** I you don't have your Subscription information handy you can view it using `az account show` on your **local** machine (not the build agent).
 
     - **Connection name**: azurecloud-sol
 
@@ -1062,7 +1054,7 @@ In this task, you will gather the information you need about your Azure Kubernet
 
 7. Create an SSH tunnel linking a local port (8001) on your machine to port 80 on the management node of the cluster. Execute the command below replacing the values as follows:
 
-   > ***NOTE:* After you run this command, it may work at first and later lose its connection, so you may have to run this again to reestablish the connection. If the Kubernetes dashboard becomes unresponsive in the browser this is an indication to return here and check your tunnel or rerun the command.**
+   > **Note: After you run this command, it may work at first and later lose its connection, so you may have to run this again to reestablish the connection. If the Kubernetes dashboard becomes unresponsive in the browser this is an indication to return here and check your tunnel or rerun the command.**
 
     ```bash
     az aks browse --name fabmedical-SUFFIX --resource-group fabmedical-SUFFIX
@@ -1124,13 +1116,15 @@ In this task, you will deploy the API application to the Azure Kubernetes Servic
 
     ![A screenshot of the Azure Portal selection to create Database as a service for MongoDB.](media/Ex2-Task1.7.png)
 
-8. Configure Azure CosmosDb as follows and click "Create":
-
-    - **ID**: fabmedical-SUFFIX
+8. Configure Azure CosmosDb as follows and click "Review + create" and then click "Create":
 
     - **Subscription**: Use the same subscription you have used for all your other work.
 
     - **Resource Group**: fabmedical-SUFFIX
+
+    - **Account Name**: fabmedical-SUFFIX
+
+    - **Location**: Choose the same region that you did before.
 
     - **Geo-redundancy**: default (checked)
 
@@ -1145,7 +1139,7 @@ In this task, you will deploy the API application to the Azure Kubernetes Servic
 
 11. Update the provided connection string with a database "contentdb" and a replica set "globaldb".
 
-    > NOTE: User name and password redacted for brevity.
+    > Note: User name and password redacted for brevity.
 
     ```text
     mongodb://<USERNAME>:<PASSWORD>@fabmedical-sol2.documents.azure.com:10255/contentdb?ssl=true&replicaSet=globaldb
@@ -1232,7 +1226,7 @@ In this task, deploy the web service using `kubectl`.
 
 3. Copy and paste the following text into the editor:
 
-    >**NOTE: Be sure to copy and paste only the contents of the code block carefully to avoid introducing any special characters.**
+    >**Note: Be sure to copy and paste only the contents of the code block carefully to avoid introducing any special characters.**
 
     ```yaml
     apiVersion: extensions/v1beta1
@@ -1309,7 +1303,7 @@ In this task, deploy the web service using `kubectl`.
 
 7. Copy and paste the following text into the editor:
 
-    >**NOTE: Be sure to copy and paste only the contents of the code block carefully to avoid introducing any special characters.**
+    >**Note: Be sure to copy and paste only the contents of the code block carefully to avoid introducing any special characters.**
 
     ```yaml
     apiVersion: v1
@@ -1360,7 +1354,7 @@ In this task, you will use a Kubernetes Job to run a container that is meant to 
 
 2. Copy and paste the following text into the editor:
 
-   > **NOTE: Be sure to copy and paste only the contents of the code block carefully to avoid introducing any special characters.**
+   > **Note: Be sure to copy and paste only the contents of the code block carefully to avoid introducing any special characters.**
 
     ```yaml
     apiVersion: batch/v1
@@ -1441,7 +1435,7 @@ In this task, you will increase the number of instances for the API deployment i
 
     ![In the Scale a Deployment dialog box, 2 is entered in the Desired number of pods box.](media/image116.png)
 
-    >**NOTE: If the deployment completes quickly, you may not see the deployment Waiting states in the dashboard as described in the following steps**.
+    >**Note: If the deployment completes quickly, you may not see the deployment Waiting states in the dashboard as described in the following steps**.
 
 4. From the Replica Set view for the API, you'll see it is now deploying and that there is one healthy instance and one pending instance.
 
@@ -1546,7 +1540,7 @@ In this task, you will try to increase the number of instances for the API servi
 
     ![Workloads is selected in the navigation menu. At right, an exclamation point (!) appears next to the api deployment listing in the Deployments box.](media/image121.png)
 
-    >**NOTE: This message indicates that there weren't enough available resources to match the requirements for a new pod instance. In this case, this is because the instance requires port 3001, and since there are only 2 nodes available in the cluster, only two api instances can be scheduled. The third and fourth pod instances will wait for a new node to be available that can run another instance using that port.**
+    >**Note: This message indicates that there weren't enough available resources to match the requirements for a new pod instance. In this case, this is because the instance requires port 3001, and since there are only 2 nodes available in the cluster, only two api instances can be scheduled. The third and fourth pod instances will wait for a new node to be available that can run another instance using that port.**
 
 12. Reduce the number of requested pods to 2 using the Scale button.
 
@@ -1578,7 +1572,7 @@ In this task, you will restart containers and validate that the restart does not
 
     ![On the Stats page in the Contoso Neuro 2017 web application, two different api host name values are highlighted.](media/image126.png)
 
-6. After refreshing enough times to see that the hostName value is changing and the service remains healthy, return to the Replica Sets view for the API. From the navigation menu, select Replica Sets under Workloads and select the API replica set.
+6. After refreshing enough times to see that the hostName value is changing, and the service remains healthy, return to the Replica Sets view for the API. From the navigation menu, select Replica Sets under Workloads and select the API replica set.
 
 7. From this view, take note that the hostName value shown in the web application stats page matches the pod names for the pods that are running.
 
@@ -1726,7 +1720,7 @@ In this task, you will edit the web application source code to add Application I
 
     ![A screenshot of the Azure Portal showing the Instrumentation Key for an Application Insights resource.](media/Ex4-Task4.6.png)
 
-7. Return to your resource group and view the details of the content-api Application Insights resource.  Make a note of it's unique Instrumentation Key as well.
+7. Return to your resource group and view the details of the content-api Application Insights resource.  Make a note of its unique Instrumentation Key as well.
 
 8. Connect to your build agent VM using ssh as you did in Task 6: Connect securely to the build agent before the hands-on lab.
 
@@ -1911,6 +1905,7 @@ In this task you will setup a Kubernetes Ingress to take advantage of path based
 2. Setup your local config and deploy the server side helm component `tiller`.
 
     ```bash
+    helm init
     ```
 
 3. Update your helm package list.
@@ -2095,3 +2090,5 @@ In this exercise, you will de-provision any Azure resources created in support o
     ```bash
     az ad sp delete --id "Fabmedical-sp"
     ```
+
+You should follow all steps provided *after* attending the Hands-on lab.
