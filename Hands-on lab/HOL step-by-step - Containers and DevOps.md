@@ -1123,6 +1123,8 @@ In this task, you will deploy the API application to the Azure Kubernetes Servic
     - **Resource Group**: fabmedical-SUFFIX
 
     - **Account Name**: fabmedical-SUFFIX
+    
+    - **API**: Azure Cosmos DB
 
     - **Location**: Choose the same region that you did before.
 
