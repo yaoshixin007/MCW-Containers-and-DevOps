@@ -1126,7 +1126,7 @@ In this task, you will deploy the API application to the Azure Kubernetes Servic
 
     - **Location**: Choose the same region that you did before.
 
-    - **Geo-redundancy**: default (checked)
+    - **Geo-redundancy**: Enabled (checked)
 
     ![A screenshot of the Azure Portal settings blade for Cosmos DB.](media/Ex2-Task1.8.png)
 
