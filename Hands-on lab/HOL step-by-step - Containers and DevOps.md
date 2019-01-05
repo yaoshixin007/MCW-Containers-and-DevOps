@@ -1128,7 +1128,7 @@ In this task, you will deploy the API application to the Azure Kubernetes Servic
 
     - **Geo-redundancy**: Enabled (checked)
 
-    ![A screenshot of the Azure Portal settings blade for Cosmos DB.](media/Ex2-Task1.8.png)
+    ![A screenshot of the Azure Portal settings blade for Cosmos DB.](media/Ex2-Task1.8.1.png)
 
 9. Navigate to your resource group and find your new CosmosDb resource.  Click on the CosmosDb resource to view details.
 
