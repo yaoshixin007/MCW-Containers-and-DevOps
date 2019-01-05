@@ -1124,7 +1124,7 @@ In this task, you will deploy the API application to the Azure Kubernetes Servic
 
     - **Account Name**: fabmedical-SUFFIX
     
-    - **API**: Azure Cosmos DB
+    - **API**: Azure Cosmos DB for MongoDB API
 
     - **Location**: Choose the same region that you did before.
 
