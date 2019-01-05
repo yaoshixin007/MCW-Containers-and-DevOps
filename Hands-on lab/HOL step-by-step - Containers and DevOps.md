@@ -1114,7 +1114,7 @@ In this task, you will deploy the API application to the Azure Kubernetes Servic
 
 7. Open the Azure portal in your browser and click "+ Create a resource".  Search for "Azure Cosmos DB", select the result and click "Create".
 
-    ![A screenshot of the Azure Portal selection to create Azure Cosmos DB.](media/Ex2-Task1.7.png)
+    ![A screenshot of the Azure Portal selection to create Azure Cosmos DB.](media/Ex2-Task1.7.1..png)
 
 8. Configure Azure CosmosDb as follows and click "Review + create" and then click "Create":
 
