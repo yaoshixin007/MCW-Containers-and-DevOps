@@ -1112,7 +1112,7 @@ In this task, you will deploy the API application to the Azure Kubernetes Servic
 
     ![This screenshot of the Kubernetes management dashboard shows logs output for the api container.](media/Ex2-Task1.6.png)
 
-7. Open the Azure portal in your browser and click "+ Create a resource".  Search for "Database as a service for MongoDB", select the result and click "Create".
+7. Open the Azure portal in your browser and click "+ Create a resource".  Search for "Azure Cosmos DB", select the result and click "Create".
 
     ![A screenshot of the Azure Portal selection to create Database as a service for MongoDB.](media/Ex2-Task1.7.png)
 
