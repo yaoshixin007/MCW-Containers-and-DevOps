@@ -283,7 +283,7 @@ In this section, you will create a Linux VM to act as your build agent. You will
 
     ![In the Basics blade, the values listed above appear in the corresponding boxes. The public key that you copied is pasted in the SSH public key box.](media/vm-basic-ubuntu-create-screen.png)
 
-4. From the Disk screen select Standard SSD and then **Next : Netwroking**.
+4. From the Disk screen select Standard SSD and then **Next : Networking**.
 
     !["From the list select Standard SSD for the OS disk type.](media/vm-basic-create-disks-ubuntu-screen.png)
 
