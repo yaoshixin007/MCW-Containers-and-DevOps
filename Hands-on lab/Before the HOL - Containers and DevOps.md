@@ -53,7 +53,7 @@ The names of manufacturers, products, or URLs are provided for informational pur
 
     - You must have rights to create a service principal as discussed in Task 9: Create a Service Principal --- and this typically requires a subscription owner to log in. You may have to ask another subscription owner to login to the portal and execute that step ahead of time if you do not have the rights.
 
-    - You must have enough cores available in your subscription to create the build agent and Azure Kurbernetes Service cluster in Task 5: Create a build agent VM and Task 10: Create an Azure Kubernetes Service cluster. You'll need eight cores if following the exact instructions in the lab, more if you choose additional agents or larger VM sizes. If you execute the steps required before the lab, you will be able to see if you need to request more cores in your sub.
+    - You must have enough cores available in your subscription to create the build agent and Azure Kubernetes Service cluster in Task 5: Create a build agent VM and Task 10: Create an Azure Kubernetes Service cluster. You'll need eight cores if following the exact instructions in the lab, more if you choose additional agents or larger VM sizes. If you execute the steps required before the lab, you will be able to see if you need to request more cores in your sub.
 
 2. A VisualStudio.com account.
 
@@ -512,7 +512,7 @@ Azure Kubernetes Service requires an Azure Active Directory service principal to
 6.  To create a service principal, type the following command, replacing {id} with your subscription identifier, and replacing suffix with your chosen suffix to make the name unique:
 
     ``` bash
-    az ad sp create-for-rbac --role="Contributor" --scopes="/subscriptions/{id}" --name="Fabmedical-sp-{SUFFIX}"
+    az ad sp create-for-rbac --role="Contributor" --scopes="/subscriptions/{id}" --name="http://Fabmedical-sp-{SUFFIX}"
     ```
 
 7.  The service principal command will produce output like this. Copy this information; you will need it later.
@@ -543,7 +543,7 @@ In this task, you will create your Azure Kubernetes Service cluster. You will us
     * Configure your VM size.
 
         * Click "Change Size".
-        * Search for "D2_v2".
+        * Search for "D2_v2". Clear default search filters if needed.
         * Select "D2_v2".
 
             ![Microsoft Azure](media/b4-image41b.png)
