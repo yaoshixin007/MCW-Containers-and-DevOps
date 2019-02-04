@@ -892,9 +892,9 @@ In this task, you will push images to your ACR account, version images with tagg
     docker pull [LOGINSERVER]/content-web:v1
     ```
 
-13. Next we will use Azure DevOps to automate the process for creating images and pushing to ACR.  First, you need to add an Azure Service Principal to your Azure DevOps account.  Login to your VisualStudio.com account and click the gear icon to access your settings. Then select Services.
+13. Next we will use Azure DevOps to automate the process for creating images and pushing to ACR.  First, you need to add an Azure Service Principal to your Azure DevOps account.  Login to your VisualStudio.com account and click the Project settings gear icon to access your settings. Then select Service connections.
 
-14. Choose "+ New Service Endpoint". Then pick "Azure Resource Manager" from the menu.
+14. Choose "+ New service connection". Then pick "Azure Resource Manager" from the menu.
 
     ![A screenshot of the New Service Endpoint selection in Azure DevOps with Azure Resource Manager highlighted.](media/vso-service-connection-settings.png)
 
@@ -1976,7 +1976,7 @@ In this task you will setup a Kubernetes Ingress to take advantage of path based
 10. Use helm to install `cert-manager`; a tool that can provision SSL certificates automatically from letsencrypt.org.
 
     ```bash
-    helm install --name cert-manager --namespace kube-system --set rbac.create=false stable/cert-manager
+    helm install --name cert-manager --namespace kube-system --set rbac.create=false stable/cert-manager --version v0.5.2
     ```
 
 11. Cert manager will need a custom ClusterIssuer resource to handle requesting SSL certificates.
@@ -2017,7 +2017,7 @@ In this task you will setup a Kubernetes Ingress to take advantage of path based
 14. Update the cert-manager to use the ClusterIssuer by default.
 
     ```bash
-    helm upgrade cert-manager stable/cert-manager --namespace kube-system --set rbac.create=false --set ingressShim.defaultIssuerName=letsencrypt-prod --set ingressShim.defaultIssuerKind=ClusterIssuer
+    helm upgrade cert-manager stable/cert-manager --version v0.5.2 --namespace kube-system --set rbac.create=false --set ingressShim.defaultIssuerName=letsencrypt-prod --set ingressShim.defaultIssuerKind=ClusterIssuer
     ```
 
 15. Now you can create an ingress resource for the content applications.
@@ -2036,7 +2036,7 @@ In this task you will setup a Kubernetes Ingress to take advantage of path based
       name: content-ingress
       annotations:
         kubernetes.io/tls-acme: "true"
-        nginx.ingress.kubernetes.io/rewrite-target: /
+        nginx.ingress.kubernetes.io/rewrite-target: /$1
     spec:
       tls:
       - hosts:
@@ -2050,7 +2050,7 @@ In this task you will setup a Kubernetes Ingress to take advantage of path based
             backend:
               serviceName: web
               servicePort: 80
-          - path: /content-api
+          - path: /content-api/(.*)
             backend:
               serviceName: api
               servicePort: 3001
