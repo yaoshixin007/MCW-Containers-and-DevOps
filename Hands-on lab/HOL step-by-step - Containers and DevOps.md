@@ -1228,7 +1228,7 @@ In this task, deploy the web service using `kubectl`.
 
 3. Copy and paste the following text into the editor:
 
-    >**Note: Be sure to copy and paste only the contents of the code block carefully to avoid introducing any special characters.**
+    >**Note: Be sure to copy and paste only the contents of the code block carefully to avoid introducing any special characters. If the code does not paste correctly, you can issue a ":set paste" command before pasting.**
 
     ```yaml
     apiVersion: extensions/v1beta1
