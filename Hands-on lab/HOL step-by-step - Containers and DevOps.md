@@ -1206,7 +1206,7 @@ In this task, you will deploy the API application to the Azure Kubernetes Servic
 18. Update the api deployment by using `kubectl` to apply the new configuration.
 
     ```bash
-    kubectl apply -f ./api.deployment.yml
+    kubectl apply -f api.deployment.yml
     ```
 
 19. Select "Deployments" then "api" to view the api deployment. It now has a healthy instance and the logs indicate it has connected to mongodb.
