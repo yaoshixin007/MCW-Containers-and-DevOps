@@ -55,7 +55,7 @@ The names of manufacturers, products, or URLs are provided for informational pur
 
     - You must have enough cores available in your subscription to create the build agent and Azure Kubernetes Service cluster in Task 5: Create a build agent VM and Task 10: Create an Azure Kubernetes Service cluster. You'll need eight cores if following the exact instructions in the lab, more if you choose additional agents or larger VM sizes. If you execute the steps required before the lab, you will be able to see if you need to request more cores in your sub.
 
-2. A VisualStudio.com account.
+2. An Azure DevOps account.
 
 3. Local machine or a virtual machine configured with:
 
@@ -655,7 +655,7 @@ FabMedical has provided starter files for you. They have taken a copy of one of 
     content-web/
     ```
 
-6.  Next log into your VisualStudio.com account.
+6.  Next log into your Azure DevOps account.
 
     If this is your first time logging into this account you will be taken through a first-run experience:
 
@@ -665,31 +665,37 @@ FabMedical has provided starter files for you. They have taken a copy of one of 
 
 7.  Create repositories to host the code.
 
-    * Select the icon in the top left corner to return to the account home page.
-
-        ![Home page icon](media/b4-image47.png)
+    ![Home page icon](media/b4-image51.png)
         
-    * Select "New Project".
+    * Create a new project:
+    
         * Enter fabmedical as the project name.
+        * Ensure the project is Private.
+        * Click the Advanced dropdown.
         * Ensure the Version control is set to Git.
-        * Select "Create".
+        * Click the "Create Project" button.
         
-    * Once the project creation has completed, select "Code".
+    * Once the project creation has completed, use the repository dropdown to create a new repository by selecting "+ New repository".
     
-    * Use the repository dropdown to create a new repository by selecting "+ New repository".
-    
-        ![Repository dropdown](media/b4-image48.png)
+        ![Repository dropdown](media/b4-image53.png)
            
     * Enter "content-web" as the repository name.
     
-    * Once the project is created click "Generate Git credentials".
+    * Once the project is created click "Generate Git credentials", and then click on "Create a Personal access token:
     
-        ![Generate Git Credentials](media/b4-image50.png)
+        ![Click Create Personal Access Token](media/b4-image52.png)
           
-        * Enter a password.
-        * Confirm the password.
-        * Select "Save Git Credentials".
-        
+        * Enter SUFFIX for the name of your token.
+        * Enter fabmedical-SUFFIX for the organization.
+        * Set Scopes to Full Access.
+        * Click Create.
+
+        ![Create Personal Access Token](media/b4-image54.png)
+
+    * On the next screen, copy the token to the clipboard and store for later use.
+    
+        ![Copy Personal Access Token](media/b4-image56.png)
+
     * Using your WSL window, initialize a new git repository.
 
         ```bash
@@ -698,11 +704,11 @@ FabMedical has provided starter files for you. They have taken a copy of one of 
         git add .
         git commit -m "Initial Commit"
         ```
-    * Setup your VisualStudio.com repository as a new remote for push. You can copy the commands to do this from your browser.  Paste these commands into your WSL window.
+    * Setup your Azure Devops repository as a new remote for push. You can copy the commands to do this from your browser.  Paste these commands into your WSL window.
     
         ![Commands to add remote](media/b4-image49.png)
         
-        * When prompted, enter your VisualStudio.com username and the git credentials password you created earlier in this task.
+        * When prompted, enter your Azure Devops username and the Personal Access Token you created earlier in this task.
         
     * Use the repository dropdown to create a second repository called "content-api".
     
@@ -714,9 +720,9 @@ FabMedical has provided starter files for you. They have taken a copy of one of 
             git add .
             git commit -m "Initial Commit"
             ```
-        * Setup your VisualStudio.com repository as a new remote the push. Use the repository dropdown to switch to the "content-api" repository. You can then copy the commands for the setting up the content-api repository  from your browser. Paste these commands into your WSL window.
+        * Setup your Azure Devops repository as a new remote for push. Use the repository dropdown to switch to the "content-api" repository. You can then copy the commands for the setting up the content-api repository from your browser. Paste these commands into your WSL window.
         
-        * When prompted, enter your VisualStudio.com username and the git credentials password you created earlier in this task.
+        * When prompted, enter your Azure Devops username and the Personal Access Token you created earlier in this task.
         
     * Use the repository dropdown to create a third repository called "content-init".
     
@@ -728,9 +734,9 @@ FabMedical has provided starter files for you. They have taken a copy of one of 
             git add .
             git commit -m "Initial Commit"
             ```
-        * Setup your VisualStudio.com repository as a new remote the push.  Use the repository dropdown to switch to the "content-init" repository. You can then copy the commands for the setting up the content-init repository  from your browser.  Paste these commands into your WSL window.
+        * Setup your Azure Devops repository as a new remote for push.  Use the repository dropdown to switch to the "content-init" repository. You can then copy the commands for the setting up the content-init repository from your browser.  Paste these commands into your WSL window.
         
-        * When prompted, enter your VisualStudio.com username and the git credentials password you created earlier in this task.
+        * When prompted, enter your Azure Devops username and the Personal Access Token you created earlier in this task.
 
 8.  Clone your repositories to the build agent.
 
@@ -738,7 +744,7 @@ FabMedical has provided starter files for you. They have taken a copy of one of 
 
     * In your browser, switch to the "content-web" repository and click "Clone" in the right corner.
 
-        ![This is a screenshot of the content-web repository page with the Clone button indicated.](media/b4-image51.png)
+        ![This is a screenshot of the content-web repository page with the Clone button indicated.](media/b4-image55.png)
 
     * Copy the repository url.
 
