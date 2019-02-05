@@ -714,7 +714,7 @@ FabMedical has provided starter files for you. They have taken a copy of one of 
         
     * Setup your VisualStudio.com repository as a new remote for push. You can copy the commands for "**HTTPS**" to do this from your browser.  Edit the HTTPS URL as given below:
 
-       Remove "abcde@" part from the HTTPS URL of the copied commands.
+       Remove characters between "https://" and "dev.azure.com from" HTTPS URL of the copied commands.
        For example:
        
        ```bash
@@ -744,7 +744,7 @@ FabMedical has provided starter files for you. They have taken a copy of one of 
             git commit -m "Initial Commit"
             ```
             
-        * Setup your VisualStudio.com repository as a new remote the push. Use the repository dropdown to switch to the "content-api" repository. You can then copy the commands for the setting up the content-api repository from your browser, then update the HTTPS URL. Paste these commands into your WSL window.
+        * Setup your VisualStudio.com repository as a new remote the push. Use the repository dropdown to switch to the "content-api" repository. You can then copy the commands for the setting up the content-api repository from your browser, then update the HTTPS URL as you did earlier for content-web repository HTTPS url. Paste these commands into your WSL window.
         
         * When prompted, enter your VisualStudio.com username and the git credentials password you created earlier in this task.
         
@@ -758,7 +758,7 @@ FabMedical has provided starter files for you. They have taken a copy of one of 
             git add .
             git commit -m "Initial Commit"
             ```
-        * Setup your VisualStudio.com repository as a new remote the push.  Use the repository drop down to switch to the "content-init" repository. You can then copy the commands for the setting up the content-init repository from your browser, then update the HTTPS URL.  Paste these commands into your WSL window.
+        * Setup your VisualStudio.com repository as a new remote the push.  Use the repository drop down to switch to the "content-init" repository. You can then copy the commands for the setting up the content-init repository from your browser, then update the HTTPS URL as you did earlier for other repo's HTTPS url's. Paste these commands into your WSL window.
         
         * When prompted, enter your VisualStudio.com username and the git credentials password you created earlier in this task.
 
