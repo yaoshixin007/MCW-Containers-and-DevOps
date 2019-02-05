@@ -1147,12 +1147,11 @@ In this task, you will deploy the API application to the Azure Kubernetes Servic
     mongodb://<USERNAME>:<PASSWORD>@fabmedical-sol2.documents.azure.com:10255/contentdb?ssl=true&replicaSet=globaldb
     ```
 
-12. You will setup a Kubernetes secret to store the connection string, and configure the content-api application to access the secret.  First, you must base64 encode the secret value.  Open your WSL window and use the following command to encode the connection string and copy to your clipboard all in one step.
+12. You will setup a Kubernetes secret to store the connection string, and configure the content-api application to access the secret.  First, you must base64 encode the secret value.  Open your WSL window and use the following command to encode the connection string and then, copy the output.
 
-    > If 'clip.exe' does not work, make sure your WSL window is not logged into the build agent over SSH.
 
     ```bash
-    echo -n "<connection string value>" | base64 -w 0 - | clip.exe
+    echo -n "<connection string value>" | base64 -w 0 
     ```
 
 13. Return to the Kubernetes UI in your browser and click "+ Create".  Update the following YAML with the encoded connection string from your clipboard, paste the YAML data into the create dialog and click "Upload".
