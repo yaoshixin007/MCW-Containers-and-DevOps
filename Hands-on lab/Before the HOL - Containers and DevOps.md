@@ -665,15 +665,14 @@ FabMedical has provided starter files for you. They have taken a copy of one of 
 
 7.  Create repositories to host the code.
 
+    * Enter fabmedical as the project name.
+    * Ensure the project is Private.
+    * Click the Advanced dropdown.
+    * Ensure the Version control is set to Git.
+    * Click the "Create Project" button.
+
     ![Home page icon](media/b4-image51.png)
         
-    * Create a new project:
-    
-        * Enter fabmedical as the project name.
-        * Ensure the project is Private.
-        * Click the Advanced dropdown.
-        * Ensure the Version control is set to Git.
-        * Click the "Create Project" button.
         
     * Once the project creation has completed, use the repository dropdown to create a new repository by selecting "+ New repository".
     
