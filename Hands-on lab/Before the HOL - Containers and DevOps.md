@@ -770,11 +770,11 @@ FabMedical has provided starter files for you. They have taken a copy of one of 
 
         ![This is a screenshot of the content-web repository page with the Clone button indicated.](media/b4-image51.png)
 
-    * Copy the repository url
+    * Copy the repository url.
         
         ![This is a screenshot of the content-web repository page with the Clone button indicated.](media/b4-image52.png)
         
-    * Update the repository url by removing the characters between "https://" and "dev.azure.com"
+    * Update the repository url by removing the characters between "https://" and "dev.azure.com".
        
       For example: modify the repository url "https://odluser51404@dev.azure.com/odluser51404/fabmedical/_git/content-web"
       as "https://dev.azure.com/odluser51404/fabmedical/_git/content-web"
