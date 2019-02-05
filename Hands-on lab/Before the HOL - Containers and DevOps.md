@@ -283,7 +283,7 @@ In this section, you will create a Linux VM to act as your build agent. You will
 
     ![In the Basics blade, the values listed above appear in the corresponding boxes. The public key that you copied is pasted in the SSH public key box.](media/vm-basic-ubuntu-create-screen.png)
 
-4. From the Disk screen select Standard SSD and then **Next : Netwroking**.
+4. From the Disk screen select Standard SSD and then **Next : Networking**.
 
     !["From the list select Standard SSD for the OS disk type.](media/vm-basic-create-disks-ubuntu-screen.png)
 
@@ -376,7 +376,7 @@ In this task, you will update the packages and install Docker engine.
     ``` bash
     sudo apt-get install curl python-software-properties
     curl -sL https://deb.nodesource.com/setup_8.x | sudo -E bash -
-    sudo apt-get update && sudo apt install docker-ce nodejs npm mongodb-clients
+    sudo apt-get update && sudo apt install docker-ce nodejs mongodb-clients
     ```
 6. Now, upgrade the Ubuntu packages to the latest version by typing the following in a single line command. When asked if you would like to proceed, respond by typing "y" and pressing enter.
 

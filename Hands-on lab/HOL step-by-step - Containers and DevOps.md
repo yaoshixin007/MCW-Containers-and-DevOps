@@ -1206,7 +1206,7 @@ In this task, you will deploy the API application to the Azure Kubernetes Servic
 18. Update the api deployment by using `kubectl` to apply the new configuration.
 
     ```bash
-    kubectl apply -f ./api.deployment.yml
+    kubectl apply -f api.deployment.yml
     ```
 
 19. Select "Deployments" then "api" to view the api deployment. It now has a healthy instance and the logs indicate it has connected to mongodb.
@@ -1228,7 +1228,7 @@ In this task, deploy the web service using `kubectl`.
 
 3. Copy and paste the following text into the editor:
 
-    >**Note: Be sure to copy and paste only the contents of the code block carefully to avoid introducing any special characters.**
+    >**Note: Be sure to copy and paste only the contents of the code block carefully to avoid introducing any special characters. If the code does not paste correctly, you can issue a ":set paste" command before pasting.**
 
     ```yaml
     apiVersion: extensions/v1beta1
