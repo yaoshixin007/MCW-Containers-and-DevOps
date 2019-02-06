@@ -690,7 +690,7 @@ FabMedical has provided starter files for you. They have taken a copy of one of 
         * Confirm the password.
         * Select "Save Git Credentials".
         
-    * Using your WSL window, set your username and email for Git Commits.
+    * Using your WSL window, set your username and email which are used in Azure DevOps for Git Commits.
 
         ```bash
           git config --global user.email "you@example.com"
@@ -719,11 +719,11 @@ FabMedical has provided starter files for you. They have taken a copy of one of 
        
        ```bash
        From this https URL 
-       "git remote add origin https://odluser51404@dev.azure.com/odluser51404/fabmedical/_git/content-web
+       "git remote add origin https://fabmedical-sol@dev.azure.com/fabmedical-sol/fabmedical/_git/content-web
         git push -u origin --all"
 
        Remove "odluser51404@" from the above url to make it like below:
-       "git remote add origin https://dev.azure.com/odluser51404/fabmedical/_git/content-web
+       "git remote add origin https://dev.azure.com/fabmedical-sol/fabmedical/_git/content-web
         git push -u origin --all"
        ```
         
@@ -776,8 +776,8 @@ FabMedical has provided starter files for you. They have taken a copy of one of 
         
     * Update the repository url by removing the characters between "https://" and "dev.azure.com".
        
-      For example: modify the repository url "https://odluser51404@dev.azure.com/odluser51404/fabmedical/_git/content-web"
-      as "https://dev.azure.com/odluser51404/fabmedical/_git/content-web"
+      For example: modify the repository url "https://fabmedical-sol@dev.azure.com/fabmedical-sol/fabmedical/_git/content-web"
+      as "https://dev.azure.com/fabmedical-sol/fabmedical/_git/content-web"
 
     * Use the repository url to clone the content-web code to your build agent machine.
 
