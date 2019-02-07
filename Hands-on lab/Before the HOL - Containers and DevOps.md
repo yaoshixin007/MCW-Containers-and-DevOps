@@ -770,8 +770,6 @@ FabMedical has provided starter files for you. They have taken a copy of one of 
 
     * Copy the repository url.
         
-        ![This is a screenshot of the content-web repository page with the Clone button indicated.](media/b4-image52.png)
-        
     * Update the repository url by removing the characters between "https://" and "dev.azure.com".
        
       For example: modify the repository url "https://fabmedical-sol@dev.azure.com/fabmedical-sol/fabmedical/_git/content-web"
