@@ -722,14 +722,12 @@ FabMedical has provided starter files for you. They have taken a copy of one of 
        "git remote add origin https://fabmedical-sol@dev.azure.com/fabmedical-sol/fabmedical/_git/content-web
         git push -u origin --all"
 
-       Remove "odluser51404@" from the above url to make it like below:
+       Remove "fabmedical-sol@" from the above url to make it like below:
        "git remote add origin https://dev.azure.com/fabmedical-sol/fabmedical/_git/content-web
         git push -u origin --all"
        ```
         
          Paste these commands into your WSL window.
-    
-        ![Commands to add remote](media/b4-image49-2.png)
         
        * When prompted, enter your VisualStudio.com username and the git credentials password you created earlier in this task.
         
