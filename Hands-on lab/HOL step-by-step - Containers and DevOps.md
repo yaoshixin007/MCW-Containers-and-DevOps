@@ -906,7 +906,7 @@ In this task, you will push images to your ACR account, version images with tagg
 
 16. Enter the required information using the service principal information you created before the lab.
 
-    > **Note:** I you don't have your Subscription information handy you can view it using `az account show` on your **local** machine (not the build agent).
+    > **Note:** I you don't have your Subscription information handy you can view it using `az account show` on your **local** machine (not the build agent). If you are using pre-provisioned environment, Service Principal is already pre-created and you can use the already shared Service Principal details.
 
     - **Connection name**: azurecloud-sol
 
