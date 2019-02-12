@@ -1976,7 +1976,7 @@ In this task you will setup a Kubernetes Ingress to take advantage of path based
 10. Use helm to install `cert-manager`; a tool that can provision SSL certificates automatically from letsencrypt.org.
 
     ```bash
-    helm install --name cert-manager --namespace kube-system --set rbac.create=false stable/cert-manager
+    helm install --name cert-manager --namespace kube-system --set rbac.create=false --version v0.5.2 stable/cert-manager
     ```
 
 11. Cert manager will need a custom ClusterIssuer resource to handle requesting SSL certificates.
@@ -2017,7 +2017,7 @@ In this task you will setup a Kubernetes Ingress to take advantage of path based
 14. Update the cert-manager to use the ClusterIssuer by default.
 
     ```bash
-    helm upgrade cert-manager stable/cert-manager --namespace kube-system --set rbac.create=false --set ingressShim.defaultIssuerName=letsencrypt-prod --set ingressShim.defaultIssuerKind=ClusterIssuer
+    helm upgrade cert-manager stable/cert-manager --namespace kube-system --set rbac.create=false --version v0.5.2 --set ingressShim.defaultIssuerName=letsencrypt-prod --set ingressShim.defaultIssuerKind=ClusterIssuer
     ```
 
 15. Now you can create an ingress resource for the content applications.
