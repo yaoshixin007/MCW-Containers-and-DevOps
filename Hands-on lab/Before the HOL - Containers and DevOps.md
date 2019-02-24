@@ -636,7 +636,7 @@ FabMedical has provided starter files for you. They have taken a copy of one of 
 3.  Unpack the archive with the following command. This command will extract the files from the archive to the FabMedical directory you created. The directory is case sensitive when you navigate to it.
 
     ```bash
-    tar -C FabMedical -xzf FabMedical.tgz
+    tar -C FabMedical -xzf FabMedical.tgz --strip-components=1
     ```
 
 4.  Navigate to FabMedical folder and list the contents.
@@ -680,21 +680,27 @@ FabMedical has provided starter files for you. They have taken a copy of one of 
            
     * Enter "content-web" as the repository name.
     
-    * Once the project is created click "Generate Git credentials", and then click on "Create a Personal access token:
+    * Once the project is created click "Generate Git credentials".
     
-        ![Click Create Personal Access Token](media/b4-image52.png)
+        ![Generate Git Credentials](media/b4-image50.png)
           
-        * Enter SUFFIX for the name of your token.
-        * Enter fabmedical-SUFFIX for the organization.
-        * Set Scopes to Full Access.
-        * Click Create.
+        * Enter a password.
+        * Confirm the password.
+        * Select "Save Git Credentials".
+        
+    * Using your WSL window, set your username and email which are used in Azure DevOps for Git Commits.
 
-        ![Create Personal Access Token](media/b4-image54.png)
+        ```bash
+          git config --global user.email "you@example.com"
+          git config --global user.name "Your Name"
+        ```
+        For example:
 
-    * On the next screen, copy the token to the clipboard and store for later use.
+        ```bash
+            git config --global user.email "you@example.onmicrosoft.com"
+            git config --global user.name "you@example.onmicrosoft.com"
+        ```
     
-        ![Copy Personal Access Token](media/b4-image56.png)
-
     * Using your WSL window, initialize a new git repository.
 
         ```bash
@@ -703,11 +709,25 @@ FabMedical has provided starter files for you. They have taken a copy of one of 
         git add .
         git commit -m "Initial Commit"
         ```
-    * Setup your Azure Devops repository as a new remote for push. You can copy the commands to do this from your browser.  Paste these commands into your WSL window.
-    
-        ![Commands to add remote](media/b4-image49.png)
         
-        * When prompted, enter your Azure Devops username and the Personal Access Token you created earlier in this task.
+    * Setup your VisualStudio.com repository as a new remote for push. You can copy the commands for "**HTTPS**" to do this from your browser.  Edit the HTTPS URL as given below:
+
+       Remove characters between "https://" and "dev.azure.com from" HTTPS URL of the copied commands.
+       For example:
+       
+       ```bash
+       From this https URL 
+       "git remote add origin https://fabmedical-sol@dev.azure.com/fabmedical-sol/fabmedical/_git/content-web
+        git push -u origin --all"
+
+       Remove "fabmedical-sol@" from the above url to make it like below:
+       "git remote add origin https://dev.azure.com/fabmedical-sol/fabmedical/_git/content-web
+        git push -u origin --all"
+       ```
+        
+         Paste these commands into your WSL window.
+        
+       * When prompted, enter your VisualStudio.com username and the git credentials password you created earlier in this task.
         
     * Use the repository dropdown to create a second repository called "content-api".
     
@@ -719,11 +739,12 @@ FabMedical has provided starter files for you. They have taken a copy of one of 
             git add .
             git commit -m "Initial Commit"
             ```
-        * Setup your Azure Devops repository as a new remote for push. Use the repository dropdown to switch to the "content-api" repository. You can then copy the commands for the setting up the content-api repository from your browser. Paste these commands into your WSL window.
+            
+        * Setup your VisualStudio.com repository as a new remote the push. Use the repository dropdown to switch to the "content-api" repository. You can then copy the commands for the setting up the content-api repository from your browser, then update the HTTPS URL as you did earlier for content-web repository HTTPS url. Paste these commands into your WSL window.
         
-        * When prompted, enter your Azure Devops username and the Personal Access Token you created earlier in this task.
+        * When prompted, enter your VisualStudio.com username and the git credentials password you created earlier in this task.
         
-    * Use the repository dropdown to create a third repository called "content-init".
+    * Use the repository drop down to create a third repository called "content-init".
     
         * Using your WSL window, initialize a new git repository in the content-init directory.
         
@@ -733,9 +754,9 @@ FabMedical has provided starter files for you. They have taken a copy of one of 
             git add .
             git commit -m "Initial Commit"
             ```
-        * Setup your Azure Devops repository as a new remote for push.  Use the repository dropdown to switch to the "content-init" repository. You can then copy the commands for the setting up the content-init repository from your browser.  Paste these commands into your WSL window.
+        * Setup your VisualStudio.com repository as a new remote the push.  Use the repository drop down to switch to the "content-init" repository. You can then copy the commands for the setting up the content-init repository from your browser, then update the HTTPS URL as you did earlier for other repo's HTTPS url's. Paste these commands into your WSL window.
         
-        * When prompted, enter your Azure Devops username and the Personal Access Token you created earlier in this task.
+        * When prompted, enter your VisualStudio.com username and the git credentials password you created earlier in this task.
 
 8.  Clone your repositories to the build agent.
 
@@ -746,6 +767,11 @@ FabMedical has provided starter files for you. They have taken a copy of one of 
         ![This is a screenshot of the content-web repository page with the Clone button indicated.](media/b4-image55.png)
 
     * Copy the repository url.
+        
+    * Update the repository url by removing the characters between "https://" and "dev.azure.com".
+       
+      For example: modify the repository url "https://fabmedical-sol@dev.azure.com/fabmedical-sol/fabmedical/_git/content-web"
+      as "https://dev.azure.com/fabmedical-sol/fabmedical/_git/content-web"
 
     * Use the repository url to clone the content-web code to your build agent machine.
 
@@ -753,11 +779,11 @@ FabMedical has provided starter files for you. They have taken a copy of one of 
         git clone <REPOSITORY_URL>
         ```
 
-    * In your browser, switch to the "content-api" repository and select "Clone" to see and copy the repository url.
+    * In your browser, switch to the "content-api" repository and select "Clone" to see and copy the repository url and update the URL by removing some characters as you did earlier for content-web repository.
 
     * Use the repository url and `git clone` to copy the content-api code to your build agent.
 
-    * In your browser, switch to the "content-init" repository and select "Clone" to see and copy the repository url.
+    * In your browser, switch to the "content-init" repository and select "Clone" to see and copy the repository url and then update the url by removing some characters as you did earlier for other repositories.
 
     * Use the repository url and `git clone` to copy the content-init code to your build agent.
 

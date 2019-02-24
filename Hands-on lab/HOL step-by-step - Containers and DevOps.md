@@ -906,7 +906,7 @@ In this task, you will push images to your ACR account, version images with tagg
 
 16. Enter the required information using the service principal information you created before the lab.
 
-    > **Note:** I you don't have your Subscription information handy you can view it using `az account show` on your **local** machine (not the build agent).
+    > **Note:** I you don't have your Subscription information handy you can view it using `az account show` on your **local** machine (not the build agent). If you are using pre-provisioned environment, Service Principal is already pre-created and you can use the already shared Service Principal details.
 
     - **Connection name**: azurecloud-sol
 
@@ -1147,12 +1147,11 @@ In this task, you will deploy the API application to the Azure Kubernetes Servic
     mongodb://<USERNAME>:<PASSWORD>@fabmedical-sol2.documents.azure.com:10255/contentdb?ssl=true&replicaSet=globaldb
     ```
 
-12. You will setup a Kubernetes secret to store the connection string, and configure the content-api application to access the secret.  First, you must base64 encode the secret value.  Open your WSL window and use the following command to encode the connection string and copy to your clipboard all in one step.
+12. You will setup a Kubernetes secret to store the connection string, and configure the content-api application to access the secret.  First, you must base64 encode the secret value.  Open your WSL window and use the following command to encode the connection string and then, copy the output.
 
-    > If 'clip.exe' does not work, make sure your WSL window is not logged into the build agent over SSH.
 
     ```bash
-    echo -n "<connection string value>" | base64 -w 0 - | clip.exe
+    echo -n "<connection string value>" | base64 -w 0 
     ```
 
 13. Return to the Kubernetes UI in your browser and click "+ Create".  Update the following YAML with the encoded connection string from your clipboard, paste the YAML data into the create dialog and click "Upload".
@@ -1976,7 +1975,7 @@ In this task you will setup a Kubernetes Ingress to take advantage of path based
 10. Use helm to install `cert-manager`; a tool that can provision SSL certificates automatically from letsencrypt.org.
 
     ```bash
-    helm install --name cert-manager --namespace kube-system --set rbac.create=false stable/cert-manager --version v0.5.2
+    helm install --name cert-manager --namespace kube-system --set rbac.create=false --version v0.5.2 stable/cert-manager
     ```
 
 11. Cert manager will need a custom ClusterIssuer resource to handle requesting SSL certificates.
@@ -2017,7 +2016,7 @@ In this task you will setup a Kubernetes Ingress to take advantage of path based
 14. Update the cert-manager to use the ClusterIssuer by default.
 
     ```bash
-    helm upgrade cert-manager stable/cert-manager --version v0.5.2 --namespace kube-system --set rbac.create=false --set ingressShim.defaultIssuerName=letsencrypt-prod --set ingressShim.defaultIssuerKind=ClusterIssuer
+    helm upgrade cert-manager stable/cert-manager --namespace kube-system --set rbac.create=false --version v0.5.2 --set ingressShim.defaultIssuerName=letsencrypt-prod --set ingressShim.defaultIssuerKind=ClusterIssuer
     ```
 
 15. Now you can create an ingress resource for the content applications.
