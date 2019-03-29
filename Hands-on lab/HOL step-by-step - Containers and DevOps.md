@@ -47,6 +47,7 @@ Microsoft and the trademarks listed at https://www.microsoft.com/en-us/legal/int
     - [Task 5: Initialize database with a Kubernetes Job](#task-5-initialize-database-with-a-kubernetes-job)
     - [Task 6: Test the application in a browser](#task-6-test-the-application-in-a-browser)
     - [Task 7: Configure Continuous Delivery to the Kubernetes Cluster](#task-7-configure-continuous-delivery-to-the-kubernetes-cluster)
+    - [Task 8: Review Azure Monitor for Containers](#task-8-review-azure-monitor-for-containers)
   - [Exercise 3: Scale the application and test HA](#exercise-3-scale-the-application-and-test-ha)
     - [Task 1: Increase service instances from the Kubernetes dashboard](#task-1-increase-service-instances-from-the-kubernetes-dashboard)
     - [Task 2: Increase service instances beyond available resources](#task-2-increase-service-instances-beyond-available-resources)
@@ -1775,6 +1776,22 @@ In this task, you will update a Build Pipeline and configure a Release Pipeline 
 21. Select "Save" and then "OK".
 
 22. Select "+ Release", then "+ Create a release" and then "Create" to kick off the release.
+
+### Task 8: Review Azure Monitor for Containers
+
+In this task, you will access and review the various logs and dashboards made available by Azure Monitor for Containers.
+
+1. From the Azure Portal, select the resource group you created named fabmedical-SUFFIX, and then select your AKS cluster.
+
+    ![In this screenshot, the resource group was previously selected and the AKS cluster is selected.](media/Ex2-Task8.1.png)
+
+2. From the Monitoring blade, select **Insights**.
+
+    ![In the Monitoring blade, Insights is highlighted.](media/Ex2-Task8.2.png)
+
+3. Review the various available dashboards and a deeper look at the various metrics and logs available on the Cluster, Cluster Nodes, Cluster Controllers and deployed Containers.
+
+    ![In this screenshot, the dashboards and blades are shows.](media/Ex2-Task8.3.png)
 
 ## Exercise 3: Scale the application and test HA
 
