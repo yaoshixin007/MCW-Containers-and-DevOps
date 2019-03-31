@@ -616,7 +616,7 @@ In later exercises, you will need the Kubernetes CLI (kubectl) to deploy to your
     ``` bash
     az login
 
-    sudo az acs kubernetes install-cli --install-location /usr/local/bin/kubectl
+    sudo az aks install-cli --install-location /usr/local/bin/kubectl
     ```
 
 ### Task 13: Install Helm
