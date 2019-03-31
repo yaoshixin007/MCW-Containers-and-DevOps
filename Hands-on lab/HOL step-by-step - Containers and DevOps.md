@@ -44,7 +44,7 @@ Microsoft and the trademarks listed at https://www.microsoft.com/en-us/legal/int
     - [Task 2: Deploy a service using the Kubernetes management dashboard](#task-2-deploy-a-service-using-the-kubernetes-management-dashboard)
     - [Task 3: Deploy a service using kubectl](#task-3-deploy-a-service-using-kubectl)
     - [Task 4: Deploy a service using a Helm chart](#task-4-deploy-a-service-using-a-helm-chart)
-    - [Task 5: Initialize database with a 
+    - [Task 5: Initialize database with a Kubernetes Job
     ](#task-5-initialize-database-with-a-kubernetes-job)
     - [Task 6: Test the application in a browser](#task-6-test-the-application-in-a-browser)
     - [Task 7: Configure Continuous Delivery to the Kubernetes Cluster](#task-7-configure-continuous-delivery-to-the-kubernetes-cluster)
