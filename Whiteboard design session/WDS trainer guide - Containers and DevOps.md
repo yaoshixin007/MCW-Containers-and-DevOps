@@ -407,14 +407,14 @@ Directions: Tables reconvene with the larger group to hear the facilitator/SME s
 
 ##  Additional references
 
-|    |            |
-|----------|:-------------|
-| **Description** | **Links** |
-| Azure Kubernetes Services (AKS) | <https://docs.microsoft.com/en-us/azure/aks/intro-kubernetes/> |
-| Docker Enterprise Edition (Docker EE) | <https://docs.docker.com/enterprise/> |
-| DC/OS | <https://docs.mesosphere.com/1.9/overview/> |
-| Kubernetes | <https://kubernetes.io/docs/home/> |
-| Azure Pipelines | <https://docs.microsoft.com/en-us/azure/devops/pipelines/>
+|                                       |                                                                |
+|---------------------------------------|:---------------------------------------------------------------|
+| **Description**                       | **Links**                                                      |
+| Azure Kubernetes Services (AKS)       | <https://docs.microsoft.com/en-us/azure/aks/intro-kubernetes/> |
+| Docker Enterprise Edition (Docker EE) | <https://docs.docker.com/enterprise/>                          |
+| DC/OS                                 | <https://docs.mesosphere.com/1.9/overview/>                    |
+| Kubernetes                            | <https://kubernetes.io/docs/home/>                             |
+| Azure Pipelines                       | <https://docs.microsoft.com/en-us/azure/devops/pipelines/>     |
 
 
 # Containers and DevOps whiteboard design session trainer guide
@@ -518,19 +518,6 @@ The Docker EE is the enterprise-grade cluster management solution from Docker In
 **Windows Server Containers on Windows Server 2016**
 
 Windows Server Containers allow Windows applications to be containerized. This environment has support for the Docker platform including Docker Swarm for scheduling and orchestration. You are responsible for setting up any Docker Swarm clustering and related configurations, and there are no built-in management tools at this time to help you with visibility into the deployment, health monitoring, and related tasks.
-
-**Azure Container Service**
-
-The Azure Container Service provides a turnkey container cluster management solution allowing you to choose between Docker Swarm, DC/OS, and Kubernetes for orchestration. Regardless of the choice of orchestration platform, Azure Container Service provides a simplified way to set up an initial infrastructure topology and platform deployment with ARM templates, as well as manage updates via ARM.
-
--   **Azure Container Service with Docker Swarm orchestration** 
-    Azure Container Service with Docker Swarm orchestration provides features that are equivalent to installing Docker Swarm solutions manually on Azure Virtual Machines (previously mentioned). Docker Swarm supports command-line management for necessary management workflows.
-
--   **Azure Container Service with DC/OS orchestration** 
-    DC/OS is a mature, production-grade full-featured platform for distributed workloads based on Apache Mesos and the Marathon container orchestration platform. Marathon has a feature rich UI, allowing for simple container management. It also supports CICD and automation through the REST API. DC/OS adds the desirable management UI and related features that are missing in the other options. The management UI provides an interactive tool for deploying and managing container lifecycles, health checks and self-healing configurations, tasks management, scaling actions, and related.
-
--   **Azure Container Service with Kubernetes orchestration** 
-    Kubernetes orchestration is available with the Azure Container Service offering. Like DC/OS, Kubernetes is an open source solution for automating deployment, scaling, and management of containerized deployments. Kubernetes features automatic bin packing to maximize resource utilization; on-demand or automatic horizontal scaling; service discovery and load balancing; user-defined health-checks; rolling updates and rollbacks; secrets and configuration management; cloud/private storage orchestration; and batch workloads. Kubernetes also provides a management UI as well as command line tools for management workflows.
 
 **Azure Kubernetes Service (AKS)**
 

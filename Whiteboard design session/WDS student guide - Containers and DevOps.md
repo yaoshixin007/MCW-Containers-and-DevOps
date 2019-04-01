@@ -269,12 +269,11 @@ Directions: Tables reconvene with the larger group to hear the facilitator/SME s
 
 ##  Additional references
 
-|    |            |
-|----------|:-------------|
-| **Description** | **Links** |
-| Azure Kubernetes Services (AKS) | <https://docs.microsoft.com/en-us/azure/aks/intro-kubernetes/> |
-| Docker Enterprise Edition (Docker EE) | <https://docs.docker.com/enterprise/> |
-| DC/OS | <https://docs.mesosphere.com/1.9/overview/> |
-| Kubernetes | <https://kubernetes.io/docs/home/> |
-| Azure Pipelines | <https://docs.microsoft.com/en-us/azure/devops/pipelines/>
-|
+|                                       |                                                                |
+|---------------------------------------|----------------------------------------------------------------|
+| **Description**                       | **Links**                                                      |
+| Azure Kubernetes Services (AKS)       | <https://docs.microsoft.com/en-us/azure/aks/intro-kubernetes/> |
+| Docker Enterprise Edition (Docker EE) | <https://docs.docker.com/enterprise/>                          |
+| DC/OS                                 | <https://docs.mesosphere.com/1.9/overview/>                    |
+| Kubernetes                            | <https://kubernetes.io/docs/home/>                             |
+| Azure Pipelines                       | <https://docs.microsoft.com/en-us/azure/devops/pipelines/>     |
