@@ -27,35 +27,39 @@ Microsoft and the trademarks listed at https://www.microsoft.com/en-us/legal/int
 <!-- TOC -->
 
 - [Containers and DevOps hands-on lab step-by-step](#containers-and-devops-hands-on-lab-step-by-step)
-    - [Abstract and learning objectives](#abstract-and-learning-objectives)
-    - [Overview](#overview)
-    - [Solution architecture](#solution-architecture)
-    - [Requirements](#requirements)
-    - [Exercise 1: Create and run a Docker application](#exercise-1-create-and-run-a-docker-application)
-        - [Task 1: Test the application](#task-1-test-the-application)
-        - [Task 2: Enable browsing to the web application](#task-2-enable-browsing-to-the-web-application)
-        - [Task 3: Create a Dockerfile](#task-3-create-a-dockerfile)
-        - [Task 4: Create Docker images](#task-4-create-docker-images)
-        - [Task 5: Run a containerized application](#task-5-run-a-containerized-application)
-        - [Task 6: Setup environment variables](#task-6-setup-environment-variables)
-        - [Task 7: Push images to Azure Container Registry](#task-7-push-images-to-azure-container-registry)
-    - [Exercise 2: Deploy the solution to Azure Kubernetes Service](#exercise-2-deploy-the-solution-to-azure-kubernetes-service)
-        - [Task 1: Tunnel into the Azure Kubernetes Service cluster](#task-1-tunnel-into-the-azure-kubernetes-service-cluster)
-        - [Task 2: Deploy a service using the Kubernetes management dashboard](#task-2-deploy-a-service-using-the-kubernetes-management-dashboard)
-        - [Task 3: Deploy a service using kubectl](#task-3-deploy-a-service-using-kubectl)
-        - [Task 4: Initialize database with a Kubernetes Job](#task-4-initialize-database-with-a-kubernetes-job)
-        - [Task 5: Test the application in a browser](#task-5-test-the-application-in-a-browser)
-    - [Exercise 3: Scale the application and test HA](#exercise-3-scale-the-application-and-test-ha)
-        - [Task 1: Increase service instances from the Kubernetes dashboard](#task-1-increase-service-instances-from-the-kubernetes-dashboard)
-        - [Task 2: Increase service instances beyond available resources](#task-2-increase-service-instances-beyond-available-resources)
-        - [Task 3: Restart containers and test HA](#task-3-restart-containers-and-test-ha)
-    - [Exercise 4: Setup load balancing and service discovery](#exercise-4-setup-load-balancing-and-service-discovery)
-        - [Task 1: Scale a service without port constraints](#task-1-scale-a-service-without-port-constraints)
-        - [Task 2: Update an external service to support dynamic discovery with a load balancer](#task-2-update-an-external-service-to-support-dynamic-discovery-with-a-load-balancer)
-        - [Task 3: Adjust CPU constraints to improve scale](#task-3-adjust-cpu-constraints-to-improve-scale)
-        - [Task 4: Perform a rolling update](#task-4-perform-a-rolling-update)
-        - [Task 5: Configure Kubernetes Ingress](#task-5-configure-kubernetes-ingress)
-    - [After the hands-on lab](#after-the-hands-on-lab)
+  - [Abstract and learning objectives](#abstract-and-learning-objectives)
+  - [Overview](#overview)
+  - [Solution architecture](#solution-architecture)
+  - [Requirements](#requirements)
+  - [Exercise 1: Create and run a Docker application](#exercise-1-create-and-run-a-docker-application)
+    - [Task 1: Test the application](#task-1-test-the-application)
+    - [Task 2: Enable browsing to the web application](#task-2-enable-browsing-to-the-web-application)
+    - [Task 3: Create a Dockerfile](#task-3-create-a-dockerfile)
+    - [Task 4: Create Docker images](#task-4-create-docker-images)
+    - [Task 5: Run a containerized application](#task-5-run-a-containerized-application)
+    - [Task 6: Setup environment variables](#task-6-setup-environment-variables)
+    - [Task 7: Push images to Azure Container Registry](#task-7-push-images-to-azure-container-registry)
+  - [Exercise 2: Deploy the solution to Azure Kubernetes Service](#exercise-2-deploy-the-solution-to-azure-kubernetes-service)
+    - [Task 1: Tunnel into the Azure Kubernetes Service cluster](#task-1-tunnel-into-the-azure-kubernetes-service-cluster)
+    - [Task 2: Deploy a service using the Kubernetes management dashboard](#task-2-deploy-a-service-using-the-kubernetes-management-dashboard)
+    - [Task 3: Deploy a service using kubectl](#task-3-deploy-a-service-using-kubectl)
+    - [Task 4: Deploy a service using a Helm chart](#task-4-deploy-a-service-using-a-helm-chart)
+    - [Task 5: Initialize database with a Kubernetes Job
+    ](#task-5-initialize-database-with-a-kubernetes-job)
+    - [Task 6: Test the application in a browser](#task-6-test-the-application-in-a-browser)
+    - [Task 7: Configure Continuous Delivery to the Kubernetes Cluster](#task-7-configure-continuous-delivery-to-the-kubernetes-cluster)
+    - [Task 8: Review Azure Monitor for Containers](#task-8-review-azure-monitor-for-containers)
+  - [Exercise 3: Scale the application and test HA](#exercise-3-scale-the-application-and-test-ha)
+    - [Task 1: Increase service instances from the Kubernetes dashboard](#task-1-increase-service-instances-from-the-kubernetes-dashboard)
+    - [Task 2: Increase service instances beyond available resources](#task-2-increase-service-instances-beyond-available-resources)
+    - [Task 3: Restart containers and test HA](#task-3-restart-containers-and-test-ha)
+  - [Exercise 4: Setup load balancing and service discovery](#exercise-4-setup-load-balancing-and-service-discovery)
+    - [Task 1: Scale a service without port constraints](#task-1-scale-a-service-without-port-constraints)
+    - [Task 2: Update an external service to support dynamic discovery with a load balancer](#task-2-update-an-external-service-to-support-dynamic-discovery-with-a-load-balancer)
+    - [Task 3: Adjust CPU constraints to improve scale](#task-3-adjust-cpu-constraints-to-improve-scale)
+    - [Task 4: Perform a rolling update](#task-4-perform-a-rolling-update)
+    - [Task 5: Configure Kubernetes Ingress](#task-5-configure-kubernetes-ingress)
+  - [After the hands-on lab](#after-the-hands-on-lab)
 
 <!-- /TOC -->
 
@@ -65,7 +69,7 @@ Microsoft and the trademarks listed at https://www.microsoft.com/en-us/legal/int
 
 This hands-on lab is designed to guide you through the process of building and deploying Docker images to the Kubernetes platform hosted on Azure Kubernetes Services (AKS), in addition to learning how to work with dynamic service discovery, service scale-out, and high-availability.
 
-At the end of this lab you will be better able to build and deploy containerized applications to Azure Kubernetes Service and perform common DevOps procedures. 
+At the end of this lab you will be better able to build and deploy containerized applications to Azure Kubernetes Service and perform common DevOps procedures.
 
 ## Overview
 
@@ -103,9 +107,9 @@ Each tenant will have the following containers:
 
     - Trial subscriptions will *not* work.
 
-    - You must have rights to create a service principal as discussed in Task 9: Create a Service Principal --- and this typically requires a subscription owner to log in. You may have to ask another subscription owner to login to the portal and execute that step ahead of time if you do not have the rights.
+    - You must have rights to create a service principal as discussed in Before the Hands on Lab Task 9: Create a Service Principal --- and this typically requires a subscription owner to log in. You may have to ask another subscription owner to login to the portal and execute that step ahead of time if you do not have the rights.
 
-    - You must have enough cores available in your subscription to create the build agent and Azure Kubernetes Service cluster in Task 5: Create a build agent VM and Task 10: Create an Azure Kubernetes Service cluster. You'll need eight cores if following the exact instructions in the lab, or more if you choose additional agents or larger VM sizes. If you execute the steps required before the lab, you will be able to see if you need to request more cores in your sub.
+    - You must have enough cores available in your subscription to create the build agent and Azure Kubernetes Service cluster in Before the Hands on Lab Task 5: Create a build agent VM and Task 10: Create an Azure Kubsudo az aks install-cli --install-location /usr/local/bin/kubectlernetes Service cluster. You'll need eight cores if following the exact instructions in the lab, or more if you choose additional agents or larger VM sizes. If you execute the steps required before the lab, you will be able to see if you need to request more cores in your sub.
 
 2. Local machine or a virtual machine configured with:
 
@@ -119,7 +123,7 @@ Each tenant will have the following containers:
 
 3. You will be asked to install other tools throughout the exercises.
 
-> **VERY IMPORTANT: You should be typing all of the commands as they appear in the guide, except where explicitly stated in this document. Do not try to copy and paste from Word to your command windows or other documents where you are instructed to enter information shown in this document. There can be issues with Copy and Paste from Word that result in errors, execution of instructions, or creation of file content.**
+> **VERY IMPORTANT: You should be typing all of the commands as they appear in the guide, except where explicitly stated in this document. Do not try to copy and paste to your command windows or other documents where you are instructed to enter information shown in this document. There can be issues with Copy and Paste that result in errors, execution of instructions, or creation of file content.**
 
 ## Exercise 1: Create and run a Docker application
 
@@ -271,11 +275,11 @@ In this task, you will open a port range on the agent VM so that you can browse 
 
     - **Source**: Any
 
-    - **Source port ranges**:
+    - **Source port ranges**: *
 
     - **Destination**: Any
 
-    - **Destination Port Ranges**: 3000-3010
+    - **Destination port ranges**: 3000-3010
 
     - **Protocol**: Any
 
@@ -448,16 +452,19 @@ In this task, you will create Docker images for the application --- one for the 
     docker images
     ```
 
-    Notice the untagged image.  This is the build stage which contains all the intermediate files not need in your final image.
+    Notice the untagged image.  This is the build stage which contains all the intermediate files not needed in your final image.
 
     ![The node image (node) and your container image (content-api) are visible in this screenshot of the WSL window.](media/image59.png)
 
 4. Commit and push the new Dockerfile before continuing.
 
-    - `git add .`
-    - `git commit -m "Added Dockerfile"`
-    - `git push`
-    - Enter credentials if prompted.
+    ```bash
+    git add .
+    git commit -m "Added Dockerfile"
+    git push
+    ```
+
+    Enter credentials if prompted.
 
 5. Navigate to the content-web folder again and list the files. Note that this folder already has a Dockerfile.
 
@@ -683,19 +690,21 @@ In this task, you will configure the "web" container to communicate with the API
     docker stop api && docker rm api
     docker stop mongo && docker rm mongo
     ```
+
 16. Commit your changes and push to the repository.
-    
+
     ```bash
     git add .
     git commit -m "Setup Environment Variables"
     git push
     ```
-    
+
 17. Navigate to your home directory (where you checked out the content repositories) and create a docker compose file.
 
     ```bash
     cd ~
     vi docker-compose.yml
+    <i>
     ```
 
     Type the following as the contents of `docker-compose.yml`:
@@ -725,6 +734,14 @@ In this task, you will configure the "web" container to communicate with the API
           CONTENT_API_URL: http://api:3001
         ports:
           - "3000:3000"
+    ```
+
+    Press the Escape key and type ":wq" and then press the Enter key to save and close the file.
+
+    ```text
+    <Esc>
+    :wq
+    <Enter>
     ```
 
 18. Start the applications with the `up` command.
@@ -892,17 +909,15 @@ In this task, you will push images to your ACR account, version images with tagg
     docker pull [LOGINSERVER]/content-web:v1
     ```
 
-13. Next we will use Azure DevOps to automate the process for creating images and pushing to ACR.  First, you need to add an Azure Service Principal to your Azure DevOps account.  Login to your VisualStudio.com account and click the gear icon to access your settings. Then select Services.
+13. Next we will use Azure DevOps to automate the process for creating images and pushing to ACR. First, you need to add an Azure Service Principal to your Azure DevOps account. Login to your Azure DevOps account and click the Project settings gear icon to access your settings. Then select Service connections.
 
-14. Choose "+ New Service Endpoint". Then pick "Azure Resource Manager" from the menu.
+14. Choose "+ New service connection". Then pick "Azure Resource Manager" from the menu.
 
     ![A screenshot of the New Service Endpoint selection in Azure DevOps with Azure Resource Manager highlighted.](media/vso-service-connection-settings.png)
-
 
 15. Select the link indicated in the screenshot below to access the advanced settings.
 
     ![A screenshot of the Add Azure Resource Manager dialog where you can enter your subscription information.](media/vso-service-connection-settings2.png)
-
 
 16. Enter the required information using the service principal information you created before the lab.
 
@@ -928,7 +943,7 @@ In this task, you will push images to your ACR account, version images with tagg
 
     > If the connection does not verify, then recheck and reenter the required data.
 
-18. Now create your first build. Select "Pipelines," then select "+ New definition."
+18. Now create your first build. Select "Pipelines", then select "New pipeline"
 
     ![A screenshot of Azure DevOps build definitions.](media/Ex1-Task7.18.png)
 
@@ -972,12 +987,11 @@ In this task, you will push images to your ACR account, version images with tagg
 
     ![A screenshot of the dialog where you can setup triggers.](media/Ex1-Task7.24.png)
 
-
 25. Select "Save & queue"; then select "Save & queue" two more times to kick off the first build.
 
     ![A screenshot showing the queued build.](media/Ex1-Task7.26.png)
 
-26. While that build runs, create the content-api build.  Select "Builds", and then select "+ New".  Configure content-api by following the same steps used to configure content-web.
+26. While that build runs, create the content-api build. Select "Builds", then select "+ New", and then select "New build pipeline". Configure content-api by following the same steps used to configure content-web.
 
 27. While the content-api build runs, setup one last build for content-init by following the same steps as the previous two builds.
 
@@ -1038,7 +1052,7 @@ In this task, you will gather the information you need about your Azure Kubernet
     az account set --subscription {id}
     ```
 
-5. Configure kubectl to connect to the Kubernetes cluster.
+5. Configure kubectl to connect to the Kubernetes cluster:
 
     ```bash
     az aks get-credentials --name fabmedical-SUFFIX --resource-group fabmedical-SUFFIX
@@ -1052,7 +1066,13 @@ In this task, you will gather the information you need about your Azure Kubernet
 
     ![In this screenshot of the WSL console, kubectl get nodes has been typed and run at the command prompt, which produces a list of nodes.](media/image75.png)
 
-7. Create an SSH tunnel linking a local port (8001) on your machine to port 80 on the management node of the cluster. Execute the command below replacing the values as follows:
+7. Since the AKS cluster uses RBAC, a ClusterRoleBinding must be created before you can correctly access the dashboard. To create the required binding, execute the command bellow:
+
+    ```bash
+    kubectl create clusterrolebinding kubernetes-dashboard --clusterrole=cluster-admin --serviceaccount=kube-system:kubernetes-dashboard
+    ```
+
+8. Create an SSH tunnel linking a local port (8001) on your machine to port 80 on the management node of the cluster. Execute the command below replacing the values as follows:
 
    > **Note: After you run this command, it may work at first and later lose its connection, so you may have to run this again to reestablish the connection. If the Kubernetes dashboard becomes unresponsive in the browser this is an indication to return here and check your tunnel or rerun the command.**
 
@@ -1062,15 +1082,15 @@ In this task, you will gather the information you need about your Azure Kubernet
 
     ![In this screenshot of the WSL console, the output of the above command produces output similar to the following: Password for private key: Proxy running on 127.0.0.1:8001/ui Press CTRL+C to close the tunnel \... Starting to server on 127.0.0.1:8001](media/image76.png)
 
-8. Open a browser window and access the Kubernetes management dashboard at the Services view. To reach the dashboard, you must access the following address:
+9. Open a browser window and access the Kubernetes management dashboard at the Services view. To reach the dashboard, you must access the following address:
 
     ```bash
     http://localhost:8001
     ```
 
-9. If the tunnel is successful, you will see the Kubernetes management dashboard. 
+10. If the tunnel is successful, you will see the Kubernetes management dashboard.
 
-![This is a screenshot of the Kubernetes management dashboard. Overview is highlighted on the left, and at right, kubernetes has a green check mark next to it. Below that, default-token-b9kf6 is listed under Secrets.](media/image77.png)
+    ![This is a screenshot of the Kubernetes management dashboard. Overview is highlighted on the left, and at right, kubernetes has a green check mark next to it. Below that, default-token-s6kmc is listed under Secrets.](media/image77.png)
 
 ### Task 2: Deploy a service using the Kubernetes management dashboard
 
@@ -1116,14 +1136,14 @@ In this task, you will deploy the API application to the Azure Kubernetes Servic
 
     ![A screenshot of the Azure Portal selection to create Azure Cosmos DB.](media/Ex2-Task1.7.1.png)
 
-8. Configure Azure CosmosDb as follows and click "Review + create" and then click "Create":
+8. Configure Azure Cosmos DB as follows and click "Review + create" and then click "Create":
 
     - **Subscription**: Use the same subscription you have used for all your other work.
 
     - **Resource Group**: fabmedical-SUFFIX
 
     - **Account Name**: fabmedical-SUFFIX
-    
+
     - **API**: Azure Cosmos DB for MongoDB API
 
     - **Location**: Choose the same region that you did before.
@@ -1135,6 +1155,7 @@ In this task, you will deploy the API application to the Azure Kubernetes Servic
 9. Navigate to your resource group and find your new CosmosDb resource.  Click on the CosmosDb resource to view details.
 
     ![A screenshot of the Azure Portal showing the Cosmos DB among existing resources.](media/Ex2-Task1.9.png)
+
 10. Under "Quick Start" select the "Node.js" tab and copy the Node 3.0 connection string.
 
     ![A screenshot of the Azure Portal showing the quick start for setting up Cosmos DB with MongoDB API.](media/Ex2-Task1.10.png)
@@ -1149,9 +1170,8 @@ In this task, you will deploy the API application to the Azure Kubernetes Servic
 
 12. You will setup a Kubernetes secret to store the connection string, and configure the content-api application to access the secret.  First, you must base64 encode the secret value.  Open your WSL window and use the following command to encode the connection string and then, copy the output.
 
-
     ```bash
-    echo -n "<connection string value>" | base64 -w 0 
+    echo -n "<connection string value>" | base64 -w 0
     ```
 
 13. Return to the Kubernetes UI in your browser and click "+ Create".  Update the following YAML with the encoded connection string from your clipboard, paste the YAML data into the create dialog and click "Upload".
@@ -1339,11 +1359,234 @@ In this task, deploy the web service using `kubectl`.
 
     ![In the Kubernetes management dashboard, Services is selected below Discovery and Load Balancing in the navigation menu. At right are three boxes that display various information about the web service deployment: Details, Pods, and Events. At this time, we are unable to capture all of the information in the window. Future versions of this course should address this.](media/image94.png)
 
-11. Select the speakers and sessions links. Note that no data is displayed, although we have connected to our CosmosDb instance, there is no data loaded. You will resolve this by running the content-init application as a Kubernetes Job.
+11. Select the speakers and sessions links. Note that no data is displayed, although we have connected to our CosmosDb instance, there is no data loaded. You will resolve this by running the content-init application as a Kubernetes Job in Task 5.
 
     ![A screenshot of the web site showing no data displayed.](media/Ex2-Task3.11.png)
 
-### Task 4: Initialize database with a Kubernetes Job
+### Task 4: Deploy a service using a Helm chart
+
+In this task, deploy the web service using a helm chart.
+
+1. From the Kubernetes dashboard, under "Workloads", select "Deployments".
+
+2. Click the triple vertical dots on the right of the "web" deployment and then select "Delete". When prompted, click "Delete" again.
+
+    ![A screenshot of the Kubernetes management dashboard showing how to delete a deployment.](media/Ex2-Task4.2.png)
+
+3. From the Kubernetes dashboard, under "Discovery and Load Balancing", select "Services".
+
+4. Click the triple vertical dots on the right the the "web" service and then select "Delete". When prompted, click "Delete" again.
+
+    ![A screenshot of the Kubernetes management dashboard showing how to delete a deployment.](media/Ex2-Task4.4.png)
+
+5. Open a **new** WSL console.
+
+6. Create a text file called rbac-config.yaml using Vim and press the "i" key to go into edit mode.
+
+    ```bash
+    vi rbac-config.yaml
+    <i>
+    ```
+
+7. Copy and paste the following text into the editor:
+
+    >**Note: Be sure to copy and paste only the contents of the code block carefully to avoid introducing any special characters. If the code does not paste correctly, you can issue a ":set paste" command before pasting.**
+
+    ```yaml
+    apiVersion: v1
+    kind: ServiceAccount
+    metadata:
+      name: tiller
+      namespace: kube-system
+    ---
+    apiVersion: rbac.authorization.k8s.io/v1
+    kind: ClusterRoleBinding
+    metadata:
+      name: tiller
+    roleRef:
+      apiGroup: rbac.authorization.k8s.io
+      kind: ClusterRole
+      name: cluster-admin
+    subjects:
+      - kind: ServiceAccount
+        name: tiller
+        namespace: kube-system
+    ```
+
+8. Press the Escape key and type ":wq". Then press the Enter key to save and close the file.
+
+    ```text
+    <Esc>
+    :wq
+    <Enter>
+    ```
+
+9. Type the following command to create the service account needed by Tiller (the Helm server part).
+
+    ```bash
+    kubectl create -f rbac-config.yaml
+    ```
+
+10. Type the following command to initialize Helm using the previously service account setup.
+
+    ```bash
+    helm init --service-account tiller
+    ```
+
+11. We will use the `helm create` command to scaffold out a chart implementation that we can build on. Use the following commands to create a new chart named `web` in a new directory:
+
+    ```bash
+    cd FabMedical/content-web
+    mkdir charts
+    cd charts
+    helm create web
+    ```
+
+12. We now need to update the generated scaffold to match our requirements. We will first update the file named `values.yaml`.
+
+    ```bash
+    cd web
+    vi values.yaml
+    <i>
+    ```
+
+13. Search for the `image` definition and update the values so that they match the following:
+
+    ```yaml
+    image:
+      repository: fabmedicalvr.azurecr.io/content-web
+      tag: latest
+      pullPolicy: Always
+    ```
+
+14. Search for `nameOverride` and `fullnameOverride` entries and update the values so that they match the following:
+
+    ```yaml
+    nameOverride: "web"
+    fullnameOverride: "web"
+    ```
+
+15. Search for the `service` definition and update the values so that they match the following:
+
+    ```yaml
+    service:
+      type: LoadBalancer
+      port: 80
+    ```
+
+16. Search for the `resources` definition and update the values so that they match the following:
+
+    ```yaml
+    resources:
+      # We usually recommend not to specify default resources and to leave this as a conscious
+      # choice for the user. This also increases chances charts run on environments with little
+      # resources, such as Minikube. If you do want to specify resources, uncomment the following
+      # lines, adjust them as necessary, and remove the curly braces after 'resources:'.
+      # limits:
+      #  cpu: 100m
+      #  memory: 128Mi
+      requests:
+        cpu: 1000m
+        memory: 128Mi
+    ```
+
+17. Press the Escape key and type ":wq". Then press the Enter key to save and close the file.
+
+    ```text
+    <Esc>
+    :wq
+    <Enter>
+    ```
+
+18. We will now update the file named `deployment.yaml`.
+
+    ```bash
+    cd templates
+    vi deployment.yaml
+    <i>
+    ```
+
+19. Search for the `containers` definition and update the values so that they match the following:
+
+    ```yaml
+    containers:
+      - name: {{ .Chart.Name }}
+        image: "{{ .Values.image.repository }}:{{ .Values.image.tag }}"
+        imagePullPolicy: {{ .Values.image.pullPolicy }}
+        ports:
+          - name: http
+            containerPort: 3000
+            protocol: TCP
+        env:
+        - name: CONTENT_API_URL
+          value: http://api:3001
+        livenessProbe:
+          httpGet:
+            path: /
+            port: 3000
+    ```
+
+20. Press the Escape key and type ":wq". Then press the Enter key to save and close the file.
+
+    ```text
+    <Esc>
+    :wq
+    <Enter>
+    ```
+
+21. We will now update the file named `service.yaml`.
+
+    ```bash
+    vi service.yaml
+    <i>
+    ```
+
+22. Search for the `ports` definition and update the values so that they match the following:
+
+    ```yaml
+    ports:
+      - port: {{ .Values.service.port }}
+        targetPort: 3000
+        protocol: TCP
+        name: http
+    ```
+
+23. Press the Escape key and type ":wq". Then press the Enter key to save and close the file.
+
+    ```text
+    <Esc>
+    :wq
+    <Enter>
+    ```
+
+24. The chart is now setup to run our web container. Type the following command to deploy the application described by the YAML files. You will receive a message indicating that helm has created a web deployment and a web service.
+
+    ```bash
+    cd ../..
+    helm install --name web ./web
+    ```
+
+    ![In this screenshot of the WSL console, helm install --name web ./web has been typed and run at the command prompt. Messages about web deployment and web service creation appear below.](media/Ex2-Task4.24.png)
+
+25. Return to the browser where you have the Kubernetes management dashboard open. From the navigation menu, select Services view under Discovery and Load Balancing. From the Services view, select the web service and from this view, you will see the web service deploying. This deployment can take a few minutes. When it completes you should be able to access the website via an external endpoint.
+
+    ![In the Kubernetes management dashboard, Services is selected below Discovery and Load Balancing in the navigation menu. At right are three boxes that display various information about the web service deployment: Details, Pods, and Events. At this time, we are unable to capture all of the information in the window. Future versions of this course should address this.](media/image94.png)
+
+26. Select the speakers and sessions links. Note that no data is displayed, although we have connected to our CosmosDb instance, there is no data loaded. You will resolve this by running the content-init application as a Kubernetes Job.
+
+    ![A screenshot of the web site showing no data displayed.](media/Ex2-Task3.11.png)
+
+27. We will now persist the changes into the repository. Execute the following commands:
+
+    ```bash
+    cd ..
+    git pull
+    git add charts/
+    git commit -m "Helm chart added."
+    git push
+    ```
+
+### Task 5: Initialize database with a Kubernetes Job
 
 In this task, you will use a Kubernetes Job to run a container that is meant to execute a task and terminate, rather than run all the time.
 
@@ -1390,17 +1633,17 @@ In this task, you will use a Kubernetes Job to run a container that is meant to 
 
 6. View the Job by selecting "Jobs" under "Workloads" in the Kubernetes UI.
 
-    ![A screenshot of the Kubernetes management dashboard showing jobs.](media/Ex2-Task4.6.png)
+    ![A screenshot of the Kubernetes management dashboard showing jobs.](media/Ex2-Task5.6.png)
 
 7. Select the log icon to view the logs.
 
-    ![A screenshot of the Kubernetes management dashboard showing log output.](media/Ex2-Task4.7.png)
+    ![A screenshot of the Kubernetes management dashboard showing log output.](media/Ex2-Task5.7.png)
 
 8. Next view your CosmosDb instance in the Azure portal and see that it now contains two collections.
 
-    ![A screenshot of the Azure Portal showing Cosmos DB collections.](media/Ex2-Task4.8.png)
+    ![A screenshot of the Azure Portal showing Cosmos DB collections.](media/Ex2-Task5.8.png)
 
-### Task 5: Test the application in a browser
+### Task 6: Test the application in a browser
 
 In this task, you will verify that you can browse to the web service you have deployed and view the speaker and content information exposed by the API service.
 
@@ -1415,6 +1658,141 @@ In this task, you will verify that you can browse to the web service you have de
     ![In this screenshot of the Contoso Neuro 2017 web application, Speakers has been selected, and sample speaker information appears at the bottom.](media/image114.png)
 
     ![In this screenshot of the Contoso Neuro 2017 web application, Sessions has been selected, and sample session information appears at the bottom.](media/image115.png)
+
+### Task 7: Configure Continuous Delivery to the Kubernetes Cluster
+
+In this task, you will update a Build Pipeline and configure a Release Pipeline in your Azure DevOps account so that when new images are pushed to the ACR, they get deployed to the AKS cluster.
+
+1. We will use Azure DevOps to automate the process for deploying the web image to the AKS cluster. Login to your Azure DevOps account, access the project you created earlier, then select "Pipelines", and then select "Builds".
+
+2. From the builds list, select the `content-web-Container-CI` build and then click `Edit.`
+
+    ![A screenshot with the `content-web-Container-CI` build selected and the `Edit` button highlighted.](media/Ex2-Task7.2.png)
+
+3. In the `Agent job 1` row, click `+`.
+
+    ![A screenshot that shows how to add a task to a build pipeline.](media/Ex2-Task7.3.png)
+
+4. Search for "Helm", select "Helm tool installer" and then click "Add".
+
+    ![A screenhost that shows adding the "Helm tool installer" task.](media/Ex2-Task7.4.png)
+
+5. Still using the same search, select "Package and deploy Helm charts" and then click "Add".
+
+    ![A screenhost that shows adding the "Package and deploy Helm charts" task.](media/Ex2-Task7.5.png)
+
+6. Search for "Publish Artifacts", select "Publish Build Artifacts" and then click "Add".
+
+    ![A screenhost that shows adding the "Publish Build Artifacts" task.](media/Ex2-Task7.6.png)
+
+7. Select "helm ls":
+
+    - **Azure subscription**: Choose "azurecloud-sol".
+
+    - **Resource group**: Choose your resource group by name.
+
+    - **Kubernetes cluster**: Choose your AKS instance by name.
+
+    - **Command**: Select "package".
+
+    - **Chart Path**: Select "charts/web".
+
+    ![A screenshot of the dialog where you can describe the helm package.](media/Ex2-Task7.7.png)
+
+8. Select "Publish Artifact: drop":
+
+    - **Path to publish**: Ensure that the value matches "$(Build.ArtifactStagingDirectory)".
+
+    - **Artifact name**: Update the value to "chart".
+
+    ![A screenshot of the dialog where you can describe the publish artifact.](media/Ex2-Task7.8.png)
+
+9. Select "Save & queue"; then select "Save & queue" two more times to kick off the build.
+
+10. Now create your first release. Select "Pipelines, then select "Releases", and then select "New pipeline".
+
+    ![A screenshot of Azure DevOps release definitions.](media/Ex2-Task7.10.png)
+
+11. Search for "Helm" templates and choose "Deploy an application to a Kubernetes cluster by using its Helm chart." then select "Apply".
+
+    ![A screenshot of template selection showing Deploy an application to a Kubernetes cluster by using its Helm chart selected.](media/Ex2-Task7.11.png)
+
+12. Change the release name to "content-web-AKS-CD".
+
+    ![A screenshot of the dialog where you can enter the name for the release.](media/Ex2-Task7.12.png)
+
+13. Select "+ Add an artifact".
+
+    ![A screenshot of the release artifacts.](media/Ex2-Task7.13.png)
+
+14. Setup the artifact:
+
+    - **Project**: fabmedical
+
+    - **Source (build pipeline)**: content-web-Container-CI
+
+    - **Default version**: select "Latest"
+
+    ![A screenshot of the add an artifact dialog.](media/Ex2-Task7.14.png)
+
+15. Select the "Continuous deployment trigger".
+
+    ![A screenshot of the continuous deployment trigger.](media/Ex2-Task7.15.png)
+
+16. Enable the continuous deployment.
+
+    ![A screenshot of the continuous deployment being enabled.](media/Ex2-Task7.16.png)
+
+17. In "Stage 1", click "1 job, 3 tasks".
+
+    ![A screenshot of the Stage 1 current status.](media/Ex2-Task7.17.png)
+
+18. Setup the stage:
+
+    - **Azure subscription**: Choose "azurecloud-sol".
+
+    - **Resource group**: Choose your resource group by name.
+
+    - **Kubernetes cluster**: Choose your AKS instance by name.
+
+    ![A screenshot of ](media/Ex2-Task7.18.png)
+
+19. Select "helm init":
+
+    - **Command**: select "init"
+
+    - **Arguments**: Update the value to "--service-account tiller"
+
+    ![A screenshot of ](media/Ex2-Task7.19.png)
+
+20. Select "helm upgrade":
+
+    - **Command**: select "upgrade"
+    - **Chart Type**: select "File Path"
+    - **Chart Path**: select the location of the chart artifact
+    - **Release Name**: web
+
+    ![A screenshot of ](media/Ex2-Task7.20.png)
+
+21. Select "Save" and then "OK".
+
+22. Select "+ Release", then "+ Create a release" and then "Create" to kick off the release.
+
+### Task 8: Review Azure Monitor for Containers
+
+In this task, you will access and review the various logs and dashboards made available by Azure Monitor for Containers.
+
+1. From the Azure Portal, select the resource group you created named fabmedical-SUFFIX, and then select your AKS cluster.
+
+    ![In this screenshot, the resource group was previously selected and the AKS cluster is selected.](media/Ex2-Task8.1.png)
+
+2. From the Monitoring blade, select **Insights**.
+
+    ![In the Monitoring blade, Insights is highlighted.](media/Ex2-Task8.2.png)
+
+3. Review the various available dashboards and a deeper look at the various metrics and logs available on the Cluster, Cluster Nodes, Cluster Controllers and deployed Containers.
+
+    ![In this screenshot, the dashboards and blades are shows.](media/Ex2-Task8.3.png)
 
 ## Exercise 3: Scale the application and test HA
 
@@ -1748,6 +2126,7 @@ In this task, you will edit the web application source code to add Application I
     appInsights.setup(config.appInsightKey);
     appInsights.start();
     ```
+
     ![A screenshot of the VIM editor showing the modified lines.](media/Ex4-Task4.13.png)
 
 14. Press the Escape key and type ":wq". Then press the Enter key to save and close the file.
@@ -1776,15 +2155,18 @@ In this task, you will edit the web application source code to add Application I
 17. Press the Escape key and type ":wq". Then press the Enter key to save and close the file.
 
 18. Now update the development config:
+
     ```bash
     vi config/env/development.js
     <i>
     ```
+
 19. Add the following line to the `module.exports` object, and then update [YOUR APPINSIGHTS KEY] with the your Application Insights Key from the Azure portal.
 
     ```javascript
     appInsightKey: '[YOUR APPINSIGHTS KEY]'
     ```
+
 20. Press the Escape key and type ":wq". Then press the Enter key to save and close the file.
 
 21. Push these changes to your repository so that Azure DevOps CI will build a new image while you work on updating the content-api application.
@@ -1895,39 +2277,25 @@ In this task, you will edit the web application source code to add Application I
 
 In this task you will setup a Kubernetes Ingress to take advantage of path based routing and TLS termination.
 
-1. Install helm, a package manager for Kubernetes.  Run the following commands in your WSL window:
-
-    ```bash
-    curl https://raw.githubusercontent.com/kubernetes/helm/master/scripts/get > get_helm.sh
-    chmod 700 get_helm.sh
-    ./get_helm.sh
-    ```
-
-2. Setup your local config and deploy the server side helm component `tiller`.
-
-    ```bash
-    helm init
-    ```
-
-3. Update your helm package list.
+1. Update your helm package list.
 
     ```bash
     helm repo update
     ```
 
-4. Install the ingress controller resource to handle ingress requests as they come in.  The ingress controller will receive a public IP of its own on the Azure Load Balancer and be able to handle requests for multiple services over port 80 and 443.
+2. Install the ingress controller resource to handle ingress requests as they come in.  The ingress controller will receive a public IP of its own on the Azure Load Balancer and be able to handle requests for multiple services over port 80 and 443.
 
     ```bash
     helm install stable/nginx-ingress --namespace kube-system --set rbac.create=false --set rbac.createRole=false --set rbac.createClusterRole=false
     ```
 
-5. Set a DNS prefix on the IP address allocated to the ingress controller.  Visit the `kube-system` namespace in your kubeneretes dashboard to find the IP.
+3. Set a DNS prefix on the IP address allocated to the ingress controller.  Visit the `kube-system` namespace in your kubeneretes dashboard to find the IP.
 
     http://localhost:8001/#!/service?namespace=kube-system
 
     ![A screenshot of the Kubernetes management dashboard showing the ingress controller settings.](media/Ex4-Task5.5.png)
 
-6. Create a script to update the public DNS name for the IP.
+4. Create a script to update the public DNS name for the IP.
 
     ```bash
     vi update-ip.sh
@@ -1954,15 +2322,15 @@ In this task you will setup a Kubernetes Ingress to take advantage of path based
 
     ![A screenshot of VIM editor showing the updated file.](media/Ex4-Task5.6.png)
 
-7. Use `<esc>:wq` to save your script and exit VIM.
+5. Use `<esc>:wq` to save your script and exit VIM.
 
-8. Run the update script.
+6. Run the update script.
 
     ```bash
     bash ./update-ip.sh
     ```
 
-9. Verify the IP update by visiting the url in your browser.
+7. Verify the IP update by visiting the url in your browser.
 
     >**NOTE:** It is normal to receive a 404 message at this time.
 
@@ -1972,13 +2340,13 @@ In this task you will setup a Kubernetes Ingress to take advantage of path based
 
     ![A screenshot of the browser url.](media/Ex4-Task5.9.png)
 
-10. Use helm to install `cert-manager`; a tool that can provision SSL certificates automatically from letsencrypt.org.
+8. Use helm to install `cert-manager`; a tool that can provision SSL certificates automatically from letsencrypt.org.
 
     ```bash
     helm install --name cert-manager --namespace kube-system --set rbac.create=false --version v0.5.2 stable/cert-manager
     ```
 
-11. Cert manager will need a custom ClusterIssuer resource to handle requesting SSL certificates.
+9. Cert manager will need a custom ClusterIssuer resource to handle requesting SSL certificates.
 
     ```bash
     vi clusterissuer.yml
@@ -2005,21 +2373,21 @@ In this task you will setup a Kubernetes Ingress to take advantage of path based
         http01: {}
     ```
 
-12. Save the file with `<esc>:wq`.
+10. Save the file with `<esc>:wq`.
 
-13. Create the issuer using kubectl.
+11. Create the issuer using kubectl.
 
     ```bash
     kubectl create --save-config=true -f clusterissuer.yml
     ```
 
-14. Update the cert-manager to use the ClusterIssuer by default.
+12. Update the cert-manager to use the ClusterIssuer by default.
 
     ```bash
     helm upgrade cert-manager stable/cert-manager --namespace kube-system --set rbac.create=false --version v0.5.2 --set ingressShim.defaultIssuerName=letsencrypt-prod --set ingressShim.defaultIssuerKind=ClusterIssuer
     ```
 
-15. Now you can create an ingress resource for the content applications.
+13. Now you can create an ingress resource for the content applications.
 
     ```bash
     vi content.ingress.yml
@@ -2035,7 +2403,7 @@ In this task you will setup a Kubernetes Ingress to take advantage of path based
       name: content-ingress
       annotations:
         kubernetes.io/tls-acme: "true"
-        nginx.ingress.kubernetes.io/rewrite-target: /
+        nginx.ingress.kubernetes.io/rewrite-target: /$1
     spec:
       tls:
       - hosts:
@@ -2049,28 +2417,28 @@ In this task you will setup a Kubernetes Ingress to take advantage of path based
             backend:
               serviceName: web
               servicePort: 80
-          - path: /content-api
+          - path: /content-api/(.*)
             backend:
               serviceName: api
               servicePort: 3001
 
     ```
 
-16. Save the file with `<esc>:wq`.
+14. Save the file with `<esc>:wq`.
 
-17. Create the ingress using kubectl.
+15. Create the ingress using kubectl.
 
     ```bash
     kubectl create --save-config=true -f content.ingress.yml
     ```
 
-18. Refresh the ingress endpoint in your browser.  You should be able to visit the speakers and sessions pages and see all the content.
+16. Refresh the ingress endpoint in your browser.  You should be able to visit the speakers and sessions pages and see all the content.
 
-19. Visit the api directly, by navigating to `/content-api/sessions` at the ingress endpoint.
+17. Visit the api directly, by navigating to `/content-api/sessions` at the ingress endpoint.
 
     ![A screenshot showing the output of the sessions content in the browser.](media/Ex4-Task5.19.png)
 
-20. Test TLS termination by visiting both services again using `https`.
+18. Test TLS termination by visiting both services again using `https`.
 
     > It can take a few minutes before the SSL site becomes avaiable.  This is due to the delay involved with provisioning a TLS cert from letsencypt.
 
