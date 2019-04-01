@@ -44,8 +44,7 @@ Microsoft and the trademarks listed at https://www.microsoft.com/en-us/legal/int
     - [Task 2: Deploy a service using the Kubernetes management dashboard](#task-2-deploy-a-service-using-the-kubernetes-management-dashboard)
     - [Task 3: Deploy a service using kubectl](#task-3-deploy-a-service-using-kubectl)
     - [Task 4: Deploy a service using a Helm chart](#task-4-deploy-a-service-using-a-helm-chart)
-    - [Task 5: Initialize database with a Kubernetes Job
-    ](#task-5-initialize-database-with-a-kubernetes-job)
+    - [Task 5: Initialize database with a Kubernetes Job](#task-5-initialize-database-with-a-kubernetes-job)
     - [Task 6: Test the application in a browser](#task-6-test-the-application-in-a-browser)
     - [Task 7: Configure Continuous Delivery to the Kubernetes Cluster](#task-7-configure-continuous-delivery-to-the-kubernetes-cluster)
     - [Task 8: Review Azure Monitor for Containers](#task-8-review-azure-monitor-for-containers)
@@ -1211,7 +1210,7 @@ In this task, you will deploy the API application to the Azure Kubernetes Servic
        - Add the following environment configuration to the container spec, below the "image" property:
 
     ```yaml
-    - image: fabmedicalsol2.azurecr.io/fabmedical/content-api
+    - image: [LOGINSERVER].azurecr.io/fabmedical/content-api
       env:
         - name: MONGODB_CONNECTION
           valueFrom:
@@ -1454,7 +1453,7 @@ In this task, deploy the web service using a helm chart.
 
     ```yaml
     image:
-      repository: fabmedicalvr.azurecr.io/content-web
+      repository: [LOGINSERVER].azurecr.io/content-web
       tag: latest
       pullPolicy: Always
     ```
