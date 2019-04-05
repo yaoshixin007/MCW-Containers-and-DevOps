@@ -1462,7 +1462,7 @@ In this task, deploy the web service using a helm chart.
     cd ..
     git pull
     git add charts/
-    git commit -m "Helm chart added."
+    git commit -m "Helm chart update."
     git push
     ```
 
