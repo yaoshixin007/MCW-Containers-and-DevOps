@@ -1,7 +1,7 @@
 ![](https://github.com/Microsoft/MCW-Template-Cloud-Workshop/raw/master/Media/ms-cloud-workshop.png "Microsoft Cloud Workshops")
 
 <div class="MCWHeader1">
-Containers and DevOps
+Containers and DevOps (Infrastructure edition)
 </div>
 
 <div class="MCWHeader2">
@@ -34,11 +34,10 @@ Microsoft and the trademarks listed at https://www.microsoft.com/en-us/legal/int
   - [Exercise 1: Create and run a Docker application](#exercise-1-create-and-run-a-docker-application)
     - [Task 1: Test the application](#task-1-test-the-application)
     - [Task 2: Enable browsing to the web application](#task-2-enable-browsing-to-the-web-application)
-    - [Task 3: Create a Dockerfile](#task-3-create-a-dockerfile)
-    - [Task 4: Create Docker images](#task-4-create-docker-images)
-    - [Task 5: Run a containerized application](#task-5-run-a-containerized-application)
-    - [Task 6: Setup environment variables](#task-6-setup-environment-variables)
-    - [Task 7: Push images to Azure Container Registry](#task-7-push-images-to-azure-container-registry)
+    - [Task 3: Create Docker images](#task-3-create-docker-images)
+    - [Task 4: Run a containerized application](#task-4-run-a-containerized-application)
+    - [Task 5: Setup environment variables](#task-5-setup-environment-variables)
+    - [Task 6: Push images to Azure Container Registry](#task-6-push-images-to-azure-container-registry)
   - [Exercise 2: Deploy the solution to Azure Kubernetes Service](#exercise-2-deploy-the-solution-to-azure-kubernetes-service)
     - [Task 1: Tunnel into the Azure Kubernetes Service cluster](#task-1-tunnel-into-the-azure-kubernetes-service-cluster)
     - [Task 2: Deploy a service using the Kubernetes management dashboard](#task-2-deploy-a-service-using-the-kubernetes-management-dashboard)
@@ -318,112 +317,7 @@ In this task, you will open a port range on the agent VM so that you can browse 
     killall nodejs
     ```
 
-### Task 3: Create a Dockerfile
-
-In this task, you will create a new Dockerfile that will be used to run the API application as a containerized application.
-
-> **Note: You will be working in a Linux VM without friendly editor tools. You must follow the steps very carefully to work with Vim for a few editing exercises if you are not already familiar with Vim.**
-
-1. From WSL, navigate to the content-api folder. List the files in the folder with this command. The output should look like the screenshot below.
-
-    ```bash
-    cd ../content-api
-    ll
-    ```
-
-    ![In this screenshot of the WSL window, ll has been typed and run at the command prompt. The files in the folder are listed in the window. At this time, we are unable to capture all of the information in the window. Future versions of this course should address this.](media/image55.png)
-
-2. Create a new file named "Dockerfile" and note the casing in the name. Use the following Vim command to create a new file. The WSL window should look as shown in the following screenshot.
-
-    ```bash
-    vi Dockerfile
-    ```
-
-    ![This is a screenshot of a new file named Dockerfile in the WSL window.](media/image56.png)
-
-3. Select "i" on your keyboard. You'll see the bottom of the window showing INSERT mode.
-
-    ![\-- INSERT -- appears at the bottom of the Dockerfile window.](media/image57.png)
-
-4. Type the following into the file. These statements produce a Dockerfile that describes the following:
-
-    - The base stage includes environment setup which we expect to change very rarely, if at all.
-
-      - Creates a new Docker image from the base image node:alpine. This base image has node.js on it and is optimized fro small size.
-
-      - Add `curl` to the base image to support Docker health checks.
-
-      - Creates a directory on the image where the application files can be copied.
-
-      - Exposes application port 3001 to the container environment so that the application can be reached at port 3001.
-
-    - The build stage contains all the tools and intermediate files needed to create the application.
-
-      - Creates a new Docker image from node:argon.
-
-      - Creates a directory on the image where the application files can be copied.
-
-      - Copies package.json to the working directory.
-
-      - Runs npm install to initialize the node application environment.
-
-      - Copies the source files for the application over to the image.
-
-    - The final stage combines the base image with the build output from the build stage.
-
-      - Sets the working directory to the application file location.
-
-      - Copies the app files from the build stage.
-
-      - Indicates the command to start the node application when the container is run.
-
-    > **Note: Type the following into the editor, as you may have errors with copying and pasting:**
-
-    ```Dockerfile
-    FROM node:alpine AS base
-    RUN apk -U add curl
-    WORKDIR /usr/src/app
-    EXPOSE 3001
-
-    FROM node:argon AS build
-    WORKDIR /usr/src/app
-
-    # Install app dependencies
-    COPY package.json /usr/src/app/
-    RUN npm install
-
-    # Bundle app source
-    COPY . /usr/src/app
-
-    FROM base AS final
-    WORKDIR /usr/src/app
-    COPY --from=build /usr/src/app .
-    CMD [ "npm", "start" ]
-    ```
-
-5. When you are finished typing, hit the Esc key and type ":wq" and hit the Enter key to save the changes and close the file.
-
-    ```bash
-    <Esc>
-    :wq
-    <Enter>
-    ```
-
-6. List the contents of the folder again to verify that the new Dockerfile has been created.
-
-    ```bash
-    ll
-    ```
-
-    ![In this screenshot of the WSL window, ll has been typed and run at the command prompt. The Dockerfile file is highlighted at the top of list.](media/image58.png)
-
-7. Verify the file contents to ensure it was saved as expected. Type the following command to see the output of the Dockerfile in the command window.
-
-    ```bash
-    cat Dockerfile
-    ```
-
-### Task 4: Create Docker images
+### Task 3: Create Docker images
 
 In this task, you will create Docker images for the application --- one for the API application and another for the web application. Each image will be created via Docker commands that rely on a Dockerfile.
 
@@ -455,24 +349,14 @@ In this task, you will create Docker images for the application --- one for the 
 
     ![The node image (node) and your container image (content-api) are visible in this screenshot of the WSL window.](media/image59.png)
 
-4. Commit and push the new Dockerfile before continuing.
-
-    ```bash
-    git add .
-    git commit -m "Added Dockerfile"
-    git push
-    ```
-
-    Enter credentials if prompted.
-
-5. Navigate to the content-web folder again and list the files. Note that this folder already has a Dockerfile.
+5. Navigate to the content-web folder again and list the files. Note that this folder has a Dockerfile.
 
     ```bash
     cd ../content-web
     ll
     ```
 
-6. View the Dockerfile contents -- which are similar to the file you created previously in the API folder. Type the following command:
+6. View the Dockerfile contents -- which are similar to the file in the API folder. Type the following command:
 
     ```bash
     cat Dockerfile
@@ -494,7 +378,7 @@ In this task, you will create Docker images for the application --- one for the 
 
     ![Three images are now visible in this screenshot of the WSL window: content-web, content-api, and node.](media/image60.png)
 
-### Task 5: Run a containerized application
+### Task 4: Run a containerized application
 
 The web application container will be calling endpoints exposed by the API application container and the API application container will be communicating with mongodb. In this exercise, you will launch the images you created as containers on same bridge network you created when starting mongodb.
 
@@ -575,7 +459,7 @@ The web application container will be calling endpoints exposed by the API appli
     curl http://localhost:[PORT]/speakers.html
     ```
 
-### Task 6: Setup environment variables
+### Task 5: Setup environment variables
 
 In this task, you will configure the "web" container to communicate with the API container using an environment variable, similar to the way the mongodb connection string is provided to the api. You will modify the web application to read the URL from the environment variable, rebuild the Docker image, and then run the container again to test connectivity.
 
@@ -592,40 +476,14 @@ In this task, you will configure the "web" container to communicate with the API
     docker container ls -a
     ```
 
-3. Navigate to the `content-web/data-access` directory. From there, open the index.js file for editing using Vim, and press the "i" key to go into edit mode.
+3. From the content-web directory, open the Dockerfile for editing using Vim and press the "i" key to go into edit mode.
 
     ```bash
-    cd data-access
-    vi index.js
-    <i>
-    ```
-
-4. Locate the following TODO item and modify the code to comment the first line and uncomment the second. The result is that the contentApiUrl variable will be set to an environment variable.
-
-    ```javascript
-    //TODO: Exercise 2 - Task 6 - Step 4
-
-    //const contentApiUrl = "http://localhost:3001";
-    const contentApiUrl = process.env.CONTENT_API_URL;
-    ```
-
-5. Press the Escape key and type ":wq". Then press the Enter key to save and close the file.
-
-    ```text
-    <Esc>
-    :wq
-    <Enter>
-    ```
-
-6. Navigate to the content-web directory. From there open the Dockerfile for editing using Vim and press the "i" key to go into edit mode.
-
-    ```bash
-    cd ..
     vi Dockerfile
     <i>
     ```
 
-7. Locate the EXPOSE line shown below, and add a line above it that sets the default value for the environment variable as shown in the screenshot.
+4. Locate the EXPOSE line shown below, and add a line above it that sets the default value for the environment variable as shown in the screenshot.
 
     ```Dockerfile
     ENV CONTENT_API_URL http://localhost:3001
@@ -633,7 +491,7 @@ In this task, you will configure the "web" container to communicate with the API
 
     ![In this screenshot of Dockerfile, ENV CONTENT\_API\_URL http://localhost:3001 appears above Expose 3000.](media/image63.png)
 
-8. Press the Escape key and type ":wq" and then press the Enter key to save and close the file.
+5. Press the Escape key and type ":wq" and then press the Enter key to save and close the file.
 
     ```text
     <Esc>
@@ -641,26 +499,26 @@ In this task, you will configure the "web" container to communicate with the API
     <Enter>
     ```
 
-9. Rebuild the web application Docker image using the same command as you did previously.
+6. Rebuild the web application Docker image using the same command as you did previously.
 
     ```bash
     docker build -t content-web .
     ```
 
-10. Create and start the image passing the correct URI to the API container as an environment variable. This variable will address the API application using its container name over the Docker network you created. After running the container, check to see the container is running and note the dynamic port assignment for the next step.
+7. Create and start the image passing the correct URI to the API container as an environment variable. This variable will address the API application using its container name over the Docker network you created. After running the container, check to see the container is running and note the dynamic port assignment for the next step.
 
     ```bash
     docker run --name web --net fabmedical -P -d -e CONTENT_API_URL=http://api:3001 content-web
     docker container ls
     ```
 
-11. Curl the speakers path again, using the port assigned to the web container. Again you will see HTML returned, but because curl does not process javascript, you cannot determine if the web application is communicating with the api application.  You must verify this connection in a browser.
+8. Curl the speakers path again, using the port assigned to the web container. Again you will see HTML returned, but because curl does not process javascript, you cannot determine if the web application is communicating with the api application.  You must verify this connection in a browser.
 
     ```bash
     curl http://localhost:[PORT]/speakers.html
     ```
 
-12. You will not be able to browse to the web application on the ephemeral port because the VM only exposes a limited port range. Now you will stop the web container and restart it using port 3000 to test in the browser. Type the following commands to stop the container, remove it, and run it again using explicit settings for the port.
+9. You will not be able to browse to the web application on the ephemeral port because the VM only exposes a limited port range. Now you will stop the web container and restart it using port 3000 to test in the browser. Type the following commands to stop the container, remove it, and run it again using explicit settings for the port.
 
     ```bash
     docker stop web
@@ -668,13 +526,13 @@ In this task, you will configure the "web" container to communicate with the API
     docker run --name web --net fabmedical -p 3000:3000 -d -e CONTENT_API_URL=http://api:3001 content-web
     ```
 
-13. Curl the speaker path again, using port 3000. You will see the same HTML returned.
+10. Curl the speaker path again, using port 3000. You will see the same HTML returned.
 
     ```bash
     curl http://localhost:3000/speakers.html
     ```
 
-14. You can now use a web browser to navigate to the website and successfully view the application at port 3000. Replace [BUILDAGENTIP] with the IP address you used previously.
+11. You can now use a web browser to navigate to the website and successfully view the application at port 3000. Replace [BUILDAGENTIP] with the IP address you used previously.
 
     ```bash
     http://[BUILDAGENTIP]:3000
@@ -682,7 +540,7 @@ In this task, you will configure the "web" container to communicate with the API
     EXAMPLE: http://13.68.113.176:3000
     ```
 
-15. Managing several containers with all their command line options can become difficult as the solution grows.  `docker-compose` allows us to declare options for several containers and run them together.  First, cleanup the existing containers.
+12. Managing several containers with all their command line options can become difficult as the solution grows.  `docker-compose` allows us to declare options for several containers and run them together.  First, cleanup the existing containers.
 
     ```bash
     docker stop web && docker rm web
@@ -690,7 +548,7 @@ In this task, you will configure the "web" container to communicate with the API
     docker stop mongo && docker rm mongo
     ```
 
-16. Commit your changes and push to the repository.
+13. Commit your changes and push to the repository.
 
     ```bash
     git add .
@@ -698,7 +556,7 @@ In this task, you will configure the "web" container to communicate with the API
     git push
     ```
 
-17. Navigate to your home directory (where you checked out the content repositories) and create a docker compose file.
+14. Navigate to your home directory (where you checked out the content repositories) and create a docker compose file.
 
     ```bash
     cd ~
@@ -743,7 +601,7 @@ In this task, you will configure the "web" container to communicate with the API
     <Enter>
     ```
 
-18. Start the applications with the `up` command.
+15. Start the applications with the `up` command.
 
     ```bash
     docker-compose -f docker-compose.yml -p fabmedical up -d
@@ -751,11 +609,11 @@ In this task, you will configure the "web" container to communicate with the API
 
     ![This screenshot of the WSL window shows the creation of the network and three containers: mongo, api and web.](media/Ex1-Task6.17.png)
 
-19. Visit the website in the browser; notice that we no longer have any data on the speakers or sessions pages.
+16. Visit the website in the browser; notice that we no longer have any data on the speakers or sessions pages.
 
     ![Browser view of the web site.](media/Ex1-Task6.18.png)
 
-20. We stopped and removed our previous mongodb container; all the data contained in it has been removed.  Docker compose has created a new, empty mongodb instance that must be reinitialized.  If we care to persist our data between container instances, the docker has several mechanisms to do so. First we will update our compose file to persist mongodb data to a directory on the build agent.
+17. We stopped and removed our previous mongodb container; all the data contained in it has been removed.  Docker compose has created a new, empty mongodb instance that must be reinitialized.  If we care to persist our data between container instances, the docker has several mechanisms to do so. First we will update our compose file to persist mongodb data to a directory on the build agent.
 
     ```bash
     mkdir data
@@ -776,7 +634,7 @@ In this task, you will configure the "web" container to communicate with the API
 
     ![This screenshot of the VIM edit window shows the resulting compose file.](media/Ex1-Task6.19.png)
 
-21. Next we will add a second file to our composition so that we can initialize the mongodb data when needed.
+18. Next we will add a second file to our composition so that we can initialize the mongodb data when needed.
 
     ```bash
     vi docker-compose.init.yml
@@ -797,7 +655,7 @@ In this task, you will configure the "web" container to communicate with the API
             MONGODB_CONNECTION: mongodb://mongo:27017/contentdb
     ```
 
-22. To reconfigure the mongodb volume, we need to bring down the mongodb service first.
+19. To reconfigure the mongodb volume, we need to bring down the mongodb service first.
 
     ```bash
     docker-compose -f docker-compose.yml -p fabmedical down
@@ -805,13 +663,13 @@ In this task, you will configure the "web" container to communicate with the API
 
     ![This screenshot of the WSL window shows the running containers stopping.](media/Ex1-Task6.21.png)
 
-23. Now run `up` again with both files to update the mongodb configuration, and run the initialization script.
+20. Now run `up` again with both files to update the mongodb configuration, and run the initialization script.
 
     ```bash
     docker-compose -f docker-compose.yml -f docker-compose.init.yml -p fabmedical up -d
     ```
 
-24. Check the data folder to see that mongodb is now writing data files to the host.
+21. Check the data folder to see that mongodb is now writing data files to the host.
 
     ```bash
     ls ./data/
@@ -819,11 +677,11 @@ In this task, you will configure the "web" container to communicate with the API
 
     ![This screenshot of the WSL window shows the output of the data folder.](media/Ex1-Task6.23.png)
 
-25. Check the results in the browser. The speaker and session data are now available.
+22. Check the results in the browser. The speaker and session data are now available.
 
     ![A screenshot of the sessions page.](media/Ex1-Task6.24.png)
 
-### Task 7: Push images to Azure Container Registry
+### Task 6: Push images to Azure Container Registry
 
 To run containers in a remote environment, you will typically push images to a Docker registry, where you can store and distribute images. Each service will have a repository that can be pushed to and pulled from with Docker commands. Azure Container Registry (ACR) is a managed private Docker registry service based on Docker Registry v2.
 
@@ -1432,13 +1290,10 @@ In this task, deploy the web service using a helm chart.
     helm init --service-account tiller
     ```
 
-11. We will use the `helm create` command to scaffold out a chart implementation that we can build on. Use the following commands to create a new chart named `web` in a new directory:
+11. We will use the chart scaffold implementation that we have available in the source code. Use the following commands to access the chart folder:
 
     ```bash
-    cd FabMedical/content-web
-    mkdir charts
-    cd charts
-    helm create web
+    cd FabMedical/content-web/charts
     ```
 
 12. We now need to update the generated scaffold to match our requirements. We will first update the file named `values.yaml`.
@@ -1581,7 +1436,7 @@ In this task, deploy the web service using a helm chart.
     cd ..
     git pull
     git add charts/
-    git commit -m "Helm chart added."
+    git commit -m "Helm chart update."
     git push
     ```
 
@@ -2105,46 +1960,14 @@ In this task, you will edit the web application source code to add Application I
 
 9. From the command line, navigate to the content-web directory.
 
-10. Install support for Application Insights.
-
-    ```bash
-    npm install applicationinsights --save
-    ```
-
-11. Open the server.js file using VI:
-
-    ```bash
-    vi server.js
-    ```
-
-12. Enter insert mode by pressing `<i>`.
-
-13. Add the following lines immediately after the config is loaded.
-
-    ```javascript
-    const appInsights = require("applicationinsights");
-    appInsights.setup(config.appInsightKey);
-    appInsights.start();
-    ```
-
-    ![A screenshot of the VIM editor showing the modified lines.](media/Ex4-Task4.13.png)
-
-14. Press the Escape key and type ":wq". Then press the Enter key to save and close the file.
-
-    ```text
-    <Esc>
-    :wq
-    <Enter>
-    ```
-
-15. Update your config files to include the Application Insights Key.
+10. Update your config files to include the Application Insights Key.
 
     ```bash
     vi config/env/production.js
     <i>
     ```
 
-16. Add the following line to the `module.exports` object, and then update [YOUR APPINSIGHTS KEY] with the your Application Insights Key from the Azure portal.
+11. Search for the following line in the `module.exports` object, and then update [YOUR APPINSIGHTS KEY] with the your Application Insights Key from the Azure portal.
 
     ```javascript
     appInsightKey: '[YOUR APPINSIGHTS KEY]'
@@ -2152,24 +1975,24 @@ In this task, you will edit the web application source code to add Application I
 
     ![A screenshot of the VIM editor showing the modified lines.](media/Ex4-Task4.16.png)
 
-17. Press the Escape key and type ":wq". Then press the Enter key to save and close the file.
+12. Press the Escape key and type ":wq". Then press the Enter key to save and close the file.
 
-18. Now update the development config:
+13. Now update the development config:
 
     ```bash
     vi config/env/development.js
     <i>
     ```
 
-19. Add the following line to the `module.exports` object, and then update [YOUR APPINSIGHTS KEY] with the your Application Insights Key from the Azure portal.
+14. Search for the following line in the `module.exports` object, and then update [YOUR APPINSIGHTS KEY] with the your Application Insights Key from the Azure portal.
 
     ```javascript
     appInsightKey: '[YOUR APPINSIGHTS KEY]'
     ```
 
-20. Press the Escape key and type ":wq". Then press the Enter key to save and close the file.
+15. Press the Escape key and type ":wq". Then press the Enter key to save and close the file.
 
-21. Push these changes to your repository so that Azure DevOps CI will build a new image while you work on updating the content-api application.
+16. Push these changes to your repository so that Azure DevOps CI will build a new image while you work on updating the content-api application.
 
     ```bash
     git add .
@@ -2177,47 +2000,20 @@ In this task, you will edit the web application source code to add Application I
     git push
     ```
 
-22. Now update the content-api application.
+17. Now update the content-api application.
 
     ```bash
     cd ../content-api
-    npm install applicationinsights --save
     ```
 
-23. Open the server.js file using VI:
-
-    ```bash
-    vi server.js
-    ```
-
-24. Enter insert mode by pressing `<i>`.
-
-25. Add the following lines immediately after the config is loaded:
-
-    ```javascript
-    const appInsights = require("applicationinsights");
-    appInsights.setup(config.appSettings.appInsightKey);
-    appInsights.start();
-    ```
-
-    ![A screenshot of the VIM editor showing ](media/Ex4-Task4.25.png)
-
-26. Press the Escape key and type ":wq". Then press the Enter key to save and close the file.
-
-    ```text
-    <Esc>
-    :wq
-    <Enter>
-    ```
-
-27. Update your config files to include the Application Insights Key.
+18. Update your config files to include the Application Insights Key.
 
     ```bash
     vi config/config.js
     <i>
     ```
 
-28. Add the following line to the `exports.appSettings` object, and then update [YOUR APPINSIGHTS KEY] with the your Application Insights Key for **content-api** from the Azure portal.
+19. Search for the following line in the `exports.appSettings` object, and then update [YOUR APPINSIGHTS KEY] with the your Application Insights Key for **content-api** from the Azure portal.
 
     ```javascript
     appInsightKey: '[YOUR APPINSIGHTS KEY]'
@@ -2225,9 +2021,9 @@ In this task, you will edit the web application source code to add Application I
 
     ![A screenshot of the VIM editor showing updating the Application Insights key.](media/Ex4-Task4.28.png)
 
-29. Press the Escape key and type ":wq". Then press the Enter key to save and close the file.
+20. Press the Escape key and type ":wq". Then press the Enter key to save and close the file.
 
-30. Push these changes to your repository so that Azure DevOps CI will build a new image.
+21. Push these changes to your repository so that Azure DevOps CI will build a new image.
 
     ```bash
     git add .
@@ -2235,7 +2031,7 @@ In this task, you will edit the web application source code to add Application I
     git push
     ```
 
-31. Visit your ACR to see the new images and make a note of the tags assigned by Azure DevOps.
+22. Visit your ACR to see the new images and make a note of the tags assigned by Azure DevOps.
 
      - Make a note of the latest tag for content-web.
 
@@ -2245,27 +2041,27 @@ In this task, you will edit the web application source code to add Application I
 
         ![A screenshot of the Azure Container Registry listing showing the tagged versions of the content-api image.](media/Ex4-Task4.31b.png)
 
-32. Now that you have finished updating the source code, you can exit the build agent.
+23. Now that you have finished updating the source code, you can exit the build agent.
 
     ```bash
     exit
     ```
 
-33. Visit your Azure DevOps Release pipeline for the content-web application and see the new image being deployed into your Kubernetes cluster.
+24. Visit your Azure DevOps Release pipeline for the content-web application and see the new image being deployed into your Kubernetes cluster.
 
-34. From WSL, request a rolling update for the content-api application using this kubectl command:
+25. From WSL, request a rolling update for the content-api application using this kubectl command:
 
     ```bash
     kubectl set image deployment/api api=[LOGINSERVER]/content-api:[LATEST TAG]
     ```
 
-35. While this updates run, return the Kubernetes management dashboard in the browser.
+26. While this updates run, return the Kubernetes management dashboard in the browser.
 
-36. From the navigation menu, select Replica Sets under Workloads. From this view you will see a new replica set for web which may still be in the process of deploying (as shown below) or already fully deployed.
+27. From the navigation menu, select Replica Sets under Workloads. From this view you will see a new replica set for web which may still be in the process of deploying (as shown below) or already fully deployed.
 
     ![At the top of the list, a new web replica set is listed as a pending deployment in the Replica Set box.](media/image144.png)
 
-37. While the deployment is in progress, you can navigate to the web application and visit the stats page at /stats.html. Refresh the page as the rolling update executes. Observe that the service is running normally and tasks continue to be load balanced.
+28. While the deployment is in progress, you can navigate to the web application and visit the stats page at /stats.html. Refresh the page as the rolling update executes. Observe that the service is running normally and tasks continue to be load balanced.
 
     ![On the Stats page, the webTaskId is highlighted. ](media/image145.png)
 
