@@ -349,14 +349,14 @@ In this task, you will create Docker images for the application --- one for the 
 
     ![The node image (node) and your container image (content-api) are visible in this screenshot of the WSL window.](media/image59.png)
 
-5. Navigate to the content-web folder again and list the files. Note that this folder already has a Dockerfile.
+5. Navigate to the content-web folder again and list the files. Note that this folder has a Dockerfile.
 
     ```bash
     cd ../content-web
     ll
     ```
 
-6. View the Dockerfile contents -- which are similar to the file you created previously in the API folder. Type the following command:
+6. View the Dockerfile contents -- which are similar to the file in the API folder. Type the following command:
 
     ```bash
     cat Dockerfile
