@@ -349,16 +349,6 @@ In this task, you will create Docker images for the application --- one for the 
 
     ![The node image (node) and your container image (content-api) are visible in this screenshot of the WSL window.](media/image59.png)
 
-4. Commit and push the new Dockerfile before continuing.
-
-    ```bash
-    git add .
-    git commit -m "Added Dockerfile"
-    git push
-    ```
-
-    Enter credentials if prompted.
-
 5. Navigate to the content-web folder again and list the files. Note that this folder already has a Dockerfile.
 
     ```bash
