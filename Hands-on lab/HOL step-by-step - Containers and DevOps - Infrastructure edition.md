@@ -476,40 +476,14 @@ In this task, you will configure the "web" container to communicate with the API
     docker container ls -a
     ```
 
-3. Navigate to the `content-web/data-access` directory. From there, open the index.js file for editing using Vim, and press the "i" key to go into edit mode.
+3. From the content-web directory, open the Dockerfile for editing using Vim and press the "i" key to go into edit mode.
 
     ```bash
-    cd data-access
-    vi index.js
-    <i>
-    ```
-
-4. Locate the following TODO item and modify the code to comment the first line and uncomment the second. The result is that the contentApiUrl variable will be set to an environment variable.
-
-    ```javascript
-    //TODO: Exercise 2 - Task 6 - Step 4
-
-    //const contentApiUrl = "http://localhost:3001";
-    const contentApiUrl = process.env.CONTENT_API_URL;
-    ```
-
-5. Press the Escape key and type ":wq". Then press the Enter key to save and close the file.
-
-    ```text
-    <Esc>
-    :wq
-    <Enter>
-    ```
-
-6. Navigate to the content-web directory. From there open the Dockerfile for editing using Vim and press the "i" key to go into edit mode.
-
-    ```bash
-    cd ..
     vi Dockerfile
     <i>
     ```
 
-7. Locate the EXPOSE line shown below, and add a line above it that sets the default value for the environment variable as shown in the screenshot.
+4. Locate the EXPOSE line shown below, and add a line above it that sets the default value for the environment variable as shown in the screenshot.
 
     ```Dockerfile
     ENV CONTENT_API_URL http://localhost:3001
@@ -517,7 +491,7 @@ In this task, you will configure the "web" container to communicate with the API
 
     ![In this screenshot of Dockerfile, ENV CONTENT\_API\_URL http://localhost:3001 appears above Expose 3000.](media/image63.png)
 
-8. Press the Escape key and type ":wq" and then press the Enter key to save and close the file.
+5. Press the Escape key and type ":wq" and then press the Enter key to save and close the file.
 
     ```text
     <Esc>
@@ -525,26 +499,26 @@ In this task, you will configure the "web" container to communicate with the API
     <Enter>
     ```
 
-9. Rebuild the web application Docker image using the same command as you did previously.
+6. Rebuild the web application Docker image using the same command as you did previously.
 
     ```bash
     docker build -t content-web .
     ```
 
-10. Create and start the image passing the correct URI to the API container as an environment variable. This variable will address the API application using its container name over the Docker network you created. After running the container, check to see the container is running and note the dynamic port assignment for the next step.
+7. Create and start the image passing the correct URI to the API container as an environment variable. This variable will address the API application using its container name over the Docker network you created. After running the container, check to see the container is running and note the dynamic port assignment for the next step.
 
     ```bash
     docker run --name web --net fabmedical -P -d -e CONTENT_API_URL=http://api:3001 content-web
     docker container ls
     ```
 
-11. Curl the speakers path again, using the port assigned to the web container. Again you will see HTML returned, but because curl does not process javascript, you cannot determine if the web application is communicating with the api application.  You must verify this connection in a browser.
+8. Curl the speakers path again, using the port assigned to the web container. Again you will see HTML returned, but because curl does not process javascript, you cannot determine if the web application is communicating with the api application.  You must verify this connection in a browser.
 
     ```bash
     curl http://localhost:[PORT]/speakers.html
     ```
 
-12. You will not be able to browse to the web application on the ephemeral port because the VM only exposes a limited port range. Now you will stop the web container and restart it using port 3000 to test in the browser. Type the following commands to stop the container, remove it, and run it again using explicit settings for the port.
+9. You will not be able to browse to the web application on the ephemeral port because the VM only exposes a limited port range. Now you will stop the web container and restart it using port 3000 to test in the browser. Type the following commands to stop the container, remove it, and run it again using explicit settings for the port.
 
     ```bash
     docker stop web
@@ -552,13 +526,13 @@ In this task, you will configure the "web" container to communicate with the API
     docker run --name web --net fabmedical -p 3000:3000 -d -e CONTENT_API_URL=http://api:3001 content-web
     ```
 
-13. Curl the speaker path again, using port 3000. You will see the same HTML returned.
+10. Curl the speaker path again, using port 3000. You will see the same HTML returned.
 
     ```bash
     curl http://localhost:3000/speakers.html
     ```
 
-14. You can now use a web browser to navigate to the website and successfully view the application at port 3000. Replace [BUILDAGENTIP] with the IP address you used previously.
+11. You can now use a web browser to navigate to the website and successfully view the application at port 3000. Replace [BUILDAGENTIP] with the IP address you used previously.
 
     ```bash
     http://[BUILDAGENTIP]:3000
@@ -566,7 +540,7 @@ In this task, you will configure the "web" container to communicate with the API
     EXAMPLE: http://13.68.113.176:3000
     ```
 
-15. Managing several containers with all their command line options can become difficult as the solution grows.  `docker-compose` allows us to declare options for several containers and run them together.  First, cleanup the existing containers.
+12. Managing several containers with all their command line options can become difficult as the solution grows.  `docker-compose` allows us to declare options for several containers and run them together.  First, cleanup the existing containers.
 
     ```bash
     docker stop web && docker rm web
@@ -574,7 +548,7 @@ In this task, you will configure the "web" container to communicate with the API
     docker stop mongo && docker rm mongo
     ```
 
-16. Commit your changes and push to the repository.
+13. Commit your changes and push to the repository.
 
     ```bash
     git add .
@@ -582,7 +556,7 @@ In this task, you will configure the "web" container to communicate with the API
     git push
     ```
 
-17. Navigate to your home directory (where you checked out the content repositories) and create a docker compose file.
+14. Navigate to your home directory (where you checked out the content repositories) and create a docker compose file.
 
     ```bash
     cd ~
@@ -627,7 +601,7 @@ In this task, you will configure the "web" container to communicate with the API
     <Enter>
     ```
 
-18. Start the applications with the `up` command.
+15. Start the applications with the `up` command.
 
     ```bash
     docker-compose -f docker-compose.yml -p fabmedical up -d
@@ -635,11 +609,11 @@ In this task, you will configure the "web" container to communicate with the API
 
     ![This screenshot of the WSL window shows the creation of the network and three containers: mongo, api and web.](media/Ex1-Task6.17.png)
 
-19. Visit the website in the browser; notice that we no longer have any data on the speakers or sessions pages.
+16. Visit the website in the browser; notice that we no longer have any data on the speakers or sessions pages.
 
     ![Browser view of the web site.](media/Ex1-Task6.18.png)
 
-20. We stopped and removed our previous mongodb container; all the data contained in it has been removed.  Docker compose has created a new, empty mongodb instance that must be reinitialized.  If we care to persist our data between container instances, the docker has several mechanisms to do so. First we will update our compose file to persist mongodb data to a directory on the build agent.
+17. We stopped and removed our previous mongodb container; all the data contained in it has been removed.  Docker compose has created a new, empty mongodb instance that must be reinitialized.  If we care to persist our data between container instances, the docker has several mechanisms to do so. First we will update our compose file to persist mongodb data to a directory on the build agent.
 
     ```bash
     mkdir data
@@ -660,7 +634,7 @@ In this task, you will configure the "web" container to communicate with the API
 
     ![This screenshot of the VIM edit window shows the resulting compose file.](media/Ex1-Task6.19.png)
 
-21. Next we will add a second file to our composition so that we can initialize the mongodb data when needed.
+18. Next we will add a second file to our composition so that we can initialize the mongodb data when needed.
 
     ```bash
     vi docker-compose.init.yml
@@ -681,7 +655,7 @@ In this task, you will configure the "web" container to communicate with the API
             MONGODB_CONNECTION: mongodb://mongo:27017/contentdb
     ```
 
-22. To reconfigure the mongodb volume, we need to bring down the mongodb service first.
+19. To reconfigure the mongodb volume, we need to bring down the mongodb service first.
 
     ```bash
     docker-compose -f docker-compose.yml -p fabmedical down
@@ -689,13 +663,13 @@ In this task, you will configure the "web" container to communicate with the API
 
     ![This screenshot of the WSL window shows the running containers stopping.](media/Ex1-Task6.21.png)
 
-23. Now run `up` again with both files to update the mongodb configuration, and run the initialization script.
+20. Now run `up` again with both files to update the mongodb configuration, and run the initialization script.
 
     ```bash
     docker-compose -f docker-compose.yml -f docker-compose.init.yml -p fabmedical up -d
     ```
 
-24. Check the data folder to see that mongodb is now writing data files to the host.
+21. Check the data folder to see that mongodb is now writing data files to the host.
 
     ```bash
     ls ./data/
@@ -703,7 +677,7 @@ In this task, you will configure the "web" container to communicate with the API
 
     ![This screenshot of the WSL window shows the output of the data folder.](media/Ex1-Task6.23.png)
 
-25. Check the results in the browser. The speaker and session data are now available.
+22. Check the results in the browser. The speaker and session data are now available.
 
     ![A screenshot of the sessions page.](media/Ex1-Task6.24.png)
 
