@@ -1625,6 +1625,7 @@ In this task, you will update a Build Pipeline and configure a Release Pipeline 
     - **Chart Type**: select "File Path"
     - **Chart Path**: select the location of the chart artifact
     - **Release Name**: web
+    - **Set values**: image.tag=$(Build.BuildId)
 
     ![A screenshot of ](media/Ex2-Task7.20.png)
 
@@ -2105,19 +2106,15 @@ In this task, you will edit the web application source code to add Application I
     exit
     ```
 
-33. From WSL, request a rolling update using this kubectl command:
+33. Visit your Azure DevOps Release pipeline for the content-web application and see the new image being deployed into your Kubernetes cluster.
 
-    ```bash
-    kubectl set image deployment/web web=[LOGINSERVER]/content-web:[LATEST TAG]
-    ```
-
-34. Next update the content-api application.
+34. From WSL, request a rolling update for the content-api application using this kubectl command:
 
     ```bash
     kubectl set image deployment/api api=[LOGINSERVER]/content-api:[LATEST TAG]
     ```
 
-35. While this update runs, return the Kubernetes management dashboard in the browser.
+35. While this updates run, return the Kubernetes management dashboard in the browser.
 
 36. From the navigation menu, select Replica Sets under Workloads. From this view you will see a new replica set for web which may still be in the process of deploying (as shown below) or already fully deployed.
 
