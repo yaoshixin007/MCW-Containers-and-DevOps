@@ -2282,7 +2282,7 @@ In this task you will setup a Kubernetes Ingress to take advantage of path based
 2. Install the ingress controller resource to handle ingress requests as they come in.  The ingress controller will receive a public IP of its own on the Azure Load Balancer and be able to handle requests for multiple services over port 80 and 443.
 
     ```bash
-    helm install stable/nginx-ingress --namespace kube-system --set rbac.create=false --set rbac.createRole=false --set rbac.createClusterRole=false
+    helm install stable/nginx-ingress --namespace kube-system --set controller.replicaCount=2
     ```
 
 3. Set a DNS prefix on the IP address allocated to the ingress controller.  Visit the `kube-system` namespace in your kubeneretes dashboard to find the IP.
@@ -2339,7 +2339,16 @@ In this task you will setup a Kubernetes Ingress to take advantage of path based
 8. Use helm to install `cert-manager`; a tool that can provision SSL certificates automatically from letsencrypt.org.
 
     ```bash
-    helm install --name cert-manager --namespace kube-system --set rbac.create=false --version v0.5.2 stable/cert-manager
+    kubectl label namespace kube-system certmanager.k8s.io/disable-validation=true
+
+    kubectl apply \
+        -f https://raw.githubusercontent.com/jetstack/cert-manager/release-0.6/deploy/manifests/00-crds.yaml
+
+    helm install stable/cert-manager \
+        --namespace kube-system \
+        --set ingressShim.defaultIssuerName=letsencrypt-prod \
+        --set ingressShim.defaultIssuerKind=ClusterIssuer \
+        --version v0.6.6
     ```
 
 9. Cert manager will need a custom ClusterIssuer resource to handle requesting SSL certificates.
@@ -2361,7 +2370,7 @@ In this task you will setup a Kubernetes Ingress to take advantage of path based
         # The ACME server URL
         server: https://acme-v02.api.letsencrypt.org/directory
         # Email address used for ACME registration
-        email: user@example.com
+        email: user@fabmedical.com
         # Name of a secret used to store theACMEaccount private key
         privateKeySecretRef:
           name: letsencrypt-prod
@@ -2377,13 +2386,64 @@ In this task you will setup a Kubernetes Ingress to take advantage of path based
     kubectl create --save-config=true -f clusterissuer.yml
     ```
 
-12. Update the cert-manager to use the ClusterIssuer by default.
+12. Now you can create a certificate object.
+
+    > **NOTE:**
+    >
+    > Cert-manager might have already created a certificate object for you using ingress-shim.
+    >
+    > To verify that the certificate was created successfully, use the `kubectl describe certificate tls-secret` command.
+    >
+    > If a certificate is already available, skip to step 15.
 
     ```bash
-    helm upgrade cert-manager stable/cert-manager --namespace kube-system --set rbac.create=false --version v0.5.2 --set ingressShim.defaultIssuerName=letsencrypt-prod --set ingressShim.defaultIssuerKind=ClusterIssuer
+    vi certificate.yml
+    <i>
     ```
 
-13. Now you can create an ingress resource for the content applications.
+    Use the following as the contents and update the [SUFFIX] and [AZURE-REGION] to match your ingress DNS name
+
+    ```yaml
+    apiVersion: certmanager.k8s.io/v1alpha1
+    kind: Certificate
+    metadata:
+      name: tls-secret
+    spec:
+      secretName: tls-secret
+      dnsNames:
+      - fabmedical-[SUFFIX]-ingress.[AZURE-REGION].cloudapp.azure.com
+      acme:
+        config:
+        - http01:
+            ingressClass: nginx
+          domains:
+          - fabmedical-[SUFFIX]-ingress.[AZURE-REGION].cloudapp.azure.com
+      issuerRef:
+        name: letsencrypt-prod
+        kind: ClusterIssuer
+    ```
+
+13. Save the file with `<esc>:wq`.
+
+14. Create the certificate using kubectl.
+
+    ```bash
+    kubectl create --save-config=true -f certificate.yml
+    ```
+
+    > **NOTE:** to check the status of the certificate issuance, use the `kubectl describe certificate tls-secret` command and look for an *Events* output similar to the following:
+    >
+    > ```text
+    > Type    Reason         Age   From          Message
+    > ----    ------         ----  ----          -------
+    > Normal  Generated      27s   cert-manager  Generated new private key
+    > Normal  OrderCreated   27s   cert-manager  Created Order resource "tls-secret-1375302092"
+    > Normal  OrderComplete  2s    cert-manager  Order "tls-secret-1375302092" completed successfully
+    > Normal  CertIssued     2s    cert-manager  Certificate issued successfully
+    > ```
+    > .
+
+15. Now you can create an ingress resource for the content applications.
 
     ```bash
     vi content.ingress.yml
@@ -2398,7 +2458,8 @@ In this task you will setup a Kubernetes Ingress to take advantage of path based
     metadata:
       name: content-ingress
       annotations:
-        kubernetes.io/tls-acme: "true"
+        kubernetes.io/ingress.class: nginx
+        certmanager.k8s.io/cluster-issuer: letsencrypt-prod
         nginx.ingress.kubernetes.io/rewrite-target: /$1
     spec:
       tls:
@@ -2420,23 +2481,23 @@ In this task you will setup a Kubernetes Ingress to take advantage of path based
 
     ```
 
-14. Save the file with `<esc>:wq`.
+16. Save the file with `<esc>:wq`.
 
-15. Create the ingress using kubectl.
+17. Create the ingress using kubectl.
 
     ```bash
     kubectl create --save-config=true -f content.ingress.yml
     ```
 
-16. Refresh the ingress endpoint in your browser.  You should be able to visit the speakers and sessions pages and see all the content.
+18. Refresh the ingress endpoint in your browser.  You should be able to visit the speakers and sessions pages and see all the content.
 
-17. Visit the api directly, by navigating to `/content-api/sessions` at the ingress endpoint.
+19. Visit the api directly, by navigating to `/content-api/sessions` at the ingress endpoint.
 
     ![A screenshot showing the output of the sessions content in the browser.](media/Ex4-Task5.19.png)
 
-18. Test TLS termination by visiting both services again using `https`.
+20. Test TLS termination by visiting both services again using `https`.
 
-    > It can take a few minutes before the SSL site becomes avaiable.  This is due to the delay involved with provisioning a TLS cert from letsencypt.
+    > It can take a few minutes before the SSL site becomes avaiable.  This is due to the delay involved with provisioning a TLS cert from letsencrypt.
 
 ## After the hands-on lab
 
