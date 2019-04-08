@@ -1589,7 +1589,7 @@ In this task, deploy the web service using a helm chart.
 
 In this task, you will use a Kubernetes Job to run a container that is meant to execute a task and terminate, rather than run all the time.
 
-1. In your WSL window create a text file called web.service.yml using Vim, and press the "i" key to go into edit mode.
+1. In your WSL window create a text file called init.job.yml using Vim, and press the "i" key to go into edit mode.
 
     ```bash
     vi init.job.yml
