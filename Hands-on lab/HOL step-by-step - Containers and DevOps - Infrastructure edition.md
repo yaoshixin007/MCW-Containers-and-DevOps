@@ -1665,6 +1665,14 @@ In this task, you will access and review the various logs and dashboards made av
 
     ![In this screenshot, the pod cpu usage details are shown.](media/monitor_4.png)
 
+8. To display the logs for any container simply select it and view the right panel and you will find "View Container Log" link which will list all logs for this specific container.
+
+    ![Container Log view](media/monitor_5.png)
+
+9. For each log entry you can display more information by expanding the log entry to view the below details
+
+    ![Log entry details](media/monitor_6.png)
+    
 ## Exercise 3: Scale the application and test HA
 
 **Duration**: 20 minutes
