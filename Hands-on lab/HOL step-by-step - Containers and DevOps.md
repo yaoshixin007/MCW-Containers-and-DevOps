@@ -1794,6 +1794,23 @@ In this task, you will access and review the various logs and dashboards made av
 
     ![In this screenshot, the dashboards and blades are shows.](media/Ex2-Task8.3.png)
 
+4. To review the Containers dashboards and see more detailed information about each container click on containers tab
+
+    ![Containers information](media/monitor_1.png)
+
+5. Now filter by container name and search for the web containers, you will see all the containers created in the Kubernetes cluster with the pod names, you can compare the names with those in the kubernetes dashboard.  
+
+    ![Filter by container name](media/monitor_3.png)
+
+6. By default the CPU Usage metric will be selected displaying all cpu information for the selected container, to switch to another metric open the metric dropdown list and select different metric
+
+    ![Metric options](media/monitor_2.png)
+
+7. Upon selecting any pod, all the information related to the selected metric will be displayed on the right panel, and that would be the case when selecting any other metric, the details will be displayed on the right panel for the selected pod.
+
+    ![Pod cpu usage details](media/monitor_4.png)
+
+
 ## Exercise 3: Scale the application and test HA
 
 **Duration**: 20 minutes
