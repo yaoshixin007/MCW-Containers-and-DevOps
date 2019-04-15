@@ -412,16 +412,16 @@ Directions: Tables reconvene with the larger group to hear the facilitator/SME s
 
 ##  Additional references
 
-|    |            |
-|----------|:-------------|
-| **Description** | **Links** |
-| Azure Kubernetes Services (AKS) | <https://docs.microsoft.com/en-us/azure/aks/intro-kubernetes/> |
-| Kubernetes | <https://kubernetes.io/docs/home/> |
+|                                       |                                                                |
+|---------------------------------------|:---------------------------------------------------------------|
+| **Description**                       | **Links**                                                      |
+| Azure Kubernetes Services (AKS)       | <https://docs.microsoft.com/en-us/azure/aks/intro-kubernetes/> |
+| Kubernetes                            | <https://kubernetes.io/docs/home/>                             |
 | AKS FAQ |https://docs.microsoft.com/en-us/azure/aks/faq|
 | Autoscaling AKS | https://github.com/kubernetes/autoscaler|
 | AKS Cluster Autoscaler |https://docs.microsoft.com/en-us/azure/aks/cluster-autoscaler|
 | Upgrading an AKS cluster | https://docs.microsoft.com/en-us/azure/aks/upgrade-cluster |
-| Azure Pipelines | <https://docs.microsoft.com/en-us/azure/devops/pipelines/>
+| Azure Pipelines                       | <https://docs.microsoft.com/en-us/azure/devops/pipelines/>     |
 
 # Containers and DevOps whiteboard design session trainer guide
 
@@ -517,19 +517,6 @@ Azure Container Instances represent containers as a first-class resource in the 
 
 Windows Server Containers allow Windows applications to be containerized. This environment has support for the Docker platform including Docker Community Edition (Docker CE) for scheduling and orchestration. You are responsible for setting up any Docker CE clustering and related configurations, and there are no built-in management tools at this time to help you with visibility into the deployment, health monitoring, and related tasks.
 
-**Azure Container Service**
-
-The Azure Container Service provides a turnkey container cluster management solution allowing you to choose between Docker CE (aka. Docker Swarm), Mesosphere DC/OS, and Kubernetes for orchestration. Regardless of the choice of orchestration platform, Azure Container Service provides a simplified way to set up an initial infrastructure topology and platform deployment with ARM templates, as well as manage updates via ARM.
-
--   **Azure Container Service with Docker CE (Swarm) orchestration** 
-    Azure Container Service with Docker CE orchestration provides features that are equivalent to installing Docker CE solutions manually on Azure Virtual Machines (previously mentioned). Docker CE supports command-line management for necessary management workflows.
-
--   **Azure Container Service with Mesosphere DC/OS orchestration** 
-    Mesosphere DC/OS (DC/OS) is a mature, production-grade full-featured platform for distributed workloads based on Apache Mesos and the Marathon container orchestration platform. Marathon has a feature rich UI, allowing for simple container management. It also supports CICD and automation through the REST API. DC/OS adds the desirable management UI and related features that are missing in the other options. The management UI provides an interactive tool for deploying and managing container lifecycles, health checks and self-healing configurations, tasks management, scaling actions, and related.
-
--   **Azure Container Service with Kubernetes orchestration** 
-    Kubernetes orchestration is available with the Azure Container Service offering. Like DC/OS, Kubernetes is an open source solution for automating deployment, scaling, and management of containerized deployments. Kubernetes features automatic bin packing to maximize resource utilization; on-demand or automatic horizontal scaling; service discovery and load balancing; user-defined health-checks; rolling updates and rollbacks; secrets and configuration management; cloud/private storage orchestration; and batch workloads. Kubernetes also provides a management UI as well as command line tools for management workflows.
-
 **Azure Kubernetes Service (AKS)**
 
 Azure Kubernetes Service (AKS) is a managed container platform solution based on Kubernetes. The goal of AKS is to remove the management overhead of container orchestration clusters, allowing teams to focus on the application and core DevOps workflows relevant to the solution.
@@ -550,7 +537,7 @@ Azure Kubernetes Service (AKS) is the recommended platform for the following rea
 
     Generally, if the customer has experience with one of the supported orchestrators, you can apply that experience in Azure Kubernetes Service (AKS). There is a great deal of momentum in the community behind Kubernetes, and with Microsoft providing a fully managed solution based on this platform, it is the natural choice.
 
-3.  Describe how the customer can provision their Azure Kubernetes Service (AKS) environment to get their POC started.
+2.  Describe how the customer can provision their Azure Kubernetes Service (AKS) environment to get their POC started.
 
 -   The Azure Kubernetes Service (AKS) environment is deployed using a few simple Azure CLI commands.
 
