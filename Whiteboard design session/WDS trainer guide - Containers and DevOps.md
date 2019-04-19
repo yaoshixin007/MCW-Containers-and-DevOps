@@ -613,7 +613,7 @@ Azure Kubernetes Service (AKS) is the recommended platform for the following rea
 
 ## Checklist of preferred objection handling
 
-1.  What is the simplest way to move to containers on Azure, based on our PaaS experience, while at the same time considering our scale and growth requirements?
+1.  What is the simplest way to move to containers on Azure, while at the same time considering our scale and growth requirements?
 
     The easiest way to move to containers on Azure is to deploy containers to App Service for Containers; however, this option does not provide the typical management tools for container orchestration -- that can provide load balancing, dynamic discovery, self-healing, and a holistic approach to container monitoring.
 
