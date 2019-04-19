@@ -912,7 +912,7 @@ In this task, you will push images to your ACR account, version images with tagg
 
 14. Choose "+ New service connection". Then pick "Azure Resource Manager" from the menu.
 
-    ![A screenshot of the New Service Endpoint selection in Azure DevOps with Azure Resource Manager highlighted.](media/vso-service-connection-settings.png)
+    ![A screenshot of the New service connection selection in Azure DevOps with Azure Resource Manager highlighted.](media/vso-service-connection-settings.png)
 
 15. Select the link indicated in the screenshot below to access the advanced settings.
 
