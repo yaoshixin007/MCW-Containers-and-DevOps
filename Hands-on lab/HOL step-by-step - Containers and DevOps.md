@@ -108,7 +108,7 @@ Each tenant will have the following containers:
 
     - You must have rights to create a service principal as discussed in Before the Hands on Lab Task 9: Create a Service Principal --- and this typically requires a subscription owner to log in. You may have to ask another subscription owner to login to the portal and execute that step ahead of time if you do not have the rights.
 
-    - You must have enough cores available in your subscription to create the build agent and Azure Kubernetes Service cluster in Before the Hands on Lab Task 5: Create a build agent VM and Task 10: Create an Azure Kubsudo az aks install-cli --install-location /usr/local/bin/kubectlernetes Service cluster. You'll need eight cores if following the exact instructions in the lab, or more if you choose additional agents or larger VM sizes. If you execute the steps required before the lab, you will be able to see if you need to request more cores in your sub.
+    - You must have enough cores available in your subscription to create the build agent and Azure Kubernetes Service cluster in Before the Hands on Lab Task 5: Create a build agent VM and Task 10: Create an Azure Kubernetes Service cluster. You'll need eight cores if following the exact instructions in the lab, or more if you choose additional agents or larger VM sizes. If you execute the steps required before the lab, you will be able to see if you need to request more cores in your sub.
 
 2. Local machine or a virtual machine configured with:
 
