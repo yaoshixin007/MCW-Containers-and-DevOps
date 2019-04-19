@@ -507,7 +507,7 @@ Each tenant will have the following containers:
 
 **Azure App Service for Containers**
 
-Azure App Service specifically targets container deployments, which makes it easy to deploy container instances to a fully managed App Service Plan. This option is ideal for smaller solutions with a limited number of containers or that do not require an orchestration platform.
+Azure App Service specifically targets container deployments, which makes it easy to deploy container instances to a fully managed App Service Plan. This option is ideal for solutions with a limited number of containers that do not require an orchestration platform.
 
 **Azure Container Instances**
 
@@ -615,7 +615,7 @@ Azure Kubernetes Service (AKS) is the recommended platform for the following rea
 
 1.  What is the simplest way to move to containers on Azure, while at the same time considering our scale and growth requirements?
 
-    The easiest way to move to containers on Azure is to deploy containers to App Service for Containers; however, this option does not provide the typical management tools for container orchestration -- that can provide load balancing, dynamic discovery, self-healing, and a holistic approach to container monitoring.
+    The easiest way to move to containers on Azure is to deploy containers to App Service for Containers; however, this option does not provide a container orchestration platform.
 
     Azure Container Instances also provide a simple way to manage individual containers without management tooling.
 
