@@ -136,9 +136,9 @@ While multi-tenancy is a goal for the code base, even with this in place, Arthur
 
     - Make it easier to manage the variable scale requirements of the different tenants, so that they no longer have to allocate tenants to a specific load balanced set of machines.
 
-    - Provide a vendor neutral solution so that a specific on premise or cloud environment does not become a new dependency.  
+    - Provide a vendor neutral solution so that a specific on-premises or cloud environment does not become a new dependency.  
 
-4.  Migrate data from MongoDB on premise to CosmosDB with the least change possible to the application code.
+4.  Migrate data from MongoDB on-premises to CosmosDB with the least change possible to the application code.
 
 5.  Continue to use Git repositories for source control and integrate into a CICD workflow.
 
