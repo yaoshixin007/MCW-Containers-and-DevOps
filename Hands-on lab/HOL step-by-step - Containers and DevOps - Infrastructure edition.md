@@ -222,7 +222,7 @@ The purpose of this task is to make sure you can run the application successfull
 
 11. Press ENTER again to get to a command prompt for the next step.
 
-12. Test the API using curl. You will request the speakers content, and this will return a JSON result.
+12. Test the API using curl. You will request the speaker's content, and this will return a JSON result.
 
     ```bash
     curl http://localhost:3001/speakers
@@ -512,7 +512,7 @@ In this task, you will configure the "web" container to communicate with the API
     docker container ls
     ```
 
-8. Curl the speakers path again, using the port assigned to the web container. Again you will see HTML returned, but because curl does not process javascript, you cannot determine if the web application is communicating with the api application.  You must verify this connection in a browser.
+8. Curl the speakers path again, using the port assigned to the web container. Again, you will see HTML returned, but because curl does not process javascript, you cannot determine if the web application is communicating with the api application.  You must verify this connection in a browser.
 
     ```bash
     curl http://localhost:[PORT]/speakers.html
@@ -985,7 +985,7 @@ In this task, you will deploy the API application to the Azure Kubernetes Servic
 
     ![This screenshot of the Kubernetes management dashboard shows an error with the replica set.](media/Ex2-Task1.5.png)
 
-6. The log indicates that the content-api application is once again failing because it cannot find a mongodb instance to communicate with.  You will resolve this issue by migrating your data workload to CosmosDb.
+6. The log indicates that the content-api application is once again failing because it cannot find a mongodb instance to communicate with.  You will resolve this issue by migrating your data workload to CosmosDB.
 
     ![This screenshot of the Kubernetes management dashboard shows logs output for the api container.](media/Ex2-Task1.6.png)
 
@@ -1045,7 +1045,7 @@ In this task, you will deploy the API application to the Azure Kubernetes Servic
 
     ![A screenshot of the Kubernetes management dashboard showing the YAML file for creating a deployment.](media/Ex2-Task1.13.png)
 
-14. Scroll down in the Kubernetes dashboard until you can see "Secrets" in the left hand menu.  Click it.
+14. Scroll down in the Kubernetes dashboard until you can see "Secrets" in the left-hand menu.  Click it.
 
     ![A screenshot of the Kubernetes management dashboard showing secrets.](media/Ex2-Task1.14.png)
 
@@ -1232,7 +1232,7 @@ In this task, deploy the web service using a helm chart.
 
 3. From the Kubernetes dashboard, under "Discovery and Load Balancing", select "Services".
 
-4. Click the triple vertical dots on the right the the "web" service and then select "Delete". When prompted, click "Delete" again.
+4. Click the triple vertical dots on the right the "web" service and then select "Delete". When prompted, click "Delete" again.
 
     ![A screenshot of the Kubernetes management dashboard showing how to delete a deployment.](media/Ex2-Task4.4.png)
 
@@ -1657,7 +1657,7 @@ In this task, you will access and review the various logs and dashboards made av
 
     ![In this screenshot, the containers are filtered by container named web.](media/monitor_3.png)
 
-6. By default the CPU Usage metric will be selected displaying all cpu information for the selected container, to switch to another metric open the metric dropdown list and select a different metric.
+6. By default, the CPU Usage metric will be selected displaying all cpu information for the selected container, to switch to another metric open the metric dropdown list and select a different metric.
 
     ![In this screenshot, the various metric options are shown.](media/monitor_2.png)
 
@@ -2085,13 +2085,13 @@ In this task, you will edit the web application source code to add Application I
 
     ![At the top of the list, a new web replica set is listed as a pending deployment in the Replica Set box.](media/image144.png)
 
-28. While the deployment is in progress, you can navigate to the web application and visit the stats page at /stats.html. Refresh the page as the rolling update executes. Observe that the service is running normally and tasks continue to be load balanced.
+28. While the deployment is in progress, you can navigate to the web application and visit the stats page at /stats.html. Refresh the page as the rolling update executes. Observe that the service is running normally, and tasks continue to be load balanced.
 
     ![On the Stats page, the webTaskId is highlighted.](media/image145.png)
 
 ### Task 5: Configure Kubernetes Ingress
 
-In this task you will setup a Kubernetes Ingress to take advantage of path based routing and TLS termination.
+In this task you will setup a Kubernetes Ingress to take advantage of path-based routing and TLS termination.
 
 1. Update your helm package list.
 
@@ -2105,7 +2105,7 @@ In this task you will setup a Kubernetes Ingress to take advantage of path based
     helm install stable/nginx-ingress --namespace kube-system --set controller.replicaCount=2
     ```
 
-3. Set a DNS prefix on the IP address allocated to the ingress controller.  Visit the `kube-system` namespace in your kubeneretes dashboard to find the IP.
+3. Set a DNS prefix on the IP address allocated to the ingress controller.  Visit the `kube-system` namespace in your Kubeneretes dashboard to find the IP.
 
     http://localhost:8001/#!/service?namespace=kube-system
 
@@ -2317,7 +2317,7 @@ In this task you will setup a Kubernetes Ingress to take advantage of path based
 
 20. Test TLS termination by visiting both services again using `https`.
 
-    >**Note**: It can take a few minutes before the SSL site becomes avaiable.  This is due to the delay involved with provisioning a TLS cert from letsencrypt.
+    >**Note**: It can take a few minutes before the SSL site becomes available.  This is due to the delay involved with provisioning a TLS cert from letsencrypt.
 
 ## After the hands-on lab
 
