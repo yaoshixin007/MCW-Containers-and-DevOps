@@ -9,7 +9,7 @@ Whiteboard design session student guide
 </div>
 
 <div class="MCWHeader3">
-March 2019
+April 2019
 </div>
 
 Information in this document, including URL and other Internet Web site references, is subject to change without notice. Unless otherwise noted, the example companies, organizations, products, domain names, e-mail addresses, logos, people, places, and events depicted herein are fictitious, and no association with any real company, organization, product, domain name, e-mail address, logo, person, place or event is intended or should be inferred. Complying with all applicable copyright laws is the responsibility of the user. Without limiting the rights under copyright, no part of this document may be reproduced, stored in or introduced into a retrieval system, or transmitted in any form or by any means (electronic, mechanical, photocopying, recording, or otherwise), or for any purpose, without the express written permission of Microsoft Corporation.
@@ -66,17 +66,17 @@ Directions: With all participants in the session, the facilitator/SME presents a
 
 Fabrikam Medical Conferences provides conference web site services tailored to the medical community. They started out 10 years ago building a few conference sites for a small conference organizer. Since then, word of mouth has spread, and Fabrikam Medical Conferences is now a well-known industry brand. They now handle over 100 conferences per year and growing.
 
-Medical conferences are typically low budget web sites as the conferences are usually between 100 to only 1500 attendees at the high end. At the same time, the conference owners have significant customization and change demands that require turnaround on a dime to the live sites. These changes can impact various aspects of the system from UI through to back end, including conferences registration and payment terms.
+Medical conferences are typically low budget web sites as the conferences are usually between 100 to only 1500 attendees at the high end. At the same time, the conference owners have significant customization and change demands that require turnaround on a dime to the live sites. These changes can impact various aspects of the system from UI through to back end, including conference registration and payment terms.
 
 The VP of Engineering at Fabrikam, Arthur Block, has a team of 12 developers who handle all aspects of development, testing, deployment and operational management of their customer sites. Due to customer demands, they have issues with the efficiency and reliability of their development and DevOps workflows.
 
-The conference sites are currently hosted in Azure with the following topology and platform implementation:
+The conference sites are currently hosted on-premises with the following topology and platform implementation:
 
 -   The conference web sites are built with the MEAN stack (Mongo, Express, Angular, Node.js).
 
--   Web sites and APIs are hosted on virtual machines (VMs) in Azure.
+-   Web sites and APIs are hosted on Windows Server machines.
 
--   MongoDB is a managed service provided by mLab on Azure.
+-   MongoDB is also running on a separate cluster of Windows Server machines. 
 
 Customers are considered "tenants", and each tenant is treated as a unique deployment whereby the following happens:
 
@@ -94,9 +94,9 @@ Customers are considered "tenants", and each tenant is treated as a unique deplo
 
     -   They have the ability to add new events and isolate speakers, sessions, workshops and other details.
 
--   The tenant's code (conference and admin web site) is deployed to a VM hosted in Azure.
+-   The tenant's code (conference and admin web site) is deployed to a specific group of load balanced Windows Server machines dedicated to one or more tenant. Each group of machines hosts a specific set of tenants, and this is distributed according to scale requirements of the tenant. 
 
--   Once the conference site is live, the inevitable requests for changes to the web site pages, styles, registration requirements, and any number of custom requests begin
+-   Once the conference site is live, the inevitable requests for changes to the web site pages, styles, registration requirements, and any number of custom requests begin.
 
 Arthur is painfully aware that this small business, which evolved into something bigger, has organically grown into what should be a fully multi-tenanted application suite for conferences. However, the team is having difficulty approaching this goal. They are constantly updating the code base for each tenant and doing their best to merge improvements into a core code base they can use to spin up new conferences. The pace of change is fast, the budget is tight, and they simply do not have time to stop and restructure the core code base to support all the flexibilities customers require.
 
@@ -130,13 +130,15 @@ While multi-tenancy is a goal for the code base, even with this in place, Arthur
 
 3.  Choose a suitable platform for their Docker container strategy on Azure. The platform choice should:
 
-    -   Make it easy to deploy and manage infrastructure.
+    - Make it easy to deploy and manage infrastructure. 
 
-    -   Provide tooling to help them with monitoring and managing container health.
+    - Provide tooling to help them with monitoring and managing container health.
 
-    -   Be affordable, if possible, with no additional licensing.
+    - Make it easier to manage the variable scale requirements of the different tenants, so that they no longer have to allocate tenants to a specific load balanced set of machines.
 
-4.  Migrate data from MongoDB hosted by mLab to CosmosDB in order to take advantage of Azure native features, with the least change possible to the application code.
+    - Provide a vendor neutral solution so that a specific on-premises or cloud environment does not become a new dependency.  
+
+4.  Migrate data from MongoDB on-premises to CosmosDB with the least change possible to the application code.
 
 5.  Continue to use Git repositories for source control and integrate into a CICD workflow.
 
@@ -154,25 +156,25 @@ While multi-tenancy is a goal for the code base, even with this in place, Arthur
   
 ### Customer objections
 
-1.  With so many platforms and tools for Docker and container orchestration, how should we choose an option for Azure?
+1.  There are many ways to deploy Docker containers on Azure, how do those options compare and what are motivations for each? 
 
-2.  What is the simplest way to move to containers on Azure, based on our PaaS experience, while at the same time considering our scale and growth requirements?
+2.  Is there a PaaS option in Azure that also provides the full container orchestration platform options, that would be easy to migrate to but also handle our scale and management requirements? 
 
 ### Infographic for common scenarios
 
 **Kubernetes Architecture**
 
-*Note: this diagram is an illustration of the Kubernetes topology, however, given Azure Kubernetes Services (AKS) is managed, the details of the underlying Kubernetes deployment are not surfaced -- nor do customers have to manage it.*
+*NOTE: This diagram is an illustration of the Kubernetes topology, illustrating the master nodes managed by Azure, and the agent nodes where Customers can integrate and deploy applications.*
 
-![A diagram of a Kubernetes cluster topology illustrating master and agent nodes with load balancers.](media/image2.png)
+![A diagram of Azure Kubernetes Service managed components with master and agent nodes.](media/azure-kubernetes-components.png)
 
 <https://docs.microsoft.com/en-us/azure/aks/intro-kubernetes>
 
 **CICD to Azure Kubernetes Service with Azure DevOps**
 
-![A diagram showing the Azure DevOps workflow to build Docker images from source code, push images to Azure Container Registry, and deploy to Azure Container Service using Kubernetes, Swarm or DCOS).](media/azure-devops-aks.png)
+![A diagram showing the Azure DevOps workflow to build Docker images from source code, push images to Azure Container Registry, and deploy to Azure Kubernetes Service.](media/azure-devops-aks.png)
 
-<https://www.azuredevopslabs.com/labs/vstsextend/kubernetes/>
+<https://cloudblogs.microsoft.com/opensource/2018/11/27/tutorial-azure-devops-setup-cicd-pipeline-kubernetes-docker-helm/>
 
 ## Step 2: Design a proof of concept solution
 
@@ -233,6 +235,8 @@ Directions: With all participants at your table, respond to the following questi
 
 1.  Describe how Azure DevOps can help the customer automate their continuous integration and deployment workflows and the Azure Kubernetes Service (AKS) infrastructure.
 
+2. Describe the recommended approach for keeping Azure Kubernetes Service (AKS) nodes up to date with the latest security patches or supported Kubernetes versions.
+
 **Prepare**
 
 Directions: With all participants at your table: 
@@ -270,11 +274,14 @@ Directions: Tables reconvene with the larger group to hear the facilitator/SME s
 
 ##  Additional references
 
-|                                       |                                                                |
-|---------------------------------------|----------------------------------------------------------------|
-| **Description**                       | **Links**                                                      |
-| Azure Kubernetes Services (AKS)       | <https://docs.microsoft.com/en-us/azure/aks/intro-kubernetes/> |
-| Docker Enterprise Edition (Docker EE) | <https://docs.docker.com/enterprise/>                          |
-| DC/OS                                 | <https://docs.mesosphere.com/1.9/overview/>                    |
-| Kubernetes                            | <https://kubernetes.io/docs/home/>                             |
-| Azure Pipelines                       | <https://docs.microsoft.com/en-us/azure/devops/pipelines/>     |
+|    |            |
+|----------|:-------------|
+| **Description** | **Links** |
+| Azure Kubernetes Services (AKS) | <https://docs.microsoft.com/en-us/azure/aks/intro-kubernetes/> |
+| Kubernetes | <https://kubernetes.io/docs/home/> |
+| AKS FAQ |https://docs.microsoft.com/en-us/azure/aks/faq|
+| Autoscaling AKS | https://github.com/kubernetes/autoscaler|
+| AKS Cluster Autoscaler |https://docs.microsoft.com/en-us/azure/aks/cluster-autoscaler|
+| Upgrading an AKS cluster | https://docs.microsoft.com/en-us/azure/aks/upgrade-cluster |
+| Azure Pipelines | <https://docs.microsoft.com/en-us/azure/devops/pipelines/>
+|

@@ -9,7 +9,7 @@ Whiteboard design session trainer guide
 </div>
 
 <div class="MCWHeader3">
-March 2019
+April 2019
 </div>
 
 Information in this document, including URL and other Internet Web site references, is subject to change without notice. Unless otherwise noted, the example companies, organizations, products, domain names, e-mail addresses, logos, people, places, and events depicted herein are fictitious, and no association with any real company, organization, product, domain name, e-mail address, logo, person, place or event is intended or should be inferred. Complying with all applicable copyright laws is the responsibility of the user. Without limiting the rights under copyright, no part of this document may be reproduced, stored in or introduced into a retrieval system, or transmitted in any form or by any means (electronic, mechanical, photocopying, recording, or otherwise), or for any purpose, without the express written permission of Microsoft Corporation.
@@ -194,17 +194,17 @@ Directions:  With all participants in the session, the facilitator/SME presents 
 
 Fabrikam Medical Conferences provides conference web site services tailored to the medical community. They started out 10 years ago building a few conference sites for a small conference organizer. Since then, word of mouth has spread, and Fabrikam Medical Conferences is now a well-known industry brand. They now handle over 100 conferences per year and growing.
 
-Medical conferences are typically low budget web sites as the conferences are usually between 100 to only 1500 attendees at the high end. At the same time, the conference owners have significant customization and change demands that require turnaround on a dime to the live sites. These changes can impact various aspects of the system from UI through to back end, including conferences registration and payment terms.
+Medical conferences are typically low budget web sites as the conferences are usually between 100 to only 1500 attendees at the high end. At the same time, the conference owners have significant customization and change demands that require turnaround on a dime to the live sites. These changes can impact various aspects of the system from UI through to back end, including conference registration and payment terms.
 
 The VP of Engineering at Fabrikam, Arthur Block, has a team of 12 developers who handle all aspects of development, testing, deployment and operational management of their customer sites. Due to customer demands, they have issues with the efficiency and reliability of their development and DevOps workflows.
 
-The conference sites are currently hosted in Azure with the following topology and platform implementation:
+The conference sites are currently hosted on-premises with the following topology and platform implementation:
 
 -   The conference web sites are built with the MEAN stack (Mongo, Express, Angular, Node.js).
 
--   Web sites and APIs are hosted on virtual machines (VMs) in Azure.
+-   Web sites and APIs are hosted on Windows Server machines.
 
--   MongoDB is a managed service provided by mLab on Azure.
+-   MongoDB is also running on a separate cluster of Windows Server machines. 
 
 Customers are considered "tenants", and each tenant is treated as a unique deployment whereby the following happens:
 
@@ -222,7 +222,7 @@ Customers are considered "tenants", and each tenant is treated as a unique deplo
 
     -   They have the ability to add new events and isolate speakers, sessions, workshops and other details.
 
--   The tenant's code (conference and admin web site) is deployed to a VM hosted in Azure.
+-   The tenant's code (conference and admin web site) is deployed to a specific group of load balanced Windows Server machines dedicated to one or more tenant. Each group of machines hosts a specific set of tenants, and this is distributed according to scale requirements of the tenant. 
 
 -   Once the conference site is live, the inevitable requests for changes to the web site pages, styles, registration requirements, and any number of custom requests begin.
 
@@ -258,13 +258,15 @@ While multi-tenancy is a goal for the code base, even with this in place, Arthur
 
 3.  Choose a suitable platform for their Docker container strategy on Azure. The platform choice should:
 
-    -   Make it easy to deploy and manage infrastructure.
+    - Make it easy to deploy and manage infrastructure. 
 
-    -   Provide tooling to help them with monitoring and managing container health.
+    - Provide tooling to help them with monitoring and managing container health.
 
-    -   Be affordable, if possible, with no additional licensing.
+    - Make it easier to manage the variable scale requirements of the different tenants, so that they no longer have to allocate tenants to a specific load balanced set of machines.
 
-4.  Migrate data from MongoDB hosted by mLab to CosmosDB in order to take advantage of Azure native features, with the least change possible to the application code.
+    - Provide a vendor neutral solution so that a specific on-premises or cloud environment does not become a new dependency.  
+
+4.  Migrate data from MongoDB on-premises to CosmosDB with the least change possible to the application code.
 
 5.  Continue to use Git repositories for source control and integrate into a CICD workflow.
 
@@ -282,25 +284,25 @@ While multi-tenancy is a goal for the code base, even with this in place, Arthur
   
 ### Customer objections
 
-1.  With so many platforms and tools for Docker and container orchestration, how should we choose an option for Azure?
+1.  There are many ways to deploy Docker containers on Azure, how do those options compare and what are motivations for each? 
 
-2.  What is the simplest way to move to containers on Azure, based on our PaaS experience, while at the same time considering our scale and growth requirements?
+2.  Is there a PaaS option in Azure that also provides the full container orchestration platform options, that would be easy to migrate to but also handle our scale and management requirements? 
 
 ### Infographic for common scenarios
 
 **Kubernetes Architecture**
 
-*NOTE: this diagram is an illustration of the Kubernetes topology, however, given Azure Kubernetes Services (AKS) is managed, the details of the underlying Kubernetes deployment are not surfaced -- nor do customers have to manage it.*
+*NOTE: This diagram is an illustration of the Kubernetes topology, illustrating the master nodes managed by Azure, and the agent nodes where Customers can integrate and deploy applications.*
 
-![A diagram of a Kubernetes cluster topology illustrating master and agent nodes with load balancers.](media/image2.png)
+![A diagram of Azure Kubernetes Service managed components with master and agent nodes.](media/azure-kubernetes-components.png)
 
 <https://docs.microsoft.com/en-us/azure/aks/intro-kubernetes>
 
 **CICD to Azure Kubernetes Service with Azure DevOps**
 
-![A diagram showing the Azure DevOps workflow to build Docker images from source code, push images to Azure Container Registry, and deploy to Azure Container Service using Kubernetes, Swarm or DCOS).](media/azure-devops-aks.png)
+![A diagram showing the Azure DevOps workflow to build Docker images from source code, push images to Azure Container Registry, and deploy to Azure Kubernetes Service.](media/azure-devops-aks.png)
 
-<https://www.azuredevopslabs.com/labs/vstsextend/kubernetes/>
+<https://cloudblogs.microsoft.com/opensource/2018/11/27/tutorial-azure-devops-setup-cicd-pipeline-kubernetes-docker-helm/>
 
 ## Step 2: Design a proof of concept solution
 
@@ -362,6 +364,8 @@ Directions: With all participants at your table, respond to the following questi
 
 1.  Describe how Azure DevOps can help the customer automate their continuous integration and deployment workflows and the Azure Kubernetes Service (AKS) infrastructure.
 
+2. Describe the recommended approach for keeping Azure Kubernetes Service (AKS) nodes up to date with the latest security patches or supported Kubernetes versions.
+
 **Prepare**
 
 Directions: With all participants at your table:
@@ -412,11 +416,12 @@ Directions: Tables reconvene with the larger group to hear the facilitator/SME s
 |---------------------------------------|:---------------------------------------------------------------|
 | **Description**                       | **Links**                                                      |
 | Azure Kubernetes Services (AKS)       | <https://docs.microsoft.com/en-us/azure/aks/intro-kubernetes/> |
-| Docker Enterprise Edition (Docker EE) | <https://docs.docker.com/enterprise/>                          |
-| DC/OS                                 | <https://docs.mesosphere.com/1.9/overview/>                    |
 | Kubernetes                            | <https://kubernetes.io/docs/home/>                             |
+| AKS FAQ |https://docs.microsoft.com/en-us/azure/aks/faq|
+| Autoscaling AKS | https://github.com/kubernetes/autoscaler|
+| AKS Cluster Autoscaler |https://docs.microsoft.com/en-us/azure/aks/cluster-autoscaler|
+| Upgrading an AKS cluster | https://docs.microsoft.com/en-us/azure/aks/upgrade-cluster |
 | Azure Pipelines                       | <https://docs.microsoft.com/en-us/azure/devops/pipelines/>     |
-
 
 # Containers and DevOps whiteboard design session trainer guide
 
@@ -492,9 +497,9 @@ Each tenant will have the following containers:
 
 2.  Without getting into the details (the following sections will address the particular details), diagram your initial vision of the container platform, the containers that should be deployed (for a single tenant), and the data tier.
 
-    The solution will use Azure Kubernetes Service (AKS), which means that the container cluster topology is provisioned according to the number of requested nodes. The proposed containers deployed to the cluster are illustrated below, with MongoDB remaining as a managed service:
+    The solution will use Azure Kubernetes Service (AKS), which means that the container cluster topology is provisioned according to the number of requested nodes. The proposed containers deployed to the cluster are illustrated below. The data tier is provided by Cosmos DB outside of the container platform:
 
-![A diagram showing the solution, using Azure Kubernetes Service with a CosmosDB back end.](media/image4.png)
+![A diagram showing the solution, using Azure Kubernetes Service with a CosmosDB back end.](media/solution-topology.png)
 
 *Choosing a container platform on Azure*
 
@@ -502,35 +507,27 @@ Each tenant will have the following containers:
 
 **Azure App Service for Containers**
 
-Azure App Service specifically targets container deployments, which makes it easy to deploy container instances to a fully managed App Service Plan. This option is ideal for smaller solutions with a limited number of containers or that do not require an orchestration platform.
+Azure App Service specifically targets container deployments, which makes it easy to deploy container instances to a fully managed App Service Plan. This option is ideal for solutions with a limited number of containers that do not require an orchestration platform.
 
 **Azure Container Instances**
 
-Azure Container Instances represent containers as a first-class resource in the Azure environment. They provide a serverless approach to container deployment without management tooling at this time.
-
-**Docker Engine with a Swarm Cluster running on Azure Virtual Machines**
-
-Docker Engine now comes with Docker Swarm built in. Docker Swarm turns a pool of Docker hosts into a single virtual Docker engine. This provides a central management cluster (via Docker Swarm) to communicate with the application (agent) nodes. As of Docker 1.12, Docker Swarm can now support many workflows, including service discovery and load balancing. A command line interface exists for these workflows; however, a management UI to simplify this process is not built-in. By manually setting up the Docker Swarm cluster and agent nodes, you can achieve any desired topology---even one similar to that provided by Azure Container Service for Swarm---however, this comes with additional work, and will not allow you to take advantage of future benefits that will be provided when deploying with Azure Container Service templates.
-
-**Docker Enterprise Edition (EE) on Azure**
-
-The Docker EE is the enterprise-grade cluster management solution from Docker Inc. providing additional features and tools on top of Docker Engine and Docker Swarm orchestration. Docker EE has additional licensing costs per Docker engine (usually, per VM). This offering packages features you can manually deploy and manage with features similar to that of other container orchestration platforms.
+Azure Container Instances represent containers as a first-class resource in the Azure environment. They provide a serverless approach to container deployment without management tooling at this time. 
 
 **Windows Server Containers on Windows Server 2016**
 
-Windows Server Containers allow Windows applications to be containerized. This environment has support for the Docker platform including Docker Swarm for scheduling and orchestration. You are responsible for setting up any Docker Swarm clustering and related configurations, and there are no built-in management tools at this time to help you with visibility into the deployment, health monitoring, and related tasks.
+Windows Server Containers allow Windows applications to be containerized. This environment has support for the Docker platform including Docker Community Edition (Docker CE) for scheduling and orchestration. You are responsible for setting up any Docker CE clustering and related configurations, and there are no built-in management tools at this time to help you with visibility into the deployment, health monitoring, and related tasks.
 
 **Azure Kubernetes Service (AKS)**
 
-Azure Kubernetes Service (AKS) will provide a fully managed container platform solution based on Kubernetes. The goal of AKS is to remove the management overhead of container orchestration clusters, allowing teams to focus on the application and core DevOps workflows relevant to the solution.
+Azure Kubernetes Service (AKS) is a managed container platform solution based on Kubernetes. The goal of AKS is to remove the management overhead of container orchestration clusters, allowing teams to focus on the application and core DevOps workflows relevant to the solution.
 
-1. Which would you recommend and why?
+2. Which would you recommend and why?
 
 Azure Kubernetes Service (AKS) is the recommended platform for the following reasons:
 
--   Adopting AKS is desired because it is a fully managed platform and will reduce the overhead of managing containers.
+-   Adopting AKS is desired because it is a managed platform (PaaS) and will reduce the overhead of managing containers.
 
--   Ability to monitor and manage applications using a Management UI.
+-   Ability to monitor and manage applications using a Management UI. This will also make it easier to view the overall state of all tenant applications in a single pane, and drill down into the health of an individual tenant easily.
 
 -   Full set of integrated features, working out of the box including load balancing, service discovery, self-healing capabilities, scheduling, orchestration, task monitoring, and more.
 
@@ -548,23 +545,23 @@ Azure Kubernetes Service (AKS) is the recommended platform for the following rea
 
 1. Describe the high-level manual steps developers will follow for building images and running containers on Azure Kubernetes Service (AKS) as they build their POC. Include the following components in the summary:
 
--   *The Git repository containing their source*
+    - *The Git repository containing their source*
 
--   *Docker image registry*
+    - *Docker image registry*
 
--   *Steps to build Docker images and push to the registry*
+    - *Steps to build Docker images and push to the registry*
 
--   *Run containers using the Kubernetes dashboard*
+    - *Run containers using the Kubernetes dashboard*
 
     The basic workflow is to build an image from the service source repository, push the image to a registry from which it is deployed, and run as a container.
 
-    A Dockerfile describing each container can reside in the Git repository together with the source. Using command line tools, the developers can build Docker images and push to the registry. A CI process can also automate building images and push to the registry when changes are checked in.
+    A Dockerfile describing each container can reside in the Git repository together with the source. Using command line tools, the developers can build Docker images and push to the registry. A CI process can also automate building images and push to the registry when changes are checked in using Azure DevOps build pipelines.
 
     To deploy and run a container, the developer can:
 
--   Securely access the Kubernetes dashboard and create a deployment specifying an image from the repository manually
+    - Securely access the Kubernetes dashboard and create a deployment specifying an image from the repository manually
 
--   POST a service definition file (JSON) to the REST API using kubectl from the command line. This process can also be automated as part of a CICD process.
+    - POST a service definition file (JSON) to the REST API using kubectl from the command line. This process can also be automated as part of a CD process using Azure DevOps release pipelines.
 
 2. What options does the customer have for a Docker image registry, and what would you recommend?
 
@@ -572,13 +569,13 @@ Azure Kubernetes Service (AKS) is the recommended platform for the following rea
 
     The following are a few natural options for image registries that could support Azure container deployments:
 
--   Azure Container Registry is a natural fit with Azure deployments, and it integrates well with deployment options previously mentioned for Docker containers in Azure. This includes an integrated experience in the Azure portal to view the repositories, images, tags, and the contents of manifests associated with an image. Azure Container Registry itself is a free service. You are only charged for underlying infrastructure resources like Azure Storage block blobs used to store your images and data transfer.
+    - Azure Container Registry is a natural fit with Azure deployments, and it integrates well with deployment options previously mentioned for Docker containers in Azure. This includes an integrated experience in the Azure portal to view the repositories, images, tags, and the contents of manifests associated with an image. Azure Container Registry itself is a free service. You are only charged for underlying infrastructure resources like Azure Storage block blobs used to store your images and data transfer.
 
--   For development, you can also consider a public Docker Hub account. As all images in the public Docker Hub repository are public; however, this is not typically viable for corporate assets.
+    - For development, you can also consider a public Docker Hub account. As all images in the public Docker Hub repository are public; however, this is not typically viable for corporate assets.
 
--   You can optionally pay for a private repository on Docker Hub, which enables you to control who can access your repository. This comes at a reasonable cost and is fully managed.
+    - You can optionally pay for a private repository on Docker Hub, which enables you to control who can access your repository. This comes at a reasonable cost and is fully managed.
 
--   You can deploy and manage your own Docker Registry in Azure VMs---which would have to be clustered for high availability and this is not trivial to set up. This is not a recommended option when a hosted repository can fit solution requirements.
+    - You can deploy and manage your own Docker Registry in Azure VMs---which would have to be clustered for high availability and this is not trivial to set up. This is not a recommended option when a hosted repository can fit solution requirements.
 
    Deploying and configuring a Docker Registry, clustered or not, is a complex and time-consuming task. We recommend the use of Azure Container Registry where possible for Azure solutions.
 
@@ -598,8 +595,8 @@ Azure Kubernetes Service (AKS) is the recommended platform for the following rea
 
 1. Explain to the customer how Azure Kubernetes Service (AKS) supports cluster auto-scaling.
 
-   You can scale the agent nodes in the cluster with Azure CLI commands.
-
+   You can scale the agent nodes in the cluster with the Kubernetes Autoscaler as of Kubernetes 1.10.
+   
 *Automating DevOps workflows*
 
 1. Describe how Azure DevOps can help the customer automate their continuous integration and deployment workflows and the Azure Kubernetes Service (AKS) infrastructure.
@@ -608,12 +605,17 @@ Azure Kubernetes Service (AKS) is the recommended platform for the following rea
 
     To trigger deployment, you can also use Azure DevOps to produce release definitions that can create or update services in AKS. You may, for example, want your development cluster to always deploy the latest images as code is committed. On the other hand, for test, UAT or production clusters you may want to manually run release jobs based on a specific image tag of the environment in order to control when a new version of a service or services are released.
 
+2. Describe the recommended approach for keeping Azure Kubernetes Service (AKS) nodes up to date with the latest security patches or supported Kubernetes versions.
+
+    Azure applies security patches on a nightly schedule however you must reboot the servers to apply the update. This can be done through the Azure portal or Azure CLI, for example. 
+
+    You can upgrade the cluster to a later version of Kubernetes using Azure CLI commands. 
 
 ## Checklist of preferred objection handling
 
-1.  What is the simplest way to move to containers on Azure, based on our PaaS experience, while at the same time considering our scale and growth requirements?
+1.  What is the simplest way to move to containers on Azure, while at the same time considering our scale and growth requirements?
 
-    The easiest way to move to containers on Azure is to deploy containers to App Service for Containers; however, this option does not provide the typical management tools for container orchestration -- that can provide load balancing, dynamic discovery, self-healing, and a holistic approach to container monitoring.
+    The easiest way to move to containers on Azure is to deploy containers to App Service for Containers; however, this option does not provide a container orchestration platform.
 
     Azure Container Instances also provide a simple way to manage individual containers without management tooling.
 
