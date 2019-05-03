@@ -1,7 +1,7 @@
 ![](https://github.com/Microsoft/MCW-Template-Cloud-Workshop/raw/master/Media/ms-cloud-workshop.png "Microsoft Cloud Workshops")
 
 <div class="MCWHeader1">
-Containers and DevOps
+Containers and DevOps - Developer edition
 </div>
 
 <div class="MCWHeader2">
@@ -9,7 +9,7 @@ Hands-on lab step-by-step
 </div>
 
 <div class="MCWHeader3">
-November 2018
+April 2019
 </div>
 
 Information in this document, including URL and other Internet Web site references, is subject to change without notice. Unless otherwise noted, the example companies, organizations, products, domain names, e-mail addresses, logos, people, places, and events depicted herein are fictitious, and no association with any real company, organization, product, domain name, e-mail address, logo, person, place or event is intended or should be inferred. Complying with all applicable copyright laws is the responsibility of the user. Without limiting the rights under copyright, no part of this document may be reproduced, stored in or introduced into a retrieval system, or transmitted in any form or by any means (electronic, mechanical, photocopying, recording, or otherwise), or for any purpose, without the express written permission of Microsoft Corporation.
@@ -18,7 +18,7 @@ Microsoft may have patents, patent applications, trademarks, copyrights, or othe
 
 The names of manufacturers, products, or URLs are provided for informational purposes only and Microsoft makes no representations and warranties, either expressed, implied, or statutory, regarding these manufacturers or the use of the products with any Microsoft technologies. The inclusion of a manufacturer or product does not imply endorsement of Microsoft of the manufacturer or product. Links may be provided to third party sites. Such sites are not under the control of Microsoft and Microsoft is not responsible for the contents of any linked site or any link contained in a linked site, or any changes or updates to such sites. Microsoft is not responsible for webcasting or any other form of transmission received from any linked site. Microsoft is providing these links to you only as a convenience, and the inclusion of any link does not imply endorsement of Microsoft of the site or the products contained therein.
 
-© 2018 Microsoft Corporation. All rights reserved.
+© 2019 Microsoft Corporation. All rights reserved.
 
 Microsoft and the trademarks listed at https://www.microsoft.com/en-us/legal/intellectualproperty/Trademarks/Usage/General.aspx are trademarks of the Microsoft group of companies. All other trademarks are property of their respective owners.
 
@@ -26,7 +26,7 @@ Microsoft and the trademarks listed at https://www.microsoft.com/en-us/legal/int
 
 <!-- TOC -->
 
-- [Containers and DevOps hands-on lab step-by-step](#containers-and-devops-hands-on-lab-step-by-step)
+- [Containers and DevOps - Developer edition hands-on lab step-by-step](#containers-and-devops-developer-edition-hands-on-lab-step-by-step)
   - [Abstract and learning objectives](#abstract-and-learning-objectives)
   - [Overview](#overview)
   - [Solution architecture](#solution-architecture)
@@ -62,7 +62,7 @@ Microsoft and the trademarks listed at https://www.microsoft.com/en-us/legal/int
 
 <!-- /TOC -->
 
-# Containers and DevOps hands-on lab step-by-step
+# Containers and DevOps - Developer edition hands-on lab step-by-step
 
 ## Abstract and learning objectives
 
@@ -76,7 +76,7 @@ Fabrikam Medical Conferences (FabMedical) provides conference website services t
 
 In this hands-on lab, you will assist with completing this POC with a subset of the application code base. You will create a build agent based on Linux, and an Azure Kubernetes Service cluster for running deployed applications. You will be helping them to complete the Docker setup for their application, test locally, push to an image repository, deploy to the cluster, and test load-balancing and scale.
 
-> **IMPORTANT: Most Azure resources require unique names. Throughout these steps you will see the word "SUFFIX" as part of resource names. You should replace this with your Microsoft email prefix to ensure the resource is uniquely named.**
+> **IMPORTANT**: Most Azure resources require unique names. Throughout these steps you will see the word "SUFFIX" as part of resource names. You should replace this with your Microsoft email prefix to ensure the resource is uniquely named.
 
 ## Solution architecture
 
@@ -122,7 +122,7 @@ Each tenant will have the following containers:
 
 3. You will be asked to install other tools throughout the exercises.
 
-> **VERY IMPORTANT: You should be typing all of the commands as they appear in the guide, except where explicitly stated in this document. Do not try to copy and paste to your command windows or other documents where you are instructed to enter information shown in this document. There can be issues with Copy and Paste that result in errors, execution of instructions, or creation of file content.**
+> **VERY IMPORTANT**: You should be typing all of the commands as they appear in the guide, except where explicitly stated in this document. Do not try to copy and paste to your command windows or other documents where you are instructed to enter information shown in this document. There can be issues with Copy and Paste that result in errors, execution of instructions, or creation of file content.
 
 ## Exercise 1: Create and run a Docker application
 
@@ -223,7 +223,7 @@ The purpose of this task is to make sure you can run the application successfull
 
 11. Press ENTER again to get to a command prompt for the next step.
 
-12. Test the API using curl. You will request the speakers content, and this will return a JSON result.
+12. Test the API using curl. You will request the speaker's content, and this will return a JSON result.
 
     ```bash
     curl http://localhost:3001/speakers
@@ -322,7 +322,7 @@ In this task, you will open a port range on the agent VM so that you can browse 
 
 In this task, you will create a new Dockerfile that will be used to run the API application as a containerized application.
 
-> **Note: You will be working in a Linux VM without friendly editor tools. You must follow the steps very carefully to work with Vim for a few editing exercises if you are not already familiar with Vim.**
+> **Note**: You will be working in a Linux VM without friendly editor tools. You must follow the steps very carefully to work with Vim for a few editing exercises if you are not already familiar with Vim.
 
 1. From WSL, navigate to the content-api folder. List the files in the folder with this command. The output should look like the screenshot below.
 
@@ -349,7 +349,7 @@ In this task, you will create a new Dockerfile that will be used to run the API 
 
     - The base stage includes environment setup which we expect to change very rarely, if at all.
 
-      - Creates a new Docker image from the base image node:alpine. This base image has node.js on it and is optimized fro small size.
+      - Creates a new Docker image from the base image node:alpine. This base image has node.js on it and is optimized for small size.
 
       - Add `curl` to the base image to support Docker health checks.
 
@@ -377,7 +377,7 @@ In this task, you will create a new Dockerfile that will be used to run the API 
 
       - Indicates the command to start the node application when the container is run.
 
-    > **Note: Type the following into the editor, as you may have errors with copying and pasting:**
+    > **Note**: Type the following into the editor, as you may have errors with copying and pasting:
 
     ```Dockerfile
     FROM node:alpine AS base
@@ -654,7 +654,7 @@ In this task, you will configure the "web" container to communicate with the API
     docker container ls
     ```
 
-11. Curl the speakers path again, using the port assigned to the web container. Again you will see HTML returned, but because curl does not process javascript, you cannot determine if the web application is communicating with the api application.  You must verify this connection in a browser.
+11. Curl the speakers path again, using the port assigned to the web container. Again, you will see HTML returned, but because curl does not process javascript, you cannot determine if the web application is communicating with the api application.  You must verify this connection in a browser.
 
     ```bash
     curl http://localhost:[PORT]/speakers.html
@@ -837,7 +837,7 @@ In this task, you will push images to your ACR account, version images with tagg
 
 3. The Access keys blade displays the Login server, username, and password that will be required for the next step. Keep this handy as you perform actions on the build VM.
 
-    > **NOTE: If the username and password do not appear, select Enable on the Admin user option.**
+    > **Note**: If the username and password do not appear, select Enable on the Admin user option.
 
 4. From the WSL session connected to your build VM, login to your ACR account by typing the following command. Follow the instructions to complete the login.
 
@@ -940,7 +940,7 @@ In this task, you will push images to your ACR account, version images with tagg
 
 17. Select "Verify connection" then select "OK".
 
-    > If the connection does not verify, then recheck and reenter the required data.
+    >**Note**: If the connection does not verify, then recheck and reenter the required data.
 
 18. Now create your first build. Select "Pipelines", then select "New pipeline"
 
@@ -1014,11 +1014,11 @@ In this task, you will gather the information you need about your Azure Kubernet
     az --version
     ```
 
-    a.  This should produce output similar to this:
+    -  This should produce output similar to this:
 
     ![In this screenshot of the WSL console, example output from running az --version appears. At this time, we are unable to capture all of the information in the window. Future versions of this course should address this.](media/image73.png)
 
-    b. If the output is not correct, review your steps from the instructions in Task 11: Install Azure CLI from the instructions before the lab exercises.
+    - If the output is not correct, review your steps from the instructions in Task 11: Install Azure CLI from the instructions before the lab exercises.
 
 2. Also, check the installation of the Kubernetes CLI (kubectl) by running the following command:
 
@@ -1026,11 +1026,11 @@ In this task, you will gather the information you need about your Azure Kubernet
     kubectl version
     ```
 
-    a. This should produce output similar to this:
+    - This should produce output similar to this:
 
     ![In this screenshot of the WSL console, kubectl version has been typed and run at the command prompt, which displays Kubernetes CLI client information.](media/image74.png)
 
-    b. If the output is not correct, review the steps from the instructions in Task 12: Install Kubernetes CLI from the instructions before the lab exercises.
+    - If the output is not correct, review the steps from the instructions in Task 12: Install Kubernetes CLI from the instructions before the lab exercises.
 
 3. Once you have installed and verified Azure CLI and Kubernetes CLI, login with the following command, and follow the instructions to complete your login as presented:
 
@@ -1073,7 +1073,7 @@ In this task, you will gather the information you need about your Azure Kubernet
 
 8. Create an SSH tunnel linking a local port (8001) on your machine to port 80 on the management node of the cluster. Execute the command below replacing the values as follows:
 
-   > **Note: After you run this command, it may work at first and later lose its connection, so you may have to run this again to reestablish the connection. If the Kubernetes dashboard becomes unresponsive in the browser this is an indication to return here and check your tunnel or rerun the command.**
+   > **Note**: After you run this command, it may work at first and later lose its connection, so you may have to run this again to reestablish the connection. If the Kubernetes dashboard becomes unresponsive in the browser this is an indication to return here and check your tunnel or rerun the command.
 
     ```bash
     az aks browse --name fabmedical-SUFFIX --resource-group fabmedical-SUFFIX
@@ -1161,7 +1161,7 @@ In this task, you will deploy the API application to the Azure Kubernetes Servic
 
 11. Update the provided connection string with a database "contentdb" and a replica set "globaldb".
 
-    > Note: User name and password redacted for brevity.
+    >**Note**: User name and password redacted for brevity.
 
     ```text
     mongodb://<USERNAME>:<PASSWORD>@fabmedical-sol2.documents.azure.com:10255/contentdb?ssl=true&replicaSet=globaldb
@@ -1187,7 +1187,7 @@ In this task, you will deploy the API application to the Azure Kubernetes Servic
 
     ![A screenshot of the Kubernetes management dashboard showing the YAML file for creating a deployment.](media/Ex2-Task1.13.png)
 
-14. Scroll down in the Kubernetes dashboard until you can see "Secrets" in the left hand menu.  Click it.
+14. Scroll down in the Kubernetes dashboard until you can see "Secrets" in the left-hand menu.  Click it.
 
     ![A screenshot of the Kubernetes management dashboard showing secrets.](media/Ex2-Task1.14.png)
 
@@ -1246,7 +1246,7 @@ In this task, deploy the web service using `kubectl`.
 
 3. Copy and paste the following text into the editor:
 
-    >**Note: Be sure to copy and paste only the contents of the code block carefully to avoid introducing any special characters. If the code does not paste correctly, you can issue a ":set paste" command before pasting.**
+    >**Note**: Be sure to copy and paste only the contents of the code block carefully to avoid introducing any special characters. If the code does not paste correctly, you can issue a ":set paste" command before pasting.
 
     ```yaml
     apiVersion: extensions/v1beta1
@@ -1323,7 +1323,7 @@ In this task, deploy the web service using `kubectl`.
 
 7. Copy and paste the following text into the editor:
 
-    >**Note: Be sure to copy and paste only the contents of the code block carefully to avoid introducing any special characters.**
+    >**Note**: Be sure to copy and paste only the contents of the code block carefully to avoid introducing any special characters.
 
     ```yaml
     apiVersion: v1
@@ -1374,7 +1374,7 @@ In this task, deploy the web service using a helm chart.
 
 3. From the Kubernetes dashboard, under "Discovery and Load Balancing", select "Services".
 
-4. Click the triple vertical dots on the right the the "web" service and then select "Delete". When prompted, click "Delete" again.
+4. Click the triple vertical dots on the right of the "web" service and then select "Delete". When prompted, click "Delete" again.
 
     ![A screenshot of the Kubernetes management dashboard showing how to delete a deployment.](media/Ex2-Task4.4.png)
 
@@ -1389,7 +1389,7 @@ In this task, deploy the web service using a helm chart.
 
 7. Copy and paste the following text into the editor:
 
-    >**Note: Be sure to copy and paste only the contents of the code block carefully to avoid introducing any special characters. If the code does not paste correctly, you can issue a ":set paste" command before pasting.**
+    >**Note**: Be sure to copy and paste only the contents of the code block carefully to avoid introducing any special characters. If the code does not paste correctly, you can issue a ":set paste" command before pasting.
 
     ```yaml
     apiVersion: v1
@@ -1597,7 +1597,7 @@ In this task, you will use a Kubernetes Job to run a container that is meant to 
 
 2. Copy and paste the following text into the editor:
 
-   > **Note: Be sure to copy and paste only the contents of the code block carefully to avoid introducing any special characters.**
+   > **Note**: Be sure to copy and paste only the contents of the code block carefully to avoid introducing any special characters.
 
     ```yaml
     apiVersion: batch/v1
@@ -1794,7 +1794,7 @@ In this task, you will access and review the various logs and dashboards made av
 
     ![In this screenshot, the dashboards and blades are shows.](media/Ex2-Task8.3.png)
 
-4. To review the Containers dashboards and see more detailed information about each container click on containers tab
+4. To review the Containers dashboards and see more detailed information about each container click on containers tab.
 
     ![In this screenshot, the various containers information is shown.](media/monitor_1.png)
 
@@ -1802,7 +1802,7 @@ In this task, you will access and review the various logs and dashboards made av
 
     ![In this screenshot, the containers are filtered by container named web.](media/monitor_3.png)
 
-6. By default the CPU Usage metric will be selected displaying all cpu information for the selected container, to switch to another metric open the metric dropdown list and select a different metric.
+6. By default, the CPU Usage metric will be selected displaying all cpu information for the selected container, to switch to another metric open the metric dropdown list and select a different metric.
 
     ![In this screenshot, the various metric options are shown.](media/monitor_2.png)
 
@@ -1814,7 +1814,7 @@ In this task, you will access and review the various logs and dashboards made av
 
     ![Container Log view](media/monitor_5.png)
 
-9. For each log entry you can display more information by expanding the log entry to view the below details
+9. For each log entry you can display more information by expanding the log entry to view the below details.
 
     ![Log entry details](media/monitor_6.png)
     
@@ -1943,7 +1943,7 @@ In this task, you will try to increase the number of instances for the API servi
 
     ![Workloads is selected in the navigation menu. At right, an exclamation point (!) appears next to the api deployment listing in the Deployments box.](media/image121.png)
 
-    >**Note: This message indicates that there weren't enough available resources to match the requirements for a new pod instance. In this case, this is because the instance requires port 3001, and since there are only 2 nodes available in the cluster, only two api instances can be scheduled. The third and fourth pod instances will wait for a new node to be available that can run another instance using that port.**
+    >**Note**: This message indicates that there weren't enough available resources to match the requirements for a new pod instance. In this case, this is because the instance requires port 3001, and since there are only 2 nodes available in the cluster, only two api instances can be scheduled. The third and fourth pod instances will wait for a new node to be available that can run another instance using that port.
 
 12. Reduce the number of requested pods to 2 using the Scale button.
 
@@ -2289,13 +2289,13 @@ In this task, you will edit the web application source code to add Application I
 
     ![At the top of the list, a new web replica set is listed as a pending deployment in the Replica Set box.](media/image144.png)
 
-37. While the deployment is in progress, you can navigate to the web application and visit the stats page at /stats.html. Refresh the page as the rolling update executes. Observe that the service is running normally and tasks continue to be load balanced.
+37. While the deployment is in progress, you can navigate to the web application and visit the stats page at /stats.html. Refresh the page as the rolling update executes. Observe that the service is running normally, and tasks continue to be load balanced.
 
     ![On the Stats page, the webTaskId is highlighted. ](media/image145.png)
 
 ### Task 5: Configure Kubernetes Ingress
 
-In this task you will setup a Kubernetes Ingress to take advantage of path based routing and TLS termination.
+In this task you will setup a Kubernetes Ingress to take advantage of path-based routing and TLS termination.
 
 1. Update your helm package list.
 
@@ -2309,7 +2309,7 @@ In this task you will setup a Kubernetes Ingress to take advantage of path based
     helm install stable/nginx-ingress --namespace kube-system --set controller.replicaCount=2
     ```
 
-3. Set a DNS prefix on the IP address allocated to the ingress controller.  Visit the `kube-system` namespace in your kubeneretes dashboard to find the IP.
+3. Set a DNS prefix on the IP address allocated to the ingress controller.  Visit the `kube-system` namespace in your Kubeneretes dashboard to find the IP.
 
     http://localhost:8001/#!/service?namespace=kube-system
 
@@ -2352,7 +2352,7 @@ In this task you will setup a Kubernetes Ingress to take advantage of path based
 
 7. Verify the IP update by visiting the url in your browser.
 
-    >**NOTE:** It is normal to receive a 404 message at this time.
+    >**Note**: It is normal to receive a 404 message at this time.
 
     ```text
     http://fabmedical-[SUFFIX]-ingress.[AZURE-REGION].cloudapp.azure.com/
@@ -2455,7 +2455,7 @@ In this task you will setup a Kubernetes Ingress to take advantage of path based
     kubectl create --save-config=true -f certificate.yml
     ```
 
-    > **NOTE:** to check the status of the certificate issuance, use the `kubectl describe certificate tls-secret` command and look for an *Events* output similar to the following:
+    > **Note**: To check the status of the certificate issuance, use the `kubectl describe certificate tls-secret` command and look for an *Events* output similar to the following:
     >
     > ```text
     > Type    Reason         Age   From          Message
@@ -2521,7 +2521,7 @@ In this task you will setup a Kubernetes Ingress to take advantage of path based
 
 20. Test TLS termination by visiting both services again using `https`.
 
-    > It can take a few minutes before the SSL site becomes avaiable.  This is due to the delay involved with provisioning a TLS cert from letsencrypt.
+    > It can take a few minutes before the SSL site becomes available.  This is due to the delay involved with provisioning a TLS cert from letsencrypt.
 
 ## After the hands-on lab
 
