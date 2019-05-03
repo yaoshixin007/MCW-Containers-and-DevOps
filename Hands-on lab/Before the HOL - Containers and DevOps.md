@@ -9,7 +9,7 @@ Before the hands-on lab setup guide
 </div>
 
 <div class="MCWHeader3">
-November 2018
+April 2019
 </div>
 
 Information in this document, including URL and other Internet Web site references, is subject to change without notice. Unless otherwise noted, the example companies, organizations, products, domain names, e-mail addresses, logos, people, places, and events depicted herein are fictitious, and no association with any real company, organization, product, domain name, e-mail address, logo, person, place or event is intended or should be inferred. Complying with all applicable copyright laws is the responsibility of the user. Without limiting the rights under copyright, no part of this document may be reproduced, stored in or introduced into a retrieval system, or transmitted in any form or by any means (electronic, mechanical, photocopying, recording, or otherwise), or for any purpose, without the express written permission of Microsoft Corporation.
@@ -18,7 +18,7 @@ Microsoft may have patents, patent applications, trademarks, copyrights, or othe
 
 The names of manufacturers, products, or URLs are provided for informational purposes only and Microsoft makes no representations and warranties, either expressed, implied, or statutory, regarding these manufacturers or the use of the products with any Microsoft technologies. The inclusion of a manufacturer or product does not imply endorsement of Microsoft of the manufacturer or product. Links may be provided to third party sites. Such sites are not under the control of Microsoft and Microsoft is not responsible for the contents of any linked site or any link contained in a linked site, or any changes or updates to such sites. Microsoft is not responsible for webcasting or any other form of transmission received from any linked site. Microsoft is providing these links to you only as a convenience, and the inclusion of any link does not imply endorsement of Microsoft of the site or the products contained therein.
 
-© 2018 Microsoft Corporation. All rights reserved.
+© 2019 Microsoft Corporation. All rights reserved.
 
 **Contents**
 <!-- TOC -->
@@ -55,7 +55,7 @@ The names of manufacturers, products, or URLs are provided for informational pur
 
     - You must have enough cores available in your subscription to create the build agent and Azure Kubernetes Service cluster in Task 5: Create a build agent VM and Task 10: Create an Azure Kubernetes Service cluster. You'll need eight cores if following the exact instructions in the lab, more if you choose additional agents or larger VM sizes. If you execute the steps required before the lab, you will be able to see if you need to request more cores in your sub.
 
-2. An Azure DevOps account.
+2. An Azure DevOps account
 
 3. Local machine or a virtual machine configured with:
 
@@ -63,9 +63,9 @@ The names of manufacturers, products, or URLs are provided for informational pur
 
     - Command prompt.
 
-         i.  On Windows, you will be using Bash on Ubuntu on Windows, hereon referred to as WSL.
+         -  On Windows, you will be using Bash on Ubuntu on Windows, hereon referred to as WSL.
 
-         ii. On Mac, all instructions should be executed using bash in Terminal.
+         -  On Mac, all instructions should be executed using bash in Terminal.
 
 4. You will be asked to install other tools throughout the exercises.
 
@@ -95,15 +95,15 @@ You will create an Azure Resource Group to hold most of the resources that you c
 
 5. On the new Resource group blade, set the following:
 
-    a.  **Subscription:** Select the subscription you will use for all the steps during the lab.
+    -  **Subscription:** Select the subscription you will use for all the steps during the lab.
 
-    b.  **Resource group:** Enter something like "fabmedical-SUFFIX", as shown in the following screenshot.
+    -  **Resource group:** Enter something like "fabmedical-SUFFIX", as shown in the following screenshot.
 
-    c.  **Region:** Choose a region where all Azure Container Registry SKUs are available, which is currently Canada Central, Canada East, North Central US, Central US, South Central US, East US, East US 2, West US, West US 2, West Central US, France Central, UK South, UK West, North Europe, West Europe, Australia East, Australia Southeast, Brazil South, Central India, South India, Japan East, Japan West, Korea Central, Southeast Asia, East Asia, and remember this for future steps so that the resources you create in Azure are all kept within the same region.
+    -  **Region:** Choose a region where all Azure Container Registry SKUs are available, which is currently Canada Central, Canada East, North Central US, Central US, South Central US, East US, East US 2, West US, West US 2, West Central US, France Central, UK South, UK West, North Europe, West Europe, Australia East, Australia Southeast, Brazil South, Central India, South India, Japan East, Japan West, Korea Central, Southeast Asia, East Asia, and remember this for future steps so that the resources you create in Azure are all kept within the same region.
 
     ![In the Resource group blade, the value for the Resource group box is fabmedical-sol, and the value of the Region box is East US.](media/b4-image7.png)
 
-    d.  Select **Review + Create** and then **Create**.
+    -  Select **Review + Create** and then **Create**.
 
 6. When this completes, your Resource Group will be listed in the Azure Portal.
 
@@ -117,7 +117,7 @@ You will follow these steps to create a development VM (machine) for the followi
 
 - If you are not sure if you set up WSL correctly, given there are a few ways to do this, it may be easier to create the development machine for a predictable experience.
 
-> **Note: Setting up the development machine is optional for Mac OS since you will use Terminal for commands. Setting up the development machine is also optional if you are certain you have a working installation of WSL on your current Windows 10 VM.**
+> **Note**: Setting up the development machine is optional for Mac OS since you will use Terminal for commands. Setting up the development machine is also optional if you are certain you have a working installation of WSL on your current Windows 10 VM.
 
 In this section, you will create a Windows 10 VM to act as your development machine. You will install the required components to complete the lab using this machine. You will use this machine instead of your local machine to carry out the instructions during the lab.
 
@@ -182,7 +182,7 @@ In this section, you will create a Windows 10 VM to act as your development mach
 
 ### Task 3: Install WSL (Bash on Ubuntu on Windows)
 
->**Note: If you are using a Windows 10 development machine, follow these steps. For Mac OS you can ignore this step since you will be using Terminal for all commands.**
+>**Note**: If you are using a Windows 10 development machine, follow these steps. For Mac OS you can ignore this step since you will be using Terminal for all commands.
 
 You will need WSL to complete various steps. A complete list of instructions for supported Windows 10 versions is available on this page:
 
@@ -226,7 +226,7 @@ In this section, you will create an SSH key to securely access the VMs you creat
 
 In this section, you will create a Linux VM to act as your build agent. You will install Docker to this VM once it is set up, and you will use this VM during the lab to develop and deploy.
 
->**Note: You can set up your local machine with Docker however the setup varies for different versions of Windows. For this lab, the build agent approach simply allows for predictable setup.**
+>**Note**: You can set up your local machine with Docker however the setup varies for different versions of Windows. For this lab, the build agent approach simply allows for predictable setup.
 
 1. From the Azure Portal, select **+ Create a resource**, type "**Ubuntu**" in the Search the marketplace text box and press **Enter**.
 
@@ -346,7 +346,7 @@ In this section, you will validate that you can connect to the new build agent V
 
     ![In this screenshot of a Command Prompt window, ssh -i .ssh/fabmedical adminfabmedical\@52.174.141.11 has been typed and run at the command prompt. The information detailed above appears in the window. At this time, we are unable to capture all of the information in the window. Future versions of this course should address this.](media/b4-image27.png)
 
->**Note: If you have issues connecting, you may have pasted the SSH public key incorrectly. Unfortunately, if this is the case, you will have to recreate the VM and try again.**
+>**Note**: If you have issues connecting, you may have pasted the SSH public key incorrectly. Unfortunately, if this is the case, you will have to recreate the VM and try again.
 
 ### Task 7: Complete the build agent setup
 
@@ -482,7 +482,7 @@ You deploy Docker images from a registry. To complete the hands-on lab, you will
 
 Azure Kubernetes Service requires an Azure Active Directory service principal to interact with Azure APIs. The service principal is needed to dynamically manage resources such as user-defined routes and the Layer 4 Azure Load Balancer. The easiest way to set up the service principal is using the Azure cloud shell.
 
-> **Note: By default, creating a service principal in Azure AD requires account owner permission. You may have trouble creating a service principal if you are not the account owner.**
+> **Note**: By default, creating a service principal in Azure AD requires account owner permission. You may have trouble creating a service principal if you are not the account owner.
 
 1. Open cloud shell by selecting the cloud shell icon in the menu bar.
 
@@ -534,7 +534,7 @@ In this task, you will create your Azure Kubernetes Service cluster. You will us
 
 2. In the Basics blade provide the information shown in the screenshot that follows:
 
-    > NOTE: You may need to scroll to see all values.
+    >**Note**: You may need to scroll to see all values.
 
     - **Subscription**: Choose your subscription which you have been using throughout the lab.
     - **Resource group**: Select the resource group you have been using through the lab.
@@ -579,7 +579,7 @@ In this task, you will create your Azure Kubernetes Service cluster. You will us
 
     ![This is a screenshot of a deployment notification indicating that the deployments succeeded.](media/b4-image45.png)
 
-> **Note: If you experience errors related to lack of available cores, you may have to delete some other compute resources or request additional cores to your subscription and then try this again.**
+> **Note**: If you experience errors related to lack of available cores, you may have to delete some other compute resources or request additional cores to your subscription and then try this again.
 
 ### Task 11: Install Azure CLI
 
@@ -621,7 +621,7 @@ In later exercises, you will need the Kubernetes CLI (kubectl) to deploy to your
 
 ### Task 13: Install Helm
 
-In later exercises, you will need the Helm client to deploy to your Kubernetes cluster and run commands from your local machone.
+In later exercises, you will need the Helm client to deploy to your Kubernetes cluster and run commands from your local machine.
 
 1. For MacOS -- use homebrew:
 
@@ -827,6 +827,6 @@ FabMedical has provided starter files for you. They have taken a copy of one of 
 
     - Use the repository url and `git clone` to copy the content-init code to your build agent.
 
->**Note: Keep this WSL window open as your build agent SSH connection. You will later open new WSL sessions to other machines.**
+>**Note**: Keep this WSL window open as your build agent SSH connection. You will later open new WSL sessions to other machines.
 
 You should follow all steps provided *before* performing the Hands-on lab.
